@@ -1,4 +1,4 @@
-
+import db from "@/_lib/db";
 
 export default async function Home() {
 
