@@ -2,8 +2,8 @@
 import styles from './entity.module.css'
 import { notFound } from 'next/navigation';
 
-import { GetListing, GetSuggested, getUserReview, getReviewsList } from '@/_lib/center/getdata';
-import { UserAuthenticated } from '@/_lib/utils/userauth';
+// import { GetListing, GetSuggested, getUserReview, getReviewsList } from '@/_lib/center/getdata';
+// import { UserAuthenticated } from '@/_lib/utils/userauth';
 
 import Header from "@/_com/header/Header";
 import Footer from "@/_com/footer/Footer";
@@ -16,32 +16,30 @@ export default async function DisplayCenter ({params}){
     const center_id = parseInt(item.centre);
    
 
-    const listing = await GetListing(center_id);
-    if(!listing) return notFound(); //stops all below
+    // const listing = await GetListing(center_id);
+    // if(!listing) return notFound(); 
     
-    const suggested = await GetSuggested(listing.city);
+    // const suggested = await GetSuggested(listing.city);
 
-    const isReviewed = await getUserReview(center_id);
+    // const isReviewed = await getUserReview(center_id);
 
-    const ReviewsList = await getReviewsList();
+    // const ReviewsList = await getReviewsList();
 
-    const isAuthenticated = await UserAuthenticated();
+    // const isAuthenticated = await UserAuthenticated();
 
-    // console.log(listing.name);
-    // return
     return (    
         <div className="content">
             <Header />
             
             <div className={styles.DisplayPage}>
                 <DisplayBanner listing={listing}/>
-                <DisplayContent 
+                {/* <DisplayContent 
                     listing={listing} 
                     suggested={suggested} 
                     ReviewsList={ReviewsList} 
                     isAuthenticated={isAuthenticated? true : false}
                     isReviewed={isReviewed? true : false}
-                />
+                /> */}
             </div>    
 
             <Footer />

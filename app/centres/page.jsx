@@ -28,8 +28,9 @@ export default async function Centers() {
     )
 }
 
+
 // git add .
-// git commit -m "Add API route and dynamic base URL logic for fetching centres data"
+// git commit -m "Made changes to my app"
 // git push origin master
 
 
