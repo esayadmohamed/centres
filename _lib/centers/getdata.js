@@ -82,7 +82,8 @@ export async function AllCities() {
         }
         return cities
     } catch (error) {
-        return handleDbError(error);
+        console.error("Database error:", error);
+        return { error: "Une erreur est survenue. Veuillez réessayer plus tard." };
     }
 }
 
@@ -95,7 +96,8 @@ export async function AllHoods() {
         }
         return neighborhoods
     } catch (error) {
-        return handleDbError(error);
+        console.error("Database error:", error);
+        return { error: "Une erreur est survenue. Veuillez réessayer plus tard." };
     }
 }
 
