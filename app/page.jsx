@@ -1,8 +1,15 @@
-import Centers from "./centres/page"
+// import Centers from "./centres/page"
 
 
 export default function Home() {
 
-    return <Centers />
+    return (
+        <div>
+            hello
+            hlleo
+            heoll
+        </div>
+    )
+    // <Centers />
 
 }
