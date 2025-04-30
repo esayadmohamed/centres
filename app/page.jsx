@@ -1,17 +1,18 @@
-
+import { getBaseUrl } from "@/_lib/utils/getBaseUrl";
 
 export default async function Home() {
 
-    const res = await fetch(`${'https://centres.vercel.app'}/api/centres`, { cache: 'no-store' });
-    const data = await res.json();
-    
-    if (!res.ok) {
-        console.error("API request failed", res.status, res.statusText);
-    }
+    const baseurl = getBaseUrl();
 
-    console.log(data || 'no data');
+    const res = await fetch(`${baseurl}/api/centres`, { cache: 'no-store' });
+    const data = await res.json();
+
+    console.log('baseurl__:', baseurl);
+    console.log('log data:', data);
     
-    return <div>hello</div>
+    return (
+        <div>hello</div>
+    )
     
 }
 
