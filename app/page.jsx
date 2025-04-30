@@ -1,15 +1,18 @@
-import db from "@/_lib/db";
+
 
 export default async function Home() {
 
-
-    const [cities] = await db.query("SELECT * FROM cities");
+    const res = await fetch(`${'https://centres.vercel.app'}/api/centres`, { cache: 'no-store' });
+    const data = await res.json();
     
-    console.log(cities || 'no cities');
+    if (!res.ok) {
+        console.error("API request failed", res.status, res.statusText);
+    }
+
+    console.log(data || 'no data');
     
     return <div>hello</div>
     
-
 }
 
 
