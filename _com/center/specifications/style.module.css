@@ -1,0 +1,212 @@
+.SpecsContact{
+    height: 80px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 5px;
+    border-bottom: 1px solid #e5e7e9;
+}
+
+.SpecsContact h4{ 
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-weight: 500;
+}
+
+.SpecsContact svg{
+    width: 20;
+    height: 20;
+}
+
+.SpecsContact p{
+    background-color:#2980b9;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    height: 40px;
+    min-width: 150px;
+    padding: 0 10px;
+    border-radius: 10px;
+    cursor: pointer;
+    user-select: none;
+}
+
+.SpecsCall{
+    display: none;
+}
+
+.SpecsCall span{
+    position: fixed;
+    right: 5vw;
+    bottom: 5vh;
+
+    background-color: #2980b9;
+    color: white;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 100%;
+}
+
+/* ------------------------------------------ */
+/* ------------------------------------------ */
+
+.SpecsBox{
+    width: 100%;
+    min-height: 100px;
+    padding: 20px 0;
+    border-bottom: 1px solid #e5e7e9;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.SpecsBox ul{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 20px;
+}
+
+.SpecsBox ul li{
+    font-size: 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.SpecsBox ul li svg{
+    width: 23;
+    height: 23;
+}
+
+.SpecsMore{
+    display: flex;
+    align-items: center;
+    gap: 5px; 
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    /* color: #4d5656; */
+}
+.SpecsMore svg{
+    width: 20;
+    height: 20;
+}
+
+/* ------------------------------------------ */
+/* ------------------------------------------ */
+
+.SpecsBox p{
+    font-size: 15px;
+    color: #222;
+}
+
+.SpecsBox span{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+/* ------------------------------------------ */
+/* ------------------------------------------ */
+
+.SpecsReviews{
+    width: 100%;
+    min-height: 100px;
+    padding: 20px 0;
+    border-bottom: 1px solid #e5e7e9;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.SpecsReviewsNotice span{
+    border-bottom: 1px solid black;
+}
+
+.ScheduleTable{
+    display: flex;
+    flex-direction: column;
+}
+
+.SpecsRatings{
+    padding: 10px 0;
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.SpecsRatings li{
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    user-select: none;
+    font-size: 15px;
+}
+
+.SpecsRatings li span{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.SpecsRatings li svg{
+    width: 20;
+    height: 20;
+    cursor: pointer;
+    color: #f39c12;
+}
+
+.SpecsReviews button{
+    width: 120px;
+    background-color: #2980b9;    
+    padding: 10px;
+    border: none;
+    font-size: 15px;
+    border-radius: 5px;
+    font-weight: 600;
+    color: white;
+    cursor: pointer;
+    min-height: 40px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* ------------------------------------------ */
+/* ------------------------------------------ */
+
+@media (max-width: 600px) {
+    .SpecsContact p{
+        display: none;
+    }
+    .SpecsCall{
+        display: block;
+    }
+    .SpecsBox ul{
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        column-gap: 20px;
+        row-gap: 15px;
+    }
+}
+  
+@media (min-width: 601px) and (max-width: 1024px) {
+    
+}
+
+
+
+
+

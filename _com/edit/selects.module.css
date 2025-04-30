@@ -1,0 +1,187 @@
+.EditSelects{ 
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    box-shadow: 0px 5px 10px #e5e7e9;
+    padding: 15px;
+    border-radius: 10px;
+    font-size: 15px;
+}
+
+/* ------------------------------------------- */
+/* ------------------------------------------- */
+
+.EditSelects h3{ 
+    padding: 10px 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 100;
+}
+
+.EditSelects h3 svg{ 
+    width: 24;
+    height: 24;
+}
+
+/* ------------------------------------------- */
+/* ------------------------------------------- */
+
+.EditSection{
+    width: 100%;
+    min-height: 60px;
+    padding: 20px 0px;
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 15px;  
+
+    border-bottom: 1px solid #d7dbdd;
+}
+
+.EditSectionv:last-child{
+    border-bottom: none;
+}
+
+.EditAction{
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+/* ------------------------------------------- */
+/* ------------------------------------------- */
+
+.EditSelectBox{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.EditSelect .EditSection:last-child{
+    border-bottom: none;
+}
+
+.EditSelectBox ul{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 15px;
+    
+    background-color: white;
+    padding: 10px 0px;
+    border-radius: 10px;
+}
+
+.EditSelectBox ul li{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: fit-content;
+    padding: 10px;
+    min-height: 45px;
+    border-radius: 10px;
+    user-select: none;
+    cursor: pointer;
+}
+
+.EditSelectBox ul li svg{
+    width: 20;
+    height: 20;
+}
+
+.NotSelected{
+    background-color: #f2f3f4;
+}
+
+.Selected{
+    background-color: #34495e;
+    color: white;
+}
+
+/* ------------------------------------------- */
+/* ------------------------------------------- */
+
+.EditFunctions{
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+.EditFunctions p{
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+/* ------------------------------------------- */
+/* ------------------------------------------- */
+
+.EditSelects button{
+    width: 160px;
+    background-color: #2471a3;    
+    min-height: 40px;
+    padding: 10px;
+    font-size: 15px;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+} 
+
+.EditSelects button div{
+    background: white;
+    width: 20px;
+    padding: 3px;
+}
+
+/* ------------------------------------------- */
+/* ------------------------------------------- */
+
+.EditError{
+    font-size: 15px;
+    color: red;
+
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* ------------------------------------------- */
+/* ------------------------------------------- */
+
+@media (max-width: 600px) {
+    .EditSelects{
+        display: flex;
+        box-shadow: none;
+        padding: 0px;
+    }
+    .EditActions{
+        text-decoration: underline;
+        cursor: pointer;
+        font-size: 14px;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        padding: 0;
+        height: 30px;
+    }
+    .EditSelects button{
+        width: 100%;
+    } 
+    .EditSelectBox ul{
+        display: flex;
+        flex-direction: column;
+        flex-wrap: nowrap;
+        align-items: flex-start;
+    }
+}
+  
+@media (min-width: 601px) and (max-width: 1024px) {
+
+}
+     
