@@ -8,7 +8,6 @@ import Listings from "./Listings";
 export default async function Centers() {
 
     // const baseUrl = getBaseUrl();
-
     // const res = await fetch(`${baseUrl}/api/centres`, { cache: 'no-store' });
     // const data = await res.json();
 
@@ -18,11 +17,11 @@ export default async function Centers() {
     return (         
         <main className="content">
             <Header />
-            <Listings 
+            {/* <Listings 
                 listings_list={data.listings}
                 cities_list={data.cities}
                 hoods_list={data.hoods}
-            />
+            /> */}
             <Footer /> 
         </main>
     )
