@@ -7,7 +7,7 @@ export default function Home() {
         <div>
             hello
             hlleo
-            {/* heoll */}
+            hiho
         </div>
     )
     // <Centers />
