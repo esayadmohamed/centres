@@ -1,0 +1,637 @@
+.layout{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+
+.MainContainer{
+  width: 100%;
+  max-width: 1920px;
+}
+
+/* -------------------------- */
+
+.AuthContainer{
+  padding: 50px 100px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+
+
+.AuthBox{
+  width: 600px;
+  padding: 30px 50px;
+  border-radius: 10px;
+  box-shadow: 0px 5px 10px #d7dbdd;
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 20px;
+}
+
+.AuthBoxIcon{
+  border-radius: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.AuthBoxIcon svg{
+  width: 80;
+  height: 80;
+  color: #2874a6;
+}
+
+.AuthBoxInput{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+}
+
+.AuthBoxInput label{
+  font-weight: 600;
+}
+
+.AuthBoxInput span{ 
+  border: 1px solid #7f8c8d;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  padding: 0 10px;
+  overflow: hidden;
+}
+
+.AuthBoxInput span svg{
+  color: #424949;
+  cursor: pointer;
+}
+
+.AuthBox input{
+  padding: 15px 10px;
+  width: 100%;
+  font-size: 16px;
+  border: none;
+  outline: none;
+  background-color: white !important;
+
+}
+
+.AuthBox textarea{
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 16px;
+  border: 1px solid #bdc3c7;
+  border-radius: 5px;
+  resize: none;
+  width: 100%;
+  height: 200px;
+  padding: 15px 10px;
+  line-height: 1.5; /* Adjust line height */
+  vertical-align: middle;
+  border: none;
+  outline: none;
+}
+
+/* .AuthBoxInput p{
+  padding: 15px 10px;
+  background-color: #f2f3f4;
+  border-radius: 10px;
+  border: 1px solid #7f8c8d;
+  user-select: none;
+} */
+
+.AuthBoxInput ul{
+  font-size: 14px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 10px;
+  padding: 10px 5px;
+}
+
+.AuthBoxInput  li{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.AuthBoxInput li svg{
+  width: 16;
+  height: 16;
+  color: red;
+}
+
+.AuthBox button{
+  min-width: 250px;
+  background-color: #2874a6;    
+  padding: 0 15px;
+  border: none;
+  font-size: 16px;
+  border-radius: 5px;
+  font-weight: 600;
+  color: white;
+  cursor: pointer;
+  min-height: 45px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ------------------------------------------ */
+/* ---------------------------------- AuthLogin */
+
+.AuthForgot{
+  font-size: 14px;
+  text-decoration: underline;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.AuthRedirect{
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 14px;
+}
+
+.AuthRedirect span{
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* ------------------------------------------ */
+/* ------------------------------- AuthSignup */
+
+.SignupApproval{
+  font-size: 14px;
+}
+
+.SignupApproval span{
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* ---------- */
+
+.AuthSuccess{
+  width: 600px;
+  padding: 50px;
+  border-radius: 10px;
+  box-shadow: 0px 5px 10px #d7dbdd;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+
+  text-align: center;
+}
+
+.AuthSuccess span{
+  border-radius: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.AuthSuccess span svg{
+  width: 80;
+  height: 80;
+  color: #2874a6; 
+}
+
+.AuthSuccess h4{
+  color: #2874a6;
+  background-color: #f2f3f4;
+  padding: 5px 10px;
+  border-radius: 10px;
+}
+
+.AuthSuccess button{
+  min-width: 250px;
+  background-color: #2874a6;    
+  padding: 0 15px;
+  border: none;
+  font-size: 16px;
+  border-radius: 5px;
+  font-weight: 600;
+  color: white;
+  cursor: pointer;
+  min-height: 45px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ------------------------------------------ */
+/* ------------------------------- AuthVerify */
+
+.AuthFail{
+  width: 600px;
+  padding: 50px;
+  border-radius: 10px;
+  box-shadow: 0px 5px 10px #d7dbdd;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+
+  text-align: center;
+}
+
+
+.AuthFail span{
+  border-radius: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.AuthFail span svg{
+  width: 80;
+  height: 80;
+  color: red;
+}
+
+.AuthFail input{
+  padding: 15px;
+  width: 100%;
+  font-size: 16px;
+  border-radius: 5px;
+  border: 1px solid #7f8c8d;
+  text-align: center;
+}
+
+.AuthFail button{
+  min-width: 250px;
+  background-color: #e74c3c;    
+  padding: 0 15px;
+  border: none;
+  font-size: 16px;
+  border-radius: 5px;
+  font-weight: 600;
+  color: white;
+  cursor: pointer;
+  min-height: 45px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ------------------------------------------ */
+/* -------------------------------- AuthReset */
+
+.AuthReset{
+  width: 600px;
+  padding: 30px 50px;
+  box-shadow: 0px 5px 10px #d7dbdd;
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 20px;
+
+}
+
+.AuthResetIcon{
+  border-radius: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.AuthResetIcon span svg{
+  width: 80;
+  height: 80;
+  color: #2874a6;
+}
+
+.AuthResetIcon p{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.AuthResetIcon p svg{
+  width: 20;
+  height: 20;
+}
+
+.AuthResetInput{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+}
+
+.AuthResetInput label{
+  font-weight: 600;
+}
+
+.AuthResetInput span{ 
+  border: 1px solid #7f8c8d;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  padding: 0 10px;
+  overflow: hidden;
+}
+
+.AuthResetInput span svg{
+  color: #424949;
+  cursor: pointer;
+}
+
+.AuthResetInput ul{
+  background-color: #ebf5fb;
+  border-radius: 5px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 10px;
+  font-size: 14px;
+}
+
+.AuthResetInput ul li{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #424949;
+}
+
+.AuthResetInput ul li svg{
+  width: 16px;
+  height: 16px;
+  color: red;
+}
+
+.AuthReset input{
+  padding: 15px;
+  width: 100%;
+  font-size: 16px;
+  border: none;
+  outline: rgba(0,0,0, .0);
+}
+
+.AuthReset button{
+  min-width: 250px;
+  background-color: #2874a6;    
+  padding: 0 15px;
+  border: none;
+  font-size: 16px;
+  border-radius: 5px;
+  font-weight: 600;
+  color: white;
+  cursor: pointer;
+  min-height: 45px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ------------------------------------------ */
+/* -------------------------------- AuthReset */
+
+.AuthSend{
+  width: 600px;
+  padding: 50px;
+  border-radius: 10px;
+  box-shadow: 0px 5px 10px #d7dbdd;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+
+  text-align: center;
+}
+
+.AuthSend span{
+  border-radius: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.AuthSend span svg{
+  width: 80;
+  height: 80;
+  color: #2874a6;
+}
+
+.AuthSend input{
+  padding: 15px;
+  width: 100%;
+  font-size: 16px;
+  border: 1px solid #7f8c8d;
+  text-align: center;
+}
+
+.AuthSend button{
+  min-width: 250px;
+  background-color: #2874a6;   
+  padding: 0 15px;
+  border: none;
+  font-size: 16px;
+  border-radius: 5px;
+  font-weight: 600;
+  color: white;
+  cursor: pointer;
+  min-height: 45px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+/* ------------------------------------------ */
+/* -------------------------------- AuthReset */
+
+.AuthSupport{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.AuthSupport svg{
+  width: 20;
+  height: 20;
+}
+
+.AuthError{ 
+  color: red;
+  font-size: 14px;
+
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.AuthError svg{
+  width: 20;
+  height: 20;
+}
+
+/* ------------------------------------------ */
+/* -------------------------------- AuthReset */
+
+.loader {
+  width: 35px;
+  aspect-ratio:6;
+  background: radial-gradient(circle closest-side,#fff 90%,#0000) 0/calc(100%/3) 100% space;
+  clip-path: inset(0 100% 0 0);
+  animation: l1 1s steps(4) infinite;
+}
+@keyframes l1 {to{clip-path: inset(0 -34% 0 0)}}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* .AuthInput{
+  width: 600px;
+  padding: 50px;
+  box-shadow: 0px 5px 10px #d7dbdd;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+} */
+
+/* .AuthLabel{
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+} */
+
+/* .AuthInput input{ 
+  padding: 15px;
+  font-size: 16px;
+  border: 1px solid #909497;
+  width: 100%;
+} */
+
+/* .ViewHash{
+  display: flex;
+  align-items: center;
+  gap: 20px;
+} */
+
+/* .ViewHash svg{
+  cursor: pointer;
+} */
+
+/* .AuthLogin label{ 
+  font-size: 14px;
+} */
+
+/* .AuthInput button{ 
+  background-color: #222222;    
+  padding: 0 15px;
+  border: none;
+  font-size: 15px;
+  border-radius: 5px;
+  font-weight: 600;
+  color: white;
+  cursor: pointer;
+  min-height: 45px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+} */
+
+/* .AuthLabel ul{
+  font-size: 14px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  padding: 10px 5px;
+} */
+
+/* .AuthLabel  li{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+} */
+
+/* .AuthLabel li svg{
+  width: 16;
+  height: 16;
+  color: red;
+} */
+
+
+
+
+
+/* ------------------ */
+
+
+/* ------------------ */
+
+
+
+
+
+
+/* -------------------------- */
+
+
+/* .AuthBox{
+  border-radius: 10px;
+  width: 100%;
+  height: fit-content;
+  display: grid;
+  grid-template-columns: 60% 40%;
+  box-shadow: 0px 5px 10px #d7dbdd;
+  overflow: hidden;
+} */
+/* 
+.AuthInfo{
+  padding: 100px;
+  background-image: url('../../uploads/class.png');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+} */
+
+/* .AuthInput{
+  padding: 30px 30px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 20px;
+  background-color: white;
+} */
