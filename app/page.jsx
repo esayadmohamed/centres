@@ -7,9 +7,14 @@ export default function Home() {
         <div>
             hello
             hlleo
-            heoll
+            {/* heoll */}
         </div>
     )
     // <Centers />
 
 }
+
+
+// git add .
+// git commit -m "Made changes to my app"
+// git push origin master
