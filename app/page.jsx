@@ -1,8 +1,10 @@
-import Centers from "./centres/page"
+// import Centers from "./centres/page"
 
 export default async function Home() {
 
-    return <Centers />
+    return <div>hello</div>
+    
+    // <Centers />
 
 }
 
