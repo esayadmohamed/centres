@@ -11,6 +11,7 @@ const db = mysql.createPool({
     port: 4000,
     ssl: {
       rejectUnauthorized: true,
+      ca: process.env.DB_SSL_CA,
     },
 });
 export default db;
