@@ -28,6 +28,11 @@ export default async function Centers() {
     )
 }
 
+// git add .
+// git commit -m "Add API route and dynamic base URL logic for fetching centres data"
+// git push origin master
+
+
 
 // import { AllListings, AllCities, AllHoods } from "@/_lib/centers/getdata";
 
