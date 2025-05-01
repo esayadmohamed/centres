@@ -6,9 +6,17 @@ export default async function Home() {
     const res = await fetch(`${vercel}/api/centres`, { cache: 'no-store' });
     const data = await res.json();
 
-    console.log('log data:', data);
+    const cities = data?.hoods?.map(item => item.name);
+
+    console.log('log data:', cities);
     
-    return <div>hiho</div>
+    return (
+        <ul>
+            {cities?.map((item, id)=>
+                <li key={id}> {item} </li>
+            )}
+        </ul>
+    )
     
 }
 
