@@ -1,6 +1,5 @@
 import mysql from 'mysql2/promise';
-// import dotenv from 'dotenv';
-// dotenv.config();
+
 
 const db = mysql.createPool({
     host: process.env.DB_HOST, //'gateway01.us-west-2.prod.aws.tidbcloud.com', //
@@ -8,16 +7,18 @@ const db = mysql.createPool({
     password: process.env.DB_PASSWORD, //'8y01HPG54DRvj0GZ', //
     database: 'main',
     port: 4000,
-    // ssl: {
-    //   rejectUnauthorized: true,
-    //   ca: process.env.DB_SSL_CA,
-    // },
+    ssl: {
+      rejectUnauthorized: true,
+    },
 });
 export default db;
 
 // -----------------------------------------------------------------
 // -----------------------------------------------------------------
 
+// ca: process.env.DB_SSL_CA,
+// import dotenv from 'dotenv';
+// dotenv.config();
 // const [rows] = await pool.query(``);
 // DROP TABLE IF EXISTS offerslist;
 
