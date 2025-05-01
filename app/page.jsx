@@ -1,14 +1,11 @@
 
-
 export default async function Home() {
 
-    return <div>ljljlkjkjlk</div>
+    return (
+        <div>ljljlkjkjlk</div>
+    )
     
 }
-
-
-
-
 
 
 
