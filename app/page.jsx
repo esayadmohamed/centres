@@ -5,9 +5,9 @@ export default async function Home() {
     const hoodsList = await AllHoods();
     const hoods = hoodsList?.map(item => item.name);
 
-    console.log('log data:', hoods);
-    console.log('-----------');
-    console.log('DB_HOST:', process.env.DB_HOST);
+    // console.log('log data:', hoods);
+    // console.log('-----------');
+    // console.log('DB_HOST:', process.env.DB_HOST);
     
     return (
         <ul>
