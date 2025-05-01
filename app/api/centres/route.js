@@ -1,26 +1,14 @@
 // import {  AllHoods } from "@/_lib/centers/getdata";
 import getDB from "@/_lib/db";
 
-async function AllHoods() {
-    try{ 
-        const db = getDB();
-        const [neighborhoods] = await db.query("SELECT * FROM neighborhoods");
-        if (neighborhoods.length === 0) {
-            return []; 
-        }
-        return neighborhoods
-    } catch (error) {
-        console.error("Database error:", error);
-        return { error: "Une erreur est survenue. Veuillez réessayer plus tard." };
-    }
-}
+
 
 export async function GET() {
     try {
-        // const db = getDB();
-        // const [hoods] = await db.query("SELECT name FROM neighborhoods");
+        const db = getDB();
+        const [hoods] = await db.query("SELECT name FROM neighborhoods");
 
-        const hoods = await AllHoods();
+        // const hoods = await AllHoods();
 
         return Response.json(hoods);
 
@@ -31,7 +19,9 @@ export async function GET() {
 }
 
 
-
+// git add .
+// git commit -m "Made changes to my app"
+// git push origin master
 
 
 
