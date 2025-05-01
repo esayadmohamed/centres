@@ -1,8 +1,5 @@
 import { AllHoods } from "@/_lib/centers/getdata";
 
-import dotenv from 'dotenv';
-dotenv.config();
-
 export default async function Home() {
 
     const hoodsList = await AllHoods();
