@@ -6,11 +6,12 @@ export default async function Home() {
     const hoods = hoodsList?.map(item => item.name);
 
     console.log('log data:', hoods);
+    console.log('-----------');
     console.log('DB_HOST:', process.env.DB_HOST);
     
     return (
         <ul>
-            <li>Hoods...</li>
+            <li>Hoods___</li>
             {hoods?.map((item, id)=>
                 <li key={id}> {item} </li>
             )}
