@@ -1,21 +1,8 @@
-import { getBaseUrl } from "@/_lib/utils/getBaseUrl";
+import Centers from "./centres/page";
 
 export default async function Home() {
-
-    const baseurl = getBaseUrl();
-
-    const res = await fetch(`${baseurl}/api/centres`, { cache: 'no-store' });
-    const data = await res.json();
-    const hoods = data?.map(item => item.name);
-
-    return (
-        <ul>
-            {/* <li>----------------------------------</li> */}
-            {hoods?.map((item, id)=>
-                <li key={id}> {item} </li>
-            )}
-        </ul>
-    )
+    
+    return <Centers />
     
 }
 

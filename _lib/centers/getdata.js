@@ -1,9 +1,5 @@
 'use server';
-// import db from "@/_lib/db";
 import getDB from "@/_lib/db";
-
-// const sql = require('better-sqlite3');
-// const db = sql('main.db');
 
 import xss from 'xss';
 
@@ -90,10 +86,8 @@ export async function AllCities() {
 }
 
 export async function AllHoods() {
-    
     try{ 
         const db = getDB();
-        // const neighborhoods = db.prepare("SELECT * FROM neighborhoods").all();
         const [neighborhoods] = await db.query("SELECT * FROM neighborhoods");
         if (neighborhoods.length === 0) {
             return []; 

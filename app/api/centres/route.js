@@ -1,11 +1,13 @@
-import getDB from "@/_lib/db";
+import {  AllHoods } from "@/_lib/centers/getdata";
 
 export async function GET() {
     try {
-        const db = getDB();
-        const [rows] = await db.query("SELECT name FROM neighborhoods");
+        // const db = getDB();
+        // const [hoods] = await db.query("SELECT name FROM neighborhoods");
 
-        return Response.json(rows);
+        const hoods = await AllHoods();
+
+        return Response.json(hoods);
 
     } catch (err) {
         console.error("API DB ERROR:", err);
@@ -20,7 +22,7 @@ export async function GET() {
 
 
 
-// import {  AllHoods } from "@/_lib/centers/getdata";
+// 
 
 // export async function GET(req) {
 
