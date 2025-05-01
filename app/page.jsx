@@ -1,19 +1,23 @@
-import { getBaseUrl } from "@/_lib/utils/getBaseUrl";
+// import { getBaseUrl } from "@/_lib/utils/getBaseUrl";
+import { AllHoods } from "@/_lib/centers/getdata";
+
 
 export default async function Home() {
-    const baseurl = getBaseUrl();
+    // const baseurl = getBaseUrl();
+    const hoodsList = await AllHoods();
+    const hoods = hoodsList?.map(item => item.name);
 
-    const res = await fetch(`${baseurl}/api/centres`, { cache: 'no-store' });
-    const data = await res.json();
+    // const res = await fetch(`${baseurl}/api/centres`, { cache: 'no-store' });
+    // const data = await res.json();
 
-    const cities = data?.hoods?.map(item => item.name);
+    // const hoods = data?.hoods?.map(item => item.name);
 
-    console.log('log data:', cities);
+    console.log('log data:', hoods);
     
     return (
         <ul>
-            <li>cities</li>
-            {cities?.map((item, id)=>
+            <li>Hoods</li>
+            {hoods?.map((item, id)=>
                 <li key={id}> {item} </li>
             )}
         </ul>
