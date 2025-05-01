@@ -2,9 +2,9 @@ import mysql from 'mysql2/promise';
 
 
 const db = mysql.createPool({
-    host: process.env.DB_HOST, //'gateway01.us-west-2.prod.aws.tidbcloud.com', //
-    user: process.env.DB_USER, //'2KH4jG642GYeUug.root', //
-    password: process.env.DB_PASSWORD, //'8y01HPG54DRvj0GZ', //
+    host: 'gateway01.us-west-2.prod.aws.tidbcloud.com', //process.env.DB_HOST, //
+    user: '2KH4jG642GYeUug.root', //process.env.DB_USER, //
+    password: '8y01HPG54DRvj0GZ', //process.env.DB_PASSWORD, //
     database: 'main',
     port: 4000,
     ssl: {
