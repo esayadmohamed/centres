@@ -1,14 +1,12 @@
 import { getBaseUrl } from "@/_lib/utils/getBaseUrl";
 
-import Header from "@/_com/header/Header";
-import Footer from "@/_com/footer/Footer";
-import Listings from "./Listings";
-
 export default async function Centers() {
 
     const baseurl = getBaseUrl();
+    const local  = 'http://localhost:3000'
+    const vercel = 'https://centres.vercel.app'
 
-    const res = await fetch(`${baseurl}/api/centres`, { cache: 'no-store' });
+    const res = await fetch(`${local}/api/centres`, { cache: 'no-store' });
     const data = await res.json();
     const hoods = data?.map(item => item.name);
 
@@ -33,7 +31,9 @@ export default async function Centers() {
 
 
 
-
+// import Header from "@/_com/header/Header";
+// import Footer from "@/_com/footer/Footer";
+// import Listings from "./Listings";
 {/* <Header /> */}
 {/* <Listings 
     listings_list={data.listings}

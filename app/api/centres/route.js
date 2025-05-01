@@ -1,16 +1,11 @@
-// import {  AllHoods } from "@/_lib/centers/getdata";
 import getDB from "@/_lib/db";
-
-
 
 export async function GET() {
     try {
         const db = getDB();
-        const [hoods] = await db.query("SELECT name FROM neighborhoods");
-
-        // const hoods = await AllHoods();
-
-        return Response.json(hoods);
+        const [rows] = await db.query("SELECT name FROM neighborhoods");
+        
+        return Response.json(rows);
 
     } catch (err) {
         console.error("API DB ERROR:", err);
@@ -19,15 +14,9 @@ export async function GET() {
 }
 
 
-// git add .
-// git commit -m "Made changes to my app"
-// git push origin master
 
 
-
-
-
-// 
+// import {  AllHoods } from "@/_lib/centers/getdata";
 
 // export async function GET(req) {
 
@@ -37,7 +26,7 @@ export async function GET() {
 // }
 
 
-// const listings = await AllListings();
-// const cities = await AllCities();
+  // const listings = await AllListings();
+  // const cities = await AllCities();
 //AllListings, AllCities,
-//listings, cities,
+  //listings, cities,
