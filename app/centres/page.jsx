@@ -2,7 +2,7 @@ import { getBaseUrl } from "@/_lib/utils/getBaseUrl";
 
 import Header from "@/_com/header/Header";
 import Footer from "@/_com/footer/Footer";
-import Listings from "./Listings";
+// import Listings from "./Listings";
 
 export default async function Centers() {
 
@@ -12,16 +12,21 @@ export default async function Centers() {
     const data = await res.json();
 
     // console.log(data);
+    const cities = data?.cities?.map(item => item.name);
     
     return (         
         <main className="content">
             <Header />
-
-            <Listings 
+            <ul>
+                {cities.map((item, id)=> 
+                    <li key={id}> {item} </li>
+                )}
+            </ul>
+            {/* <Listings 
                 listings_list={data?.listings}
                 cities_list={data?.cities}
                 hoods_list={data?.hoods}
-            />
+            /> */}
 
             <Footer />
         </main>
