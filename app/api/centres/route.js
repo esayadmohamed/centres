@@ -1,19 +1,20 @@
-import { AllHoods } from "@/_lib/centers/getdata";
+import getDB from "@/lib/db";
 
-export async function GET(req) {
+export async function GET() {
     try {
-        const hoods = await AllHoods();
+        const db = getDB(); // loaded at runtime, not build time
+        const [rows] = await db.query("SELECT name FROM neighborhoods");
+        return Response.json(rows);
 
-        if (!hoods || hoods.length === 0) {
-            return new Response(JSON.stringify({ error: "No hoods found" }), { status: 404 });
-        }
-
-        return new Response(JSON.stringify({ hoods }), { status: 200 });
-    } catch (error) {
-        console.error("Error fetching hoods:", error);
-        return new Response(JSON.stringify({ error: "Internal server error" }), { status: 500 });
+    } catch (err) {
+        console.error("API DB ERROR:", err);
+        return new Response("Internal Server Error", { status: 500 });
     }
 }
+
+
+
+
 
 
 

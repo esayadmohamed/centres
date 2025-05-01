@@ -90,8 +90,9 @@ export async function AllCities() {
 }
 
 export async function AllHoods() {
-    const db = getDB();
+    
     try{ 
+        const db = getDB();
         // const neighborhoods = db.prepare("SELECT * FROM neighborhoods").all();
         const [neighborhoods] = await db.query("SELECT * FROM neighborhoods");
         if (neighborhoods.length === 0) {
