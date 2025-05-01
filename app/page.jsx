@@ -11,7 +11,9 @@ export default async function Home() {
     
     return (
         <ul>
-            <li>Hoods___ {process.env.DB_HOST}</li>
+            <li>Host___ {process.env.DB_HOST}</li>
+            <li>User___ {process.env.DB_USER}</li>
+            <li>Pass___ {process.env.DB_PASSWORD}</li>
             {hoods?.map((item, id)=>
                 <li key={id}> {item} </li>
             )}
