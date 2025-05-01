@@ -5,9 +5,9 @@ let pool;
 export default function getDB() {
   if (!pool) {
     pool = mysql.createPool({
-      host: process.env.DB_HOST,
-      user: process.env.DB_USER,
-      password: process.env.DB_PASSWORD,
+      host: 'gateway01.us-west-2.prod.aws.tidbcloud.com', //process.env.DB_HOST, //
+      user: '2KH4jG642GYeUug.root', //process.env.DB_USER, //
+      password: '8y01HPG54DRvj0GZ', //process.env.DB_PASSWORD, //
       database: 'main',
       port: 4000,
       ssl: {
@@ -21,9 +21,9 @@ export default function getDB() {
 
 
 // const db = mysql.createPool({
-//     host: 'gateway01.us-west-2.prod.aws.tidbcloud.com', //process.env.DB_HOST, //
-//     user: '2KH4jG642GYeUug.root', //process.env.DB_USER, //
-//     password: '8y01HPG54DRvj0GZ', //process.env.DB_PASSWORD, //
+    // host: 'gateway01.us-west-2.prod.aws.tidbcloud.com', //process.env.DB_HOST, //
+    // user: '2KH4jG642GYeUug.root', //process.env.DB_USER, //
+    // password: '8y01HPG54DRvj0GZ', //process.env.DB_PASSWORD, //
 //     database: 'main',
 //     port: 4000,
 //     ssl: {
