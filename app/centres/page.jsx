@@ -6,7 +6,7 @@ export default async function Centers() {
     const local  = 'http://localhost:3000'
     const vercel = 'https://centres.vercel.app'
 
-    const res = await fetch(`${local}/api/centres`, { cache: 'no-store' });
+    const res = await fetch(`${vercel}/api/centres`, { cache: 'no-store' });
     const data = await res.json();
     const hoods = data?.map(item => item.name);
 
