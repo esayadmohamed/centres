@@ -11,7 +11,7 @@ export default async function Home() {
     
     return (
         <ul>
-            <li>Hoods___</li>
+            <li>Hoods___ {process.env.DB_HOST}</li>
             {hoods?.map((item, id)=>
                 <li key={id}> {item} </li>
             )}
