@@ -8,9 +8,10 @@ export default async function Home() {
     
     return (
         <ul>
-            {/* <li>Host___ {process.env.DB_HOST}</li> */}
-            {/* <li>User___ {process.env.DB_USER}</li> */}
-            {/* <li>Pass___ {process.env.DB_PASSWORD}</li> */}
+            <li>Host___ {process.env.DB_HOST}</li>
+            <li>User___ {process.env.DB_USER}</li>
+            <li>Pass___ {process.env.DB_PASSWORD}</li>
+            <li>----------------------------------</li>
             {hoods?.map((item, id)=>
                 <li key={id}> {item} </li>
             )}
