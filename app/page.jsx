@@ -1,4 +1,4 @@
-// import Centers from "./centres/page";
+
 
 export default async function Home() {
 
@@ -6,14 +6,20 @@ export default async function Home() {
     
 }
 
+
+
+
+
+
+
 // git add .
-// git commit -m "Made changes to my app"
+// git commit -m "Made changes to mynn app"
 // git push origin master
 
 
 
 
-
+// import Centers from "./centres/page";
 
 
 // import { AllHoods } from "@/_lib/centers/getdata";
