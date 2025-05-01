@@ -1,4 +1,19 @@
-import {  AllHoods } from "@/_lib/centers/getdata";
+// import {  AllHoods } from "@/_lib/centers/getdata";
+import getDB from "@/_lib/db";
+
+async function AllHoods() {
+    try{ 
+        const db = getDB();
+        const [neighborhoods] = await db.query("SELECT * FROM neighborhoods");
+        if (neighborhoods.length === 0) {
+            return []; 
+        }
+        return neighborhoods
+    } catch (error) {
+        console.error("Database error:", error);
+        return { error: "Une erreur est survenue. Veuillez réessayer plus tard." };
+    }
+}
 
 export async function GET() {
     try {
