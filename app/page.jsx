@@ -1,21 +1,20 @@
-import { getBaseUrl } from "@/_lib/utils/getBaseUrl";
-
 export default async function Home() {
 
-    const baseurl = getBaseUrl();
+    const local  = 'http://localhost:3000'
+    const vercel = 'https://centres.vercel.app'
 
-    const res = await fetch(`${baseurl}/api/centres`, { cache: 'no-store' });
+    const res = await fetch(`${vercel}/api/centres`, { cache: 'no-store' });
     const data = await res.json();
 
-    console.log('baseurl__:', baseurl);
     console.log('log data:', data);
     
-    return (
-        <div>hello</div>
-    )
+    return <div>hiho</div>
     
 }
 
+// git add .
+// git commit -m "Made changes to my app"
+// git push origin master
 
 
 
