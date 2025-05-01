@@ -1,22 +1,16 @@
-import { AllHoods } from "@/_lib/centers/getdata";
+import { getBaseUrl } from "@/_lib/utils/getBaseUrl";
 
 export default async function Home() {
 
-    const local  = 'http://localhost:3000'
-    const vercel = 'https://centres.vercel.app'
+    const baseurl = getBaseUrl();
 
-    const res = await fetch(`${vercel}/api/centres`, { cache: 'no-store' });
+    const res = await fetch(`${baseurl}/api/centres`, { cache: 'no-store' });
     const data = await res.json();
     const hoods = data?.map(item => item.name);
 
-    // console.log(hoods);
-    
-    // const hoodsList = await AllHoods();
-    // const hoods = hoodsList?.map(item => item.name);
-    
     return (
         <ul>
-            <li>----------------------------------</li>
+            {/* <li>----------------------------------</li> */}
             {hoods?.map((item, id)=>
                 <li key={id}> {item} </li>
             )}
@@ -25,7 +19,20 @@ export default async function Home() {
     
 }
 
+// git add .
+// git commit -m "Made changes to my app"
+// git push origin master
 
+
+
+
+
+
+
+// import { AllHoods } from "@/_lib/centers/getdata";
+    // console.log(hoods);
+    // const hoodsList = await AllHoods();
+    // const hoods = hoodsList?.map(item => item.name);
 
     // console.log('log data:', hoods);
     // console.log('-----------');
@@ -36,9 +43,7 @@ export default async function Home() {
 // const data = await res.json();
 // const hoods = data?.hoods?.map(item => item.name);
 
-// git add .
-// git commit -m "Made changes to my app"
-// git push origin master
+
 
 
 

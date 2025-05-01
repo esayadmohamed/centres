@@ -2,9 +2,9 @@ import getDB from "@/_lib/db";
 
 export async function GET() {
     try {
-        const db = getDB(); // loaded at runtime, not build time
+        const db = getDB();
         const [rows] = await db.query("SELECT name FROM neighborhoods");
-        
+
         return Response.json(rows);
 
     } catch (err) {
@@ -30,7 +30,7 @@ export async function GET() {
 // }
 
 
-  // const listings = await AllListings();
-  // const cities = await AllCities();
+// const listings = await AllListings();
+// const cities = await AllCities();
 //AllListings, AllCities,
-  //listings, cities,
+//listings, cities,

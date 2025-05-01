@@ -3,22 +3,28 @@ import mysql from 'mysql2/promise';
 let pool;
 
 export default function getDB() {
-  if (!pool) {
-    pool = mysql.createPool({
-      host: process.env.DB_HOST, //'gateway01.us-west-2.prod.aws.tidbcloud.com', //
-      user: process.env.DB_USER, //'2KH4jG642GYeUug.root', //
-      password: process.env.DB_PASSWORD, //'8y01HPG54DRvj0GZ', //
-      database: 'main',
-      port: 4000,
-      ssl: {
-        rejectUnauthorized: true,
-      },
-    });
-  }
-  return pool;
+    if (!pool) {
+        pool = mysql.createPool({
+            host: process.env.DB_HOST, 
+            user: process.env.DB_USER, 
+            password: process.env.DB_PASSWORD, 
+            database: 'main',
+            port: 4000,
+            ssl: {
+              rejectUnauthorized: true,
+            },
+        });
+    }
+    return pool;
 }
 
 
+
+
+
+//'gateway01.us-west-2.prod.aws.tidbcloud.com', //
+//'2KH4jG642GYeUug.root', //
+//'8y01HPG54DRvj0GZ', //
 
 // const db = mysql.createPool({
     // host: 'gateway01.us-west-2.prod.aws.tidbcloud.com', //process.env.DB_HOST, //
