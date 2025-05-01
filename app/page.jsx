@@ -1,22 +1,19 @@
-// import { getBaseUrl } from "@/_lib/utils/getBaseUrl";
 import { AllHoods } from "@/_lib/centers/getdata";
 
+import dotenv from 'dotenv';
+dotenv.config();
 
 export default async function Home() {
-    // const baseurl = getBaseUrl();
+
     const hoodsList = await AllHoods();
     const hoods = hoodsList?.map(item => item.name);
 
-    // const res = await fetch(`${baseurl}/api/centres`, { cache: 'no-store' });
-    // const data = await res.json();
-
-    // const hoods = data?.hoods?.map(item => item.name);
-
-    console.log('log data:', hoods);
+    // console.log('log data:', hoods);
+    console.log('DB_HOST:', process.env.DB_HOST);
     
     return (
         <ul>
-            <li>Hoods</li>
+            <li>Hoods...</li>
             {hoods?.map((item, id)=>
                 <li key={id}> {item} </li>
             )}
@@ -24,6 +21,15 @@ export default async function Home() {
     )
     
 }
+
+
+
+
+// import { getBaseUrl } from "@/_lib/utils/getBaseUrl";
+// const baseurl = getBaseUrl();
+// const res = await fetch(`${baseurl}/api/centres`, { cache: 'no-store' });
+// const data = await res.json();
+// const hoods = data?.hoods?.map(item => item.name);
 
 // git add .
 // git commit -m "Made changes to my app"
