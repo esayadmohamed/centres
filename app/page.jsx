@@ -1,9 +1,9 @@
+import { getBaseUrl } from "@/_lib/utils/getBaseUrl";
+
 export default async function Home() {
+    const baseurl = getBaseUrl();
 
-    const local  = 'http://localhost:3000'
-    const vercel = 'https://centres.vercel.app'
-
-    const res = await fetch(`${vercel}/api/centres`, { cache: 'no-store' });
+    const res = await fetch(`${baseurl}/api/centres`, { cache: 'no-store' });
     const data = await res.json();
 
     const cities = data?.hoods?.map(item => item.name);
@@ -12,6 +12,7 @@ export default async function Home() {
     
     return (
         <ul>
+            <li>cities</li>
             {cities?.map((item, id)=>
                 <li key={id}> {item} </li>
             )}
@@ -26,7 +27,8 @@ export default async function Home() {
 
 
 
-
+// const local  = 'http://localhost:3000'
+// const vercel = 'https://centres.vercel.app'
 
 // import Centers from "./centres/page"
 // <Centers />
