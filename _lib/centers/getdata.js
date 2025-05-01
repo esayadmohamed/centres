@@ -1,7 +1,7 @@
 'use server';
 // import db from "@/_lib/db";
 import getDB from "@/_lib/db";
-const db = getDB();
+
 // const sql = require('better-sqlite3');
 // const db = sql('main.db');
 
@@ -14,7 +14,7 @@ import { SanitizeId } from '@/_lib/utils/sanitizedata';
 // --------------------------------------------------------
 
 export async function AllListings() {
-
+    const db = getDB();
     try {
         // const rate_limiter = await RateLimiterGet('home');
 
@@ -75,6 +75,7 @@ export async function AllListings() {
 }
 
 export async function AllCities() {
+    const db = getDB();
     try{ 
         // const cities = db.prepare("SELECT * FROM cities").all();
         const [cities] = await db.query("SELECT * FROM cities");
@@ -89,6 +90,7 @@ export async function AllCities() {
 }
 
 export async function AllHoods() {
+    const db = getDB();
     try{ 
         // const neighborhoods = db.prepare("SELECT * FROM neighborhoods").all();
         const [neighborhoods] = await db.query("SELECT * FROM neighborhoods");

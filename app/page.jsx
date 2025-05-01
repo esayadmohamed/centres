@@ -1,10 +1,10 @@
-// import { AllHoods } from "@/_lib/centers/getdata";
-import Test from "./test";
+import { AllHoods } from "@/_lib/centers/getdata";
+// import Test from "./test";
 
 export default async function Home() {
 
-    // const hoodsList = await AllHoods();
-    // const hoods = hoodsList?.map(item => item.name);
+    const hoodsList = await AllHoods();
+    const hoods = hoodsList?.map(item => item.name);
     
     return (
         <ul>
@@ -12,10 +12,10 @@ export default async function Home() {
             {/* <li>User___ {process.env.DB_USER}</li> */}
             {/* <li>Pass___ {process.env.DB_PASSWORD}</li> */}
             <li>----------------------------------</li>
-            <Test />
-            {/* {hoods?.map((item, id)=>
+            {/* <Test /> */}
+            {hoods?.map((item, id)=>
                 <li key={id}> {item} </li>
-            )} */}
+            )}
         </ul>
     )
     
