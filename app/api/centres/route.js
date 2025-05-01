@@ -1,26 +1,14 @@
 import getDB from "@/_lib/db";
 
-
-async function AllHoods(db) {
-    try{ 
-        const [neighborhoods] = await db.query("SELECT * FROM neighborhoods");
-        if (neighborhoods.length === 0) {
-            return []; 
-        }
-        return neighborhoods
-    } catch (error) {
-        console.error("Database error:", error);
-        return { error: "Une erreur est survenue. Veuillez réessayer plus tard." };
-    }
-}
+import { AllHoods } from "@/_lib/centers/getdata";
 
 export async function GET() {
     try {
         const db = getDB();
-        const rows = await AllHoods(db);
+        const hoods = await AllHoods(db);
         // const [rows] = await db.query("SELECT name FROM neighborhoods");
         
-        return Response.json(rows);
+        return Response.json(hoods);
 
     } catch (err) {
         console.error("API DB ERROR:", err);

@@ -16,6 +16,7 @@ export default async function Centers() {
     return (         
         <main className="content">
             <ul>
+                <li>---------------------</li>
                 {hoods.map((item, id)=> 
                 <li key={id}> {item} </li>
                 )}

@@ -1,5 +1,5 @@
 'use server';
-import getDB from "@/_lib/db";
+// import getDB from "@/_lib/db";
 
 import xss from 'xss';
 
@@ -9,8 +9,7 @@ import { SanitizeId } from '@/_lib/utils/sanitizedata';
 // --------------------------------------------------------
 // --------------------------------------------------------
 
-export async function AllListings() {
-    const db = getDB();
+export async function AllListings(db) {
     try {
         // const rate_limiter = await RateLimiterGet('home');
 
@@ -70,8 +69,7 @@ export async function AllListings() {
     }
 }
 
-export async function AllCities() {
-    const db = getDB();
+export async function AllCities(db) {
     try{ 
         // const cities = db.prepare("SELECT * FROM cities").all();
         const [cities] = await db.query("SELECT * FROM cities");
@@ -85,9 +83,9 @@ export async function AllCities() {
     }
 }
 
-export async function AllHoods() {
+export async function AllHoods(db) {
     try{ 
-        const db = getDB();
+        // const db = getDB();
         const [neighborhoods] = await db.query("SELECT * FROM neighborhoods");
         if (neighborhoods.length === 0) {
             return []; 
