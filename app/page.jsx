@@ -1,18 +1,22 @@
 import { AllHoods } from "@/_lib/centers/getdata";
-// import Test from "./test";
 
 export default async function Home() {
 
-    const hoodsList = await AllHoods();
-    const hoods = hoodsList?.map(item => item.name);
+    const local  = 'http://localhost:3000'
+    const vercel = 'https://centres.vercel.app'
+
+    const res = await fetch(`${vercel}/api/centres`, { cache: 'no-store' });
+    const data = await res.json();
+    const hoods = data?.map(item => item.name);
+
+    // console.log(hoods);
+    
+    // const hoodsList = await AllHoods();
+    // const hoods = hoodsList?.map(item => item.name);
     
     return (
         <ul>
-            {/* <li>Host___ {process.env.DB_HOST}</li> */}
-            {/* <li>User___ {process.env.DB_USER}</li> */}
-            {/* <li>Pass___ {process.env.DB_PASSWORD}</li> */}
             <li>----------------------------------</li>
-            {/* <Test /> */}
             {hoods?.map((item, id)=>
                 <li key={id}> {item} </li>
             )}

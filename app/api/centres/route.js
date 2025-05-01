@@ -1,9 +1,10 @@
-import getDB from "@/lib/db";
+import getDB from "@/_lib/db";
 
 export async function GET() {
     try {
         const db = getDB(); // loaded at runtime, not build time
         const [rows] = await db.query("SELECT name FROM neighborhoods");
+        
         return Response.json(rows);
 
     } catch (err) {
