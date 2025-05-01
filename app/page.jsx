@@ -5,15 +5,11 @@ export default async function Home() {
     const hoodsList = await AllHoods();
     const hoods = hoodsList?.map(item => item.name);
 
-    // console.log('log data:', hoods);
-    // console.log('-----------');
-    // console.log('DB_HOST:', process.env.DB_HOST);
-    
     return (
         <ul>
-            <li>Host___ {process.env.DB_HOST}</li>
-            <li>User___ {process.env.DB_USER}</li>
-            <li>Pass___ {process.env.DB_PASSWORD}</li>
+            {/* <li>Host___ {process.env.DB_HOST}</li> */}
+            {/* <li>User___ {process.env.DB_USER}</li> */}
+            {/* <li>Pass___ {process.env.DB_PASSWORD}</li> */}
             {hoods?.map((item, id)=>
                 <li key={id}> {item} </li>
             )}
@@ -24,7 +20,9 @@ export default async function Home() {
 
 
 
-
+    // console.log('log data:', hoods);
+    // console.log('-----------');
+    // console.log('DB_HOST:', process.env.DB_HOST);
 // import { getBaseUrl } from "@/_lib/utils/getBaseUrl";
 // const baseurl = getBaseUrl();
 // const res = await fetch(`${baseurl}/api/centres`, { cache: 'no-store' });

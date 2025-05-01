@@ -3,15 +3,15 @@ import mysql from 'mysql2/promise';
 // dotenv.config();
 
 const db = mysql.createPool({
-    host: 'gateway01.us-west-2.prod.aws.tidbcloud.com', // process.env.DB_HOST, //
-    user: '2KH4jG642GYeUug.root', // process.env.DB_USER, //
-    password: '8y01HPG54DRvj0GZ', //process.env.DB_PASSWORD, //
+    host: process.env.DB_HOST, //'gateway01.us-west-2.prod.aws.tidbcloud.com', //
+    user: process.env.DB_USER, //'2KH4jG642GYeUug.root', //
+    password: process.env.DB_PASSWORD, //'8y01HPG54DRvj0GZ', //
     database: 'main',
     port: 4000,
-    ssl: {
-      rejectUnauthorized: true,
-      ca: process.env.DB_SSL_CA,
-    },
+    // ssl: {
+    //   rejectUnauthorized: true,
+    //   ca: process.env.DB_SSL_CA,
+    // },
 });
 export default db;
 
