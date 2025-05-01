@@ -1,6 +1,7 @@
 'use server';
-import db from "@/_lib/db";
-
+// import db from "@/_lib/db";
+import getDB from "@/_lib/db";
+const db = getDB();
 // const sql = require('better-sqlite3');
 // const db = sql('main.db');
 

@@ -1,11 +1,14 @@
 import { AllHoods } from "@/_lib/centers/getdata";
 
+
 export default async function Home() {
 
     const hoodsList = await AllHoods();
     const hoods = hoodsList?.map(item => item.name);
-    // console.log('',hoodsList);
     
+    // console.log(hoodsList);
+    
+
     return (
         <ul>
             <li>Host___ {process.env.DB_HOST}</li>
