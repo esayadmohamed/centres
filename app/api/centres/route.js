@@ -2,6 +2,8 @@ import getDB from "@/_lib/db";
 
 import { AllListings, AllCities, AllHoods } from "@/_lib/centers/getdata";
 
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 
 export async function GET() {
     try {
@@ -9,13 +11,13 @@ export async function GET() {
         const listings = await AllListings(db);
         const cities  = await AllCities(db);
         const hoods   = await AllHoods(db);
-        // const session = await getServerSession(authOptions);
+        const session = await getServerSession(authOptions);
         
         const result = {
           listings,
           cities,
-          hoods
-          // session
+          hoods,
+          session
       };
 
         return Response.json(result);
