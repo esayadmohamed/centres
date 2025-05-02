@@ -1,16 +1,15 @@
 
 export default async function Home() {
 
-    return (
-        <div>ljljlkjkjlk</div>
-    )
+    return <div>--------------</div>
+
     
 }
 
 
 
 // git add .
-// git commit -m "Made changes to mynn app"
+// git commit -m "Made changes to my app"
 // git push origin master
 
 
