@@ -2,6 +2,7 @@ import { getBaseUrl } from "@/_lib/utils/getBaseUrl";
 
 // import Header from "@/_com/header/Header";
 import Footer from "@/_com/footer/Footer";
+import Listings from "./Listings";
 
 export default async function Centers() {
 
@@ -10,16 +11,16 @@ export default async function Centers() {
     const res = await fetch(`${baseurl}/api/centres`, { cache: 'no-store' });
     const data = await res.json();
 
-    const cities = data?.cities?.map(item => item.name);
+    // const cities = data?.cities?.map(item => item.name);
     
     return (         
         <main className="content">
             {/* <Header /> */}
-            <ul>
-                {cities.map((item, id)=> 
-                    <li key={id}> {item} </li>
-                )}
-            </ul>
+            <Listings 
+                listings_list={data?.listings}
+                cities_list={data?.cities}
+                hoods_list={data?.hoods}
+            />
 
             <Footer />
         </main>
@@ -30,10 +31,14 @@ export default async function Centers() {
 // git add .
 // git commit -m "Made changes to my app"
 // git push origin master
+//1
 
 
-
-
+{/* <ul>
+{cities.map((item, id)=> 
+    <li key={id}> {item} </li>
+)}
+</ul> */}
 
 {/* <Listings 
     listings_list={data?.listings}
