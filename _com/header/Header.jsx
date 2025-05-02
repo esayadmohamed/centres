@@ -1,5 +1,8 @@
 import styles from './style.module.css'
 
+// import { getServerSession } from "next-auth";
+// import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+
 import NavLogo from "./NavLogo"
 import NavSidebar from "./NavSidebar"
 
@@ -13,7 +16,7 @@ export default async function Header() {
         <main className={styles.Nav} >
             <div className={styles.Navbar}>
                 <NavLogo />
-                <NavSidebar isAuthenticated={false}/>
+                <NavSidebar isAuthenticated={true}/>
             </div>
         </main>
     )

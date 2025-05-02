@@ -4,9 +4,8 @@ import bcrypt from "bcryptjs";
 import validator from "validator";
 import xss from 'xss';
 
-const sql = require("better-sqlite3");
-const db = sql("main.db");
-
+import getDB from "@/_lib/db";
+const db = getDB();
 
 export const authOptions = {
     providers: [

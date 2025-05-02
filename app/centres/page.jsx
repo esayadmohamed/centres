@@ -12,6 +12,8 @@ export default async function Centers() {
     const data = await res.json();
 
     // const cities = data?.cities?.map(item => item.name);
+    // console.log(data);
+    
     
     return (         
         <main className="content">
