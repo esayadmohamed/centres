@@ -1,0 +1,151 @@
+.Nav{
+    position: fixed;
+    top: 0;
+    height: 70px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background-color: white;
+    border-bottom: 1px solid #f2f3f4;
+}
+
+.Navbar{
+    padding: 0 30px;
+    max-width: 1280px;
+    width: 100%; 
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    justify-items: center;
+}
+
+/* ------------------------------------ */
+/* ------------------------------------ */
+
+.Logo{
+    width: 100%;
+    overflow: hidden; 
+}
+
+.Logo a{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 10px;
+}   
+
+.Logo a svg{
+    color: #2471a3;
+}
+
+.Logo a p{
+    font-weight: 600;
+    display: flex;
+    flex-direction: column;
+    color: #222222;
+    font-size: 16px;
+}
+
+/* ------------------------------------ */
+/* ------------------------------------ */
+
+.Functions{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 35px;
+    width: 35px;
+    cursor: pointer;
+}
+
+.Functions svg{
+    width: 24;
+    height: 24;
+}
+
+.Overlay{
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(34, 34, 32, .3);
+    z-index: 9;
+}
+
+.NavSidebar{
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    width: 320px;
+    height: 100%;
+    background-color: white;
+    z-index: 10;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.NavSidebar li{
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    height: 50px;
+    padding: 0 20px;
+    font-size: 15px;
+}
+
+.SidebarHeader{ 
+    height: 80px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    border-bottom: 1px solid #d7dbdd;
+    padding: 20px;
+}
+
+.SidebarHeader p{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    font-weight: 600;
+}
+
+.SidebarHeader span{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: red;
+    cursor: pointer;
+}
+
+.NavLoader{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100px;
+}
+
+/* ------------------------------------ */
+/* ------------------------------------ */
+
+@media (max-width: 600px) {
+    .Navbar{
+        padding: 0 20px;
+    }
+    
+    .NavSidebar{
+        width: 280px;
+    }
+    
+}
+
+@media (min-width: 601px) and (max-width: 1024px) {
+    /* Tablet styles */
+}
