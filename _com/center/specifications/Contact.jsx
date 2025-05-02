@@ -21,13 +21,13 @@ export default function SpecsContact ({listing}){
                 <Icon name={'MapPin'} />  {listing.city}, {listing.hood}
             </h4>
             <p onClick={handleCopy}>
-                <Icon name={copied? 'Check' : 'Phone'}/>
+                <Icon name={copied? 'Check' : 'Phone'} color='white'/>
                 <span> {!copied && listing.phone} </span> 
             </p>
         </div>
         <div className={styles.SpecsCall}>
             <a href={`tel:${listing.phone}`}>
-                <span> <Icon name={'Phone'} />   </span>
+                <span> <Icon name={'Phone'} color='white'/>   </span>
             </a>
         </div>
         </>

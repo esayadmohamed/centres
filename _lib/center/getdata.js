@@ -1,5 +1,5 @@
 'use server';
-import db from "@/_lib/db";
+// import db from "@/_lib/db";
 // const sql = require('better-sqlite3');
 // const db = sql('main.db');
 
@@ -12,7 +12,7 @@ import { UserAuthenticated } from '@/_lib/utils/userauth';
 // --------------------------------------------------------
 // --------------------------------------------------------
 
-export async function GetListing(value_id) {
+export async function GetListing(db, value_id) {
     try {
         // await RateLimiterGet('home');
 
@@ -52,7 +52,7 @@ export async function GetListing(value_id) {
     }
 }
 
-export async function GetSuggested(value) {
+export async function GetSuggested(db, value) {
     try {
         if (typeof value !== 'string'){
             console.warn("City value must be a string.");
@@ -116,7 +116,7 @@ export async function GetSuggested(value) {
     }
 }
 
-export async function getUserReview(center_id) {    
+export async function getUserReview(db, center_id) {    
     try {
         const user_id = await UserAuthenticated();
         if(!user_id || user_id.error) {
@@ -137,7 +137,7 @@ export async function getUserReview(center_id) {
     }
 }
 
-export async function getReviewsList() {    
+export async function getReviewsList(db) {    
     try{ 
         const [rows] = await db.query("SELECT * FROM reviewslist");
         if (rows.length === 0) {
