@@ -1,15 +1,16 @@
 "use server"
 import styles from './style.module.css'
 
-// import { getServerSession } from "next-auth";
-// import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { getServerSession } from "next-auth";
+import { authOptions } from "../../app/api/auth/[...nextauth]/route"
+// @/app/api/auth/[...nextauth]/route";
 
 import NavLogo from "./NavLogo"
 import NavSidebar from "./NavSidebar"
 
-export default async function Header({session}) {
+export default async function Header() {
 
-    // const session = await getServerSession(authOptions);
+    const session = await getServerSession(authOptions);
 
     // console.log(session);
 
@@ -17,7 +18,7 @@ export default async function Header({session}) {
         <main className={styles.Nav} >
             <div className={styles.Navbar}>
                 <NavLogo />
-                <NavSidebar isAuthenticated={session}/>
+                <NavSidebar isAuthenticated={session? true : false}/>
             </div>
         </main>
     )
