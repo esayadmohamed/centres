@@ -15,7 +15,7 @@ export default async function Centers() {
     
     return (         
         <main className="content">
-            <Header session={data?.session}/>
+            <Header />
             <Listings 
                 listings_list={data?.listings}
                 cities_list={data?.cities}

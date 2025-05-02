@@ -1,4 +1,3 @@
-"use server"
 import styles from './style.module.css'
 
 import NavLogo from "./NavLogo"
