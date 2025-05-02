@@ -17,8 +17,8 @@ export default async function DisplayCenter ({params}){
     const res = await fetch(`${baseurl}/api/centre?center_id=${center_id}`, { cache: 'no-store' });
     const data = await res.json();
 
-    // console.log(data);
-    
+    if(data.error) return notFound();
+
     return (    
         <div className="content">
             <Header session={data?.session} /> 

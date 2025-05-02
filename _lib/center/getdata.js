@@ -23,9 +23,10 @@ export async function GetListing(db, value_id) {
         
         const [listing] = await db.query("SELECT * FROM listings WHERE id = ? AND view = 'on' AND state = 'on'",  [listing_id]);
         // const listing = db.prepare("SELECT * FROM listings WHERE id = ? AND view = 'on' AND state = 'on'").get(listing_id);
-        if (!listing) {
+        if (!listing || listing.length === 0) {
             return null
         }
+        console.log(listing);
         
         
         const [rows] = await db.query("SELECT name FROM images WHERE listing_id = ?", [listing_id]);

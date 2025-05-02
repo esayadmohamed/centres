@@ -10,9 +10,6 @@ import validator from 'validator';
 import bcrypt from "bcryptjs";
 import { randomBytes } from 'crypto';
 import nodemailer from "nodemailer";
-import dotenv from 'dotenv';
-
-dotenv.config();
 
 import { RateLimiter } from '@/_lib/utils/ratelimiter';
 
@@ -78,55 +75,38 @@ async function sendVerificationEmail(email, token) {
     await transporter.sendMail(mailOptions);
 }
 
-function SanitizeObject(obj){
-    
-    if(!obj) return null //1
-
-    if(typeof obj !== 'object') return null //2
-    if(Object.prototype.toString.call(obj) !== '[object Object]') return null
-
-    if(!Object.hasOwn(obj, 'token')){
-        return null
-    }
-
-    if(typeof obj.token !== 'string'){
-        return null
-    }
-
-    return obj;
-}
-
-export async function VerifyToken(user_token){
-
+export async function VerifyToken(db, user_token){
     try {
         const rate_limiter = await RateLimiter('verify');
         if(!rate_limiter){
             return { error: "Le serveur est actuellement occupé, veuillez réessayer plus tard."};
         }    
 
-        const data = SanitizeObject(user_token)
-        if(!data){
-            console.warn("Verify Email: Invalid input type, expected a object.");
-            return { error: "Une erreur est survenue. Veuillez réessayer plus tard."};
+        if(!user_token || typeof user_token !== 'string'){
+            return null
         }
 
-        const token = xss(user_token.token).trim();
+        const token = xss(user_token).trim();
 
         if(!token || token.length !== 24){
             return { error: "Le code de vérification n'est pas valide." };
         }
     
-        const existingToken = db.prepare("SELECT * FROM tokens WHERE token = ?").get(token);
+        // const existingToken = db.prepare("SELECT * FROM tokens WHERE token = ?").get(token);
+        const [rows] = await db.execute("SELECT * FROM tokens WHERE token = ?", [token]);
+        const existingToken = rows[0]; 
         
         if (!existingToken) {
             return { error: "Le code de vérification n'est pas valide." };
         } else {
             if (existingToken.expiration_time > Date.now()) {
 
-                db.prepare("UPDATE users SET active = ? WHERE email = ?")
-                .run('on', existingToken.email);
+                // db.prepare("UPDATE users SET active = ? WHERE email = ?")
+                // .run('on', existingToken.email);
+                await db.execute("UPDATE users SET active = ? WHERE email = ?", ['on', existingToken.email]);
 
-                db.prepare("DELETE FROM tokens WHERE email = ?").run(existingToken.email);
+                // db.prepare("DELETE FROM tokens WHERE email = ?").run(existingToken.email);
+                await db.execute( "DELETE FROM tokens WHERE email = ?", [existingToken.email]);
 
                 return { success: true};
             } else {
@@ -134,13 +114,16 @@ export async function VerifyToken(user_token){
                 const newToken = generateVerificationCode();
                 const newExpirationTime = Date.now() + 3600000;
 
-                db.prepare("UPDATE tokens SET token = ?, expiration_time = ? WHERE email = ?")
-                .run(newToken, newExpirationTime, existingToken.email);
-
+                // db.prepare("UPDATE tokens SET token = ?, expiration_time = ? WHERE email = ?")
+                // .run(newToken, newExpirationTime, existingToken.email);
+                await db.execute("UPDATE tokens SET token = ?, expiration_time = ? WHERE email = ?",
+                    [newToken, newExpirationTime, existingToken.email] );
+                  
                 sendVerificationEmail(existingToken.email, newToken) 
 
-                db.prepare("UPDATE tokens SET send = ?").run(1);
-
+                // db.prepare("UPDATE tokens SET send = ?").run(1);
+                await db.execute( "UPDATE tokens SET send = ?",[1]);
+                  
                 return { error: "Le code de vérification a expiré. Nous avons envoyé un autre code à votre e-mail."};
             }
         }

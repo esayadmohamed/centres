@@ -1,6 +1,6 @@
 import getDB from "@/_lib/db";
 
-import { GetListing, GetSuggested, getUserReview, getReviewsList } from '@/_lib/center/getdata';
+import { VerifyToken } from "@/_lib/auth/verify";
 
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
@@ -10,25 +10,13 @@ export async function GET(req) {
         const db = getDB();
 
         const { searchParams } = new URL(req.url);
-        const center_id = parseInt(searchParams.get('center_id'), 10);
+        const token_value = searchParams.get('token_value')
         
-        const listing = await GetListing(db, center_id);
-        
-        if (!listing) {
-            return new Response(JSON.stringify({ error: "Listing not found" }), { status: 404 });
-        }
-
-        const suggested = await GetSuggested(db, listing.city);
-        const isReviewed = await getUserReview(db, center_id);
-        const ReviewsList = await getReviewsList(db);
-        
+        const token = await VerifyToken(db, token_value);
         const session = await getServerSession(authOptions);
-
+        
         const result = {
-            listing,
-            suggested,
-            isReviewed,
-            ReviewsList,
+            token,
             session
         };
 
