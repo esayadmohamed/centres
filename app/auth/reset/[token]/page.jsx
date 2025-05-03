@@ -15,7 +15,7 @@ export default async function ResetVerify ({params}){
     if(session) {redirect('/');}
     return(
         <div className="content">
-            <Header session={false}/>
+            <Header />
 
             <ResetPassword reset_token={token_code}/>
 

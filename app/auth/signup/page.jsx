@@ -12,7 +12,7 @@ export default async function SingupPage (){
     if(session) {redirect('/');}
     return(
         <div className="content">
-            <Header session={false}/>
+            <Header />
 
             <AuthSignup/>
 

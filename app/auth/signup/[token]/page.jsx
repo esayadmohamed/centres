@@ -22,7 +22,7 @@ export default async function AuthVerify ({params}){
     return(
         <div className="content">
             
-            <Header session={false}/>
+            <Header />
 
             <AuthToken result={data?.token}/>
 

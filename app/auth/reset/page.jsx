@@ -12,7 +12,7 @@ export default async function RecoverPage (){
     if(session) {redirect('/');}
     return(
         <div className="content">
-            <Header session={false}/>
+            <Header />
 
             <SendResetToken />
 

@@ -13,7 +13,7 @@ export default async function AuthPage (){
     if(session) {redirect('/');}
     return(
         <div className="content">
-            <Header session={false}/>
+            <Header />
 
             <AuthLogin/>
 

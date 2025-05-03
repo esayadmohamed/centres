@@ -10,13 +10,10 @@ export default async function Centers() {
 
     const res = await fetch(`${baseurl}/api/centres`, { cache: 'no-store' });
     const data = await res.json();
-
-    // const cities = data?.cities?.map(item => item.name);
-    // console.log(data);
     
     return (         
         <main className="content">
-            <Header session={data?.session}/>
+            <Header />
 
             <Listings 
                 listings_list={data?.listings}

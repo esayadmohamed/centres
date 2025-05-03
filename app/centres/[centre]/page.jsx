@@ -21,7 +21,7 @@ export default async function DisplayCenter ({params}){
 
     return (    
         <div className="content">
-            <Header session={data?.session} /> 
+            <Header /> 
             
             <div className={styles.DisplayPage}>
                 <DisplayBanner listing={data?.listing}/>
