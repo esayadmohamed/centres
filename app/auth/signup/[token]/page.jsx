@@ -1,3 +1,6 @@
+import { redirect } from 'next/navigation'; 
+import { getSessionData } from '@/_lib/utils/session';
+
 import { getBaseUrl } from "@/_lib/utils/getBaseUrl";
 import { redirect } from 'next/navigation'; 
 
@@ -12,17 +15,16 @@ export default async function AuthVerify ({params}){
     const token_code = token.token;
 
     const baseurl = getBaseUrl();
-
     const res = await fetch(`${baseurl}/api/token?token_value=${token_code}`, { cache: 'no-store' });
     const data = await res.json();
 
-    const session = data?.session;
+    const session = await getSessionData();
     
     if(session) {redirect('/')}
     return(
         <div className="content">
             
-            <Header session={null}/>
+            <Header session={false}/>
 
             <AuthToken result={data?.token}/>
 

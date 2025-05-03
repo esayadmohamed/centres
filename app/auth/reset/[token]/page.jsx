@@ -1,5 +1,5 @@
-import { getBaseUrl } from "@/_lib/utils/getBaseUrl";
 import { redirect } from 'next/navigation'; 
+import { getSessionData } from '@/_lib/utils/session';
 
 import Header from '@/_com/header/Header';
 import Footer from "@/_com/footer/Footer";
@@ -10,13 +10,12 @@ export default async function ResetVerify ({params}){
     const token = await params;
     const token_code = token?.token;
     
-    const res = await fetch(`${baseurl}/api/session`, { cache: 'no-store' });
-    const session = await res.json();
+    const session = await getSessionData();
 
     if(session) {redirect('/');}
     return(
         <div className="content">
-            <Header session={null}/>
+            <Header session={false}/>
 
             <ResetPassword reset_token={token_code}/>
 

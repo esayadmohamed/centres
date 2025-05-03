@@ -1,9 +1,5 @@
 import getDB from "@/_lib/db";
-
 import { VerifyToken } from "@/_lib/auth/verify";
-
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 
 export async function GET(req) {
     try {
@@ -13,14 +9,8 @@ export async function GET(req) {
         const token_value = searchParams.get('token_value')
         
         const token = await VerifyToken(db, token_value);
-        const session = await getServerSession(authOptions);
         
-        const result = {
-            token,
-            session
-        };
-
-        return Response.json(result);
+        return Response.json(token);
 
     } catch (err) {
         console.error("API DB ERROR:", err);
