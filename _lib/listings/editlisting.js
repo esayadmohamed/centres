@@ -1,26 +1,23 @@
 'use server'
-import db from "@/_lib/db";
-
-// const sql = require('better-sqlite3');
-// const db = sql('main.db');
-// db.pragma('foreign_keys = ON');
+import getDB from "@/_lib/db";
 
 import { revalidatePath } from "next/cache";
-
 import { UserAuthorized } from "@/_lib/utils/userauth";
 import { SanitizeId } from "@/_lib/utils/sanitizedata";
-
 import { RateLimiter } from "@/_lib/utils/ratelimiter";
 
+import { userListings } from "./test";
 
 // ----------------------------------------------
 
 export async function removeListing (value_id) { 
     try {
-        const rate_limiter = await RateLimiter('create');
-        if(!rate_limiter){
-            return { error: "Le serveur est actuellement occupé, veuillez réessayer plus tard."};
-        }
+        const db = getDB();
+        
+        // const rate_limiter = await RateLimiter('create');
+        // if(!rate_limiter){
+        //     return { error: "Le serveur est actuellement occupé, veuillez réessayer plus tard."};
+        // }
 
         const listing_id = await SanitizeId(value_id)
         if(!listing_id){ 
@@ -32,13 +29,13 @@ export async function removeListing (value_id) {
             return {error: "Une erreur est survenue. Veuillez réessayer plus tard."}; 
         }
         
-        //------------------------------------------------------------------------- 
-
-        db.prepare("DELETE FROM listings WHERE id = ?").run(listing_id);
+        await db.execute("DELETE FROM listings WHERE id = ?", [listing_id]);
         
         revalidatePath(`/listings`);
 
-        return { success: true };
+        const listings = await userListings();
+
+        return listings;
        
     } catch (error) {
         console.error("Database error:", error);
@@ -48,10 +45,12 @@ export async function removeListing (value_id) {
 
 export async function toggleListing (value_id){
     try {
-        const rate_limiter = await RateLimiter('create');
-        if(!rate_limiter){
-            return { error: "Le serveur est actuellement occupé, veuillez réessayer plus tard."};
-        }
+        const db = getDB();
+
+        // const rate_limiter = await RateLimiter('create');
+        // if(!rate_limiter){
+        //     return { error: "Le serveur est actuellement occupé, veuillez réessayer plus tard."};
+        // }
         
         const listing_id = await SanitizeId(value_id)
         if(!listing_id){ 
@@ -65,16 +64,21 @@ export async function toggleListing (value_id){
 
         //------------------------------------------------------------------------- 
 
-        const result = db.prepare("SELECT view FROM listings WHERE id = ?").get(listing_id);
+        const [rows] = await db.execute("SELECT view FROM listings WHERE id = ?",[listing_id]);
+        const result = rows[0] || null;
+
         if(result){
             if(result.view === 'on'){
-                db.prepare(`UPDATE listings SET view = ? WHERE id = ?`).run('off', listing_id);
+                await db.query("UPDATE listings SET view = ? WHERE id = ?", ['off', listing_id]);
             } else {
-                db.prepare(`UPDATE listings SET view = ? WHERE id = ?`).run('on', listing_id);
+                await db.query("UPDATE listings SET view = ? WHERE id = ?", ['on', listing_id]);
             }    
             
-            revalidatePath(`/listings`);        
-            return { success: true }
+            revalidatePath(`/listings`);     
+            
+            const listings = await userListings();
+            
+            return listings;
         } else{
             return {error: "Une erreur est survenue. Veuillez réessayer plus tard."};
         }
@@ -84,4 +88,3 @@ export async function toggleListing (value_id){
         return {error: "Une erreur est survenue. Veuillez réessayer plus tard."};
     }
 }
-

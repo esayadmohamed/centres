@@ -8,8 +8,10 @@ import { removeListing, toggleListing } from "@/_lib/listings/editlisting";
 import defaultImage from '@/_upl/development/default.png'
 import Icon from "@/_lib/utils/Icon";
 
-export default function Listing ({listing, Referesh}){
+export default function Listing ({listing, setListing}){
     
+    const Referesh = console.log();
+
     const router = useRouter();
     
     const [loading, setLoading] = useState(true);
@@ -39,18 +41,18 @@ export default function Listing ({listing, Referesh}){
         setLoading(true); setError('');
 
         const result = await removeListing(index)
-
+        setLoading(false)
+        setIsOk(false)
+        
         if (result.error) {
             setError(result.error)
             setTimeout(() => {setError('')}, 5000);
         }
         else {
-            await Referesh();
+            setListing(result)
             setError('');
         }
 
-        setIsOk(false)
-        setLoading(false)
     }
 
     async function handleEdit(index){
@@ -61,18 +63,17 @@ export default function Listing ({listing, Referesh}){
         setLoading(true); setError('');
 
         const result = await toggleListing(index)
+        setLoading(false)
+
         if (result.error) {
             setError(result.error)
         }
         else {
-            await Referesh(); 
+            setListing(result)
             setError('');
-        }
-        setLoading(false)
+        } 
     }
 
-    // console.log(listing);
-    
         
     return (
         <main className={styles.Listing} >
@@ -114,7 +115,7 @@ export default function Listing ({listing, Referesh}){
                         </div>
                         :
                         <div className={styles.Confirmation}> 
-                            <Icon name={'CircleX'} />
+                            <Icon name={'CircleX'} color={'white'}/>
                             <p> Voulez-vous vraiment supprimer cette annonce? </p>
                             <span>
                                 <button onClick={()=> setIsOk(false)}> Annuler </button>
@@ -141,14 +142,3 @@ export default function Listing ({listing, Referesh}){
         </main>
     )
 } 
-
-{/* <div className={styles.CentreDetails}>
-<div>
-    <h5> {listing.hood}, {listing.city} </h5>  
-    <p>
-        <Star />
-        <span> {listing.overall?.toFixed(1) || "—"} </span>
-    </p>
-</div>
-<p> {listing.name} </p>
-</div> */}

@@ -1,8 +1,13 @@
 "use server"; 
+import { getBaseUrl } from "@/_lib/utils/getBaseUrl";
+
 
 export async function RateLimiterGet(action) {
+
+    const baseurl = getBaseUrl();
+
     try {
-        const res = await fetch(`http://localhost:3000/api/limiter?action=${action}`, {
+        const res = await fetch(`${baseurl}/api/limiter?action=${action}`, {
             method: "GET",
             cache: "no-store",
             headers: {
@@ -27,7 +32,7 @@ export async function RateLimiterGet(action) {
 
 
 export async function RateLimiter(action) { 
-    const res = await fetch("http://localhost:3000/api/limiter", {
+    const res = await fetch(`${baseurl}/api/limiter`, {
         method: "POST",
         cache: "no-store",
         headers: {
