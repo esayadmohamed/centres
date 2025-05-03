@@ -1,6 +1,11 @@
 import Centers from "./centres/page"
 
+import dbex from "@/int"
+
 export default async function Home() {
+
+    // const rundb = await dbex();
+    // console.log(rundb);
 
     return <Centers />
 

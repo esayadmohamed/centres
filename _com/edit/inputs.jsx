@@ -10,6 +10,8 @@ import Icon from "@/_lib/utils/Icon";
 
 export default function EditInputs({listing, setListing}) {
         
+    // console.log("::::::", listing);
+
     const [index, setIndex] = useState(null);
     const [isEdit, setIsEdit] = useState(false);
 

@@ -1,0 +1,210 @@
+.CreateContent{
+    margin: 70px;
+    padding: 10px 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+/* ------------------------------------ */
+/* ------------------------------------ */
+
+.ListingBanner{
+    height: 100px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    justify-content: center;
+    color: #222222;
+}
+
+/* ------------------------------------ */
+/* ------------------------------------ */
+
+.AuthRoot{
+    display: flex;
+    gap: 5px;
+    font-size: 14px;
+    color: #424949;
+}
+
+.AuthRoot a{
+    text-decoration: underline;
+}
+
+/* ------------------------------------ */
+/* ------------------------------------ */
+
+.CreateForm{
+    width: 100%;
+    width: 600px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 25px 0;
+    /* background-color: #f2f3f4; */
+}
+
+/* ------------------------------------ */
+/* ------------------------------------ */
+
+.CreateForm button{
+    width: 150px;
+    min-height: 45px;
+    background-color: #2980b9;    
+    border: none;
+    font-size: 15px;
+    border-radius: 5px;
+    font-weight: 600;
+    color: white;
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.CreateForm button div{
+    background: white;
+    width: 25px;
+    padding: 3px;
+}
+
+/* ------------------------------------ */
+/* ------------------------------------ */
+
+@media (max-width: 600px) {
+    .CreateContent{
+        padding: 0 10px;
+    }
+    .CreateForm{
+        width: 100%;
+    }
+    .CreateForm button{
+        width: 100%;
+    }
+    
+}
+  
+@media (min-width: 601px) and (max-width: 1024px) {
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ---------------------------------------------- */
+/* .CreateListing{ 
+    width: 100%;
+    max-width: 1440px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+} */
+
+
+
+
+
+
+/* ----------------------------- */
+
+
+
+
+/* ------------------------------------- */
+
+/* .CreateBanner{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: #1b2631;
+    border-bottom: 1px solid #d7dbdd;
+
+}
+
+.CreateHeader{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 25px 0 ;
+    font-weight: 500;
+}
+
+.CreateHeader svg{
+    width: 30;
+    height: 30;
+}
+
+.CreateBanner p{
+    font-weight: 500;
+} */
+
+/* ------------------------------------- */
+
+/* .CreateError{
+    font-size: 14px;
+    color: red;
+} */
+
+
+/* ------------------------------------- */
+
+
+/* .loader {
+    width: 40px;
+    aspect-ratio:6;
+    background: radial-gradient(circle closest-side, white 90%,#0000) 0/calc(100%/3) 100% space;
+    clip-path: inset(0 100% 0 0);
+    animation: l1 1s steps(4) infinite;
+}
+@keyframes l1 {to{clip-path: inset(0 -34% 0 0)}} */
+
+
+

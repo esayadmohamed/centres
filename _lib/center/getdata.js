@@ -26,7 +26,7 @@ export async function GetListing(db, value_id) {
         if (!listing || listing.length === 0) {
             return null
         }
-        console.log(listing);
+        // console.log(listing);
         
         
         const [rows] = await db.query("SELECT name FROM images WHERE listing_id = ?", [listing_id]);
