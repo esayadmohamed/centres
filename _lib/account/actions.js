@@ -1,24 +1,21 @@
 'use server'
-// const sql = require('better-sqlite3');
-// const db = sql('main.db');
-// db.pragma('foreign_keys = ON');
-
-import db from "@/_lib/db";
+import getDB from "@/_lib/db";
 
 import xss from "xss";
 import bcrypt from "bcryptjs";
 
-import { SanitizeId } from "@/_lib/utils/sanitizedata";
 import { revalidatePath } from "next/cache";
-import { UserAuthorized } from "@/_lib/utils/userauth";
 import { UserAuthenticated } from "@/_lib/utils/userauth";
 
 export async function GetUserData(){
     try {
+        const db = getDB();
+
         const user_id = await UserAuthenticated();
         if(!user_id) return null
 
-        const user = db.prepare("SELECT * FROM users WHERE id = ?").get(user_id);
+        const [row] = await db.execute("SELECT * FROM users WHERE id = ?",  [user_id]);
+        const user = row[0] || null
         if(!user) return null
 
         const date = new Date(user.created_at);
@@ -41,6 +38,8 @@ export async function GetUserData(){
 
 export async function ModifyUsername(value) {    
     try {
+        const db = getDB();
+
         const user_id = await UserAuthenticated();
         if(!user_id) return { error: "Une erreur est survenue." };
 
@@ -77,6 +76,8 @@ export async function ModifyUsername(value) {
 
 export async function ModifyPhone(value) {
     try {
+        const db = getDB();
+
         const user_id = await UserAuthenticated();
         if(!user_id) return { error: "Une erreur est survenue." };
 
@@ -110,6 +111,8 @@ export async function ModifyPhone(value) {
 
 export async function ModifyPassword(value) {
     try {
+        const db = getDB();
+
         const user_id = await UserAuthenticated();
         if(!user_id) return { error: "Une erreur est survenue." };
 
@@ -147,7 +150,9 @@ export async function ModifyPassword(value) {
 // --------------------------------------------------------
 
 export async function ModifyActive(value) {
-    try {  
+    try { 
+        const db = getDB();
+
         const user_id = await UserAuthenticated();
         if(!user_id) return { error: "Une erreur est survenue." };
 

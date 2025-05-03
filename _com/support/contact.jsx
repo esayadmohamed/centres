@@ -9,11 +9,11 @@ import { useRouter } from "next/navigation";
 import { ContactSupport } from "@/_lib/support/actions";
 
 
-export default function Contact ({token_email}){
+export default function Contact (){
     
     const router = useRouter();
 
-    const [email, setEmail] = useState(token_email? token_email : '');
+    const [email, setEmail] = useState('');
     const [message, setMessage] = useState('');
     const [error, setError] = useState(null);
     const [success, setSuccess] = useState(false);
