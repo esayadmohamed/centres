@@ -94,7 +94,7 @@ export async function VerifyToken(db, user_token){
     
         // const existingToken = db.prepare("SELECT * FROM tokens WHERE token = ?").get(token);
         const [rows] = await db.execute("SELECT * FROM tokens WHERE token = ?", [token]);
-        const existingToken = rows[0]; 
+        const existingToken = rows[0] || null; 
         
         if (!existingToken) {
             return { error: "Le code de vérification n'est pas valide." };

@@ -11,16 +11,8 @@ import validator from 'validator';
 import bcrypt from "bcryptjs";
 import { randomBytes } from 'crypto';
 import nodemailer from "nodemailer";
-import dotenv from 'dotenv';
-
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
-
-import { revalidatePath } from "next/cache";
-import { log } from 'node:console';
-
-
-dotenv.config();
+// import dotenv from 'dotenv';
+// dotenv.config();
 
 const handleDbError = (error) => {
     console.error("Database error:", error);

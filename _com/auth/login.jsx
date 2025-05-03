@@ -15,7 +15,7 @@ import Icon from "@/_lib/utils/Icon";
 export default function AuthLogin (){
     
     const router = useRouter();
-    const recaptchaRef = useRef(null);
+    // const recaptchaRef = useRef(null);
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -29,23 +29,29 @@ export default function AuthLogin (){
         setLoading(true)
         setError(null)
 
-        const user_status = await CheckUserStatus(email);
+        // const user_status = await CheckUserStatus(email);
+        const result = await signIn("credentials", {
+            redirect: false, email, password
+        });
+        console.log(":::", result);
+        
         setLoading(false)
 
-        if (user_status?.error) {
-            setError(user_status.error);
-        } else {
-            const result = await signIn("credentials", {
-                redirect: false, email, password, captchaToken
-            });
-            console.log(result);
+        // if (user_status?.error) {
+        //     setError(user_status.error);
+        // } else {
+        //     const result = await signIn("credentials", {
+        //         redirect: false, email, password
+        //     });
+        //     // console.log('result:', result);
             
-            if (result.error) {
-                setError("L'e-mail ou le mot de passe est incorrect.");
-            } else {
-                router.replace ("/") 
-            }
-        }
+        //     if (!result?.error) { // result?.error === null
+        //         setError("L'e-mail ou le mot de passe est incorrect.");
+        //     } else {
+        //         // router.replace ("/") 
+        //         console.log('__success');
+        //     }
+        // }
 
     }
     

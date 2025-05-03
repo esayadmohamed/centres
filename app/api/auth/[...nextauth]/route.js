@@ -5,7 +5,6 @@ import validator from "validator";
 import xss from 'xss';
 
 import getDB from "@/_lib/db";
-const db = getDB();
 
 export const authOptions = {
     providers: [
@@ -17,9 +16,12 @@ export const authOptions = {
             },
             async authorize(credentials) {
                 try {
+                    const db = getDB();
+                    // console.log('start____________________');
+                    
                     const safe_email = validator.normalizeEmail(credentials.email);
                     const safe_password = xss(credentials.password).trim();
-
+                    
                     if (!validator.isEmail(safe_email)) return null;
 
                     if (safe_password.length < 8 ||
@@ -27,7 +29,10 @@ export const authOptions = {
                         !/[A-Z]/.test(safe_password) ||
                         !/[!@#$%^&*(),.?":{}|<>]/.test(safe_password)) return null;
 
-                    const existingUser = db.prepare("SELECT * FROM users WHERE email = ?").get(safe_email);
+                    // const existingUser = db.prepare("SELECT * FROM users WHERE email = ?").get(safe_email);
+                    const [rows] = await db.execute("SELECT * FROM users WHERE email = ?", [safe_email]);
+                    const existingUser = rows[0] || null;
+                    
                     if (!existingUser) return null;
 
                     if (existingUser.active !== "on") return null;
