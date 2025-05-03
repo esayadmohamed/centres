@@ -19,16 +19,20 @@ export default async function AuthPage (){
     // console.log(sessionData);
     // console.log('session:', session); 
 
-    return <div> {sessionData?.user?.token}</div>
+    // return <div> </div>
     // if(session) {redirect('/');}
     return(
         <div className="content">
             <Header session={false}/>
 
             <AuthLogin/>
-            <h1></h1>
+            <h1> {sessionData?.user?.token} </h1>
 
             <Footer />
         </div>
     )
 }
+
+// git add .
+// git commit -m "Made changes to my app"
+// git push origin master
