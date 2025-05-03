@@ -1,5 +1,5 @@
 'use server';
-import db from "@/_lib/db";
+// import db from "@/_lib/db";
 
 // const sql = require('better-sqlite3');
 // const db = sql('main.db');
@@ -9,12 +9,16 @@ import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 
 import xss from "xss";
 import { SanitizeId } from "@/_lib/utils/sanitizedata";
+import { UserAuthenticated } from "../utils/userauth";
 
 import { revalidatePath } from "next/cache";
 
 import { RateLimiterGet } from "@/_lib/utils/ratelimiter";
 
 // --------------------------------------------------
+
+import { getSessionData } from "../utils/session";
+
 
 const handleDbError = (error) => {
     console.error("Database error:", error);
@@ -37,29 +41,29 @@ async function GetUser(email, token) {
     }
 }
 
-async function isAuthenticated(){
-    try {
-        const session = await getServerSession(authOptions);
+// async function isAuthenticated(){
+//     try {
+//         const session = await getServerSession(authOptions);
 
-        if (!session || !session.user) {
-            return { error: { server: "Une erreur est survenue. Veuillez réessayer plus tard." } };
-        }
+//         if (!session || !session.user) {
+//             return { error: { server: "Une erreur est survenue. Veuillez réessayer plus tard." } };
+//         }
 
-        const userToken = session.user.token;
-        const userEmail = session.user.email;
+//         const userToken = session.user.token;
+//         const userEmail = session.user.email;
 
-        const user = await GetUser(userEmail, userToken); 
+//         const user = await GetUser(userEmail, userToken); 
 
-        if (!user) {
-            return { error: { server: "Une erreur est survenue. Veuillez réessayer plus tard."} };
-        }
+//         if (!user) {
+//             return { error: { server: "Une erreur est survenue. Veuillez réessayer plus tard."} };
+//         }
 
-        return user.id;
+//         return user.id;
 
-    } catch (error) {
-        return handleDbError(error);
-    }
-}
+//     } catch (error) {
+//         return handleDbError(error);
+//     }
+// }
 
 // --------------------------------------------------
 // --------------------------------------------------
@@ -119,31 +123,45 @@ export async function userListing(value_id) {
 
 }
 
-export async function userListings() {
+export async function userListings(db) {
 
     try {
-        const user_id = await isAuthenticated();
-        if(user_id.error) {
-            return { error: true };
-        }
 
-        const listings = db.prepare("SELECT * FROM listings WHERE user_id = ?").all(user_id);
+        const user_id = await getSessionData();
+        console.log('user_id', user_id);
+
+        // if(user_id.error) {
+        //     return { error: true };
+        // }
+
+        
+        return []
+        
+
+        // const listings = db.prepare("SELECT * FROM listings WHERE user_id = ?").all(user_id);
+
+        const [listings] = await db.query("SELECT * FROM listings WHERE user_id = ?",[user_id]);
         if (listings.length === 0) { 
             return [];
         }
 
         const listings_ids = listings.map(listing => listing.id);
 
-        const reviews = db.prepare(`
-            SELECT listing_id, overall FROM reviews WHERE listing_id IN (${listings_ids})`).all();
+        const [images] = await db.query(`SELECT * FROM images WHERE listing_id IN (?)`, [listings_ids]);
+        const [reviews] = await db.query(`SELECT listing_id, overall FROM reviews WHERE listing_id IN (?)`, [listings_ids]);
+        const [suggestedhoods] = await db.query(`SELECT * FROM suggestedhoods WHERE listing_id IN (?)`, [listings_ids]);
 
-        const images = db.prepare(` 
-            SELECT * FROM images WHERE listing_id IN (${listings_ids.join(",")})`).all();
+        // const reviews = db.prepare(`
+            // SELECT listing_id, overall FROM reviews WHERE listing_id IN (${listings_ids})`).all();
 
-        const suggestedhoods = db.prepare(`
-            SELECT * FROM suggestedhoods WHERE listing_id IN (${listings_ids})`).all();
+        // const images = db.prepare(` 
+            // SELECT * FROM images WHERE listing_id IN (${listings_ids.join(",")})`).all();
 
-            // console.log(suggestedhood);
+        // const suggestedhoods = db.prepare(`
+        //     SELECT * FROM suggestedhoods WHERE listing_id IN (${listings_ids})`).all();
+
+
+        // console.log(suggestedhood);
 
         const reviewsByCenter = {};
         listings.forEach(listing => {

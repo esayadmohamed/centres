@@ -5,7 +5,7 @@ import Footer from "@/_com/footer/Footer";
 import Listings from "./Listings";
 
 export default async function Centers() {
-
+    
     const baseurl = getBaseUrl();
 
     const res = await fetch(`${baseurl}/api/centres`, { cache: 'no-store' });

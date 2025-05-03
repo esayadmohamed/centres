@@ -15,6 +15,9 @@ export async function UserAuthenticated(){
             return null
         }
 
+        console.log('session:', session);
+        
+
         const token = session.user.token;
         const email = session.user.email;
 
