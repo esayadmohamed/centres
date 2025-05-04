@@ -1,4 +1,4 @@
-import { getBaseUrl } from "@/_lib/utils/getBaseUrl";
+import { AllListings, AllCities, AllHoods } from "@/_lib/centers/getdata";
 
 import Header from "@/_com/header/Header";
 import Footer from "@/_com/footer/Footer";
@@ -6,19 +6,18 @@ import Listings from "./Listings";
 
 export default async function Centers() {
     
-    const baseurl = getBaseUrl();
-
-    const res = await fetch(`${baseurl}/api/centres`, { cache: 'no-store' });
-    const data = await res.json();
+    const listings = await AllListings();
+    const cities   = await AllCities();
+    const hoods    = await AllHoods();
     
     return (         
         <main className="content">
             <Header />
 
             <Listings 
-                listings_list={data?.listings}
-                cities_list={data?.cities}
-                hoods_list={data?.hoods}
+                listings_list={listings}
+                cities_list={cities}
+                hoods_list={hoods}
             />
 
             <Footer />
@@ -30,9 +29,17 @@ export default async function Centers() {
 // git add .
 // git commit -m "Made changes to my app"
 // git push origin master
-//2
 
 
+
+
+
+
+
+// import { getBaseUrl } from "@/_lib/utils/getBaseUrl";
+// const baseurl = getBaseUrl();
+// const res = await fetch(`${baseurl}/api/centres`, { cache: 'no-store' });
+// const data = await res.json();
 {/* <ul>
 {cities.map((item, id)=> 
     <li key={id}> {item} </li>

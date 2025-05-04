@@ -1,4 +1,5 @@
 'use server';
+import getDB from "@/_lib/db";
 
 import xss from 'xss';
 
@@ -8,8 +9,10 @@ import { SanitizeId } from '@/_lib/utils/sanitizedata';
 // --------------------------------------------------------
 // --------------------------------------------------------
 
-export async function AllListings(db) {
+export async function AllListings() {
     try {
+        const db = getDB();
+
         // const rate_limiter = await RateLimiterGet('home');
 
         const [listings] = await db.query("SELECT * FROM listings WHERE view = 'on' AND state = 'on' LIMIT 12");
@@ -68,8 +71,10 @@ export async function AllListings(db) {
     }
 }
 
-export async function AllCities(db) {
+export async function AllCities() {
     try{ 
+        const db = getDB();
+
         // const cities = db.prepare("SELECT * FROM cities").all();
         const [cities] = await db.query("SELECT * FROM cities");
         if (cities.length === 0) {
@@ -82,8 +87,9 @@ export async function AllCities(db) {
     }
 }
 
-export async function AllHoods(db) {
+export async function AllHoods() {
     try{ 
+        const db = getDB();
         // const db = getDB();
         const [neighborhoods] = await db.query("SELECT * FROM neighborhoods");
         if (neighborhoods.length === 0) {
@@ -159,6 +165,8 @@ async function verifyObject(data) {
 export async function FilterListings(data){ 
 
     try {
+        const db = getDB();
+
         await RateLimiterGet('home');
         
         const obj = await verifyObject(data)
@@ -257,6 +265,8 @@ export async function FilterListings(data){
 export async function GetMoreListings(offset = 0, data){ 
     
     try {
+        const db = getDB();
+        
         const rate_limiter = await RateLimiterGet('home');
  
         const obj = await verifyObject(data)
