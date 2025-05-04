@@ -1,18 +1,15 @@
 "use server";
-import db from "@/_lib/db";
+import getDB from "@/_lib/db";
 
 import bcrypt from "bcryptjs";
 import xss from 'xss';
 import { randomBytes } from 'crypto';
 import nodemailer from "nodemailer";
-import dotenv from 'dotenv';
 import validator from 'validator';
-// const sql = require("better-sqlite3");
-// const db = sql("main.db");
-
-dotenv.config();
 
 import { RateLimiter } from "@/_lib/utils/ratelimiter";
+
+const db = getDB();
 
 // ----------------------------------------------------
 // ---------------------------------------------------- 

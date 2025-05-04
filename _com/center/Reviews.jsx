@@ -29,14 +29,15 @@ export default function DisplayReviews ({reviews, ReviewsList}){
 
     const totalReviews = reviews.length;    
 
-    // console.log(reviews);
+    // console.log(ReviewsList);
 
     return (
         <>
         <main className={styles.DisplayReviews}>  
             <ul className={styles.DisplayReviewsItems}>
                 
-                {ReviewsList.map((item, id)=> {     
+                {ReviewsList.map((item, id)=> { 
+                    
                     const key = keyMap[item.name]; 
                     const sumTotal = key && totalReviews > 0 
                         ? (aggregatedValues[key] / totalReviews).toFixed(1) 

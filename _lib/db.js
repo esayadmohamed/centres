@@ -10,6 +10,7 @@ export default function getDB() {
             password: process.env.DB_PASSWORD, 
             database: 'main',
             port: 4000,
+            decimalNumbers: true,
             ssl: {
               rejectUnauthorized: true,
             },

@@ -114,39 +114,32 @@ export async function CheckUserStatus(email){
     const user_email = xss(email)
     
     try {
-        // const existingUser = db.prepare("SELECT * FROM users WHERE email = ?").get(user_email);
         const [rows] = await db.execute("SELECT * FROM users WHERE email = ?", [user_email]);  
         const existingUser = rows[0] || null;
 
         if (!existingUser) {
             return {error: "L'e-mail ou le mot de passe est incorrect."}
         }
-        if (existingUser.active !== 'on'){  // && existingUser.active !== 'none') {
+        if (existingUser.active === 'off'){  // && existingUser.active !== 'none') {
             return {error: "Le compte a été désactivé."}
         }
         if (existingUser.active === 'none') {
-            // const token_send =  db.prepare("SELECT send FROM tokens WHERE email = ?").get(user_email);
             const [rows] = await db.execute("SELECT send FROM tokens WHERE email = ?", [user_email]);  
             const token_send = rows[0]?.send ?? null;
               
             if(token_send?.send > 0) {
                 return {error: "Le compte n'est pas encore vérifié. Un code de vérification a déjà été envoyée à votre boîte mail."}
-            } else {
-                
-                // db.prepare("DELETE FROM tokens WHERE email = ?").run(user_email);
+            } else {                
                 await db.execute("DELETE FROM tokens WHERE email = ?", [user_email]);
                 
                 const token = generateVerificationCode();
                 const expirationTime = Date.now() + 3600000;
                 
-                // db.prepare("INSERT INTO tokens (email, token, expiration_time) VALUES (?, ?, ?)")
-                // .run(user_email, token, expirationTime);
                 await db.execute( "INSERT INTO tokens (email, token, expiration_time) VALUES (?, ?, ?)",
                     [user_email, token, expirationTime]);
                 
                 await sendVerificationEmail(user_email, token);
 
-                // db.prepare("UPDATE tokens SET send = ?").run(1);
                 await db.execute("UPDATE tokens SET send = ?", [1]);
 
                 return {error: "Le compte n'est pas encore vérifié. Un code de vérification a été envoyée à votre boîte mail."}

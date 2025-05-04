@@ -17,7 +17,6 @@ export const authOptions = {
             async authorize(credentials) {
                 try {
                     const db = getDB();
-                    // console.log('start____________________');
                     
                     const safe_email = validator.normalizeEmail(credentials.email);
                     const safe_password = xss(credentials.password).trim();
@@ -29,7 +28,6 @@ export const authOptions = {
                         !/[A-Z]/.test(safe_password) ||
                         !/[!@#$%^&*(),.?":{}|<>]/.test(safe_password)) return null;
 
-                    // const existingUser = db.prepare("SELECT * FROM users WHERE email = ?").get(safe_email);
                     const [rows] = await db.execute("SELECT * FROM users WHERE email = ?", [safe_email]);
                     const existingUser = rows[0] || null;
                     
