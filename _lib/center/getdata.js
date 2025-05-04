@@ -1,20 +1,16 @@
 'use server';
-// import db from "@/_lib/db";
-// const sql = require('better-sqlite3');
-// const db = sql('main.db');
+import getDB from "@/_lib/db";
 
 import xss from 'xss';
-
-import { RateLimiterGet } from '@/_lib/utils/ratelimiter';
 import { SanitizeId } from '@/_lib/utils/sanitizedata';
 import { UserAuthenticated } from '@/_lib/utils/userauth';
 
 // --------------------------------------------------------
 // --------------------------------------------------------
 
-export async function GetListing(db, value_id) {
+export async function GetListing(value_id) {
     try {
-        // await RateLimiterGet('home');
+        const db = getDB();
 
         const listing_id = await SanitizeId(value_id)
         if(!listing_id){ 
@@ -22,12 +18,9 @@ export async function GetListing(db, value_id) {
         }
         
         const [listing] = await db.query("SELECT * FROM listings WHERE id = ? AND view = 'on' AND state = 'on'",  [listing_id]);
-        // const listing = db.prepare("SELECT * FROM listings WHERE id = ? AND view = 'on' AND state = 'on'").get(listing_id);
         if (!listing || listing.length === 0) {
             return null
         }
-        // console.log(listing);
-        
         
         const [rows] = await db.query("SELECT name FROM images WHERE listing_id = ?", [listing_id]);
         const images = rows.map(img => img.name);
@@ -53,8 +46,10 @@ export async function GetListing(db, value_id) {
     }
 }
 
-export async function GetSuggested(db, value) {
+export async function GetSuggested(value) {
     try {
+        const db = getDB();
+
         if (typeof value !== 'string'){
             console.warn("City value must be a string.");
             return null;
@@ -63,16 +58,13 @@ export async function GetSuggested(db, value) {
         const city = xss(value).trim()
 
         const [listings] = await db.query("SELECT * FROM listings WHERE city = ? AND view = 'on' AND state = 'on' LIMIT 3", [city]);
-        // const listings = db.prepare("SELECT * FROM listings WHERE city = ? AND view = 'on' AND state = 'on' LIMIT 3").all(city);
         if (listings.length === 0) { 
             return [];
         }
         
         const listings_ids = listings.map(listing => listing.id);
 
-        // const images  = db.prepare(`SELECT * FROM images WHERE listing_id IN (${listings_ids.join(",")})`).all();
-        // const reviews = db.prepare(`SELECT listing_id, overall FROM reviews WHERE listing_id IN (${listings_ids})`).all();
-        const [images] = await db.query(`SELECT * FROM images WHERE listing_id IN (?)`, [listings_ids]);
+        const [images]  = await db.query(`SELECT * FROM images WHERE listing_id IN (?)`, [listings_ids]);
         const [reviews] = await db.query(`SELECT listing_id, overall FROM reviews WHERE listing_id IN (?)`, [listings_ids]);
 
         const reviewsByCenter = {};
@@ -117,19 +109,19 @@ export async function GetSuggested(db, value) {
     }
 }
 
-export async function getUserReview(db, center_id) {    
+export async function getUserReview(center_id) {    
     try {
+        const db = getDB();
+
         const user_id = await UserAuthenticated();
         if(!user_id || user_id.error) {
             return null
         }
-        
-        // const listings = db.prepare("SELECT * FROM reviews WHERE user_id = ? AND listing_id = ?")
-        // .get(user_id, center_id);
+
         const [listings] = await db.query( "SELECT * FROM reviews WHERE user_id = ? AND listing_id = ?", 
             [user_id, center_id]);
         
-        if (!listings) return null
+        if (listings.length === 0) return null
         return {success: true}
 
     } catch (error) {
@@ -138,14 +130,17 @@ export async function getUserReview(db, center_id) {
     }
 }
 
-export async function getReviewsList(db) {    
+export async function getReviewsList() {    
     try{ 
+        const db = getDB();
+
         const [rows] = await db.query("SELECT * FROM reviewslist");
         if (rows.length === 0) {
             return []; 
         }
         return rows
     } catch (error) {
-        return handleDbError(error);
+        console.error("Database error:", error);
+        return { error: "Une erreur est survenue. Veuillez réessayer plus tard." };
     }
 }

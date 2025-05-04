@@ -2,9 +2,8 @@
 import getDB from "@/_lib/db";
 
 import xss from 'xss';
-
-import { RateLimiterGet } from '@/_lib/utils/ratelimiter';
 import { SanitizeId } from '@/_lib/utils/sanitizedata';
+// import { RateLimiterGet } from '@/_lib/utils/ratelimiter';
 
 // --------------------------------------------------------
 // --------------------------------------------------------
@@ -12,8 +11,6 @@ import { SanitizeId } from '@/_lib/utils/sanitizedata';
 export async function AllListings() {
     try {
         const db = getDB();
-
-        // const rate_limiter = await RateLimiterGet('home');
 
         const [listings] = await db.query("SELECT * FROM listings WHERE view = 'on' AND state = 'on' LIMIT 12");
         if (listings.length === 0) { 
@@ -75,7 +72,6 @@ export async function AllCities() {
     try{ 
         const db = getDB();
 
-        // const cities = db.prepare("SELECT * FROM cities").all();
         const [cities] = await db.query("SELECT * FROM cities");
         if (cities.length === 0) {
             return []; 
@@ -90,7 +86,7 @@ export async function AllCities() {
 export async function AllHoods() {
     try{ 
         const db = getDB();
-        // const db = getDB();
+
         const [neighborhoods] = await db.query("SELECT * FROM neighborhoods");
         if (neighborhoods.length === 0) {
             return []; 
@@ -107,6 +103,8 @@ export async function AllHoods() {
 
 async function verifyObject(data) {
     try {
+        const db = getDB();
+
         if(!data) return null
         
         if(typeof data !== 'object'){
@@ -139,15 +137,16 @@ async function verifyObject(data) {
         }
 
         if(city !== ''){ //skip if city is empty
-            const city_id = db.prepare("SELECT id FROM cities WHERE name = ?").get(city);
-            if (!city_id) { 
+            const [city_id] = await db.query("SELECT id FROM cities WHERE name = ?", [city]);
+            
+            if (city_id.length === 0) { 
                 console.warn(`Invalid city value: ${city}`);
                 return null;
-            }
+            }            
 
             if(hood !== ''){ //skip if hood is empty
-                const is_hood = db.prepare("SELECT * FROM neighborhoods WHERE city_id = ? AND NAME = ?").get(city_id.id, hood);
-                if (!is_hood) { 
+                const [is_hood] = await db.query("SELECT * FROM neighborhoods WHERE city_id = ? AND NAME = ?", [city_id[0].id, hood]);
+                if (is_hood.length === 0) { 
                     console.warn(`Invalid hood value: ${hood}`);
                     return null;
                 }
@@ -163,11 +162,8 @@ async function verifyObject(data) {
 }
 
 export async function FilterListings(data){ 
-
     try {
         const db = getDB();
-
-        await RateLimiterGet('home');
         
         const obj = await verifyObject(data)
         if(!obj) {
@@ -180,30 +176,30 @@ export async function FilterListings(data){
         const city = xss(data.city).trim()
         const hood = xss(data.hood).trim()
 
-        const listings = (() => {
+        const [listings] = await (async () => {
             switch (true) {
                 case city === '':
-                    return db.prepare("SELECT * FROM listings WHERE view = 'on' AND state = 'on' LIMIT ?").all(limit);
+                    return db.query("SELECT * FROM listings WHERE view = 'on' AND state = 'on' LIMIT ?", [limit]);
                 
                 case hood === '':
-                    return db.prepare("SELECT * FROM listings WHERE city = ? AND view = 'on' AND state = 'on' LIMIT ?").all(city, limit);
+                    return db.query("SELECT * FROM listings WHERE  city = ? AND view = 'on' AND state = 'on' LIMIT ?", [city, limit]);
                 
                 case hood !== '':
-                    return db.prepare("SELECT * FROM listings WHERE city = ? AND hood = ? AND view = 'on' AND state = 'on' LIMIT ?").all(city, hood, limit);
-                
+                    return db.query("SELECT * FROM listings WHERE city = ? AND hood = ? AND view = 'on' AND state = 'on' LIMIT ?", [city, hood, limit]);
+
                 default:
-                    return db.prepare("SELECT * FROM listings WHERE view = 'on' AND state = 'on' LIMIT ?").all(limit);
+                    return db.query("SELECT * FROM listings WHERE view = 'on' AND state = 'on' LIMIT ?", [limit]);
             }
         })();
-           
+                   
         if(listings.length === 0) {
             return {error: "Aucune annonce n'a été trouvée."}
         }
         
         const listings_ids = listings.map(listing => listing.id);
 
-        const images  = db.prepare(`SELECT * FROM images WHERE listing_id IN (${listings_ids.join(",")})`).all();
-        const reviews = db.prepare(`SELECT listing_id, overall FROM reviews WHERE listing_id IN (${listings_ids})`).all();
+        const [images]  = await db.query(`SELECT * FROM images WHERE listing_id IN (?)`, [listings_ids]);
+        const [reviews] = await db.query(`SELECT listing_id, overall FROM reviews WHERE listing_id IN (?)`, [listings_ids]);
         
         const reviewsByCenter = {};
         listings.forEach(listing => {
@@ -251,8 +247,7 @@ export async function FilterListings(data){
             default:
                 return filteredListings;
         }   
-        
-             
+         
     } catch (error) {
         console.error("Database error:", error);
         return { error: "Une erreur est survenue. Veuillez réessayer plus tard." };
@@ -263,11 +258,8 @@ export async function FilterListings(data){
 // --------------------------------------------------------
 
 export async function GetMoreListings(offset = 0, data){ 
-    
     try {
         const db = getDB();
-        
-        const rate_limiter = await RateLimiterGet('home');
  
         const obj = await verifyObject(data)
         if(!obj) {
@@ -286,21 +278,21 @@ export async function GetMoreListings(offset = 0, data){
         const city = xss(data.city).trim()
         const hood = xss(data.hood).trim()
 
-        const listings = (() => {
+        const [listings] = await (async () => {
             switch (true) {
                 case city === '':
-                    return db.prepare("SELECT * FROM listings WHERE view = 'on' AND state = 'on' LIMIT ? OFFSET ?").all(limit, offset);
+                    return db.query("SELECT * FROM listings WHERE view = 'on' AND state = 'on' LIMIT ? OFFSET ?", [limit, offset]);
                 
                 case hood === '':
-                    return db.prepare("SELECT * FROM listings WHERE city = ? AND view = 'on' AND state = 'on' LIMIT ? OFFSET ?").all(city, limit, offset);
+                    return db.query("SELECT * FROM listings WHERE city = ? AND view = 'on' AND state = 'on' LIMIT ? OFFSET ?", [city, limit, offset]);
                 
                 case hood !== '':
-                    return db.prepare("SELECT * FROM listings WHERE city = ? AND hood = ? AND view = 'on' AND state = 'on' LIMIT ? OFFSET ?").all(city, hood, limit, offset);
-                
+                    return db.query("SELECT * FROM listings WHERE city = ? AND hood = ? AND view = 'on' AND state = 'on' LIMIT ? OFFSET ?", [city, hood, limit, offset]);
+
                 default:
-                    return db.prepare("SELECT * FROM listings WHERE view = 'on' AND state = 'on' LIMIT ? OFFSET ?").all(limit, offset);
+                    return db.query("SELECT * FROM listings WHERE view = 'on' AND state = 'on' LIMIT ? OFFSET ?", [limit, offset]);
             }
-        })();        
+        })();      
 
         if(listings.length === 0) {
             return {error: "Il n'y a plus d'annonces à afficher."}
@@ -308,9 +300,9 @@ export async function GetMoreListings(offset = 0, data){
 
         const listings_ids = listings.map(listing => listing.id);
 
-        const images  = db.prepare(`SELECT * FROM images WHERE listing_id IN (${listings_ids.join(",")})`).all();
-        const reviews = db.prepare(`SELECT listing_id, overall FROM reviews WHERE listing_id IN (${listings_ids})`).all();
-        
+        const [images]  = await db.query(`SELECT * FROM images WHERE listing_id IN (?)`, [listings_ids]);
+        const [reviews] = await db.query(`SELECT listing_id, overall FROM reviews WHERE listing_id IN (?)`, [listings_ids]);
+
         const reviewsByCenter = {};
         listings.forEach(listing => {
             const centerReviews = reviews
@@ -357,14 +349,11 @@ export async function GetMoreListings(offset = 0, data){
             default:
                 return filteredListings;
         }   
-        
-             
+              
     } catch (error) {
         console.error("Database error:", error);
         return { error: "Une erreur est survenue. Veuillez réessayer plus tard." };
     }
 }
 
-// --------------------------------------------------------
-// --------------------------------------------------------
 

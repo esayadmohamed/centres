@@ -168,19 +168,33 @@
 
 .SpecsReviews button{
     width: 120px;
+    min-height: 40px;
+
     background-color: #2980b9;    
-    padding: 10px;
     border: none;
     font-size: 15px;
     border-radius: 5px;
     font-weight: 600;
     color: white;
     cursor: pointer;
-    min-height: 40px;
-
+    
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.SpecsReviews button div{
+    background: white;
+    width: 25px;
+    padding: 3px;
+}
+
+/* ------------------------------------------ */
+/* ------------------------------------------ */
+
+.EditError{
+    font-size: 15px;
+    color: red;
 }
 
 /* ------------------------------------------ */

@@ -55,12 +55,14 @@ export default function SpecsReviews ({center_id, ReviewsList, isReviewed, isAut
     async function handleSubmit (){
         setLoading(true)
         const result = await AddReview(ratings)
-        if(result.error){
+        setLoading(false)
+
+        if(result?.error){
             setError(result.error)
         } else{
-            setSucess(result.success)        
+            setSucess(result.success) 
+            setReviewed(true)      
         }
-        setLoading(false)
     }
 
     return (
@@ -79,9 +81,9 @@ export default function SpecsReviews ({center_id, ReviewsList, isReviewed, isAut
                                 {item.name}
                             </li>
                         )}
-                        {error && <p className={styles.EditError}> {error.server}</p> }
+                        {error && <p className={styles.EditError}> {error}</p> }
                         <button onClick={handleSubmit}> 
-                            {loading ? <span className={styles.loader}></span > : <span> Partager </span>} 
+                            {loading ? <div className={'spinner'}></div > : <span> Partager </span>} 
                         </button>
                     </ul>
                     :

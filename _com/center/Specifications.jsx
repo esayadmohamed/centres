@@ -7,13 +7,6 @@ import SpecsReviews from "./specifications/Reviews";
 
 import SpecBox from './specifications/Specbox';
 
-const aaa = [{name: 'agfgf gfgfhfhfhf', icon:'Tag'},
-    {name: 'agfgf gfgfhfhfhf', icon:'Tag'}, {name: 'agfgf gfgfhfhfhf', icon:'Tag'}
-    ,{name: 'agfgf gfgfhfhfhf', icon:'Tag'}, {name: 'agfgf gfgfhfhfhf', icon:'Tag'}
-    ,{name: 'agfgf gfgfhfhfhf', icon:'Tag'}, {name: 'agfgf gfgfhfhfhf', icon:'Tag'}
-    ,{name: 'agfgf gfgfhfhfhf', icon:'Tag'}, {name: 'agfgf gfgfhfhfhf', icon:'Tag'}
-]
-
 export default function DisplaySpecs ({listing, ReviewsList, isReviewed, isAuthenticated}){
     
     const list = [

@@ -1,5 +1,7 @@
 import styles from './entity.module.css'
-import { getBaseUrl } from "@/_lib/utils/getBaseUrl";
+import { GetListing, GetSuggested, getUserReview, getReviewsList } from '@/_lib/center/getdata';
+import { getSessionData } from '@/_lib/utils/session';
+
 import { notFound } from 'next/navigation';
 
 import Header from "@/_com/header/Header";
@@ -9,28 +11,29 @@ import DisplayContent from '@/_com/center/Content';
 
 export default async function DisplayCenter ({params}){
 
-    const baseurl = getBaseUrl();
-
     const item = await params;
     const center_id = parseInt(item.centre);
 
-    const res = await fetch(`${baseurl}/api/centre?center_id=${center_id}`, { cache: 'no-store' });
-    const data = await res.json();
+    const listing = await GetListing(center_id);
+    if(!listing) return notFound();
 
-    if(data.error) return notFound();
-
+    const suggested = await GetSuggested(listing.city);
+    const isReviewed = await getUserReview(center_id);
+    const ReviewsList = await getReviewsList();
+    const session = await getSessionData()
+    
     return (    
         <div className="content">
             <Header /> 
             
             <div className={styles.DisplayPage}>
-                <DisplayBanner listing={data?.listing}/>
+                <DisplayBanner listing={listing}/>
                 <DisplayContent 
-                    listing={data?.listing} 
-                    suggested={data?.suggested} 
-                    ReviewsList={data?.ReviewsList} 
-                    isAuthenticated={data?.session? true : false}
-                    isReviewed={data?.isReviewed? true : false}
+                    listing={listing} 
+                    suggested={suggested} 
+                    ReviewsList={ReviewsList} 
+                    isAuthenticated={session? true : false}
+                    isReviewed={isReviewed? true : false}
                 /> 
             </div>    
 
@@ -39,20 +42,6 @@ export default async function DisplayCenter ({params}){
     )
 }
 
-// 
-// import { UserAuthenticated } from '@/_lib/utils/userauth';
-
-
-// const listing = await GetListing(center_id);
-// if(!listing) return notFound(); 
-
-// const suggested = await GetSuggested(listing.city);
-
-// const isReviewed = await getUserReview(center_id);
-
-// const ReviewsList = await getReviewsList();
-
-// const isAuthenticated = await UserAuthenticated();
 
 
 

@@ -1,26 +1,26 @@
 import styles from "./entity.module.css";
 
-// import { Listing } from "@/lib/listings/getdata";
+import { GetListing } from '@/_lib/center/getdata';
 
-// export async function generateMetadata({ params }) {
+export async function generateMetadata({ params }) {
     
-//     const item = await params;
-//     const center_id = parseInt(item?.entity);
+    const item = await params;
+    const center_id = parseInt(item.centre);
 
-//     if (!center_id) {
-//         return {
-//           title: "Centre de Soutien - Trouvez le Meilleur Accompagnement",
-//           description: "Découvrez des centres de soutien adaptés à vos besoins.",
-//         };
-//     }
+    if (!center_id) {
+        return {
+          title: "Centre de Soutien - Trouvez le Meilleur Accompagnement",
+          description: "Découvrez des centres de soutien adaptés à vos besoins.",
+        };
+    }
 
-//     const listing  = await Listing(center_id);
-  
-//     return {
-//       title: `${listing?.name} - Centre de Soutien`,
-//       description: `Découvrez ${listing?.name}, un centre de soutien situeé à ${listing?.city}.`,
-//     };
-// }
+    const listing = await GetListing(center_id);
+
+    return {
+        title: `${listing?.name} - Centre de Soutien`,
+        description: `Découvrez ${listing?.name}, un centre de soutien situeé à ${listing?.city}.`,
+    };
+}
 
 export default function CenterLayout({ children }) {
     return (

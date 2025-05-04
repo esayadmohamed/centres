@@ -11,10 +11,11 @@ import Centre from "@/_com/centers/Centre";
 
 export default function Listings({listings_list, cities_list, hoods_list}) {
         
+    const [listings, setListings] = useState(listings_list || []);
+
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
     const [moreLoading, setMoreLoading] = useState(false);
-    const [listings, setListings] = useState(listings_list || []);
     
     const [selectedCity, setSelectedCity] = useState('') 
     const [SelectedHood, setSelectedHood] = useState('') 
@@ -52,7 +53,6 @@ export default function Listings({listings_list, cities_list, hoods_list}) {
 
         const result = await FilterListings(data);
         setLoading(false)
-        console.log(result);
         
         if(result?.error){
             setError(result.error);
