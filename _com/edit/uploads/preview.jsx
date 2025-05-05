@@ -33,7 +33,7 @@ export default function EditPreview({keyId, fileName, listing_id, count, setErro
 
     
     return(                                                                       
-        <div key={keyId} className={styles.EditImage} style={{ backgroundImage: `url('/api/images/listings/${fileName}')` }}>
+        <div key={keyId} className={styles.EditImage} style={{ backgroundImage: `url('https://res.cloudinary.com/deywqqypb/image/upload/v1746453216/${fileName}')` }}>
         
             {!loading ? 
             count !== 1 &&  //TO NOT DELETE LAST ONE

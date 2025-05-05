@@ -17,11 +17,13 @@ export default function Listing ({listing, setListing}){
     const [isOk, setIsOk] = useState(false); 
     const [error, setError] = useState(''); 
     
-    const [currentImage, setCurrentImage] = useState(`/api/images/listings/${listing.images[0]}`);
-
+    const [currentImage, setCurrentImage] = useState(
+        `https://res.cloudinary.com/deywqqypb/image/upload/v1746453216/${listing.images[0]}`
+    )
+        
     useEffect(()=>{
         const newImage = new window.Image(); 
-        newImage.src = `/api/images/listings/${listing.images[0]}`;
+        newImage.src = `https://res.cloudinary.com/deywqqypb/image/upload/v1746453216/${listing.images[0]}`;
         newImage.onload = () => {
             setCurrentImage(newImage.src);
             setLoading(false);
@@ -150,3 +152,17 @@ export default function Listing ({listing, setListing}){
         </main>
     )
 } 
+
+
+
+// useEffect(()=>{
+//     const newImage = new window.Image(); 
+//     newImage.src = `/api/images/listings/${listing.images[0]}`;
+//     newImage.onload = () => {
+//         setCurrentImage(newImage.src);
+//         setLoading(false);
+//     };
+//     newImage.onerror = () => {
+//         setLoading(false);
+//     };
+// },[listing])

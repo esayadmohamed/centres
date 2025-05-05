@@ -1,19 +1,25 @@
 import getDB from "@/_lib/db";
 
 export default async function dbex() {
-  try {
-    const db = getDB();
-    const [rows] = await db.execute(`
+    try {
+        const db = getDB();
+        const [rows] = await db.execute(`
+          DELETE FROM images WHERE name = ?
+      `, ["image_1746445792225_60023.png"]);
 
-        `);
 
-
-    return rows;
-  } catch (error) {
-    console.error("Database error:", error);
-    return { error: "Une erreur est survenue. Veuillez réessayer plus tard." };
-  }
+        return rows;
+    } catch (error) {
+        console.error("Database error:", error);
+        return { error: "Une erreur est survenue. Veuillez réessayer plus tard." };
+    }
 }
+
+// images: [
+//   'f590fbotkkdl93ehdkad.jpg',
+//   'fjqijrrjm9sdi1d32t81',
+//   'image_1746445792225_60023.png'
+// ],
 
 
 // CREATE TABLE suggestedhoods (

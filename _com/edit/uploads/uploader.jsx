@@ -19,30 +19,36 @@ export default function EditUploader({keyId, listing_id, setError, setListing}) 
             uploaderRef.current.click();
         }
     }
-     
-    // console.log('listing', listing_id);
-
-    async function handleImage (e){
+       
+    const handleUpload = async (e) => {
         setLoading(true); 
-        setError('');
 
         const selectedFile = e.target.files[0];
         if (!selectedFile) return;
+    
+        const formData = new FormData();
+        formData.append('file', selectedFile);
+        formData.append('id', listing_id);
+    
+        const res = await fetch('/api/upload', {
+            method: 'POST',
+            body: formData,
+        });
+    
+        const data = await res.json();
         
-        setFileData(selectedFile)
+        uploaderRef.current.value = "";
+        setLoading(false); 
 
-        const result = await ModifyImage(listing_id, selectedFile);
-        setLoading(false);
+        if(data?.error){
+            setError(data.error)
+            console.log(data.error); 
+        } else{
+            console.log(data); 
+            // setListing(result.listing);
+        }
 
-        if (result?.error) {
-            setError(result.error);
-        }
-        else {
-            setListing(result);
-            setFileData(null)
-            uploaderRef.current.value = "";
-        }
-    }
+    };
 
     return (
         <div key={keyId} className={styles.EditUploadImage} style={{ backgroundImage: `url(${previewData || ""})`}}>
@@ -51,7 +57,7 @@ export default function EditUploader({keyId, listing_id, setError, setListing}) 
                 accept="image/bmp, image/jpeg, image/png"
                 name={`image`}
                 ref={uploaderRef}
-                onChange={handleImage}
+                onChange={handleUpload}//handleImage}
                 hidden
             />
 
@@ -70,6 +76,52 @@ export default function EditUploader({keyId, listing_id, setError, setListing}) 
     );
 }
 
+
+    // async function handleImage (e){
+    //     setLoading(true); 
+    //     setError('');
+
+    //     const selectedFile = e.target.files[0];
+    //     if (!selectedFile) return;
+        
+    //     setFileData(selectedFile)
+
+    //     const result = await ModifyImage(listing_id, selectedFile);
+    //     setLoading(false);
+
+    //     if (result?.error) {
+    //         setError(result.error);
+    //     }
+    //     else {
+    //         setListing(result);
+    //         setFileData(null)
+    //         uploaderRef.current.value = "";
+    //     }
+    // }
+
+    // {
+    //     "asset_id": "051b4edf0e9539084fcf7ab29915dbab",
+    //     "public_id": "e6tvtn75zwn9nqaczeif",
+    //     "version": 1746453216,
+    //     "version_id": "3791f76eed6dc717d31437d7ae10e3ac",
+    //     "signature": "218d6e30df3a867da874f7904ccf28b2e7405886",
+    //     "width": 548,
+    //     "height": 391,
+    //     "format": "png",
+    //     "resource_type": "image",
+    //     "created_at": "2025-05-05T13:53:36Z",
+    //     "tags": [],
+    //     "bytes": 432850,
+    //     "type": "upload",
+    //     "etag": "17a38626fb4495925c1fc0d7db39ea32",
+    //     "placeholder": false,
+    //     "url": "http://res.cloudinary.com/deywqqypb/image/upload/v1746453216/e6tvtn75zwn9nqaczeif.png",
+    //     "secure_url": "https://res.cloudinary.com/deywqqypb/image/upload/v1746453216/e6tvtn75zwn9nqaczeif.png",
+    //     "asset_folder": "",
+    //     "display_name": "e6tvtn75zwn9nqaczeif",
+    //     "original_filename": "file",
+    //     "api_key": "469145298481287"
+    // }
 
 
 
