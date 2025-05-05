@@ -3,8 +3,6 @@
 import styles from "../uploads.module.css";
 import { useState } from "react";
 
-import { removeImage } from "@/_lib/listings/editdata";
-
 import Confirmation from "./confirmation";
 
 import Icon from "@/_lib/utils/Icon";
@@ -19,19 +17,30 @@ export default function EditPreview({keyId, fileName, listing_id, count, setErro
         setLoading(true); 
         setError('')
 
-        const response = await removeImage(listing_id, fileName);
-        setLoading(false); 
+        const formData = new FormData();
+        formData.append('imageName', fileName);
+        formData.append('id', listing_id);
 
-        if (response.error) {
-            setError(response.error)
-        } else {
-            setListing(response);
-        }  
+        const res = await fetch('/api/remove', {
+            method: 'POST',
+            body: formData,
+        });
 
+        const data = await res.json();
+        
         setIsOk(false)
+        setLoading(false);
+
+        if(data?.error){
+            setError(data.error)
+        } else{ 
+            setListing(data.listings);
+        }
+
+
     }
 
-    
+
     return(                                                                       
         <div key={keyId} className={styles.EditImage} style={{ backgroundImage: `url('https://res.cloudinary.com/deywqqypb/image/upload/v1746453216/${fileName}')` }}>
         

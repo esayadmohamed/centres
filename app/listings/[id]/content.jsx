@@ -14,6 +14,8 @@ export default function EditContent({ user_listing,
             
     const [listing, setListing] = useState(user_listing || [])
 
+    console.log('', listing);
+
     return(
         <div className={styles.EditContent}>
             <div className={styles.ListingBanner}>
@@ -59,6 +61,167 @@ export default function EditContent({ user_listing,
         </div>
     )
 }
+
+
+// {
+//     "listing": [
+//         {
+//             "id": 60023,
+//             "user_id": 23,
+//             "view": "on",
+//             "state": "none",
+//             "name": "Esayad",
+//             "info": "aa bb cc dd ee hh",
+//             "city": "Rabat",
+//             "hood": "Hassan",
+//             "phone": "0642101001",
+//             "images": 1,
+//             "services": 1,
+//             "subjects": 1,
+//             "levels": 1,
+//             "offers": 1,
+//             "created_at": "2025-05-04T19:46:04.000Z"
+//         }
+//     ],
+//     "images": [
+//         "dqupdpjbsuptk1enemrl.png"
+//     ],
+//     "offers": [
+//         {
+//             "name": "Première séance offerte",
+//             "icon": "Tag"
+//         },
+//         {
+//             "name": "Préparation aux concours",
+//             "icon": "Tag"
+//         },
+//         {
+//             "name": "Cours particuliers",
+//             "icon": "Tags"
+//         },
+//         {
+//             "name": "Cours accélérés",
+//             "icon": "Tag"
+//         },
+//         {
+//             "name": "Cours adaptés",
+//             "icon": "Tags"
+//         },
+//         {
+//             "name": "Cours du soir",
+//             "icon": "Tags"
+//         },
+//         {
+//             "name": "Cours à distance",
+//             "icon": "Tags"
+//         },
+//         {
+//             "name": "Réduction familiale",
+//             "icon": "Tags"
+//         }
+//     ],
+//     "levels": [
+//         {
+//             "name": "Collège",
+//             "icon": "BadgeCheck"
+//         },
+//         {
+//             "name": "Lycée qualifiant",
+//             "icon": "BadgeCheck"
+//         },
+//         {
+//             "name": "Maternelle",
+//             "icon": "BadgeCheck"
+//         },
+//         {
+//             "name": "Primaire",
+//             "icon": "BadgeCheck"
+//         },
+//         {
+//             "name": "Universitaire",
+//             "icon": "BadgeCheck"
+//         }
+//     ],
+//     "draft": null,
+//     "subjects": [
+//         {
+//             "name": "Anglais",
+//             "icon": "Baseline"
+//         },
+//         {
+//             "name": "Français",
+//             "icon": "WholeWord"
+//         },
+//         {
+//             "name": "Mathématiques",
+//             "icon": "SquareSigma"
+//         },
+//         {
+//             "name": "Philosophie",
+//             "icon": "GraduationCap"
+//         },
+//         {
+//             "name": "Arabe",
+//             "icon": "BookA"
+//         },
+//         {
+//             "name": "SVT",
+//             "icon": "FlaskConical"
+//         },
+//         {
+//             "name": "Économie et Gestion",
+//             "icon": "ChartNoAxesCombined"
+//         },
+//         {
+//             "name": "Éducation Artistique",
+//             "icon": "Palette"
+//         },
+//         {
+//             "name": "Éducation Islamique",
+//             "icon": "Handshake"
+//         }
+//     ],
+//     "services": [
+//         {
+//             "name": "Parking",
+//             "icon": "SquareParking"
+//         },
+//         {
+//             "name": "Surveillance",
+//             "icon": "Cctv"
+//         },
+//         {
+//             "name": "WIFI",
+//             "icon": "Wifi"
+//         },
+//         {
+//             "name": "Imprimante",
+//             "icon": "Printer"
+//         },
+//         {
+//             "name": "Projecteur",
+//             "icon": "Projector"
+//         },
+//         {
+//             "name": "Tableau Interactif",
+//             "icon": "Presentation"
+//         },
+//         {
+//             "name": "Trousse De Secours",
+//             "icon": "BriefcaseMedical"
+//         },
+//         {
+//             "name": "Ordinateur",
+//             "icon": "Computer"
+//         }
+//     ],
+//     "reviews": [],
+//     "newhood": []
+// }
+
+
+
+
 
 
 

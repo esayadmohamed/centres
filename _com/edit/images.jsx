@@ -26,9 +26,7 @@ export default function EditImages({listing, uploadData, setListing}) {
 
     const [error, setError] = useState('')
 
-    // console.log(files);
-
-    return(
+    return( 
         <div className={styles.EditUploads}>
             <h3> <Icon name={'Images'} /> Images </h3>
             <div className={styles.UploadsContainer}>                

@@ -646,6 +646,7 @@ export async function ModifyLevels(value_id, new_value) {
 }
 
 // ---------------------------------------------------------------
+// ---------------------------------------------------------------
 
 export async function CheckImage(id, image){
     try {
@@ -676,7 +677,6 @@ export async function CheckImage(id, image){
 export async function InsertImage(id, name) {
     let connection;
     try {
-
         const listing_id = await SanitizeId(id);
         if (!listing_id) return null;
 
@@ -730,19 +730,12 @@ export async function InsertImage(id, name) {
             );
         }
 
-        const rows = await userListing(listing_id);
-        if (rows?.error) {
-            await connection.rollback();
-            connection.release();
-            return { error: "6 Une erreur est survenue. Veuillez réessayer plus tard." };
-        }
-
         await connection.commit();
         connection.release();
 
         revalidatePath(`/listings/${listing_id}`);
 
-        return rows;
+        return {sucess: true}
 
     } catch (error) {
         console.error("InsertImage error:", error);
@@ -757,6 +750,159 @@ export async function InsertImage(id, name) {
         return null;
     }
 }
+
+export async function RemoveImage(id, name) { 
+    try {
+        const listing_id = await SanitizeId(id);
+        if (!listing_id) return null;
+
+        const user_id = await UserAuthorized(listing_id);
+        if (!user_id) return null;
+
+        if (typeof name !== 'string') {
+            console.warn(`User ${user_id} is sending invalid image name for listing_id ${listing_id}`);
+            return null;
+        }
+
+        const image_name = xss(name).trim();
+
+        const [existingImage] = await db.query(
+            "SELECT * FROM images WHERE name = ? AND listing_id = ? FOR UPDATE",
+            [image_name, listing_id]
+        );
+        
+        if (existingImage.length === 0) {
+            console.log(`Image: ${image_name} and listing ${listing_id} don't match`);
+            return null;
+        }
+
+        const [imageCount] = await db.query(
+            "SELECT COUNT(*) AS count FROM images WHERE listing_id = ? FOR UPDATE", [listing_id]);
+
+        if (imageCount[0].count <= 1) {
+            return null; 
+        }
+
+        await db.query(
+            "DELETE FROM images WHERE name = ? AND listing_id = ?", [image_name, listing_id] );
+
+        const [isImageDeleted] = await db.query(
+            "SELECT COUNT(*) AS count FROM images WHERE name = ? AND listing_id = ?", [image_name, listing_id]);
+
+        if (isImageDeleted[0]?.count === 0) {
+            
+            revalidatePath(`/listings/${listing_id}`);
+
+            return {success: true}
+
+        } else {
+            console.log('Failed to delete image record from database');
+            return null;
+        }
+
+    } catch (error) {
+        console.error("Database error:", error);
+        return { error: "Une erreur est survenue. Veuillez réessayer plus tard." };
+    } 
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// export async function RemoveImage(id, name) { 
+//     const connection = await db.getConnection();
+//     try {
+//         await connection.beginTransaction();
+
+//         const listing_id = await SanitizeId(id);
+//         if (!listing_id) {
+//             await connection.rollback();
+//             return null;
+//         }
+
+//         const user_id = await UserAuthorized(listing_id);
+//         if (!user_id) {
+//             await connection.rollback();
+//             return null;
+//         }
+
+//         if (typeof name !== 'string') {
+//             console.warn(`User ${user_id} is sending invalid image name for listing_id ${listing_id}`);
+//             await connection.rollback();
+//             return null;
+//         }
+
+//         const image_name = xss(name).trim();
+
+//         const [existingImage] = await connection.query(
+//             "SELECT * FROM images WHERE name = ? AND listing_id = ? FOR UPDATE",
+//             [image_name, listing_id]
+//         );
+//         if (existingImage.length === 0) {
+//             console.log(`Image: ${image_name} and listing ${listing_id} don't match`);
+//             await connection.rollback();
+//             return null;
+//         }
+
+//         const [imageCount] = await connection.query(
+//             "SELECT COUNT(*) AS count FROM images WHERE listing_id = ? FOR UPDATE", [listing_id]);
+
+//         if (imageCount[0].count <= 1) {
+//             await connection.rollback();
+//             return null; 
+//         }
+
+//         await connection.query(
+//             "DELETE FROM images WHERE name = ? AND listing_id = ?",
+//             [image_name, listing_id]
+//         );
+
+//         const [isImageDeleted] = await connection.query(
+//             "SELECT COUNT(*) AS count FROM images WHERE name = ? AND listing_id = ?",
+//             [image_name, listing_id]
+//         );
+
+//         if (isImageDeleted[0]?.count === 0) {
+//             const rows = await userListing(listing_id);
+//             if (rows?.error) {
+//                 await connection.rollback();
+//                 return null;
+//             }
+//             await connection.commit();
+//             return rows;
+//         } else {
+//             console.log('Failed to delete image record from database');
+//             await connection.rollback();
+//             return null;
+//         }
+
+//     } catch (error) {
+//         console.error("Database error:", error);
+//         await connection.rollback();
+//         return { error: "Une erreur est survenue. Veuillez réessayer plus tard." };
+//     } finally {
+//         connection.release();
+//     }
+// }
 
 
 // export async function InsertImage(id, name){
@@ -961,7 +1107,7 @@ export async function ModifyImage(value_id, new_value) {
     }
 }
 
-export async function removeImage(value_id, fileName) {
+export async function rsemoveImage(value_id, fileName) {
     const connection = await db.getConnection();
     try {
         await connection.beginTransaction();

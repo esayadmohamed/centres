@@ -3,8 +3,6 @@
 import styles from "../uploads.module.css";
 import { useRef, useState } from "react";
 
-import { ModifyImage } from "@/_lib/listings/editdata";
-
 import Icon from "@/_lib/utils/Icon";
 
 export default function EditUploader({keyId, listing_id, setError, setListing}) {
@@ -42,10 +40,8 @@ export default function EditUploader({keyId, listing_id, setError, setListing}) 
 
         if(data?.error){
             setError(data.error)
-            console.log(data.error); 
         } else{
-            console.log(data); 
-            // setListing(result.listing);
+            setListing(data.listings);
         }
 
     };
@@ -75,6 +71,16 @@ export default function EditUploader({keyId, listing_id, setError, setListing}) 
         </div>
     );
 }
+
+
+
+
+
+
+
+
+
+
 
 
     // async function handleImage (e){
