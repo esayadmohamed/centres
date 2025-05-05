@@ -12,7 +12,7 @@ import ListingContent from "./Content";
 
 export default async function Listings() {
 
-    const listings = await userListings();
+    const listings = await userListings(); //lkjfkldj
 
     return (
         <Authenticator>
