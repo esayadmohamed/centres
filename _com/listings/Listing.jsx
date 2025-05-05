@@ -10,8 +10,6 @@ import Icon from "@/_lib/utils/Icon";
 
 export default function Listing ({listing, setListing}){
     
-    const Referesh = console.log();
-
     const router = useRouter();
     
     const [loading, setLoading] = useState(true);
@@ -43,6 +41,7 @@ export default function Listing ({listing, setListing}){
         const result = await removeListing(index)
         setLoading(false)
         setIsOk(false)
+        setView(false)
         
         if (result.error) {
             setError(result.error)
@@ -60,7 +59,9 @@ export default function Listing ({listing, setListing}){
     }
 
     async function handleToggle(index){
-        setLoading(true); setError('');
+        setLoading(true); 
+        setError('');
+        setView(false)
 
         const result = await toggleListing(index)
         setLoading(false)
@@ -74,7 +75,9 @@ export default function Listing ({listing, setListing}){
         } 
     }
 
+    // console.log(listing);
         
+
     return (
         <main className={styles.Listing} >
             
@@ -87,30 +90,35 @@ export default function Listing ({listing, setListing}){
                             onMouseLeave={()=>setView(false)}
                             >
                             <div className={styles.ActionsToggle}>
-                                <span onClick={()=>setView(!view)}> <Icon name={'Menu'} /> </span>
+                                <span onClick={()=>setView(!view)}> <Icon name={'Menu'} color={'#424949'} /> </span>
                                 <ul style={{display: view? 'flex' : 'none'}}>
                                     <li onClick={()=>handleToggle(listing.id)}> 
                                         { listing.view === 'on' ? 
-                                            <>  <Icon name={'Eye'} /> visible </> 
+                                            <>  <Icon name={'Eye'} color={'#424949'} /> visible </> 
                                             : 
-                                            <> <Icon name={'EyeOff'} /> invisible </> 
+                                            <> <Icon name={'EyeOff'} color={'#424949'} /> invisible </> 
                                         } 
                                     </li>
                                     <li onClick={()=> handleEdit(listing.id)}> 
-                                        <Icon name={'Pencil'} /> Modifier 
+                                        <Icon name={'Pencil'} color={'#424949'} /> Modifier 
                                     </li>
                                     <li onClick={()=> setIsOk(true)}>
-                                        <Icon name={'Trash2'} /> Supprimer
+                                        <Icon name={'Trash2'} color={'#424949'} /> Supprimer
                                     </li>
                                 </ul>
                             </div>
-                            {listing.draft !== 5 && 
+                            {listing.draft !== 5 ? 
                                 <div className={styles.ActionsRate} onClick={()=> handleEdit(listing.id)}>
                                     <p> {rate}% Complété</p>
                                     <div> 
                                         <div style={{width: `${rate}%`}}></div>
                                     </div>                                
                                 </div>
+                                : 
+                                listing.state === 'none' && 
+                                    <div className={styles.ActionsStatus}>
+                                        En cours d'approbation...
+                                    </div>
                             }
                         </div>
                         :
@@ -131,7 +139,7 @@ export default function Listing ({listing, setListing}){
             
             <div className={styles.CentreDetails}>
                 <div>
-                    <p> {listing.hood} ,{listing.city} </p>
+                    <p> {listing.hood}, {listing.city} </p>
                     <p>
                         <Icon name={'Star'} />
                         <span> {listing.overall ? listing.overall.toFixed(1) : "Nouveau"} </span>

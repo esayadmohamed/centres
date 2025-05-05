@@ -7,6 +7,8 @@ import Header from "@/_com/header/Header";
 import Footer from "@/_com/footer/Footer";
 import ListingContent from "./Content";
 
+//user can share up to 10 listings 
+//user creates listings 
 
 export default async function Listings() {
 

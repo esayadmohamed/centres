@@ -18,6 +18,7 @@ export default function EditPhone({listing, handleEdit, setListing}) {
         const result = await ModifyPhone(listing.id, phone)  
         setLoading(false)
 
+    
         if (result.error) {
             setError(result.error) 
         }

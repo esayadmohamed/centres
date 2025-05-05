@@ -20,6 +20,8 @@ export default function EditUploader({keyId, listing_id, setError, setListing}) 
         }
     }
      
+    // console.log('listing', listing_id);
+
     async function handleImage (e){
         setLoading(true); 
         setError('');

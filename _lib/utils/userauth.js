@@ -36,7 +36,6 @@ export async function UserAuthenticated(){//perfect
 }
 
 export async function UserAuthorized(value_id){
-        
     try {
         const db = getDB();
 

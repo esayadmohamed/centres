@@ -1,8 +1,5 @@
 'use server';
-import db from "@/_lib/db";
-
-// const sql = require("better-sqlite3");
-// const db = sql("main.db");
+import getDB from "@/_lib/db";
 
 import xss from 'xss';
 import { revalidatePath } from "next/cache";
@@ -12,12 +9,10 @@ import { SanitizeObject } from '@/_lib/utils/sanitizedata';
 
 import { RateLimiter } from '@/_lib/utils/ratelimiter';
 
-// -----------------------------------------
+const db = getDB();
 
-const handleDbError = (error) => {
-    console.error("Database error:", error);
-    return { error: { server: "Une erreur est survenue. Veuillez réessayer plus tard." } };
-};
+// --------------------------------------------------------
+// --------------------------------------------------------
 
 function validateUserData(inputs) {
     
@@ -62,20 +57,19 @@ function validateUserData(inputs) {
 
 }
 
-function verifyUserData(inputs, user_id) {
+async function verifyUserData(inputs, user_id) {
     let errors = {};
-    
     try{ 
-        const names = db.prepare("SELECT name FROM listings WHERE user_id = ?").all(user_id);
+        const [names] = await db.query("SELECT name FROM listings WHERE user_id = ?",[user_id]);
         const name_list = names.length > 0 ? names.map(item => item.name.toLowerCase()) : [];
         const duplicate = name_list.includes(inputs.name.toLowerCase())
         if (duplicate) errors.name = "Une annonce avec ce nom existe déjà";
 
-        const city = db.prepare(`SELECT * FROM cities WHERE name = ?`).get(inputs.city);
-        const neighborhood = db.prepare(`SELECT * FROM neighborhoods WHERE name = ? AND city_id = ?`).get(inputs.hood, city.id);
-        
-        if (!city) errors.location = "L'emplacement fournie n'est pas valide";
-        if (!neighborhood) errors.location = "L'emplacement fournie n'est pas valide";
+        const [city] = await db.query("SELECT * FROM cities WHERE name = ?",[inputs.city]);
+        const [hood] = await db.query("SELECT * FROM neighborhoods WHERE name = ? AND city_id = ?",[inputs.hood, city[0].id]);
+
+        if (city.length === 0) errors.location = "L'emplacement fournie n'est pas valide";
+        if (hood.length === 0) errors.location = "L'emplacement fournie n'est pas valide";
 
         return Object.keys(errors).length > 0 ? errors : null;
     } catch (error) {
@@ -84,23 +78,20 @@ function verifyUserData(inputs, user_id) {
     }
 }
 
-// -----------------------------------------
-
 export async function CreateListing (data){
     try{ 
-        const rate_limiter = await RateLimiter('create');
-        if(!rate_limiter){
-            return { error: {server: "Le serveur est actuellement occupé, veuillez réessayer plus tard."}};
-        }
-
+        // const rate_limiter = await RateLimiter('create');
+        // if(!rate_limiter){
+        //     return { error: {server: "Le serveur est actuellement occupé, veuillez réessayer plus tard."}};
+        // }
+        
         const user_id = await UserAuthenticated()
         if(!user_id){
             return {error: {server: "Une erreur est survenue. Veuillez réessayer plus tard."}}; 
         }
         
-        const count = db.prepare('SELECT COUNT(*) AS count FROM listings WHERE user_id = ?').get(user_id)
-
-        if(count.count >= 10){
+        const [count] = await db.query("SELECT COUNT(*) AS count FROM listings WHERE user_id = ?",[user_id]);
+        if(count[0].count >= 10){
             return {error: {server: "Vous ne pouvez pas créer plus de 10 annonces."}};
         }
 
@@ -123,17 +114,15 @@ export async function CreateListing (data){
             return {error: validationErrors};
         }
         
-        const verificationErrors = verifyUserData(inputs, user_id);
+        const verificationErrors = await verifyUserData(inputs, user_id);
         if (verificationErrors) {            
             return {error: verificationErrors};
         }
         
-        const stmt = db.prepare(` INSERT INTO listings (user_id, name, info, city, hood, phone)
-            VALUES (?, ?, ?, ?, ?, ?)`)
-            
-        const result = stmt.run(user_id, inputs.name, inputs.info, inputs.city, inputs.hood, inputs.phone);
-
-        const center_id = result.lastInsertRowid; 
+        const [result] = await db.query(`INSERT INTO listings (user_id, name, info, city, hood, phone) VALUES (?, ?, ?, ?, ?, ?)`
+            ,[user_id, inputs.name, inputs.info, inputs.city, inputs.hood, inputs.phone]);
+                    
+        const center_id = result.insertId; 
         
         revalidatePath(`/listings`);
 

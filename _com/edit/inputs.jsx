@@ -8,10 +8,8 @@ import EditHood from "./input/hood";
 
 import Icon from "@/_lib/utils/Icon";
 
-export default function EditInputs({listing, setListing}) {
+export default function EditInputs({listing, newhood, setListing}) {
         
-    // console.log("::::::", listing);
-
     const [index, setIndex] = useState(null);
     const [isEdit, setIsEdit] = useState(false);
 
@@ -43,7 +41,7 @@ export default function EditInputs({listing, setListing}) {
                 </div>
             )} 
 
-            {(listing.hood === 'Autre quartier' && listing.newhood.length === 0) && //
+            {(listing.hood === 'Autre quartier' && newhood.length === 0) && //
                 <div className={styles.EditSection}>
                     <h4> Specifiez votre quartier </h4>
                     <EditHood listing_id={listing.id} setListing={setListing}/>

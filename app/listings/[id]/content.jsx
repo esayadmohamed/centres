@@ -12,22 +12,7 @@ import EditImages from "@/_com/edit/images";
 export default function EditContent({ user_listing, 
     offers_list, services_list, subjects_List, levels_list }){
             
-    const [index, setIndex] = useState(null);
-    const [isEdit, setIsEdit] = useState(false);
-    const [listing, setListing] = useState(user_listing || {})
-
-
-    async function Referesh (){
-        const result = await userListing(listing.id)
-        setListing(result || {})
-    }
-
-    function handleEdit (id){
-        if(!listing || Object.keys(listing).length === 0) return    
-        setIndex(id)
-        setIsEdit(id===index ? !isEdit : true)
-    }
-
+    const [listing, setListing] = useState(user_listing || [])
 
     return(
         <div className={styles.EditContent}>
@@ -38,7 +23,7 @@ export default function EditContent({ user_listing,
                     <li>/</li>
                     <Link href={'/listings'}> <li>Annonces</li> </Link>
                     <li>/</li>
-                    <li>{listing.name}</li>
+                    <li>{listing?.listing[0]?.name}</li>
                 </ul>
             </div>
 
@@ -47,6 +32,7 @@ export default function EditContent({ user_listing,
 
                     <EditInputs 
                         listing={listing?.listing[0]}
+                        newhood={listing?.newhood}
                         setListing={setListing}
                         />
 

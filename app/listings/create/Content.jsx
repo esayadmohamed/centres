@@ -1,12 +1,10 @@
 'use client'
 import Link from "next/link";
-
 import styles from "./create.module.css";
 import { useState } from "react";
 import { useRouter } from 'next/navigation';
 
 import { CreateListing } from "@/_lib/listings/addlisting";
-
 
 import CreateName from "@/_com/create/name";
 import CreateInfo from "@/_com/create/info";
@@ -34,6 +32,8 @@ export default function CreateContent({cities_list, hoods_list}) {
         const result = await CreateListing(data); 
         SetLoading(false)
         
+        // console.log(result);
+
         if(result?.error){
             setErrors(result.error)  
         } else {
@@ -54,8 +54,7 @@ export default function CreateContent({cities_list, hoods_list}) {
                     <li>Creation</li>
                 </ul>
             </div>
-
-
+            
             <div className={styles.CreateForm}>
                 <CreateName name={name} setName={setName} errors={errors} />
                 <CreateInfo info={info} setInfo={setInfo} errors={errors}/>

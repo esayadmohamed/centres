@@ -14,6 +14,8 @@ export default async function ListingEdit({params}) {
     const center_id = await params;
     const listing  = await userListing(center_id.id);
 
+    // console.log(listing);
+
     if(listing?.error) return notFound();
     
     const offers_list   = await getOffersList();

@@ -16,7 +16,7 @@ export default function EditInfo({listing, handleEdit, setListing}) {
 
         const result = await ModifyInfo(listing.id, description)
         setLoading(false)
-
+        
         if (result?.error) {
             setError(result.error) 
         }

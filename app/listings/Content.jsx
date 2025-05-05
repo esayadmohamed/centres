@@ -1,17 +1,27 @@
 'use client'
 import styles from "./listing.module.css";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
-import { userListings } from '@/_lib/listings/getdata';
+import Icon from "@/_lib/utils/Icon";
 
 import Listing from '@/_com/listings/Listing';
-import Add from '@/_com/listings/Add';
+
+
+// import Add from '@/_com/listings/Add';
+//show all listinsg status on the thumbnail // offline / online / pending
+//show notification bar that ask user to interveen
 
 export default function ListingContent({listings}) {
     
     const [listing, setListing] = useState(listings? listings : [])
         
+    const [view, setView] = useState(false)
+
+    useEffect(()=>{
+        //check if there is anything that can trugger a notification
+    },[])
+
     return (
         <div className={styles.ListingContent}>
             
@@ -23,14 +33,28 @@ export default function ListingContent({listings}) {
                     <li>Annonces</li>
                 </ul>
             </div>
+
+            {(listing.length !== 0 && view) && 
+                <div className={styles.ListingNotification}>
+                    <p> Certaines annonces nécessitent votre attention. </p>
+                </div>
+            }
             
             <div className={styles.ListingList}>
-                
                 {listing.map((item, id)=> 
                     <Listing listing={item} key={id} setListing={setListing}/>
                 )}
-                <Add />
+
+                {listing.length < 11 && 
+                        <div className={styles.addlisting}>
+                            <Link href={'/listings/create'}>
+                                <Icon name={'Plus'}/>
+                            </Link>
+                        </div>
+                }
+            
             </div>
+            
 
         </div>
     )

@@ -6,7 +6,6 @@ import Icon from "@/_lib/utils/Icon";
 
 export default function CreateLocation ({errors, citiesList, hoodsList, selectedCity, selectedHood, setSelectedCity, setSelectedHood}){
 
-
     const [viewCities, setViewCities] = useState(false)
     const [viewHoods, setViewHoods] = useState(false)
 

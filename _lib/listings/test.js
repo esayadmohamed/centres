@@ -1,8 +1,8 @@
 import getDB from "@/_lib/db";
 
-import { UserAuthenticated, UserAuthorized } from "../utils/userauth";
+import { UserAuthenticated } from "@/_lib/utils/userauth";
 
-import { SanitizeId } from "../utils/sanitizedata";
+import { SanitizeId } from "@/_lib/utils/sanitizedata";
 
 // ----------------------------------------------------
 // ----------------------------------------------------
@@ -14,7 +14,7 @@ export async function userListings() {
         const user_id = await UserAuthenticated();
         if(!user_id) return [];
 
-        const [listings] = await db.query("SELECT * FROM listings WHERE user_id = ? AND state = 'on'",[user_id]);
+        const [listings] = await db.query("SELECT * FROM listings WHERE user_id = ? AND state IN ('on', 'none')",[user_id]);
         if (listings.length === 0) { 
             return [];
         }
@@ -39,17 +39,20 @@ export async function userListings() {
         const listingsWithDetails = listings.map(listing => {
             const listingImages   = images.filter(image => image.listing_id === listing.id).map(image => image.name);
             const draft = listing.offers + listing.services + listing.subjects + listing.levels + listing.images;
-            const suggestedhood  = suggestedhoods.filter(hood => hood.listing_id === listing.id).map(hood => hood.hood);
+            const suggestedrows  = suggestedhoods.filter(hood => hood.listing_id === listing.id).map(hood => hood.hood);
+            const suggestedhood = suggestedrows[0] || null; 
 
             return {
                 ...listing,
                 images: listingImages,
                 overall: reviewsByCenter[listing.id],
-                suggesthood: suggestedhood[0],
+                suggesthood: suggestedhood,
                 draft 
             };
         });
            
+        // console.log(listingsWithDetails);
+        
         return listingsWithDetails
 
     } catch (error) {
@@ -72,7 +75,7 @@ export async function userListing(value_id) {
 
         const [listing] = await db.execute("SELECT * FROM listings WHERE id = ? AND  user_id = ?",  [listing_id, user_id]);
 
-        if (listing.length === 0 || listing.state === 'off') {
+        if (listing.length === 0) { // allow user to edit blocked listings || listing.state === 'off'
             return { error: true };
         } 
 
