@@ -683,20 +683,20 @@ export async function ModifyImage(value_id, new_value) {
         const listing_id = await SanitizeId(value_id);
         if (!listing_id) {
             await connection.rollback();
-            return { error: "Une erreur est survenue. Veuillez réessayer plus tard." };
+            return { error: "1 Une erreur est survenue. Veuillez réessayer plus tard." };
         }
 
         const user_id = await UserAuthorized(listing_id);
         if (!user_id) {
             await connection.rollback();
-            return { error: "Une erreur est survenue. Veuillez réessayer plus tard." };
+            return { error: "2 Une erreur est survenue. Veuillez réessayer plus tard." };
         }
 
         const sanitization = await SanitizeImage(new_value);
         if (!sanitization) {
             console.log(`Invalid image file for listing ${listing_id}`);
             await connection.rollback();
-            return { error: "Une erreur est survenue. Veuillez réessayer plus tard." }; // Hack attempt
+            return { error: "3 Une erreur est survenue. Veuillez réessayer plus tard." }; // Hack attempt
         }
 
         //---------------------------------------------------------
@@ -705,7 +705,7 @@ export async function ModifyImage(value_id, new_value) {
         if (!file_name) {
             console.log(`Unable to upload image file for listing: ${listing_id} in database`);
             await connection.rollback();
-            return { error: "Une erreur est survenue. Veuillez réessayer plus tard." }; // Hack attempt
+            return { error: "4 Une erreur est survenue. Veuillez réessayer plus tard." }; // Hack attempt
         }
 
         // Ensure the listing has less than 3 images
@@ -716,7 +716,7 @@ export async function ModifyImage(value_id, new_value) {
         if (image_count >= 3) {
             console.log(`Listing ${listing_id} already has 3 images, cannot upload more`);
             await connection.rollback();
-            return { error: "Une erreur est survenue. Veuillez réessayer plus tard." };
+            return { error: "5 Une erreur est survenue. Veuillez réessayer plus tard." };
         }
 
         await connection.query(`INSERT INTO images (name, listing_id) VALUES (?, ?)`, [file_name, listing_id]);
@@ -742,7 +742,7 @@ export async function ModifyImage(value_id, new_value) {
         const rows = await userListing(listing_id);
         if (rows?.error) {
             await connection.rollback();
-            return { error: "Une erreur est survenue. Veuillez réessayer plus tard." };
+            return { error: "6 Une erreur est survenue. Veuillez réessayer plus tard." };
         }
 
         // Commit the transaction after all queries are successful
@@ -752,7 +752,7 @@ export async function ModifyImage(value_id, new_value) {
     } catch (error) {
         console.error("Database error:", error);
         await connection.rollback();
-        return { error: "Une erreur est survenue. Veuillez réessayer plus tard." };
+        return { error: "7 Une erreur est survenue. Veuillez réessayer plus tard." };
     } finally {
         connection.release();
     }
