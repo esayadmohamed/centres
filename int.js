@@ -4,8 +4,8 @@ export default async function dbex() {
     try {
         const db = getDB();
         const [rows] = await db.execute(`
-          DELETE FROM images WHERE name = ?
-      `, ["image_1746445792225_60023.png"]);
+            SELECT * FROM users
+      `);
 
 
         return rows;

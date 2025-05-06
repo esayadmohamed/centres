@@ -133,108 +133,33 @@ export async function PasswordToken(user_email) {
     }
 }
 
+// -------------------------------------------------
 
-
-
-
-
-
-
-
-
-
-
-const handleDbError = (error) => {
-    console.error("Database error:", error);
-    return { error: { server: "Une erreur est survenue. Veuillez réessayer plus tard." } };
-};
-
-
-
-// export async function PasswordToken(user_email){
-//     try {
-//         // const rate_limiter = await RateLimiter('reset');
-//         // if(!rate_limiter){
-//         //     return { error:"Le serveur est actuellement occupé, veuillez réessayer plus tard." };
-//         // }
-
-//         if(typeof user_email !== 'string'){
-//             console.warn(`Guest is sending invalid email to reset password`);
-//             return { error: "Une erreur est survenue. Veuillez réessayer plus tard." };
-//         }
-
-//         const email = xss(user_email).trim(); 
-
-//         if (!validator.isEmail(email) || email.length > 100) {
-//             return { error: "L'adresse e-mail fournie n'est pas valide." };
-//         }
-        
-//         const [existingRows] = await db.query("SELECT * FROM users WHERE email = ?", [email]);
-//         const existingUser = existingRows[0] || null
-        
-//         if (!existingUser) {
-//             return{error: "Aucun utilisateur n'est associé à cette adresse e-mail"}
-//         }
-
-//         if (existingUser?.active !== 'on') {
-//             return {error: "Le compte associé à cette adresse e-mail n'est pas actif."}
-//         }
-
-//         const [tokenRows] = await db.query("SELECT * FROM tokens WHERE email = ?", [email]);
-//         const existingToken = tokenRows[0] || null;
-
-//         if(existingToken?.send > 0 && existingToken.expiration_time > Math.floor(Date.now() / 1000)) {
-//             return {error: "Un code de vérification a déjà été envoyée à votre boîte mail."}
-//         } else {
-//             await db.query("DELETE FROM tokens WHERE email = ?", [email]);
-            
-//             const token = generateVerificationCode();
-//             const expirationTime = Math.floor(Date.now() / 1000) + 3600;
-            
-//             await db.query("INSERT INTO tokens (email, token, expiration_time) VALUES (?, ?, ?)",
-//                 [email, token, expirationTime]);
-            
-//             await sendResetEmail(email, token);
-
-//             await db.query("UPDATE tokens SET send = ? WHERE email = ?", [1, email]);
-
-//             return {success: "Un code de vérification a été envoyée à votre boîte mail."}
-//         }
-
-//     } catch (error) {
-//         console.error("Database error:", error);
-//         return { error: "Une erreur est survenue. Veuillez réessayer plus tard." };
-//     }
-    
-// }
-
-// --------------------------------------------------
-// --------------------------------------------------
-
-export async function VerifyResetToken(token){
+async function VerifyResetToken(token){
     try {
-        const existingToken = db.prepare("SELECT * FROM tokens WHERE token = ?").get(token);
+        const [existingRows] = await db.query("SELECT * FROM tokens WHERE token = ? FOR UPDATE", [token]);
+        const existingToken = existingRows[0] || null
         
         if (!existingToken) {
             return {error: {password: "Le code de réinitialisation n'est pas valide."}};
         } else { 
-            if (existingToken.expiration_time > Date.now()) { // success
+            if (existingToken.expiration_time > Math.floor(Date.now() / 1000)) { // success
 
-                return existingToken.email
+                return { email: existingToken.email };
                 
             } else {     
 
                 const newToken = generateVerificationCode();
-                const newExpirationTime = Date.now() + 3600000;
+                const newExpirationTime = Math.floor(Date.now() / 1000) + 3600;
 
-                db.prepare("UPDATE tokens SET token = ?, expiration_time = ? WHERE email = ?")
-                .run(newToken, newExpirationTime, existingToken.email);
+                await db.query("UPDATE tokens SET token = ?, expiration_time = ? WHERE email = ?"
+                    ,[newToken, newExpirationTime, existingToken.email]);
 
                 await sendResetEmail(existingToken.email, newToken);
                 
-                db.prepare("UPDATE tokens SET send = ?").run(1);
+                await db.execute("UPDATE tokens SET send = ? WHERE email = ?", [1, existingToken.email]);
 
-                return {error: "Un code de vérification a été envoyée à votre boîte mail."}
+                return {error: "Un code de vérification a été envoyé à votre boîte mail."}
             }
         }
         
@@ -250,6 +175,9 @@ function validateUserData(password) {
 
     if (password.length < 8) {
         errors.long = "Au moins 8 caractères";
+    }
+    if (password.length > 50){
+        errors.long = "Mot de passe n'est pas valide";
     }
     if (!/[0-9]/.test(password)) {
         errors.number = "Au moins un chiffre (1, 2, 3 ...)";
@@ -286,64 +214,124 @@ function SanitizeObject(obj){
     return obj;
 }
 
-export async function PasswordReset(user){
-    // console.log(user);return;
+export async function PasswordReset(user) {
     try {
-        const rate_limiter = await RateLimiter('password');
-        if(!rate_limiter){
-            return { error: {password:"Le serveur est actuellement occupé, veuillez réessayer plus tard."}};
-        }
-
-        const data = SanitizeObject(user_data)
-        if(!data){
-            console.warn("Create an account: Invalid input type, expected a object.");
-            return { error: {password:"Une erreur est survenue. Veuillez réessayer plus tard."}};
+        const data = SanitizeObject(user);
+        if (!data) {
+            console.warn("Password reset: Invalid input.");
+            return { error: { password: "Une erreur est survenue. Veuillez réessayer plus tard." } };
         }
 
         const password = {
-            main_password  : xss(user?.mainPassword).trim(),
-            match_password : xss(user?.matchPassword).trim(),
-            reset_token    : xss(user?.token).trim()
-        }
-        
-        // -------------------
-
-        if (password.main_password.length > 50) {
-            return {error: {password: "Mot de passe n'est pas valide"}}
-        }
+            main_password: xss(user?.mainPassword).trim(),
+            match_password: xss(user?.matchPassword).trim(),
+            reset_token: xss(user?.token).trim(),
+        };
 
         const errors = validateUserData(password.main_password);
         if (errors) return { error: errors };
 
         if (password.main_password !== password.match_password) {
-            return {error: {password: "Les mots de passe ne correspondent pas."}}
-        }
-        
-        if(!password.reset_token || password.reset_token.length !== 24){
-            return { error: {password: "Le code de réinitialisation n'est pas valide."}};
+            return { error: { password: "Les mots de passe ne correspondent pas." } };
         }
 
-        // -------------------
+        if (!password.reset_token || password.reset_token.length !== 24) {
+            return { error: { password: "Le code de réinitialisation n'est pas valide." } };
+        }
 
-        const verify_token = await VerifyResetToken(password.reset_token); 
+        const verify_token = await VerifyResetToken(password.reset_token);
         if (verify_token?.error) return verify_token;
 
-        const existingUser = db.prepare("SELECT password FROM users WHERE email = ?").get(verify_token);
+        const [existingRows] = await db.query("SELECT password FROM users WHERE email = ?", [verify_token.email]);
+        const existingUser = existingRows[0] || null;
+
+        if (!existingUser) {
+            return { error: { password: "Ce compte n'existe plus." } };
+        }
 
         const isLikeOld = await bcrypt.compare(password.main_password, existingUser.password);
-        if(isLikeOld) {
-            return { error: {password: "Le nouveau mot de passe ne doit pas être identique à l'ancien."}};
+        if (isLikeOld) {
+            return { error: { password: "Le nouveau mot de passe ne doit pas être identique à l'ancien." } };
         }
 
         const new_password = await bcrypt.hash(password.main_password, 10);
-        
-        db.prepare("UPDATE users SET password = ?").run(new_password);
-        
-        return { success: true}//"Le mot de passe a été modifié avec succès."};
-            
+
+        // Optional: Use transaction here for safety
+        await db.beginTransaction();
+        await db.query("UPDATE users SET password = ? WHERE email = ?", [new_password, verify_token.email]);
+        await db.query("DELETE FROM tokens WHERE email = ?", [verify_token.email]);
+        await db.commit();
+
+        return { success: true };
+
     } catch (error) {
+        await db.rollback?.(); // Safe even if no transaction started
         console.error("Database error:", error);
-        return { error: { server: "Une erreur est survenue. Veuillez réessayer plus tard." } }
+        return { error: { server: "Une erreur est survenue. Veuillez réessayer plus tard." } };
     }
-    
 }
+
+
+// export async function PasswordReset(user){
+//     try {
+//         // const rate_limiter = await RateLimiter('password');
+//         // if(!rate_limiter){
+//         //     return { error: {password:"Le serveur est actuellement occupé, veuillez réessayer plus tard."}};
+//         // }
+
+//         const data = SanitizeObject(user)
+//         if(!data){
+//             console.warn("Create an account: Invalid input type, expected a object.");
+//             return { error: {password:"Une erreur est survenue. Veuillez réessayer plus tard."}};
+//         }
+
+//         const password = {
+//             main_password  : xss(user?.mainPassword).trim(),
+//             match_password : xss(user?.matchPassword).trim(),
+//             reset_token    : xss(user?.token).trim()
+//         }
+        
+//         // -------------------
+
+//         const errors = validateUserData(password.main_password);
+//         if (errors) return { error: errors };
+
+//         if (password.main_password !== password.match_password) {
+//             return {error: {password: "Les mots de passe ne correspondent pas."}}
+//         }
+        
+//         if(!password.reset_token || password.reset_token.length !== 24){
+//             return { error: {password: "Le code de réinitialisation n'est pas valide."}};
+//         }
+
+//         // -------------------
+
+//         const verify_token = await VerifyResetToken(password.reset_token); 
+//         if (verify_token?.error) return verify_token;
+
+//         const [existingRows] = await db.query("SELECT password FROM users WHERE email = ?", [verify_token.email]);
+//         const existingUser = existingRows[0] || null
+
+//         const isLikeOld = await bcrypt.compare(password.main_password, existingUser.password);
+//         if(isLikeOld) {
+//             return { error: {password: "Le nouveau mot de passe ne doit pas être identique à l'ancien."}};
+//         }
+
+//         const new_password = await bcrypt.hash(password.main_password, 10);
+        
+//         await db.query("UPDATE users SET password = ? WHERE email = ?", [new_password, verify_token.email]);
+
+//         await db.query("DELETE FROM tokens WHERE email = ?", [verify_token.email]);
+
+//         return { success: true}
+            
+//     } catch (error) {
+//         console.error("Database error:", error);
+//         return { error: { server: "Une erreur est survenue. Veuillez réessayer plus tard." } }
+//     }
+    
+// }
+
+
+
+

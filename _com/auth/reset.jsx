@@ -18,7 +18,6 @@ export default function ResetPassword ({reset_token}){
     const [matchPassword, setMatchPassword] = useState('')
 
     const [error, setError] = useState(null)
-    const [success, setSuccess] = useState(false)
     const [loading, setLoading] = useState(false)
     const [viewHash, setViewHash] = useState(false)
     const [list, setList] = useState(null); 
@@ -120,10 +119,10 @@ export default function ResetPassword ({reset_token}){
                             <div className="spinner" style={{background: 'white'}}></div>}
                     </button>
 
-                    <p className={styles.AuthRedirect}>
+                    {/* <p className={styles.AuthRedirect}>
                         Vous avez déjà un compte? 
-                        <Link href={'/auth'}> <span>Changer</span> </Link>
-                    </p>
+                        <Link href={'/auth'}> <span>Se connecter</span> </Link>
+                    </p> */}
                 </div>
 
                 <ul className={styles.AuthActions}>
