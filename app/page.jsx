@@ -1,11 +1,26 @@
 import Centers from "./centres/page"
 
-import dbex from "@/int"
+// import getDB from "@/_lib/db";
+// async function dbex() {
+//     try {
+//         const db = getDB();
+//         const [rows] = await db.execute(`
+//             SELECT * FROM images
+//         `);
+
+//         console.log(rows);
+
+//         return rows;
+//     } catch (error) {
+//         console.error("Database error:", error);
+//         return { error: "Une erreur est survenue. Veuillez réessayer plus tard." };
+//     }
+// }
+
 
 export default async function Home() {
 
-    // const rundb = await dbex();
-    // console.log(rundb);
+    // await dbex();
 
     return <Centers />
 

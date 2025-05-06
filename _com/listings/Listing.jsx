@@ -36,23 +36,37 @@ export default function Listing ({listing, setListing}){
     // -------------------------------------------------------
 
     const rate = [10, 20, 40, 60, 80][listing?.draft] || 10; //listing.draft
-  
+      
     async function handleRemove(index){
-        setLoading(true); setError('');
-
-        const result = await removeListing(index)
-        setLoading(false)
-        setIsOk(false)
-        setView(false)
+        setLoading(true); 
+        setError('');
         
-        if (result.error) {
-            setError(result.error)
-            setTimeout(() => {setError('')}, 5000);
-        }
-        else {
-            setListing(result)
-            setError('');
-        }
+        const payload = {
+            images: listing.images,
+            id: index,
+        };
+        const res = await fetch('/api/delete', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(payload),
+        });
+
+        const data = await res.json();
+
+        console.log(data);
+        
+
+        setIsOk(false)
+        setLoading(false);
+        setView(false)
+
+        if(data?.error){
+            setError(data.error)
+        } else{ 
+            setListing(data.listings);
+        }; 
 
     }
 

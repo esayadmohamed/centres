@@ -148,6 +148,11 @@ export async function CreateUser(user_data) {
     const conn = await db.getConnection();
     
     try {
+        const rate_limiter = await RateLimiter('signup');
+        if(!rate_limiter){
+            return { error: { server: "Le serveur est actuellement occupé, veuillez réessayer plus tard." } };
+        }
+
         const data = SanitizeObject(user_data);
         if (!data) {
             console.warn("Create an account: Invalid input type, expected an object.");
@@ -156,7 +161,7 @@ export async function CreateUser(user_data) {
 
         const user = {
             name: xss(data.name).trim(),
-            email: xss(data.email).trim(),
+            email: xss(data.email).trim().toLowerCase(),
             phone: xss(data.phone).trim(),
             password: xss(data.password).trim()
         };
@@ -213,128 +218,3 @@ export async function CreateUser(user_data) {
         conn.release(); // Always release connection
     }
 }
-
-
-// export async function CreateUser(user_data) {    
-//     try {
-//         // const rate_limiter = await RateLimiter('create');
-//         // if(!rate_limiter){
-//         //     return { error: {server: "Le serveur est actuellement occupé, veuillez réessayer plus tard."}};
-//         // }
-
-//         const data = SanitizeObject(user_data)
-//         if(!data){
-//             console.warn("Create an account: Invalid input type, expected a object.");
-//             return { error: {server: "Une erreur est survenue. Veuillez réessayer plus tard."}};
-//         }
-        
-//         const user = {
-//             name: xss(user_data.name).trim(),
-//             email: xss(user_data.email).trim(),
-//             phone: xss(user_data.phone).trim(),
-//             password: xss(user_data.password).trim()
-//         }
-
-//         // ------------------------
-//         const errors = validateData(user);
-//         if (errors) {
-//             console.log('validation error:', user);
-//             return { error: errors };
-//         }
-
-//         // ------------------------
-//         const [existingPhone] = await db.query("SELECT * FROM users WHERE phone = ?", [user.phone])
-//         if (existingPhone.length > 0) {
-//             return {error: {phone: "Le numéro de téléphone est déjà utilisé."}}
-//         }
-
-//         const [existingEmail] = await db.query("SELECT * FROM users WHERE email = ?", [user.email]);
-//         if (existingEmail.length > 0) {
-//             return {error: {email: "L'adresse e-mail est déjà utilisée."}}
-//         }
-
-//         // ------------------------
-//         user.password = await bcrypt.hash(user.password, 10);
-
-//         const code = generateUserCode();
-
-//         await db.query(`INSERT INTO users (name, email, phone, password, token) VALUES (?, ?, ?, ?, ?)`,
-//             [user.name, user.email, user.phone, user.password, code]
-//         );
-
-//         const token = generateVerificationCode();
-//         const expirationTime = Date.now() + 3600000;
-    
-//         await db.query("DELETE FROM tokens WHERE email = ?", [user.email]); //cleanup
-//         await db.query("INSERT INTO tokens (email, token, expiration_time) VALUES (?, ?, ?)", 
-//         [user.email, token, expirationTime]);
-
-//         await sendVerificationEmail(user.email, token);
-
-//         await conn.query("UPDATE tokens SET send = ? WHERE email = ?", [1, user.email]);
-        
-//         return { success: true };
-
-//     } catch (error) {
-//         console.error("Database error:", error);
-//         return { error: { server: "Une erreur est survenue. Veuillez réessayer plus tard." } };    
-//     }
-
-// }
-
-// ----------------------------------------------------
-
-// async function sendVerificationEmail(email, token) {
-//     const transporter = nodemailer.createTransport({
-//         service: "gmail",
-//         auth: {
-//             user: process.env.EMAIL_USER,
-//             pass: process.env.EMAIL_PASS,
-//         },
-//         secure: false,
-//         port: 587,
-//         tls: {
-//             rejectUnauthorized: true,
-//         },
-//     });
-
-//     const verificationLink = `https://www.centres.ma/auth/${token}`;
-
-//     const mailOptions = {
-//         from: `${process.env.EMAIL_USER}`,
-//         to: email,
-//         subject: "Code de Verification - Centres",
-//         html: `
-//             <div style="font-family: Arial, sans-serif; line-height: 1.6; color: #333; padding: 20px; background-color: #f4f4f4; text-align: center;">
-//                 <div style="max-width: 600px; margin: 0 auto; background-color: white; padding: 20px; border-radius: 8px; border: 1px solid #ddd;">
-//                     <!-- Centres Maroc Section -->
-//                     <h2 style="color: #2e86c1; font-weight: bold; margin-bottom: 20px;">Centres Maroc</h2>
-
-//                     <!-- Thank you message -->
-//                     <p style="font-size: 16px; margin-bottom: 20px;">Merci de vous être inscrit sur Centres !</p>
-//                     <p style="font-size: 16px; margin-bottom: 20px;">Pour activer votre compte, veuillez cliquer sur le bouton ci-dessous :</p>
-
-//                     <!-- Verification Button -->
-//                     <p>
-//                         <a href="${verificationLink}" style="display: inline-block; background-color: #2e86c1; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; font-size: 16px;">
-//                             Vérifier mon e-mail
-//                         </a>
-//                     </p>
-
-//                     <!-- Expiration notice -->
-//                     <p style="font-size: 14px; color: #666; margin-top: 20px;">Ce code expirera dans 60 minutes.</p>
-//                     <p style="font-size: 14px; color: #666;">Si vous n'êtes pas à l'origine de cette demande, ignorez cet e-mail.</p>
-
-//                     <!-- Website Link -->
-//                     <p style="font-size: 14px; color: #2e86c1; margin-top: 20px;">
-//                         <a href="https://www.centres.ma/" style="color: #2e86c1; text-decoration: none;">
-//                             www.centres.ma
-//                         </a>
-//                     </p>
-//                 </div>
-//             </div>
-//         `,
-//     };
-
-//     await transporter.sendMail(mailOptions);
-// }

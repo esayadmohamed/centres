@@ -44,7 +44,7 @@ export default function AuthToken ({result}){
                             </ul>
                             
                             <h3> Email Non Vérifiée </h3>
-                            <p> {newResult.error}  </p>
+                            <p className={styles.AuthError}> {newResult.error}  </p>
                             <div className={styles.AuthInput}>
                                 <label htmlFor="email"> Adresse e-mail </label>
                                 <div>

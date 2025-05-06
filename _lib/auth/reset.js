@@ -71,7 +71,11 @@ export async function PasswordToken(user_email) {
     const conn = await db.getConnection();
 
     try {
-        // Input validation
+        const rate_limiter = await RateLimiter('send');
+        if(!rate_limiter){
+            return { error: "Le serveur est actuellement occupé, veuillez réessayer plus tard."};
+        }
+
         if (typeof user_email !== 'string') {
             console.warn(`Guest sent invalid email type for password reset.`);
             return { error: "Une erreur est survenue. Veuillez réessayer plus tard." };
@@ -216,6 +220,11 @@ function SanitizeObject(obj){
 
 export async function PasswordReset(user) {
     try {
+        const rate_limiter = await RateLimiter('reset');
+        if(!rate_limiter){
+            return { error: "Le serveur est actuellement occupé, veuillez réessayer plus tard."};
+        }
+
         const data = SanitizeObject(user);
         if (!data) {
             console.warn("Password reset: Invalid input.");
@@ -271,66 +280,6 @@ export async function PasswordReset(user) {
     }
 }
 
-
-// export async function PasswordReset(user){
-//     try {
-//         // const rate_limiter = await RateLimiter('password');
-//         // if(!rate_limiter){
-//         //     return { error: {password:"Le serveur est actuellement occupé, veuillez réessayer plus tard."}};
-//         // }
-
-//         const data = SanitizeObject(user)
-//         if(!data){
-//             console.warn("Create an account: Invalid input type, expected a object.");
-//             return { error: {password:"Une erreur est survenue. Veuillez réessayer plus tard."}};
-//         }
-
-//         const password = {
-//             main_password  : xss(user?.mainPassword).trim(),
-//             match_password : xss(user?.matchPassword).trim(),
-//             reset_token    : xss(user?.token).trim()
-//         }
-        
-//         // -------------------
-
-//         const errors = validateUserData(password.main_password);
-//         if (errors) return { error: errors };
-
-//         if (password.main_password !== password.match_password) {
-//             return {error: {password: "Les mots de passe ne correspondent pas."}}
-//         }
-        
-//         if(!password.reset_token || password.reset_token.length !== 24){
-//             return { error: {password: "Le code de réinitialisation n'est pas valide."}};
-//         }
-
-//         // -------------------
-
-//         const verify_token = await VerifyResetToken(password.reset_token); 
-//         if (verify_token?.error) return verify_token;
-
-//         const [existingRows] = await db.query("SELECT password FROM users WHERE email = ?", [verify_token.email]);
-//         const existingUser = existingRows[0] || null
-
-//         const isLikeOld = await bcrypt.compare(password.main_password, existingUser.password);
-//         if(isLikeOld) {
-//             return { error: {password: "Le nouveau mot de passe ne doit pas être identique à l'ancien."}};
-//         }
-
-//         const new_password = await bcrypt.hash(password.main_password, 10);
-        
-//         await db.query("UPDATE users SET password = ? WHERE email = ?", [new_password, verify_token.email]);
-
-//         await db.query("DELETE FROM tokens WHERE email = ?", [verify_token.email]);
-
-//         return { success: true}
-            
-//     } catch (error) {
-//         console.error("Database error:", error);
-//         return { error: { server: "Une erreur est survenue. Veuillez réessayer plus tard." } }
-//     }
-    
-// }
 
 
 

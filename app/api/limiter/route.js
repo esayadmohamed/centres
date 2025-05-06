@@ -3,26 +3,25 @@
 import { LRUCache } from "lru-cache";
 
 const rateLimits = {
-    default: { max: 5000, ttl: 1 * 60 * 1000 },
+    default: { max: 10, ttl: 1 * 60 * 1000 },
 
     // -------------------------------------
-    // -------------------------------------
 
-    home: { max: 20, ttl: 1 * 60 * 1000 },
+    signup: { max: 10, ttl: 1 * 60 * 1000 }, 
+    login:  { max: 10, ttl: 1 * 60 * 1000 },
+    verify: { max: 5, ttl: 60 * 60 * 1000 },
+    send:   { max: 5, ttl: 60 * 60 * 1000 },
+    reset:  { max: 5, ttl: 60 * 60 * 1000 },
 
-    // -------------------------------------
+    // -------------------------------------  
+
+    create:  { max: 10, ttl: 1 * 60 * 1000 },
+    modify:  { max: 10, ttl: 1 * 60 * 1000 },
+    image:   { max: 5, ttl: 1 * 60 * 1000 },
+
     // -------------------------------------
     
-    modify: { max: 5000, ttl: 1 * 60 * 1000 },
-    image:  { max: 5000, ttl: 5 * 60 * 1000 },
-    create: { max: 5000, ttl: 5 * 60 * 1000 },
-    reset:  { max: 5000, ttl: 60 * 60 * 1000 },
-    password: { max: 5000, ttl: 1 * 60 * 1000 },
-    signup: { max: 5, ttl: 60 * 60 * 60 * 1000 },
-    verify:  { max: 5, ttl: 60 * 60 * 1000 },
-    // -------------------------------------
-    
-    listing: { max: 10, ttl: 1 * 60 * 1000 },
+    account: { max: 10, ttl: 60 * 60 * 1000 },
 };
 
 const rateLimiter = new LRUCache({
@@ -60,7 +59,7 @@ export async function POST(req) {
 
     const { action } = await req.json();
 
-    if (!["modify", "image", "create", 'signup', "reset", "password", "verify"].includes(action)) {
+    if (!['signup', 'login', 'verify', 'send', 'reset', 'create', 'modify', 'image', 'account'].includes(action)) {
         return new Response(JSON.stringify({ error: "Invalid action" }), { status: 400 });
     }
 

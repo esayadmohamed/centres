@@ -1,19 +1,5 @@
-import getDB from "@/_lib/db";
-
-export default async function dbex() {
-    try {
-        const db = getDB();
-        const [rows] = await db.execute(`
-            SELECT * FROM users
-      `);
 
 
-        return rows;
-    } catch (error) {
-        console.error("Database error:", error);
-        return { error: "Une erreur est survenue. Veuillez réessayer plus tard." };
-    }
-}
 
 // images: [
 //   'f590fbotkkdl93ehdkad.jpg',

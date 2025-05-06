@@ -7,13 +7,13 @@ import { useEffect, useState } from "react";
 
 import Icon from "@/_lib/utils/Icon";
 
-import defaultImage from '@/_upl/development/default.png'
+import defaultImage from '@/public/images/default.png'
 
 export default function Centre ({listing}){
     
     const [loading, setLoading] = useState(true);
         
-    const [currentImage, setCurrentImage] = useState(`/api/images/listings/${listing?.images[0]}`);
+    const [currentImage, setCurrentImage] = useState(`https://res.cloudinary.com/deywqqypb/image/upload/v1746453216/${listing?.images[0]}`);
 
     useEffect(()=>{
         preloadImage();
@@ -21,7 +21,7 @@ export default function Centre ({listing}){
 
     function preloadImage() {
         const newImage = new window.Image(); 
-        newImage.src = `/api/images/listings/${listing?.images[0]}`;
+        newImage.src = `https://res.cloudinary.com/deywqqypb/image/upload/v1746453216/${listing?.images[0]}`;
         newImage.onload = () => {
             setCurrentImage(newImage.src);
             setLoading(false)

@@ -7,37 +7,38 @@ import { BadgeCheck, ChevronLeft, ChevronRight, CircleSmall} from "lucide-react"
 export default function DisplaySlider ({listing}){
   
     const [index, setIndex] = useState(0);
-    const [isHovered, setIsHovered] = useState(false); 
+    // const [isHovered, setIsHovered] = useState(false); 
 
     const [imageLoaded, setImageLoaded] = useState(true);
-    const [currentImage, setCurrentImage] = useState(`/api/images/listings/${listing.images[index]}`);
+    const [currentImage, setCurrentImage] = useState(`
+        https://res.cloudinary.com/deywqqypb/image/upload/v1746453216/${listing.images[index]}`);
     
     useEffect(()=>{
         setIndex(0);
         const newImage = new window.Image(); 
-        newImage.src = `/api/images/listings/${listing.images[0]}`;
+        newImage.src = `https://res.cloudinary.com/deywqqypb/image/upload/v1746453216/${listing.images[0]}`;
         newImage.onload = () => {
             setCurrentImage(newImage.src);
             setImageLoaded(false);
         };
     },[listing])
 
-    function preloadImages (){
-        const newImage = new window.Image(); 
-        newImage.src = `/api/images/centers/${listing.images[newIndex]}`;
-        newImage.onload = () => {
-            setCurrentImage(newImage.src);
-            setImageLoaded(false);
-        };
-        newImage.onerror = () => {
-            // setError('Image failed to load. Please try again.');
-            setImageLoaded(false);
-        };
-    }
+    // function preloadImages (){
+    //     const newImage = new window.Image(); 
+    //     newImage.src = `/api/images/centers/${listing.images[newIndex]}`;
+    //     newImage.onload = () => {
+    //         setCurrentImage(newImage.src);
+    //         setImageLoaded(false);
+    //     };
+    //     newImage.onerror = () => {
+    //         // setError('Image failed to load. Please try again.');
+    //         setImageLoaded(false);
+    //     };
+    // }
 
     function preloadImage(newIndex) {
         const newImage = new window.Image(); 
-        newImage.src = `/api/images/listings/${listing.images[newIndex]}`;
+        newImage.src = `https://res.cloudinary.com/deywqqypb/image/upload/v1746453216/${listing.images[newIndex]}`;
         newImage.onload = () => {
             setCurrentImage(newImage.src);
             setImageLoaded(false);

@@ -15,6 +15,9 @@ export default function CreateLocation ({errors, citiesList, hoodsList, selected
     const [cities, setCities] = useState(citiesList || []);
     const [hoods, setHoods] = useState([]);
     
+    // console.log(errors);
+    
+
     function filterCities(e){
         const inputValue = e.target.value;
         setCity(inputValue);
@@ -107,7 +110,7 @@ export default function CreateLocation ({errors, citiesList, hoodsList, selected
                         }
                     </div>}
                 </div>
-            }        
+            }  
         </div>
     )
 }

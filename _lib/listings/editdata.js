@@ -81,10 +81,10 @@ export async function ModifyHood (value_id, new_value) {
 
 export async function ModifyInfo (value_id, new_value) {
     try {
-        // const rate_limiter = await RateLimiter('modify');
-        // if(!rate_limiter){
-        //     return { error: { server: "Le serveur est actuellement occupé, veuillez réessayer plus tard." } };
-        // }
+        const rate_limiter = await RateLimiter('modify');
+        if(!rate_limiter){
+            return { error: "Le serveur est actuellement occupé, veuillez réessayer plus tard." };
+        }
 
         const listing_id = await SanitizeId(value_id)
         if(!listing_id){ 
@@ -133,10 +133,10 @@ export async function ModifyInfo (value_id, new_value) {
 
 export async function ModifyPhone(value_id, new_value) {
     try {
-        // const rate_limiter = await RateLimiter('modify');
-        // if(!rate_limiter){
-        //     return { error: { server: "Le serveur est actuellement occupé, veuillez réessayer plus tard." } };
-        // }
+        const rate_limiter = await RateLimiter('modify');
+        if(!rate_limiter){
+            return { error: "Le serveur est actuellement occupé, veuillez réessayer plus tard." };
+        }
 
         const listing_id = await SanitizeId(value_id)
         if(!listing_id){ 
@@ -183,10 +183,10 @@ export async function ModifyPhone(value_id, new_value) {
 
 export async function ModifyOffers(value_id, new_value) {
     try {
-        // const rate_limiter = await RateLimiter('modify');
-        // if(!rate_limiter){
-        //     return { error: { server: "Le serveur est actuellement occupé, veuillez réessayer plus tard." } };
-        // }
+        const rate_limiter = await RateLimiter('modify');
+        if(!rate_limiter){
+            return { error: "Le serveur est actuellement occupé, veuillez réessayer plus tard." };
+        }
 
         const listing_id = await SanitizeId(value_id)
         if(!listing_id){ 
@@ -299,10 +299,10 @@ export async function ModifyOffers(value_id, new_value) {
 
 export async function ModifyServices(value_id, new_value) {
     try {
-        // const rate_limiter = await RateLimiter('modify');
-        // if(!rate_limiter){
-        //     return { error: { server: "Le serveur est actuellement occupé, veuillez réessayer plus tard." } };
-        // }
+        const rate_limiter = await RateLimiter('modify');
+        if(!rate_limiter){
+            return { error: "Le serveur est actuellement occupé, veuillez réessayer plus tard." };
+        }
 
         const listing_id = await SanitizeId(value_id)
         if(!listing_id){ 
@@ -415,10 +415,10 @@ export async function ModifyServices(value_id, new_value) {
 
 export async function ModifySubjects(value_id, new_value) {
     try {
-        // const rate_limiter = await RateLimiter('modify');
-        // if(!rate_limiter){
-        //     return { error: { server: "Le serveur est actuellement occupé, veuillez réessayer plus tard." } };
-        // }
+        const rate_limiter = await RateLimiter('modify');
+        if(!rate_limiter){
+            return { error: "Le serveur est actuellement occupé, veuillez réessayer plus tard." };
+        }
 
         const listing_id = await SanitizeId(value_id)
         if(!listing_id){ 
@@ -531,10 +531,10 @@ export async function ModifySubjects(value_id, new_value) {
 
 export async function ModifyLevels(value_id, new_value) {
     try {
-        // const rate_limiter = await RateLimiter('modify');
-        // if(!rate_limiter){
-        //     return { error: { server: "Le serveur est actuellement occupé, veuillez réessayer plus tard." } };
-        // }
+        const rate_limiter = await RateLimiter('modify');
+        if(!rate_limiter){
+            return { error: "Le serveur est actuellement occupé, veuillez réessayer plus tard." };
+        }
 
         const listing_id = await SanitizeId(value_id)
         if(!listing_id){ 
@@ -650,6 +650,11 @@ export async function ModifyLevels(value_id, new_value) {
 
 export async function CheckImage(id, image){
     try {
+        const rate_limiter = await RateLimiter('image');
+        if(!rate_limiter){
+            return { error: "Le serveur est actuellement occupé, veuillez réessayer plus tard." };
+        }
+
         const listing_id = await SanitizeId(id)
         if(!listing_id){ 
             return null;
@@ -677,6 +682,11 @@ export async function CheckImage(id, image){
 export async function InsertImage(id, name) {
     let connection;
     try {
+        const rate_limiter = await RateLimiter('image');
+        if(!rate_limiter){
+            return { error: "Le serveur est actuellement occupé, veuillez réessayer plus tard." };
+        }
+
         const listing_id = await SanitizeId(id);
         if (!listing_id) return null;
 
@@ -754,6 +764,11 @@ export async function InsertImage(id, name) {
 export async function RemoveImage(id, name) {
     const conn = await db.getConnection();
     try {
+        const rate_limiter = await RateLimiter('image');
+        if(!rate_limiter){
+            return { error: "Le serveur est actuellement occupé, veuillez réessayer plus tard." };
+        }
+        
         const listing_id = await SanitizeId(id);
         if (!listing_id) return null;
 
@@ -834,60 +849,6 @@ export async function RemoveImage(id, name) {
 
 
 
-// export async function RemoveImage(id, name) { 
-//     try {
-//         const listing_id = await SanitizeId(id);
-//         if (!listing_id) return null;
-
-//         const user_id = await UserAuthorized(listing_id);
-//         if (!user_id) return null;
-
-//         if (typeof name !== 'string') {
-//             console.warn(`User ${user_id} is sending invalid image name for listing_id ${listing_id}`);
-//             return null;
-//         }
-
-//         const image_name = xss(name).trim();
-
-//         const [existingImage] = await db.query(
-//             "SELECT * FROM images WHERE name = ? AND listing_id = ? FOR UPDATE",
-//             [image_name, listing_id]
-//         );
-        
-//         if (existingImage.length === 0) {
-//             console.log(`Image: ${image_name} and listing ${listing_id} don't match`);
-//             return null;
-//         }
-
-//         const [imageCount] = await db.query(
-//             "SELECT COUNT(*) AS count FROM images WHERE listing_id = ? FOR UPDATE", [listing_id]);
-
-//         if (imageCount[0].count <= 1) {
-//             return null; 
-//         }
-
-//         await db.query(
-//             "DELETE FROM images WHERE name = ? AND listing_id = ?", [image_name, listing_id] );
-
-//         const [isImageDeleted] = await db.query(
-//             "SELECT COUNT(*) AS count FROM images WHERE name = ? AND listing_id = ?", [image_name, listing_id]);
-
-//         if (isImageDeleted[0]?.count === 0) {
-            
-//             revalidatePath(`/listings/${listing_id}`);
-
-//             return {success: true}
-
-//         } else {
-//             console.log('Failed to delete image record from database');
-//             return null;
-//         }
-
-//     } catch (error) {
-//         console.error("Database error:", error);
-//         return { error: "Une erreur est survenue. Veuillez réessayer plus tard." };
-//     } 
-// }
 
 
 
@@ -895,166 +856,6 @@ export async function RemoveImage(id, name) {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// export async function RemoveImage(id, name) { 
-//     const connection = await db.getConnection();
-//     try {
-//         await connection.beginTransaction();
-
-//         const listing_id = await SanitizeId(id);
-//         if (!listing_id) {
-//             await connection.rollback();
-//             return null;
-//         }
-
-//         const user_id = await UserAuthorized(listing_id);
-//         if (!user_id) {
-//             await connection.rollback();
-//             return null;
-//         }
-
-//         if (typeof name !== 'string') {
-//             console.warn(`User ${user_id} is sending invalid image name for listing_id ${listing_id}`);
-//             await connection.rollback();
-//             return null;
-//         }
-
-//         const image_name = xss(name).trim();
-
-//         const [existingImage] = await connection.query(
-//             "SELECT * FROM images WHERE name = ? AND listing_id = ? FOR UPDATE",
-//             [image_name, listing_id]
-//         );
-//         if (existingImage.length === 0) {
-//             console.log(`Image: ${image_name} and listing ${listing_id} don't match`);
-//             await connection.rollback();
-//             return null;
-//         }
-
-//         const [imageCount] = await connection.query(
-//             "SELECT COUNT(*) AS count FROM images WHERE listing_id = ? FOR UPDATE", [listing_id]);
-
-//         if (imageCount[0].count <= 1) {
-//             await connection.rollback();
-//             return null; 
-//         }
-
-//         await connection.query(
-//             "DELETE FROM images WHERE name = ? AND listing_id = ?",
-//             [image_name, listing_id]
-//         );
-
-//         const [isImageDeleted] = await connection.query(
-//             "SELECT COUNT(*) AS count FROM images WHERE name = ? AND listing_id = ?",
-//             [image_name, listing_id]
-//         );
-
-//         if (isImageDeleted[0]?.count === 0) {
-//             const rows = await userListing(listing_id);
-//             if (rows?.error) {
-//                 await connection.rollback();
-//                 return null;
-//             }
-//             await connection.commit();
-//             return rows;
-//         } else {
-//             console.log('Failed to delete image record from database');
-//             await connection.rollback();
-//             return null;
-//         }
-
-//     } catch (error) {
-//         console.error("Database error:", error);
-//         await connection.rollback();
-//         return { error: "Une erreur est survenue. Veuillez réessayer plus tard." };
-//     } finally {
-//         connection.release();
-//     }
-// }
-
-
-// export async function InsertImage(id, name){
-//     try {
-//         const listing_id = await SanitizeId(id)
-//         if(!listing_id) return null;
-
-//         const user_id = await UserAuthorized(listing_id)
-//         if(!user_id) return null;
-
-//         if (typeof name !== 'string') return null
-
-//         const fileName = xss(name).trim();
-
-//         // -------------------------------------------
-
-//         const connection = await db.getConnection();
-        
-//         try {
-//             await connection.beginTransaction();
-    
-//             const [countRows] = await connection.query(
-//                 'SELECT COUNT(*) AS total FROM images WHERE listing_id = ? FOR UPDATE', [listing_id]);
-//             const image_count = countRows[0]?.total || 0;
-    
-//             if (image_count >= 3) {
-//                 console.log(`Listing ${listing_id} already has 3 images, cannot upload more`);
-//                 await connection.rollback();
-//                 return null;
-//             }
-    
-//             await connection.query(`INSERT INTO images (name, listing_id) VALUES (?, ?)`, [file_name, listing_id]);
-    
-//             const [listingRows] = await connection.query(
-//                 'SELECT images FROM listings WHERE id = ? FOR UPDATE', [listing_id]);
-//             if (listingRows[0]?.images === 0) {
-//                 await connection.query('UPDATE listings SET images = ? WHERE id = ?', [1, listing_id]);
-//             }
-    
-//             const [stateRows] = await connection.query(
-//                 'SELECT state FROM listings WHERE id = ? FOR UPDATE', [listing_id]);
-//             if (stateRows[0]?.state !== 'none') {
-//                 await connection.query('UPDATE listings SET state = ? WHERE id = ?', ['none', listing_id]);
-//             }
-    
-//         } catch (error) {
-//             console.error("Database error:", error);
-//             await connection.rollback();
-//             return null
-//         } finally {
-//             connection.release();
-//         }
-
-//         revalidatePath(`/listings/${listing_id}`);
-
-//         const rows = await userListing(listing_id);
-//         if (rows?.error) {
-//             await connection.rollback();
-//             return { error: "6 Une erreur est survenue. Veuillez réessayer plus tard." };
-//         }
-
-//         await connection.commit();
-//         return rows;
-        
-//     } catch (error) {
-//         console.error("Database error:", error);
-//         return null;
-//     }
-// }
 
 
 async function UploadImage(file, listing_id) {

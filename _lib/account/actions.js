@@ -7,6 +7,10 @@ import bcrypt from "bcryptjs";
 import { revalidatePath } from "next/cache";
 import { UserAuthenticated } from "@/_lib/utils/userauth";
 
+import { RateLimiter } from "@/_lib/utils/ratelimiter";
+
+// --------------------------------------------------------
+
 export async function GetUserData(){
     try {
         const db = getDB();
@@ -39,6 +43,11 @@ export async function GetUserData(){
 export async function ModifyUsername(value) {    
     try {
         const db = getDB();
+
+        const rate_limiter = await RateLimiter('account');
+        if(!rate_limiter){
+            return { error: "Le serveur est actuellement occupé, veuillez réessayer plus tard."};
+        }
 
         const user_id = await UserAuthenticated();
         if(!user_id) return { error: "Une erreur est survenue." };
@@ -77,6 +86,11 @@ export async function ModifyUsername(value) {
 export async function ModifyPhone(value) {
     try {
         const db = getDB();
+        
+        const rate_limiter = await RateLimiter('account');
+        if(!rate_limiter){
+            return { error: "Le serveur est actuellement occupé, veuillez réessayer plus tard."};
+        }
 
         const user_id = await UserAuthenticated();
         if(!user_id) return { error: "Une erreur est survenue." };
@@ -113,6 +127,11 @@ export async function ModifyPassword(value) {
     try {
         const db = getDB();
 
+        const rate_limiter = await RateLimiter('account');
+        if(!rate_limiter){
+            return { error: "Le serveur est actuellement occupé, veuillez réessayer plus tard."};
+        }
+        
         const user_id = await UserAuthenticated();
         if(!user_id) return { error: "Une erreur est survenue." };
 

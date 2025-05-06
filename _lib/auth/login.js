@@ -6,7 +6,11 @@ import validator from 'validator';
 import nodemailer from "nodemailer";
 import { randomBytes } from 'crypto';
 
+import { RateLimiter } from "@/_lib/utils/ratelimiter";
+
 const db = getDB();
+
+//---------------------------------------------
 
 function generateVerificationCode() {
     return randomBytes(12).toString('hex');
@@ -68,10 +72,15 @@ export async function CheckUserStatus(email) {
         return { error: "Format d'e-mail n'est pas valide." };
     }
 
-    const user_email = xss(email.trim());
+    const user_email = xss(email.trim().toLowerCase());
     const conn = await db.getConnection();
 
     try {
+        const rate_limiter = await RateLimiter('login');
+        if(!rate_limiter){
+            return { error: "Le serveur est actuellement occupé, veuillez réessayer plus tard."};
+        }
+        
         const [rows] = await conn.execute("SELECT * FROM users WHERE email = ?", [user_email]);
         const existingUser = rows[0] || null;
 
@@ -129,53 +138,3 @@ export async function CheckUserStatus(email) {
         conn.release();
     }
 }
-
-
-// export async function CheckUserStatus(email){
-    
-//     if (!validator.isEmail(email)) {
-//         return { error: "Format d'e-mail n'est pas valide." };
-//     }
-
-//     const user_email = xss(email)
-    
-//     try {
-//         const [rows] = await db.execute("SELECT * FROM users WHERE email = ?", [user_email]);  
-//         const existingUser = rows[0] || null;
-
-//         if (!existingUser) {
-//             return {error: "L'e-mail ou le mot de passe est incorrect."}
-//         }
-//         if (existingUser.active === 'off'){ 
-//             return {error: "Le compte a été désactivé."}
-//         }
-//         if (existingUser.active === 'none') {
-//             const [tokenrows] = await db.execute("SELECT send FROM tokens WHERE email = ?", [user_email]);  
-//             const token_send = tokenrows[0]?.send ?? null;
-              
-//             if(token_send > 0) {
-//                 return {error: "Le compte n'est pas encore vérifié. Un code de vérification a déjà été envoyée à votre boîte mail."}
-//             } else { //if code is not sent               
-//                 await db.execute("DELETE FROM tokens WHERE email = ?", [user_email]);
-                
-//                 const token = generateVerificationCode();
-//                 const expirationTime = Math.floor(Date.now() / 1000) + 3600;
-                
-//                 await db.execute( "INSERT INTO tokens (email, token, expiration_time) VALUES (?, ?, ?)",
-//                     [user_email, token, expirationTime]);
-                
-//                 await sendVerificationEmail(user_email, token);
-
-//                 await db.execute("UPDATE tokens SET send = ? WHERE email = ?", [1, user_email]);
-
-//                 return {error: "Le compte n'est pas encore vérifié. Un code de vérification a été envoyée à votre boîte mail."}
-//             }
-//         }
-//         else return {success: true}
-//     } catch (error) {
-//         console.error("Database error:", error);
-//         return { error: "Le serveur ne répond pas. Veuillez réessayer plus tard." };
-//     }
-
-     
-// }

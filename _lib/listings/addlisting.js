@@ -80,10 +80,10 @@ async function verifyUserData(inputs, user_id) {
 
 export async function CreateListing (data){
     try{ 
-        // const rate_limiter = await RateLimiter('create');
-        // if(!rate_limiter){
-        //     return { error: {server: "Le serveur est actuellement occupé, veuillez réessayer plus tard."}};
-        // }
+        const rate_limiter = await RateLimiter('create');
+        if(!rate_limiter){
+            return { error: "Le serveur est actuellement occupé, veuillez réessayer plus tard." };
+        }
         
         const user_id = await UserAuthenticated()
         if(!user_id){
@@ -112,8 +112,8 @@ export async function CreateListing (data){
         const validationErrors = validateUserData(inputs);
         if (validationErrors) {
             return {error: validationErrors};
-        }
-        
+        }        
+
         const verificationErrors = await verifyUserData(inputs, user_id);
         if (verificationErrors) {            
             return {error: verificationErrors};

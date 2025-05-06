@@ -105,6 +105,7 @@ export default function Listings({listings_list, cities_list, hoods_list}) {
                         {listings?.map((item, id)=>
                             <li key={id}><Centre listing={item} /></li>
                         )}
+                        {listings.length === 0 && <p className={styles.DiscoverError}> Aucune annonce trouvée. </p>}
                     </ul>
                 </main>
                 <div className={styles.Infinite}>

@@ -67,10 +67,10 @@ export async function VerifyToken(user_token){
     try {
         const db = getDB();
 
-        // const rate_limiter = await RateLimiter('verify');
-        // if(!rate_limiter){
-        //     return { error: "Le serveur est actuellement occupé, veuillez réessayer plus tard."};
-        // }    
+        const rate_limiter = await RateLimiter('verify');
+        if(!rate_limiter){
+            return { error: "Le serveur est actuellement occupé, veuillez réessayer plus tard."};
+        }  
 
         if(!user_token || typeof user_token !== 'string'){
             return null
@@ -126,6 +126,11 @@ export async function ResendToken(new_value) {
     const conn = await db.getConnection(); // Get transaction-safe connection
 
     try {
+        // const rate_limiter = await RateLimiter('verify');
+        // if(!rate_limiter){
+        //     return { error: "Le serveur est actuellement occupé, veuillez réessayer plus tard."};
+        // }  //no need since user can only send one per 1 hour
+
         if (typeof new_value !== 'string') {
             console.warn(`Guest is sending invalid email for verification process`);
             return { error: "Une erreur est survenue. Veuillez réessayer plus tard." };
@@ -188,65 +193,3 @@ export async function ResendToken(new_value) {
         conn.release();
     }
 }
-
-// ----------------------------------------------------------------
-
-// export async function ResendToken(new_value){
-//     try{      
-//         const db = getDB();
-
-//         // const rate_limiter = await RateLimiter('verify');
-//         // if(!rate_limiter){
-//         //     return { error: "Le serveur est actuellement occupé, veuillez réessayer plus tard."};
-//         // }  
-
-//         if(typeof new_value !== 'string'){
-//             console.warn(`Guest is sending invalid email for verification process`);
-//             return { error: "Une erreur est survenue. Veuillez réessayer plus tard."};
-//         }
-
-//         const email = xss(new_value)
-
-//         if (!validator.isEmail(email)) {
-//             return { error: "L'adresse e-mail fournie n'est pas valide." };
-//         }
-
-//         const [existingRows] = await db.query("SELECT active FROM users WHERE email = ?", [email]);
-//         const existingUser = existingRows[0] || null;
-
-//         if (!existingUser) {
-//             return { error: "Aucun compte n'est associé à cette adresse e-mail." };
-//         } else if(existingUser.active !== 'none'){
-//             return { error: "L'adresse e-mail est déjà vérifiée." };
-//         }
-
-//         const token = generateVerificationCode();
-//         const expirationTime = Math.floor(Date.now() / 1000) + 3600;
-
-//         const [tokenRows] = await db.query("SELECT * FROM tokens WHERE email = ?", [email]);
-//         const existingToken = tokenRows[0] || null;
-//         if (!existingToken || existingToken?.expiration_time <  Math.floor(Date.now() / 1000)) {
-
-//             await db.query("DELETE FROM tokens WHERE email = ?", [email]);
-
-//             await db.query("INSERT INTO tokens (email, token, expiration_time) VALUES (?, ?, ?)", 
-//             [email, token, expirationTime]);
-            
-//             await sendVerificationEmail(email, token);
-
-//             await db.query("UPDATE tokens SET send = ? WHERE email = ?", [1, email]);
-
-//             return { error: "Nous avons envoyé un nouveau code de vérification à votre e-mail." };
-
-//         } else{
-//             const timeLeft  = (existingToken.expiration_time - Math.floor(Date.now() / 1000));
-//             const time_left = (timeLeft/60000).toFixed(0);
-//             return { error: `Un code a déjà été envoyé. Merci de vérifier votre boîte mail. Vous devez attendre ${time_left} minutes avant de pouvoir en demander un nouveau.` };
-//         }
-
-//     } catch (error) {
-//         console.error("Database error:", error);
-//         return { error: "Le serveur ne répond pas. Veuillez réessayer plus tard." };
-//     }
-
-// }

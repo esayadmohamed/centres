@@ -1,6 +1,27 @@
 "use server"; 
 import { getBaseUrl } from "@/_lib/utils/getBaseUrl";
 
+const baseUrl = getBaseUrl();
+
+export async function RateLimiter(action) { 
+    
+    const res = await fetch(`${baseUrl}/api/limiter`, {
+        method: "POST",
+        cache: "no-store",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ action: action }),
+    });
+
+    if (res.status === 429) {
+        console.warn("Rate limiting triggered: Possible attempt to flood the server with excessive requests.");
+        return null;
+    }
+
+    return { success: true };
+}
+
 
 export async function RateLimiterGet(action) {
 
@@ -30,21 +51,3 @@ export async function RateLimiterGet(action) {
     }
 }
 
-
-export async function RateLimiter(action) { 
-    const res = await fetch(`${baseurl}/api/limiter`, {
-        method: "POST",
-        cache: "no-store",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ action: action }),
-    });
-
-    if (res.status === 429) {
-        console.warn("Rate limiting triggered: Possible attempt to flood the server with excessive requests.");
-        return null;
-    }
-
-    return { success: true };
-}

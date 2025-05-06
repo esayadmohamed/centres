@@ -8,49 +8,45 @@ import { RateLimiter } from "@/_lib/utils/ratelimiter";
 
 import { userListings } from "./test";
 
+const db = getDB();
+
 // ----------------------------------------------
 
 export async function removeListing (value_id) { 
     try {
-        const db = getDB();
-        
-        // const rate_limiter = await RateLimiter('create');
-        // if(!rate_limiter){
-        //     return { error: "Le serveur est actuellement occupé, veuillez réessayer plus tard."};
-        // }
+        const rate_limiter = await RateLimiter('create');
+        if(!rate_limiter){
+            return null;
+        }
 
         const listing_id = await SanitizeId(value_id)
         if(!listing_id){ 
-            return {error: "Une erreur est survenue. Veuillez réessayer plus tard."}; 
+            return null;
         }
 
         const user_id = await UserAuthorized(listing_id)
         if(!user_id){ 
-            return {error: "Une erreur est survenue. Veuillez réessayer plus tard."}; 
+            return null; 
         }
         
         await db.execute("DELETE FROM listings WHERE id = ?", [listing_id]);
         
         revalidatePath(`/listings`);
 
-        const listings = await userListings();
+        return {success: true}
 
-        return listings;
-       
     } catch (error) {
         console.error("Database error:", error);
-        return {error: "Une erreur est survenue. Veuillez réessayer plus tard."};
+        return null;
     }
 }
 
 export async function toggleListing (value_id){
     try {
-        const db = getDB();
-
-        // const rate_limiter = await RateLimiter('create');
-        // if(!rate_limiter){
-        //     return { error: "Le serveur est actuellement occupé, veuillez réessayer plus tard."};
-        // }
+        const rate_limiter = await RateLimiter('create');
+        if(!rate_limiter){
+            return { error: "Le serveur est actuellement occupé, veuillez réessayer plus tard." };
+        }
         
         const listing_id = await SanitizeId(value_id)
         if(!listing_id){ 
