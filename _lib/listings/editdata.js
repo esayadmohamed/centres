@@ -751,7 +751,8 @@ export async function InsertImage(id, name) {
     }
 }
 
-export async function RemoveImage(id, name) { 
+export async function RemoveImage(id, name) {
+    const conn = await db.getConnection();
     try {
         const listing_id = await SanitizeId(id);
         if (!listing_id) return null;
@@ -766,45 +767,127 @@ export async function RemoveImage(id, name) {
 
         const image_name = xss(name).trim();
 
-        const [existingImage] = await db.query(
+        await conn.beginTransaction();
+
+        const [existingImage] = await conn.query(
             "SELECT * FROM images WHERE name = ? AND listing_id = ? FOR UPDATE",
             [image_name, listing_id]
         );
-        
+
         if (existingImage.length === 0) {
+            await conn.rollback();
             console.log(`Image: ${image_name} and listing ${listing_id} don't match`);
             return null;
         }
 
-        const [imageCount] = await db.query(
-            "SELECT COUNT(*) AS count FROM images WHERE listing_id = ? FOR UPDATE", [listing_id]);
+        const [imageCount] = await conn.query(
+            "SELECT COUNT(*) AS count FROM images WHERE listing_id = ? FOR UPDATE",
+            [listing_id]
+        );
 
         if (imageCount[0].count <= 1) {
-            return null; 
+            await conn.rollback();
+            return null;
         }
 
-        await db.query(
-            "DELETE FROM images WHERE name = ? AND listing_id = ?", [image_name, listing_id] );
+        await conn.query(
+            "DELETE FROM images WHERE name = ? AND listing_id = ?",
+            [image_name, listing_id]
+        );
 
-        const [isImageDeleted] = await db.query(
-            "SELECT COUNT(*) AS count FROM images WHERE name = ? AND listing_id = ?", [image_name, listing_id]);
+        const [isImageDeleted] = await conn.query(
+            "SELECT COUNT(*) AS count FROM images WHERE name = ? AND listing_id = ?",
+            [image_name, listing_id]
+        );
 
         if (isImageDeleted[0]?.count === 0) {
-            
+            await conn.commit();
             revalidatePath(`/listings/${listing_id}`);
-
-            return {success: true}
-
+            return { success: true };
         } else {
+            await conn.rollback();
             console.log('Failed to delete image record from database');
             return null;
         }
 
     } catch (error) {
+        await conn.rollback();
         console.error("Database error:", error);
         return { error: "Une erreur est survenue. Veuillez réessayer plus tard." };
-    } 
+    } finally {
+        conn.release();
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// export async function RemoveImage(id, name) { 
+//     try {
+//         const listing_id = await SanitizeId(id);
+//         if (!listing_id) return null;
+
+//         const user_id = await UserAuthorized(listing_id);
+//         if (!user_id) return null;
+
+//         if (typeof name !== 'string') {
+//             console.warn(`User ${user_id} is sending invalid image name for listing_id ${listing_id}`);
+//             return null;
+//         }
+
+//         const image_name = xss(name).trim();
+
+//         const [existingImage] = await db.query(
+//             "SELECT * FROM images WHERE name = ? AND listing_id = ? FOR UPDATE",
+//             [image_name, listing_id]
+//         );
+        
+//         if (existingImage.length === 0) {
+//             console.log(`Image: ${image_name} and listing ${listing_id} don't match`);
+//             return null;
+//         }
+
+//         const [imageCount] = await db.query(
+//             "SELECT COUNT(*) AS count FROM images WHERE listing_id = ? FOR UPDATE", [listing_id]);
+
+//         if (imageCount[0].count <= 1) {
+//             return null; 
+//         }
+
+//         await db.query(
+//             "DELETE FROM images WHERE name = ? AND listing_id = ?", [image_name, listing_id] );
+
+//         const [isImageDeleted] = await db.query(
+//             "SELECT COUNT(*) AS count FROM images WHERE name = ? AND listing_id = ?", [image_name, listing_id]);
+
+//         if (isImageDeleted[0]?.count === 0) {
+            
+//             revalidatePath(`/listings/${listing_id}`);
+
+//             return {success: true}
+
+//         } else {
+//             console.log('Failed to delete image record from database');
+//             return null;
+//         }
+
+//     } catch (error) {
+//         console.error("Database error:", error);
+//         return { error: "Une erreur est survenue. Veuillez réessayer plus tard." };
+//     } 
+// }
 
 
 
@@ -972,28 +1055,6 @@ export async function RemoveImage(id, name) {
 //         return null;
 //     }
 // }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 async function UploadImage(file, listing_id) {

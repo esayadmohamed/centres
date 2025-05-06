@@ -36,7 +36,7 @@ export default function AuthLogin (){
                 redirect: false, email, password
             });
             
-            if (result?.error) { // for password only, email was verified already 
+            if (result?.error) {
                 setError("L'e-mail ou le mot de passe est incorrect.");
             } else {
                 router.replace ("/") 

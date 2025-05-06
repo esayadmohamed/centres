@@ -44,13 +44,6 @@ export async function POST(req) {
         return NextResponse.json({ error: 'Échec de la suppression de l\'image.', message: err.message }, { status: 500 });
     }
 }
-
-
-// 
-// 
-
-
-
-// ,listings 
+ 
 
 

@@ -24,7 +24,8 @@ export default function SendResetToken (){
 
         const new_result = await PasswordToken(email);
         setLoading(false)
-
+        console.log(new_result);
+        
         if(new_result?.error){
             setError(new_result.error)
         } else {

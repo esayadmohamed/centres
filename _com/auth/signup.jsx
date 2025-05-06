@@ -8,8 +8,6 @@ import { useRouter } from "next/navigation";
 
 import { CreateUser } from "@/_lib/auth/signup";
 
-import {MailCheck, Eye, EyeOff, CircleX, CircleAlert, IdCard, Headset, ChevronRight} from "lucide-react";
-
 import Icon from "@/_lib/utils/Icon";
 
 export default function AuthSignup (){
@@ -39,8 +37,6 @@ export default function AuthSignup (){
         
         const result = await CreateUser(user)
         setLoading(false)
-
-        console.log(result);
         
         if(result.error){
             setErrors(result.error)
@@ -66,6 +62,14 @@ export default function AuthSignup (){
         setCharacter(/[!@#$%^&*(),.?":{}|<>]/.test(value) ? true : false)
     }
 
+    function handleReturn(){
+        setSuccess(false);
+        setName('');
+        setEmail('');
+        setPhone('');
+        setPassword('');
+        setErrors(null);
+    }
 
     if(success) {
         return(
@@ -87,7 +91,7 @@ export default function AuthSignup (){
                             <p>Cliquez sur le lien pour compléter le processus de vérification.</p>
                             <p>Il se peut que vous deviez vérifier votre dossier <b>"Spam"</b> ou <b>"Courrier indésirable"</b>.</p>
                         </div>
-                        <button onClick={()=>setSuccess(false)}> 
+                        <button onClick={handleReturn}> 
                             <span>Retourner</span>
                         </button>
                     </div>
@@ -115,7 +119,7 @@ export default function AuthSignup (){
                         <label htmlFor="name"> Prénom </label>
                         <div>
                             <input type="text" id="name" placeholder='Prénom' value={name}
-                                onChange={(e)=>setName(e.target.value)}
+                                onChange={(e)=>setName(e.target.value)} autoComplete="off"
                             />
                         </div>
                         {errors?.name && <p className={styles.AuthError}> {errors.name}</p> }
@@ -124,7 +128,7 @@ export default function AuthSignup (){
                         <label htmlFor="email">  Adresse e-mail </label>
                         <div>
                             <input type="email" id="email" placeholder='Adresse e-mail' value={email}
-                                onChange={(e)=>setEmail(e.target.value)}
+                                onChange={(e)=>setEmail(e.target.value)} autoComplete="off"
                             />
                         </div>
                         {errors?.email && <p className={styles.AuthError}> {errors.email}</p> }
@@ -133,7 +137,7 @@ export default function AuthSignup (){
                         <label htmlFor="phone"> Numéro de téléphone </label>
                         <div>
                             <input type="text" id="phone" placeholder='Numéro de téléphone' value={phone}
-                                onChange={(e)=>setPhone(e.target.value)}
+                                onChange={(e)=>setPhone(e.target.value)} autoComplete="off"
                             />
                         </div>
                         {errors?.phone && <p className={styles.AuthError}> {errors.phone}</p> }
@@ -143,7 +147,7 @@ export default function AuthSignup (){
                         <label htmlFor="password"> Mot de passe </label>
                         <div>
                             <input id="password" placeholder='Mot de passe' value={password}
-                                type={viewHash? "text" : "password"} 
+                                type={viewHash? "text" : "password"} autoComplete="off"
                                 onChange={handlePassword}
                                 onFocus={()=>setList(true)}
                                 // onBlur={()=>setList(false)}
