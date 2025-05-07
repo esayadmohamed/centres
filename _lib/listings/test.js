@@ -14,7 +14,7 @@ export async function userListings() {
         const user_id = await UserAuthenticated();
         if(!user_id) return [];
 
-        const [listings] = await db.query("SELECT * FROM listings WHERE user_id = ? AND state IN ('on', 'none')",[user_id]);
+        const [listings] = await db.query("SELECT * FROM listings WHERE user_id = ?",[user_id]); //show all //AND state IN ('on', 'none', 'under')
         if (listings.length === 0) { 
             return [];
         }
@@ -73,7 +73,7 @@ export async function userListing(value_id) {
         const user_id = await UserAuthenticated();
         if(!user_id) return { error: true };
 
-        const [listing] = await db.execute("SELECT * FROM listings WHERE id = ? AND  user_id = ?",  [listing_id, user_id]);
+        const [listing] = await db.execute("SELECT * FROM listings WHERE id = ? AND  user_id = ? AND state IN ('on', 'none')",  [listing_id, user_id]);
 
         if (listing.length === 0) { // allow user to edit blocked listings || listing.state === 'off'
             return { error: true };

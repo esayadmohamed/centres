@@ -17,7 +17,6 @@ export default function CreateLocation ({errors, citiesList, hoodsList, selected
     
     // console.log(errors);
     
-
     function filterCities(e){
         const inputValue = e.target.value;
         setCity(inputValue);
@@ -67,50 +66,55 @@ export default function CreateLocation ({errors, citiesList, hoodsList, selected
     }
 
     return (
-        <div className={styles.SearchBar}>
-            {selectedCity === '' ? 
-                <div className={styles.SearchInput}>
-                    <div onBlur={()=> {setTimeout(() => {setViewCities(false) }, 150)}} >
-                        <input 
-                            type="text" placeholder="Choisir Ville" autoComplete="off"
-                            value={city}
-                            onChange={filterCities}
-                            onFocus={()=>setViewCities(true)}
-                        />
-                        {viewCities && 
-                            <ul className={styles.Dropdown}>
-                                {(cities).map((item, id)=> 
-                                    <li key={id} onClick={()=>handleCitySelect(item)}> {item.name} </li>
-                                )}   
-                                {cities.length === 0 && <li className={styles.EditDropError}> Aucune ville... </li>}            
-                            </ul>
-                        }
+        <div className={styles.CreateInput}>
+            <label htmlFor="location"> Emplacement </label> 
+            
+            <div className={styles.SearchBar}>
+                {selectedCity === '' ? 
+                    <div className={styles.SearchInput}>
+                        <div onBlur={()=> {setTimeout(() => {setViewCities(false) }, 150)}} >
+                            <input 
+                                type="text" id="location" placeholder="Choisir Ville" autoComplete="off"
+                                value={city}
+                                onChange={filterCities}
+                                onFocus={()=>setViewCities(true)}
+                            />
+                            {viewCities && 
+                                <ul className={styles.Dropdown}>
+                                    {(cities).map((item, id)=> 
+                                        <li key={id} onClick={()=>handleCitySelect(item)}> {item.name} </li>
+                                    )}   
+                                    {cities.length === 0 && <li className={styles.EditDropError}> Aucune ville... </li>}            
+                                </ul>
+                            }
+                        </div>
                     </div>
-                </div>
-                :
-                <div className={styles.SearchInput} >
-                    { !viewHoods && <p className={styles.SearchSelections} onClick={handleCleanup}>
-                        <span> {selectedCity}{selectedHood && ', '+ selectedHood} <Icon name={'X'} /> </span>
-                    </p>}
-                    {selectedHood === '' &&                   
-                    <div onBlur={()=> {setTimeout(() => { setViewHoods(false) }, 150)}}>
-                        <input 
-                            type="text" placeholder="Choisir Quartier"  autoComplete="off"
-                            value={hood}
-                            onChange={filterHoods}
-                            onFocus={handleHoodFocus}
-                        />
-                        {viewHoods && 
-                            <ul className={styles.Dropdown}>
-                                {(hoods).map((item, id)=> 
-                                    <li key={id} onClick={ ()=>handleHoodSelect(item)}> {item.name} </li>
-                                )}   
-                                {hoods.length === 0 && <li className={styles.EditDropError}> Aucun Quartier... </li>}            
-                            </ul>
-                        }
-                    </div>}
-                </div>
-            }  
+                    :
+                    <div className={styles.SearchInput} >
+                        { !viewHoods && <p className={styles.SearchSelections} onClick={handleCleanup}>
+                            <span> {selectedCity}{selectedHood && ', '+ selectedHood} <Icon name={'X'} /> </span>
+                        </p>}
+                        {selectedHood === '' &&                   
+                        <div onBlur={()=> {setTimeout(() => { setViewHoods(false) }, 150)}}>
+                            <input 
+                                type="text" placeholder="Choisir Quartier"  autoComplete="off"
+                                value={hood}
+                                onChange={filterHoods}
+                                onFocus={handleHoodFocus}
+                            />
+                            {viewHoods && 
+                                <ul className={styles.Dropdown}>
+                                    {(hoods).map((item, id)=> 
+                                        <li key={id} onClick={ ()=>handleHoodSelect(item)}> {item.name} </li>
+                                    )}   
+                                    {hoods.length === 0 && <li className={styles.EditDropError}> Aucun Quartier... </li>}            
+                                </ul>
+                            }
+                        </div>}
+                    </div>
+                }  
+            </div>
+            {errors?.location && <p className={styles.CreateError}> {errors.location}</p> }
         </div>
     )
 }

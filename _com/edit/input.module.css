@@ -61,13 +61,13 @@
     font-size: 15px;
 }
 
-.EditDescription span{
+.EditDescription .EditText{
     border: 1px solid #707b7c;
     border-radius: 5px;
     overflow: hidden;
 }
 
-.EditDescription span p{
+.EditDescription .EditText p{
     height: 35px;
     display: flex;
     align-items: center;

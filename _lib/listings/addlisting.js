@@ -35,16 +35,13 @@ function validateUserData(inputs) {
     }
 
     if (!inputs.city || inputs.city === "" || inputs.city.length < 2 || inputs.city.length > 50) {
-        errors.city = "La ville fourni n'est pas valide";
+        errors.location = "La ville fourni n'est pas valide";
     } else if (!/^[A-Za-zÀ-ÖØ-öø-ÿ\s'-]+$/.test(inputs.city)) {
-        errors.city = "La ville fourni n'est pas valide";
-    } 
-    
-    if (!inputs.hood || inputs.hood === "" || inputs.hood.length < 2 || inputs.hood.length > 50) {
-        errors.hood = "La quartier fourni n'est pas valide";
-    } else 
-    if (!/^[A-Za-zÀ-ÖØ-öø-ÿ\s'-]+$/.test(inputs.hood)) {
-        errors.hood = "Le quartier fourni n'est pas valide";
+        errors.location = "La ville fourni n'est pas valide";
+    } else if (!inputs.hood || inputs.hood === "" || inputs.hood.length < 2 || inputs.hood.length > 50) {
+        errors.location = "La quartier fourni n'est pas valide";
+    } else if (!/^[A-Za-zÀ-ÖØ-öø-ÿ\s'-]+$/.test(inputs.hood)) {
+        errors.location = "Le quartier fourni n'est pas valide";
     } 
 
     if (!inputs.phone || inputs.phone === "") {

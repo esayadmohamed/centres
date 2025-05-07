@@ -1,5 +1,6 @@
 "use client"
 import styles from './style.module.css'
+import Link from 'next/link';
 import { useState, useEffect } from "react";
 import { useRouter } from 'next/navigation';
 
@@ -7,6 +8,7 @@ import { removeListing, toggleListing } from "@/_lib/listings/editlisting";
 
 import defaultImage from '@/_upl/development/default.png'
 import Icon from "@/_lib/utils/Icon";
+
 
 export default function Listing ({listing, setListing}){
     
@@ -55,7 +57,7 @@ export default function Listing ({listing, setListing}){
 
         const data = await res.json();
 
-        console.log(data);
+        // console.log(data);
         
 
         setIsOk(false)
@@ -108,14 +110,14 @@ export default function Listing ({listing, setListing}){
                             <div className={styles.ActionsToggle}>
                                 <span onClick={()=>setView(!view)}> <Icon name={'Menu'} color={'#424949'} /> </span>
                                 <ul style={{display: view? 'flex' : 'none'}}>
-                                    <li onClick={()=>handleToggle(listing.id)}> 
+                                    <li onClick={()=>handleToggle(listing.id)} style={{display: listing.state === 'on' ? 'flex' : 'none'}}> 
                                         { listing.view === 'on' ? 
                                             <>  <Icon name={'Eye'} color={'#424949'} /> visible </> 
                                             : 
                                             <> <Icon name={'EyeOff'} color={'#424949'} /> invisible </> 
                                         } 
                                     </li>
-                                    <li onClick={()=> handleEdit(listing.id)}> 
+                                    <li onClick={()=> handleEdit(listing.id)} style={{display: !['under', 'off'].includes(listing.state) ? 'flex' : 'none'}}> 
                                         <Icon name={'Pencil'} color={'#424949'} /> Modifier 
                                     </li>
                                     <li onClick={()=> setIsOk(true)}>
@@ -131,9 +133,18 @@ export default function Listing ({listing, setListing}){
                                     </div>                                
                                 </div>
                                 : 
-                                listing.state === 'none' && 
+                                listing.state !== 'on' && 
                                     <div className={styles.ActionsStatus}>
-                                        En cours d'approbation...
+                                        {
+                                            listing.state === 'none' ? 
+                                                <p onClick={()=> handleEdit(listing.id)}>Annonce non publiée</p>
+                                            : 
+                                            listing.state === 'under' ? 
+                                                <p> En cours de vérification... </p>
+                                            :
+                                            listing.state === 'off' && 
+                                                <p> Annonce rejetée </p>
+                                        }
                                     </div>
                             }
                         </div>

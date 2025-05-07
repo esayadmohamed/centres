@@ -12,7 +12,7 @@ const db = getDB();
 
 // ----------------------------------------------
 
-export async function removeListing (value_id) { 
+export async function removeListing (value_id, value_array) { 
     try {
         const rate_limiter = await RateLimiter('create');
         if(!rate_limiter){
@@ -29,6 +29,12 @@ export async function removeListing (value_id) {
             return null; 
         }
         
+        const [rows] = await db.execute("SELECT name FROM images WHERE listing_id = ?", [listing_id]);
+        const images = rows.map(row => row.name);
+
+        const allExist = value_array.every(name => images.includes(name));
+        if(!allExist) return null
+
         await db.execute("DELETE FROM listings WHERE id = ?", [listing_id]);
         
         revalidatePath(`/listings`);
@@ -60,7 +66,7 @@ export async function toggleListing (value_id){
 
         //------------------------------------------------------------------------- 
 
-        const [rows] = await db.execute("SELECT view FROM listings WHERE id = ?",[listing_id]);
+        const [rows] = await db.execute("SELECT view FROM listings WHERE id = ? AND state = 'on'",[listing_id]);
         const result = rows[0] || null;
 
         if(result){

@@ -56,7 +56,7 @@ export default function NavSidebar ({isAuthenticated}){
                 > 
                 <div className={styles.SidebarHeader} >
                     <Link href='/'> <p> <Icon name={'Component'}/> Centres </p> </Link>
-                    <span onClick={()=>setToggle(false)}> <Icon name={'CircleX'}/> </span>
+                    <span onClick={()=>setToggle(false)}> <Icon name={'CircleX'} color={'#e74c3c'}/> </span>
                 </div>
                 {!isAuthenticated? 
                     <>

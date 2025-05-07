@@ -8,10 +8,6 @@ import Icon from "@/_lib/utils/Icon";
 import Listing from '@/_com/listings/Listing';
 
 
-// import Add from '@/_com/listings/Add';
-//show all listinsg status on the thumbnail // offline / online / pending
-//show notification bar that ask user to interveen
-
 export default function ListingContent({listings}) {
     
     const [listing, setListing] = useState(listings? listings : [])
@@ -22,6 +18,7 @@ export default function ListingContent({listings}) {
         //check if there is anything that can trugger a notification
     },[])
 
+    
     return (
         <div className={styles.ListingContent}>
             

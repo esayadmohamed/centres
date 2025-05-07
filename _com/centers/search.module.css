@@ -150,6 +150,7 @@
     .Dropdown{
         width: 95vw;
         max-height: 100%;
+        transform: translate(-50px, 5px);
     }
 }
 

@@ -13,7 +13,7 @@ export async function POST(req, res) {
     //validate image array
 
     try {
-        const rows = await removeListing(id)        
+        const rows = await removeListing(id, imagesList)        
         if (!rows) {
             return NextResponse.json({ error: 'Impossible de supprimer l\'image ou image introuvable.' }, { status: 400 });
         }

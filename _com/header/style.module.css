@@ -99,6 +99,13 @@
     font-size: 15px;
 }
 
+.NavSidebar li a{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
 .SidebarHeader{ 
     height: 80px;
     display: flex;

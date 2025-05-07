@@ -169,9 +169,12 @@ export default function AuthSignup (){
                     </div>
                     
                     <p className={styles.AuthAccept}>
-                        En cliquant sur Soumettre, vous acceptez
-                        <Link href={''}> <span>Nos Conditions d'utilisation</span> </Link> et 
-                        <Link href={''}> <span>Notre Politique de confidentialité.</span> </Link>
+                        En créant votre compte, vous acceptez 
+                            <Link href={'/conditions'}> <span>les règles et conditions d'utilisation </span> </Link>
+                            du site centres.ma.
+                        {/* En cliquant sur Soumettre, vous acceptez */}
+                        {/* <Link href={''}> <span>Nos Conditions d'utilisation</span> </Link> et  */}
+                        {/* <Link href={''}> <span>Notre Politique de confidentialité.</span> </Link> */}
                     </p> 
 
                     {errors?.server && <p className={styles.AuthError}> {errors.server}</p> }

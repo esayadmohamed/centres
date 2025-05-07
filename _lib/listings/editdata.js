@@ -19,6 +19,46 @@ const db = getDB();
 
 // ---------------------------------------------------------------
 
+export async function PublishListing (value_id) {
+    try {
+        const listing_id = await SanitizeId(value_id)
+        if(!listing_id){ 
+            return { error: "Une erreur est survenue. Veuillez réessayer plus tard." };
+        }
+        
+        const user_id = await UserAuthorized(listing_id)
+        if(!user_id){ 
+            return { error: "Une erreur est survenue. Veuillez réessayer plus tard." };
+        }
+
+        const [row] = await db.query(`SELECT * FROM listings WHERE id = ?`, [listing_id]);
+        const listing = row[0] || null;
+
+        if(!listing || listing.state !== 'none'){
+            return { error: "Une erreur est survenue. Veuillez réessayer plus tard." };
+        }
+
+        const state = listing.offers+listing.services+listing.subjects+listing.levels+listing.images;
+
+        if(state !== 5){
+            return { error: "Une erreur est survenue. Veuillez réessayer plus tard." };
+        }
+
+        await db.query(`UPDATE listings SET state = ? WHERE id = ?`, ['under', listing_id]);
+
+        revalidatePath(`/listings`);
+
+        return {success: true};
+
+    }catch (error) {
+        console.error("Database error:", error);
+        return { error:  "Une erreur est survenue. Veuillez réessayer plus tard." };    
+    }
+
+}
+
+// ---------------------------------------------------------------
+
 export async function ModifyHood (value_id, new_value) {
     try {
         const rate_limiter = await RateLimiter('modify');

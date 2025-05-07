@@ -3,7 +3,9 @@ import Link from "next/link";
 import styles from "./edit.module.css";
 
 import { useState } from "react";
-import { userListing } from "@/_lib/listings/getdata";
+import { useRouter } from "next/navigation";
+
+import { PublishListing } from "@/_lib/listings/editdata";
 
 import EditInputs from "@/_com/edit/inputs";
 import EditSelects from "@/_com/edit/selects";
@@ -12,9 +14,31 @@ import EditImages from "@/_com/edit/images";
 export default function EditContent({ user_listing, 
     offers_list, services_list, subjects_List, levels_list }){
             
+    const router = useRouter();
+
     const [listing, setListing] = useState(user_listing || [])
 
-    console.log('', listing);
+    const [loading, setLoading] = useState(false)
+    const [error, setError] = useState('')
+
+    async function Publish(){
+        setLoading(true);
+        setError('');
+
+        const result = await PublishListing(listing?.listing[0]?.id)
+        setLoading(false)
+        
+        if (result?.error) {
+            setError(result.error) 
+        }
+        else {
+            setError('');
+            router.replace ("/listings") 
+        }
+    }
+
+    // console.log(listing?.listing[0]?.state);
+    
 
     return(
         <div className={styles.EditContent}>
@@ -52,6 +76,12 @@ export default function EditContent({ user_listing,
                         setListing = {setListing}
                         uploadData={listing.images}
                         />
+                    {error && <p className={styles.EditError}> {error}</p>}
+                    <div className={styles.EditPublish} style={{display: ['none'].includes(listing?.listing[0]?.state) ? 'flex' : 'none'}}>
+                        <button onClick={Publish}>
+                            {loading ? <div className="spinner"></div > : <span>  Publier </span>} 
+                        </button>
+                    </div>
 
                 </div>
                 <div className={styles.EditSide}>
@@ -63,175 +93,24 @@ export default function EditContent({ user_listing,
 }
 
 
-// {
-//     "listing": [
-//         {
-//             "id": 60023,
-//             "user_id": 23,
-//             "view": "on",
-//             "state": "none",
-//             "name": "Esayad",
-//             "info": "aa bb cc dd ee hh",
-//             "city": "Rabat",
-//             "hood": "Hassan",
-//             "phone": "0642101001",
-//             "images": 1,
-//             "services": 1,
-//             "subjects": 1,
-//             "levels": 1,
-//             "offers": 1,
-//             "created_at": "2025-05-04T19:46:04.000Z"
-//         }
-//     ],
-//     "images": [
-//         "dqupdpjbsuptk1enemrl.png"
-//     ],
-//     "offers": [
-//         {
-//             "name": "Première séance offerte",
-//             "icon": "Tag"
-//         },
-//         {
-//             "name": "Préparation aux concours",
-//             "icon": "Tag"
-//         },
-//         {
-//             "name": "Cours particuliers",
-//             "icon": "Tags"
-//         },
-//         {
-//             "name": "Cours accélérés",
-//             "icon": "Tag"
-//         },
-//         {
-//             "name": "Cours adaptés",
-//             "icon": "Tags"
-//         },
-//         {
-//             "name": "Cours du soir",
-//             "icon": "Tags"
-//         },
-//         {
-//             "name": "Cours à distance",
-//             "icon": "Tags"
-//         },
-//         {
-//             "name": "Réduction familiale",
-//             "icon": "Tags"
-//         }
-//     ],
-//     "levels": [
-//         {
-//             "name": "Collège",
-//             "icon": "BadgeCheck"
-//         },
-//         {
-//             "name": "Lycée qualifiant",
-//             "icon": "BadgeCheck"
-//         },
-//         {
-//             "name": "Maternelle",
-//             "icon": "BadgeCheck"
-//         },
-//         {
-//             "name": "Primaire",
-//             "icon": "BadgeCheck"
-//         },
-//         {
-//             "name": "Universitaire",
-//             "icon": "BadgeCheck"
-//         }
-//     ],
-//     "draft": null,
-//     "subjects": [
-//         {
-//             "name": "Anglais",
-//             "icon": "Baseline"
-//         },
-//         {
-//             "name": "Français",
-//             "icon": "WholeWord"
-//         },
-//         {
-//             "name": "Mathématiques",
-//             "icon": "SquareSigma"
-//         },
-//         {
-//             "name": "Philosophie",
-//             "icon": "GraduationCap"
-//         },
-//         {
-//             "name": "Arabe",
-//             "icon": "BookA"
-//         },
-//         {
-//             "name": "SVT",
-//             "icon": "FlaskConical"
-//         },
-//         {
-//             "name": "Économie et Gestion",
-//             "icon": "ChartNoAxesCombined"
-//         },
-//         {
-//             "name": "Éducation Artistique",
-//             "icon": "Palette"
-//         },
-//         {
-//             "name": "Éducation Islamique",
-//             "icon": "Handshake"
-//         }
-//     ],
-//     "services": [
-//         {
-//             "name": "Parking",
-//             "icon": "SquareParking"
-//         },
-//         {
-//             "name": "Surveillance",
-//             "icon": "Cctv"
-//         },
-//         {
-//             "name": "WIFI",
-//             "icon": "Wifi"
-//         },
-//         {
-//             "name": "Imprimante",
-//             "icon": "Printer"
-//         },
-//         {
-//             "name": "Projecteur",
-//             "icon": "Projector"
-//         },
-//         {
-//             "name": "Tableau Interactif",
-//             "icon": "Presentation"
-//         },
-//         {
-//             "name": "Trousse De Secours",
-//             "icon": "BriefcaseMedical"
-//         },
-//         {
-//             "name": "Ordinateur",
-//             "icon": "Computer"
-//         }
-//     ],
-//     "reviews": [],
-//     "newhood": []
-// }
 
-
-
-
-
-
-
-
-
-
-
-
-
-            {/* <div className={styles.EditInfo}>
-                <h3 onClick={Referesh}> <House /> Informations Générales </h3>
-
-            </div> */}
+// CREATE TABLE "listings" (
+// 	"id"	INTEGER,
+// 	"user_id"	INTEGER NOT NULL,
+// 	"view"	TEXT NOT NULL DEFAULT 'on',
+// 	"state"	TEXT NOT NULL DEFAULT 'none',
+// 	"name"	TEXT NOT NULL,
+// 	"info"	TEXT NOT NULL,
+// 	"city"	TEXT NOT NULL,
+// 	"hood"	TEXT NOT NULL,
+// 	"phone"	TEXT NOT NULL,
+// 	"images"	INTEGER NOT NULL DEFAULT 0,
+// 	"services"	INTEGER NOT NULL DEFAULT 0,
+// 	"subjects"	INTEGER NOT NULL DEFAULT 0,
+// 	"levels"	INTEGER NOT NULL DEFAULT 0,
+// 	"offers"	INTEGER NOT NULL DEFAULT 0,
+// 	"created_at"	DATETIME DEFAULT CURRENT_TIMESTAMP,
+// 	PRIMARY KEY("id" AUTOINCREMENT),
+// 	UNIQUE("user_id","name"),
+// 	FOREIGN KEY("user_id") REFERENCES "users"("id") ON DELETE CASCADE
+// )

@@ -123,15 +123,25 @@
     width: 100%; 
     border-radius: 5px;
 
+    font-size: 15px;
+    color: #424949;
+    cursor: pointer;
+    user-select: none;
+
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 5px;
-
-    font-size: 15px;
-    color: #424949;
 
     background-color: rgba(254, 254, 254, .8);
+}
+
+.ActionsStatus p{
+    height: 100%;
+    width: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .ListingView{

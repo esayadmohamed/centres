@@ -28,7 +28,7 @@ export default function EditInfo({listing, handleEdit, setListing}) {
 
     return(
     <div className={styles.EditDescription}>
-        <span>
+        <span className={styles.EditText}>
             <textarea 
                 name="description" 
                 id="description" 

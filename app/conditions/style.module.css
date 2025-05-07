@@ -1,0 +1,211 @@
+.ConditionsContent{
+    margin-top: 70px;
+    width: 100%;
+    height: 100%;
+    padding: 10px 50px;
+}
+
+/* -------------------------------------- */
+/* -------------------------------------- */
+
+.ConditionsBanner{
+    height: 100px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    justify-content: center;
+    color: #222222;
+}
+
+.ConditionsBanner h2{
+    width: 100%;
+}
+
+/* ------------------------------------ */
+/* ------------------------------------ */
+
+.AuthRoot{
+    display: flex;
+    gap: 5px;
+    font-size: 14px;
+    color: #424949;
+}
+
+.AuthRoot a{
+    text-decoration: underline;
+}
+
+/* ------------------------------------ */
+/* ------------------------------------ */
+
+.Conditions{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    color: #424949;
+
+    padding-bottom: 30px;
+}
+
+.Conditions section{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.Conditions h3{
+    font-size: 15px;
+}
+
+.Conditions p{
+    font-size: 14px;
+}
+
+.Conditions ul{
+    font-size: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding-left: 20px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.ListingList{
+    background-color: #f8f9f9;
+
+    padding: 10px 0;
+    color: #1b2631;
+    border-radius: 10px;
+    width: 100%;
+
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    justify-items: center;
+    align-items: center;
+    
+    gap: 15px;
+}
+
+.ListingList svg{
+    width: 30;
+    height: 30;
+}
+
+.ListingEmpty{
+    background-color: #f8f9f9;
+    min-height: 40vh;
+    border-radius: 10px;
+    gap: 10px;
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.ListingEmpty img{
+    width: 100px;
+    height: 100px;
+    /* background-color: #8b72d0; */
+}
+
+.ListingEmpty svg{
+    width: 50;
+    height: 50;
+    color: #2980b9;
+}
+
+/* -------------------------------------- */
+/* -------------------------------------- */
+
+.ListingNotification{
+    background-color: #d4e6f1;
+    height: 50px;
+    padding: 0 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #424949;
+    font-size: 15px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.ListingNotification svg{
+    width: 20;
+    height: 20;
+}
+
+/* ------------------------------------------- */
+/* ------------------------------------------- */
+
+.addlisting{
+    height: 100%;
+    min-height: 300px;
+    width: 260px;
+    border-radius: 5px;
+    overflow: hidden;
+    user-select: none;
+
+    /* background-color: red; */
+    border: 1px solid #ccd1d1;
+}
+
+.addlisting a{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    min-height: 300px;
+    height: 100%;
+    width: 100%;
+}
+
+/* ------------------------------------------- */
+/* ------------------------------------------- */
+
+@media (max-width: 600px) {
+    .ListingContent{
+        margin-top: 70px;
+        padding: 10px 10px;
+    }
+
+    .ListingList{    
+        padding: 10px 0;
+        color: #1b2631;
+        border-radius: 10px;
+        width: 100%;
+
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+    }
+}
+  
+@media (min-width: 601px) and (max-width: 1024px) {
+
+}

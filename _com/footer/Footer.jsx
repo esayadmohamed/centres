@@ -5,6 +5,7 @@ import Icon from '@/_lib/utils/Icon'
 
 export default function Footer() {
 
+    const currentYear = new Date().getFullYear();
 
     return (
         <footer className={styles.Footer} >
@@ -14,9 +15,9 @@ export default function Footer() {
                     <li> | </li>
                     <Link href={'/'}> <li>Blog</li> </Link>
                     <li> | </li>
-                    <Link href={'/'}> <li>Support</li> </Link>
+                    <Link href={'/support'}> <li>Support</li> </Link>
                 </ul>
-                <p>@ 2025-2026, All Rights Reserved</p>
+                <p>@ 2025-{currentYear}, Tous droits reserves</p>
             </div>
             <span onClick={()=>window.scrollTo({ top: 0, behavior: 'smooth' })}>
                 <Icon name={'ChevronUp'}/> 
