@@ -44,6 +44,8 @@
     bottom: 5vh;
 
     background-color: #2980b9;
+    border: 2px solid #d7dbdd;
+    box-shadow: 0px 0px 2px #f8f9f9;
     color: white;
     width: 50px;
     height: 50px;

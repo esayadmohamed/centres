@@ -14,7 +14,7 @@
     display: flex;
     align-items: center;
     gap: 10px;
-    font-weight: 100;
+    font-weight: 500;
 }
 
 .EditUploads h3 svg{
