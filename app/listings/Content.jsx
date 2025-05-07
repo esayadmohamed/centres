@@ -46,11 +46,11 @@ export default function ListingContent({listings}) {
                 )}
 
                 {listing.length < 11 && 
-                        <div className={styles.addlisting}>
-                            <Link href={'/listings/create'}>
-                                <Icon name={'Plus'}/>
-                            </Link>
-                        </div>
+                    <div className={styles.addlisting}>
+                        <Link href={'/listings/create'}>
+                            <Icon name={'Plus'}/>
+                        </Link>
+                    </div>
                 }
             
             </div>

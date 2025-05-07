@@ -27,6 +27,7 @@ export async function ModifyHood (value_id, new_value) {
         }
 
         const listing_id = await SanitizeId(value_id)
+
         if(!listing_id){ 
             return { error: "Une erreur est survenue. Veuillez réessayer plus tard." };
         }
@@ -49,13 +50,14 @@ export async function ModifyHood (value_id, new_value) {
             return { error:"Le quartier fourni n'est pas valide."}
         } 
 
-        const [hoodSubmitted] = db.query("SELECT * FROM suggestedhoods WHERE listing_id = ?", [listing_id]);
-        if(hoodSubmitted.length === 0){
+        const [hoodSubmitted] = await db.query("SELECT * FROM suggestedhoods WHERE listing_id = ?", [listing_id]);
+        if(hoodSubmitted.length !== 0){
             return {error: "Une suggestion de quartier a déjà été enregistrée."};
         }
 
-        const [listing] = db.query("SELECT * FROM listings WHERE id = ?", [listing_id]);
-        if(listing.length === 0){
+        const [row] = await db.query("SELECT * FROM listings WHERE id = ?", [listing_id]);
+        const listing = row[0] || null;
+        if(!listing){
             return { error: "Une erreur est survenue. Veuillez réessayer plus tard." };   
         }
 

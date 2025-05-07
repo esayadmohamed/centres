@@ -92,7 +92,7 @@ export default function Listings({listings_list, cities_list, hoods_list}) {
                 SelectedHood={SelectedHood} 
                 setSelectedHood={setSelectedHood}
             />
-            <Sortby handleListings={handleListings} sort={sort} handleSort={handleSort}/>
+            {/* <Sortby handleListings={handleListings} sort={sort} handleSort={handleSort}/> */}
             {loading ? 
                 <div className={styles.DiscoverLoader}>
                     <div className={styles.spinner}></div>    
@@ -105,12 +105,12 @@ export default function Listings({listings_list, cities_list, hoods_list}) {
                         {listings?.map((item, id)=>
                             <li key={id}><Centre listing={item} /></li>
                         )}
-                        {listings.length === 0 && <p className={styles.DiscoverError}> Aucune annonce trouvée. </p>}
+                        {/* {listings.length === 0 && <p className={styles.DiscoverError}>  </p>} */}
                     </ul>
                 </main>
                 <div className={styles.Infinite}>
                     {(error || listings.length === 0) ? 
-                        <p>{error}</p>
+                        <p>{error || 'Aucune annonce trouvée.'}</p>
                         :
                         (moreLoading ?  
                             <><div className={styles.spinner}></div> <p>Patientez ...</p> </>
