@@ -29,7 +29,8 @@ function generateVerificationCode() {
 
 async function sendVerificationEmail(email, token) {
     const transporter = nodemailer.createTransport({
-        service: "gmail",
+        // service: "gmail",
+        host: 'mail.centres.ma',
         auth: {
             user: process.env.EMAIL_USER,
             pass: process.env.EMAIL_PASS,
@@ -44,7 +45,7 @@ async function sendVerificationEmail(email, token) {
     const verificationLink = `http://localhost:3000/auth/${token}`;
 
     const mailOptions = {
-        from: `${process.env.EMAIL_USER}`,
+        from: `Centres ${process.env.EMAIL_USER}`,
         to: email,
         subject: "Code de Verification - Courdesoutien",
         html: `
@@ -65,7 +66,7 @@ async function sendVerificationEmail(email, token) {
                     </p>
 
                     <!-- Expiration notice -->
-                    <p style="font-size: 14px; color: #666; margin-top: 20px;">Ce code expirera dans 60 minutes.</p>
+                    <p style="font-size: 14px; color: #666; margin-top: 20px;">Ce lien expirera dans 60 minutes.</p>
                     <p style="font-size: 14px; color: #666;">Si vous n'êtes pas à l'origine de cette demande, ignorez cet e-mail.</p>
 
                     <!-- Website Link -->

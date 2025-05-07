@@ -22,7 +22,8 @@ async function sendResetEmail(email, token) {
     try {
         // Create a transporter with Gmail settings
         const transporter = nodemailer.createTransport({
-            service: 'gmail',
+            // service: 'gmail',
+            host: 'mail.centres.ma',
             auth: {
                 user: process.env.EMAIL_USER,
                 pass: process.env.EMAIL_PASS,
@@ -34,7 +35,7 @@ async function sendResetEmail(email, token) {
         const resetLink = `https://www.centres.ma//auth/signup/${token}`;
 
         const mailOptions = {
-            from: `${process.env.EMAIL_USER}`,
+            from: `Centres ${process.env.EMAIL_USER}`,
             to: email,
             subject: "Code de Réinitialisation - Centres",
             html: `                
@@ -45,10 +46,10 @@ async function sendResetEmail(email, token) {
                         <p style="font-size: 16px; margin-bottom: 20px;">Pour changer votre mot de passe, veuillez cliquer sur le bouton ci-dessous :</p>
                         <p>
                             <a href="${resetLink}" style="display: inline-block; background-color: #2e86c1; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; font-size: 16px;">
-                                Vérifier mon e-mail
+                                Réinitialiser
                             </a>
                         </p>
-                        <p style="font-size: 14px; color: #666; margin-top: 20px;">Ce code expirera dans 60 minutes.</p>
+                        <p style="font-size: 14px; color: #666; margin-top: 20px;">Ce lien expirera dans 60 minutes.</p>
                         <p style="font-size: 14px; color: #666;">Si vous n'êtes pas à l'origine de cette demande, ignorez cet e-mail.</p>
                         <p style="font-size: 14px; color: #2e86c1; margin-top: 20px;">
                             <a href="https://www.centres.ma/" style="color: #2e86c1; text-decoration: none;">www.centres.ma</a>

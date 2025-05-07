@@ -97,7 +97,8 @@ export default function AuthLogin (){
                 </div>
 
                 <ul className={styles.AuthActions}>
-                    <Link href={'/support'}> <li> <Icon name={'Headset'}/> Contacter Support </li> </Link>
+                    <li> <Icon name={'Headset'}/> support@centres.ma </li> 
+                    {/* <Link href={'/support'}> <li> <Icon name={'Headset'}/> Contacter Support </li> </Link> */}
                 </ul>
             </div>
         </div>
