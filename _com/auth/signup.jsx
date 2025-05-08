@@ -3,8 +3,9 @@
 import Link from "next/link"
 import styles from './style.module.css'
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { useRouter } from "next/navigation";
+import ReCAPTCHA from 'react-google-recaptcha';
 
 import { CreateUser } from "@/_lib/auth/signup";
 
@@ -13,11 +14,13 @@ import Icon from "@/_lib/utils/Icon";
 export default function AuthSignup (){
     
     const router = useRouter();
+    const recaptchaRef = useRef(null);
 
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [phone, setPhone] = useState('');
     const [password, setPassword] = useState('');
+    const [captchaToken, setCaptchaToken] = useState(null);
     const [errors, setErrors] = useState(null);
     const [success, setSuccess] = useState(false);
 
@@ -32,7 +35,8 @@ export default function AuthSignup (){
             name: name,
             email: email,
             phone: phone,
-            password: password
+            password: password,
+            captchaToken: captchaToken
             }
         
         const result = await CreateUser(user)
@@ -43,6 +47,8 @@ export default function AuthSignup (){
         } else{
             setSuccess(true)
             window.scrollTo({ top: 0, behavior: 'smooth' });
+            recaptchaRef.current?.reset();
+            setCaptchaToken(null);
         }
     }
 
@@ -71,6 +77,8 @@ export default function AuthSignup (){
         setErrors(null);
     }
 
+    // router.replace ("/") 
+
     if(success) {
         return(
             <div className={styles.AuthContent}>
@@ -96,7 +104,7 @@ export default function AuthSignup (){
                         </button>
                     </div>
                     <ul className={styles.AuthActions}>
-                        <Link href={'/support'}> <li> <Icon name={'Headset'}/> Contacter Support </li> </Link>
+                        <li> <Icon name={'Headset'}/> support@centres.ma </li> 
                     </ul>
                 </div>
             </div>
@@ -172,10 +180,14 @@ export default function AuthSignup (){
                         En créant votre compte, vous acceptez 
                             <Link href={'/conditions'}> <span>les règles et conditions d'utilisation </span> </Link>
                             du site centres.ma.
-                        {/* En cliquant sur Soumettre, vous acceptez */}
-                        {/* <Link href={''}> <span>Nos Conditions d'utilisation</span> </Link> et  */}
-                        {/* <Link href={''}> <span>Notre Politique de confidentialité.</span> </Link> */}
                     </p> 
+                    
+                    <ReCAPTCHA
+                        sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}
+                        onChange={(token)=>setCaptchaToken(token)}
+                    />
+                    {errors?.captcha && <p className={styles.AuthError}> {errors.captcha}</p> }
+
 
                     {errors?.server && <p className={styles.AuthError}> {errors.server}</p> }
 
@@ -192,7 +204,10 @@ export default function AuthSignup (){
                 </div>
 
                 <ul className={styles.AuthActions}>
-                    <Link href={'/support'}> <li> <Icon name={'Headset'}/> Contacter Support </li> </Link>
+                    <li> 
+                        <Icon name={'Headset'} color={'#424949'}/> 
+                        support@centres.ma 
+                    </li> 
                 </ul>
             </div>
         </div>

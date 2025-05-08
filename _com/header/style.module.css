@@ -27,24 +27,27 @@
 .Logo{
     width: 100%;
     overflow: hidden; 
+    /* color: #364D93; */
 }
 
 .Logo a{
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    gap: 10px;
+    gap: 0px;
 }   
 
-.Logo a svg{
-    color: #2471a3;
+.Logo svg{
+    width: 25;
+    height: 25;
 }
 
 .Logo a p{
     font-weight: 600;
     display: flex;
     flex-direction: column;
-    color: #222222;
+    /* color: #222222; */
+    color: #1f618d;
     font-size: 16px;
 }
 
@@ -55,6 +58,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    gap: 20px;
     height: 35px;
     width: 35px;
     cursor: pointer;
@@ -65,38 +69,55 @@
     height: 24;
 }
 
+/* .Functions p{
+    font-size: 15px;
+    border: 1px solid #424949;
+    border-radius: 5px;
+    height: 100%;
+    padding: 0 10px;
+    display: flex;
+    align-items: center;
+} */
+
 .Overlay{
     position: fixed;
     top: 0;
-    bottom: 0;
-    right: 0;
-    width: 100%;
+    left: 0;
     height: 100%;
-    background-color: rgba(34, 34, 32, .3);
-    z-index: 9;
+    width: 100%;
+    background: rgba(0,0,0,0.3);
+    z-index: 900;
 }
 
 .NavSidebar{
+    display: flex;
+    flex-direction: column; 
     position: fixed;
     top: 0;
     bottom: 0;
     right: 0;
-    width: 320px;
     height: 100%;
+    width: 320px;
     background-color: white;
-    z-index: 10;
-
-    display: flex;
-    flex-direction: column;
+    transform: translateX(+100%);
+    transition: transform 0.3s ease-in-out;
+    z-index: 1000;
+    overflow-y: auto;
 }
+
+.NavSidebarVisible {
+    transform: translateX(0);
+  }
 
 .NavSidebar li{
     display: flex;
     align-items: center;
+    gap: 10px;
     cursor: pointer;
     height: 50px;
     padding: 0 20px;
     font-size: 15px;
+    padding: 0 10px;
 }
 
 .NavSidebar li a{
@@ -104,6 +125,12 @@
     width: 100%;
     display: flex;
     align-items: center;
+    gap: 10px;
+}
+
+.NavSidebar li svg{
+    width: 20;
+    height: 20;
 }
 
 .SidebarHeader{ 
@@ -120,8 +147,16 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    gap: 10px;
+    gap: 0px;
     font-weight: 600;
+    text-transform: uppercase;
+    font-size: 15px;
+    color: #1f618d;
+}
+
+.SidebarHeader p svg{
+    width: 26;
+    height: 26;
 }
 
 .SidebarHeader span{
@@ -136,6 +171,18 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    min-height: 100px;
+}
+
+/* ------------------------------------ */
+/* ------------------------------------ */
+
+.SidebarSupport{
+    color: #424949;
+    justify-content: center;
+    background-color: #f2f3f4;
+    /* margin-bottom: auto; */
+    margin-top: auto;
     min-height: 100px;
 }
 

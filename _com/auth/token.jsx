@@ -62,7 +62,7 @@ export default function AuthToken ({result}){
                         </button>
                     </div>
                     <ul className={styles.AuthActions}>
-                        <Link href={'/support'}> <li> <Icon name={'Headset'}/> Contacter Support </li> </Link>
+                        <li> <Icon name={'Headset'}/> support@centres.ma </li> 
                     </ul>
                 </div>
             </div>
@@ -90,7 +90,10 @@ export default function AuthToken ({result}){
                     </button>
                 </div>
                 <ul className={styles.AuthActions}>
-                    <Link href={'/support'}> <li> <Icon name={'Headset'}/> Contacter Support </li> </Link>
+                    <li> 
+                        <Icon name={'Headset'} color={'#424949'}/> 
+                        support@centres.ma 
+                    </li> 
                 </ul>
             </div>
         </div>

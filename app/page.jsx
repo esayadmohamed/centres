@@ -1,5 +1,7 @@
 import Centers from "./centres/page"
 
+// import { getSessionData } from "@/_lib/utils/session"
+
 // import getDB from "@/_lib/db";
 // async function dbex() {
 //     try { // UPDATE listings SET state = 'on' // DELETE FROM listings WHERE name = 'Al Wafae'
@@ -21,6 +23,10 @@ import Centers from "./centres/page"
 export default async function Home() {
 
     // await dbex();
+    // const aaa= await getSessionData()
+
+    // console.log(aaa);
+    
 
     return <Centers />
 

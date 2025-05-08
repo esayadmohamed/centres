@@ -8,6 +8,7 @@ import { randomBytes } from 'crypto';
 import nodemailer from "nodemailer";
 
 import { RateLimiter } from '@/_lib/utils/ratelimiter';
+import { verifyCaptcha } from "@/_lib/utils/captcha";
 
 const db = getDB(); 
 
@@ -68,7 +69,7 @@ async function sendResetEmail(email, token) {
     }
 }
 
-export async function PasswordToken(user_email) {
+export async function PasswordToken(user_email, user_captcha) {
     const conn = await db.getConnection();
 
     try {
@@ -77,15 +78,28 @@ export async function PasswordToken(user_email) {
             return { error: "Le serveur est actuellement occupé, veuillez réessayer plus tard."};
         }
 
-        if (typeof user_email !== 'string') {
-            console.warn(`Guest sent invalid email type for password reset.`);
-            return { error: "Une erreur est survenue. Veuillez réessayer plus tard." };
+        // --------------------------- start
+
+        if (!user_email || typeof user_email !== 'string' || user_email.length > 100) {
+            return { error: "L'adresse e-mail fournie n'est pas valide." };
+        }
+        
+        if(!user_captcha || typeof user_captcha !== 'string'){
+            return { error: "Vous devez compléter le CAPTCHA pour continuer." };
         }
 
-        const email = xss(user_email.trim());
+        // --------------------------- end
 
-        if (!validator.isEmail(email) || email.length > 100) {
+        const email = xss(user_email.trim());
+        const captchaToken = xss(user_captcha.trim());
+        
+        if (!validator.isEmail(email) ) {
             return { error: "L'adresse e-mail fournie n'est pas valide." };
+        }
+
+        const captcha = await verifyCaptcha(captchaToken)
+        if (!captcha) {
+            return { error: "Échec de la vérification du CAPTCHA." };
         }
 
         // Check user existence

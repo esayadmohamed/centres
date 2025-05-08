@@ -11,7 +11,6 @@ import { CheckUserStatus } from "@/_lib/auth/login";
 
 import Icon from "@/_lib/utils/Icon";
 
-
 export default function AuthLogin (){
     
     const router = useRouter();
@@ -29,13 +28,17 @@ export default function AuthLogin (){
 
         const user_status = await CheckUserStatus(email);      
         
+        console.log(user_status);
+
         if (user_status?.error) {
             setError(user_status.error);
         } else {
             const result = await signIn("credentials", {
                 redirect: false, email, password
             });
-            
+
+            console.log(result);
+
             if (result?.error) {
                 setError("L'e-mail ou le mot de passe est incorrect.");
             } else {
@@ -97,8 +100,10 @@ export default function AuthLogin (){
                 </div>
 
                 <ul className={styles.AuthActions}>
-                    <li> <Icon name={'Headset'}/> support@centres.ma </li> 
-                    {/* <Link href={'/support'}> <li> <Icon name={'Headset'}/> Contacter Support </li> </Link> */}
+                    <li> 
+                        <Icon name={'Headset'} color={'#424949'}/> 
+                        support@centres.ma 
+                    </li> 
                 </ul>
             </div>
         </div>

@@ -40,53 +40,70 @@ export default function NavSidebar ({isAuthenticated}){
 
     return(
         <>
-        {!toggle ? 
             <div className={styles.Functions} onClick={()=>setToggle(true)}>
-                <Icon name={'AlignJustify'} />
+                <Icon name={'AlignJustify'} color={'#424949'}/>
+                {/* <p>Connexion</p> */}
             </div>
-            :
-            <>
-            <div className={styles.Overlay} onClick={()=>setToggle(false)}> 
-            </div>
+            
 
-            <ul className={styles.NavSidebar}
+            {toggle && 
+                <div className={styles.Overlay} onClick={()=>setToggle(false)}> 
+                </div>
+            }
+
+            <ul className={`${styles.NavSidebar} ${toggle ? styles.NavSidebarVisible : ''}`}
                 onTouchStart={onTouchStart}
                 onTouchMove={onTouchMove}
                 onTouchEnd={onTouchEnd}
                 > 
                 <div className={styles.SidebarHeader} >
-                    <Link href='/'> <p> <Icon name={'Component'}/> Centres </p> </Link>
+                    <Link href='/'> <p> <Icon name={'Navigation2'} color={'#1f618d'}/> Centres </p> </Link>
                     <span onClick={()=>setToggle(false)}> <Icon name={'CircleX'} color={'#e74c3c'}/> </span>
                 </div>
+                
+                <li style={{fontWeight: pathname === '/' ? '600' : '500'}} > 
+                    <Link href='/'> <Icon name={'House'} /> Centres </Link> 
+                </li>
+
+                <li style={{fontWeight: pathname === '/blog' ? '600' : '500'}} > 
+                    {/* <Link href='/'>  */}
+                    <Icon name={'Text'} /> Blog 
+                    {/* </Link>  */}
+                </li>
+ 
                 {!isAuthenticated? 
                     <>
                         <li style={{fontWeight: pathname === '/login' ? '600' : '500'}} > 
-                            <Link href='/auth'> Connexion </Link> 
+                            <Link href='/auth'> <Icon name={'User'} /> Connexion </Link> 
                         </li>
                         <li style={{fontWeight: pathname === '/signup' ? '600' : '500'}} > 
-                            <Link href='/auth/signup'> Créer un compte </Link> 
-                        </li>
-                        <li style={{fontWeight: pathname === '/support' ? '600' : '500'}} > 
-                            <Link href='/'> Support </Link> 
+                            <Link href='/auth/signup'> <Icon name={'UserPlus'} /> Créer un compte </Link> 
                         </li>
                     </>
                     :
                     <>
                         <li style={{fontWeight: pathname === '/listings' ? '600' : '500'}} > 
-                            <Link href='/listings'> Mes annonces </Link> 
+                            <Link href='/listings'> <Icon name={'LayoutList'} /> Mes centres </Link> 
+                        </li>
+                        <li style={{fontWeight: pathname === '/tutring' ? '600' : '500'}} > 
+                            {/* <Link href='/courses'>  */}
+                            <Icon name={'GraduationCap'} /> Mes cours 
+                            {/* </Link>  */}
                         </li>
                         <li style={{fontWeight: pathname === '/account' ? '600' : '500'}} > 
-                            <Link href='/account'> Mon compte </Link> 
+                            <Link href='/account'> <Icon name={'User'} /> Mon compte </Link> 
                         </li>
                         
                         <li onClick={()=>signOut({ callbackUrl: "/" })}> 
-                            Deconnexion
+                            <Icon name={'LogOut'} /> Deconnexion
                         </li>
                     </>
                 } 
+                    <li className={styles.SidebarSupport}> 
+                        <Icon name={'Headset'} color={'#424949'}/> 
+                        support@centres.ma 
+                    </li> 
             </ul>
-            </>
-        }
         </>
     )
 }

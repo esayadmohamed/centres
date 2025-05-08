@@ -8,6 +8,7 @@ import nodemailer from "nodemailer";
 import validator from 'validator';
 
 import { RateLimiter } from "@/_lib/utils/ratelimiter";
+import { verifyCaptcha } from "@/_lib/utils/captcha";
 
 const db = getDB();
 
@@ -82,14 +83,17 @@ function SanitizeObject(obj){
     if(!Object.hasOwn(obj, 'name') 
         || !Object.hasOwn(obj, 'email') 
         || !Object.hasOwn(obj, 'phone') 
-        || !Object.hasOwn(obj, 'password')){
+        || !Object.hasOwn(obj, 'password')
+        || !Object.hasOwn(obj, 'captchaToken')){
         return null
     }
 
     if(typeof obj.name !== 'string'
         || typeof obj.email !== 'string'
         || typeof obj.phone !== 'string'
-        || typeof obj.password !== 'string'){
+        || typeof obj.password !== 'string'
+        // || typeof obj.captchaToken !== 'string'
+    ){
         return null
     }
 
@@ -145,7 +149,35 @@ function validateData(user) {
     return Object.keys(errors).length > 0 ? errors : null;
 }
 
+// export async function verifyCaptcha(captchaToken) {
+//     const url = process.env.NODE_ENV === 'production'
+//       ? `${process.env.NEXT_PUBLIC_VERCEL_URL}/api/recaptcha`
+//       : 'http://localhost:3000/api/recaptcha';
+  
+//     try {
+//       const res = await fetch(url, {
+//         method: "POST",
+//         headers: { "Content-Type": "application/json" },
+//         body: JSON.stringify({ captchaToken }),
+//       });
+  
+//       if (!res.ok) {
+//         const errorText = await res.text();
+//         console.error(`Erreur HTTP: ${res.status}`, errorText);
+//         return null;
+//       }
+  
+//       const data = await res.json();
+//       return data.success ? { success: true } : null;
+  
+//     } catch (error) {
+//       console.error("Erreur dans verifyCaptcha:", error.message);
+//       return null;
+//     }
+// }
+  
 export async function CreateUser(user_data) {
+
     const conn = await db.getConnection();
     
     try {
@@ -159,14 +191,24 @@ export async function CreateUser(user_data) {
             console.warn("Create an account: Invalid input type, expected an object.");
             return { error: { server: "Une erreur est survenue. Veuillez réessayer plus tard." } };
         }
+        
+        if(!data.captchaToken || typeof data.captchaToken !== 'string'){
+            return { error: { captcha: "Vous devez compléter le CAPTCHA pour continuer." } };
+        }
 
         const user = {
             name: xss(data.name).trim(),
             email: xss(data.email).trim().toLowerCase(),
             phone: xss(data.phone).trim(),
-            password: xss(data.password).trim()
+            password: xss(data.password).trim(),
+            captchaToken: xss(data.captchaToken).trim()
         };
 
+        const captcha = await verifyCaptcha(user.captchaToken)
+        if (!captcha) {
+            return { error: { captcha: "Échec de la vérification du CAPTCHA." } };
+        }
+        
         const errors = validateData(user);
         if (errors) {
             console.log('validation error:', user);

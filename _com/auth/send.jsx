@@ -3,16 +3,22 @@
 import Link from "next/link"
 import styles from './style.module.css'
 
-import { useState } from "react";
+import { useState, useRef } from "react";
+import { useRouter } from "next/navigation";
 
 import { PasswordToken } from "@/_lib/auth/reset";
+import ReCAPTCHA from 'react-google-recaptcha';
 
 import Icon from "@/_lib/utils/Icon";
 
 
 export default function SendResetToken (){
     
+    const router = useRouter();
+    const recaptchaRef = useRef(null);
+
     const [email, setEmail] = useState('')
+    const [captchaToken, setCaptchaToken] = useState(null);
     const [error, setError] = useState(null)
     const [loading, setLoading] = useState(false)
     const [success, setSuccess] = useState(false)
@@ -21,7 +27,7 @@ export default function SendResetToken (){
         setLoading(true)
         setError(null)
 
-        const new_result = await PasswordToken(email);
+        const new_result = await PasswordToken(email, captchaToken);
         setLoading(false)
         console.log(new_result);
         
@@ -57,7 +63,7 @@ export default function SendResetToken (){
                         </button>
                     </div>
                     <ul className={styles.AuthActions}>
-                        <Link href={'/support'}> <li> <Icon name={'Headset'}/> Contacter Support </li> </Link>
+                        <li> <Icon name={'Headset'}/> support@centres.ma </li> 
                     </ul>
                 </div>
             </div>
@@ -85,9 +91,17 @@ export default function SendResetToken (){
                                     onChange={(e)=>setEmail(e.target.value)}
                                 />
                             </div>
-                            {error && <p className={styles.AuthError}> {error}</p> }
+                            {/* {error && <p className={styles.AuthError}> {error}</p> } */}
                         </div>
                     </div>
+                    
+                    <ReCAPTCHA
+                        sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}
+                        onChange={(token)=>setCaptchaToken(token)}
+                    />
+
+                    {error && <p className={styles.AuthError}> {error}</p> }
+
                     <button onClick={handleSubmit}> 
                         {!loading ? 
                             <span>Envoyer</span>   :
@@ -95,7 +109,10 @@ export default function SendResetToken (){
                     </button>
                 </div>
                 <ul className={styles.AuthActions}>
-                    <Link href={'/support'}> <li> <Icon name={'Headset'}/> Contacter Support </li> </Link>
+                    <li> 
+                        <Icon name={'Headset'} color={'#424949'}/> 
+                        support@centres.ma 
+                    </li> 
                 </ul>
             </div>
         </div>

@@ -5,7 +5,7 @@ import xss from 'xss';
 import fs from 'node:fs/promises';
 import path from 'node:path';
 
-import { revalidatePath } from "next/cache";
+// import { revalidatePath } from "next/cache";
 
 import { UserAuthorized } from '@/_lib/utils/userauth';
 import { SanitizeId } from '@/_lib/utils/sanitizedata';
@@ -46,7 +46,7 @@ export async function PublishListing (value_id) {
 
         await db.query(`UPDATE listings SET state = ? WHERE id = ?`, ['under', listing_id]);
 
-        revalidatePath(`/listings`);
+        // revalidatePath(`/listings`);
 
         return {success: true};
 

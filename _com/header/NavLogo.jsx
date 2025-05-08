@@ -9,7 +9,7 @@ export default function NavLogo (){
     return(
         <div className={styles.Logo}> 
             <Link href={'/'}>
-                <Icon name={'Component'}/>
+                <Icon name={'Navigation2'} color={'#1f618d'}/>
                 <p> CENTRES </p>
             </Link>
         </div>

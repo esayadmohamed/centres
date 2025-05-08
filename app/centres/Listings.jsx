@@ -92,7 +92,7 @@ export default function Listings({listings_list, cities_list, hoods_list}) {
                 SelectedHood={SelectedHood} 
                 setSelectedHood={setSelectedHood}
             />
-            <Sortby handleListings={handleListings} sort={sort} handleSort={handleSort}/>
+            {/* <Sortby handleListings={handleListings} sort={sort} handleSort={handleSort}/> */}
             {loading ? 
                 <div className={styles.DiscoverLoader}>
                     <div className={styles.spinner}></div>    

@@ -119,14 +119,13 @@ export default function ResetPassword ({reset_token}){
                             <div className="spinner" style={{background: 'white'}}></div>}
                     </button>
 
-                    {/* <p className={styles.AuthRedirect}>
-                        Vous avez déjà un compte? 
-                        <Link href={'/auth'}> <span>Se connecter</span> </Link>
-                    </p> */}
                 </div>
 
                 <ul className={styles.AuthActions}>
-                    <Link href={'/support'}> <li> <Icon name={'Headset'}/> Contacter Support </li> </Link>
+                    <li> 
+                        <Icon name={'Headset'} color={'#424949'}/> 
+                        support@centres.ma 
+                    </li> 
                 </ul>
             </div>
         </div>

@@ -1,5 +1,5 @@
 .SearchBox{
-    height: 250px;
+    height: 300px;
     width: 100%;
 
     display: flex;
@@ -8,15 +8,17 @@
     align-items: center;
     gap: 20px;
     text-align: center;
-    /* background-color: aquamarine; */
+    border-bottom: 1px solid #f2f3f4;
 }
 
 .SearchBox p{
-    color: #4d5656;
+    color: #424949;
 }
 
 .SearchBar{
     background-color: #F3F3F3;
+    border: 1px solid #e5e8e8;
+
     width: 500px;
     height: 60px;
 
@@ -121,6 +123,38 @@
 
 /* ------------------------------ */
 
+.SearchOptions{
+    display: flex;
+    gap: 30px;
+    font-size: 15px;
+    user-select: none;
+}
+
+.SearchOptions li{
+    height: 40px;
+    padding: 0 10px;
+    border: 1px solid #e5e8e8;
+    border-radius: 5px;
+    cursor: pointer;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.ActiveOption{
+    background-color: #1f618d;
+    color: white;
+}
+
+.InactiveOption{
+    background-color: white;
+    color: #424949;
+}
+
+
+/* ------------------------------ */
+
 .Spinner {
     width: 30px;
     padding: 3px;
@@ -151,6 +185,10 @@
         width: 95vw;
         max-height: 100%;
         transform: translate(-50px, 5px);
+    }
+    .SearchOptions{
+        gap: 15px;
+        font-size: 14px;
     }
 }
 

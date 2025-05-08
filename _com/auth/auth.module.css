@@ -35,7 +35,7 @@
 .AuthResetIcon span svg{
   width: 50;
   height: 50;
-  color: #2874a6;
+  color: #1f618d;;
 }
 
 .AuthResetIcon p{
@@ -125,7 +125,7 @@
 
 .AuthBox button{
   min-width: 200px;
-  background-color: #2874a6;    
+  background-color: #1f618d;;    
   padding: 0 15px;
   border: none;
   font-size: 16px;

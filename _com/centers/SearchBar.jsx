@@ -69,11 +69,11 @@ export default function SearchBar ({citiesList, hoodsList,
         <main className={styles.SearchBox}>
             
             <h1>Trouvez le Meilleur Accompagnement</h1>
-            <p>Découvrez des centres de soutien adaptés à vos besoins pour réussir.</p>
+            <p>Découvrez les cours de soutien adaptés à vos besoins pour réussir.</p>
 
             <div className={styles.SearchBar}>
                 <div className={styles.SearchAction} onClick={()=> handleFilter(selectedCity, SelectedHood)}>
-                    <Icon name={'Search'} />
+                    <Icon name={'Search'} color={'#424949'}/>
                 </div>
                 {selectedCity === '' ? 
                     <div className={styles.SearchInput}>
@@ -119,6 +119,14 @@ export default function SearchBar ({citiesList, hoodsList,
                     </div>
                 }        
             </div>
+            <ul className={styles.SearchOptions}>
+                <li className={styles.ActiveOption}>
+                    Centres de soutien
+                </li>
+                <li className={styles.InactiveOption}>
+                    Cours particuliers
+                </li>
+            </ul>
         </main>
     )
 }
