@@ -28,16 +28,12 @@ export default function AuthLogin (){
 
         const user_status = await CheckUserStatus(email);      
         
-        console.log(user_status);
-
         if (user_status?.error) {
             setError(user_status.error);
         } else {
             const result = await signIn("credentials", {
                 redirect: false, email, password
             });
-
-            console.log(result);
 
             if (result?.error) {
                 setError("L'e-mail ou le mot de passe est incorrect.");

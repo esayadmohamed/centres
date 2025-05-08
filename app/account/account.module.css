@@ -1,103 +1,103 @@
-.AccountBody{
+/* ------------------------------------ */
+/* Page Layout*/
+
+.PageContainer{
     margin-top: 70px;
+    padding: 0px 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     width: 100%;
     height: 100%;
-    padding: 10px 50px;
 }
 
-/* -------------------------------------- */
-/* -------------------------------------- */
+/* ------------------------------------ */
 
-.AccountBanner{    
+.PageBanner{
     height: 100px;
     width: 100%;
     display: flex;
     flex-direction: column;
     gap: 10px;
     justify-content: center;
-    color: #222222;
+    color: #424949;
+    /* background-color: aquamarine; */
 }
 
-.AccountRoot{
+.BannerRoot{
     display: flex;
     gap: 5px;
     font-size: 14px;
     color: #424949;
 }
 
-.AccountRoot a{
+.BannerRoot a{
     text-decoration: underline;
 }
 
-/* -------------------------------------- */
-/* -------------------------------------- */
+/* ------------------------------------ */
 
-.AccountTips{
-    background-color: aquamarine;
+.PageContent{
     width: 100%;
-}
-
-.AccountContent{
     display: grid;
-    grid-template-columns: auto 300px;
-    gap: 20px;
+    grid-template-columns: 650px 450px;
+    justify-content: space-between;
+    /* background-color: yellow; */
 }
 
-/* -------------------------------------- */
-/* -------------------------------------- */
+/* ------------------------------------ */
 
-.AccountInfo{
+.PageMarketing{
+    background-color: #f8f9f9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.PageMarketing div{
+    display: flex;
+    align-items: center;
     color: #424949;
+}
+
+/* ------------------------------------ */
+
+.PageForm{
+    width: 100%;
     display: flex;
     flex-direction: column;
-    width: 100%;
-    /* padding: 10px; */
-    font-size: 15px;
-}
-
-/* -------------------------------------- */
-/* -------------------------------------- */
-
-.AccountSpan{
-    height: 50px;
-    display: flex;
-    background-color: yellow;
+    /* gap: 20px; */
+    /* padding: 25px 0px; */
     border-radius: 5px;
-    overflow: hidden;
-    border: 1px solid #707b7c;
 }
 
-.AccountSpan input{
-    width: 100%;
-    height: 100%;
-    border: none;
-    outline: none;
-    padding: 0 10px;
-    font-size: 15px;
-}
-
-/* -------------------------------------- */
-/* -------------------------------------- */
+/* ------------------------------------ */
 
 .AccountInfoBox{
     min-height: 100px;
-    padding: 15px 0px;
+    padding: 20px 0px;
 
     display: flex;
     flex-direction: column;
     justify-content: center;
     gap: 15px;
 
-    border-bottom: 1px solid #d7dbdd;    
+    border-bottom: 1px solid #d7dbdd;
+    /* background-color: yellow;     */
 }
 
-/* -------------------------------------- */
-/* -------------------------------------- */
-
 .AccountEdit{
-    text-decoration: underline;
+    width: fit-content;
+    height: 40px;
+    padding: 0 15px;
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #616a6b;
+    border-radius: 5px;
+    color: #424949;
     cursor: pointer;
-    font-size: 14px;
 }
 
 /* -------------------------------------- */
@@ -111,6 +111,7 @@
 
 .AccountTermination{
     padding: 20px 0;
+    /* background-color: #1f618d; */
 }
 
 .AccountTermination button{
@@ -140,6 +141,23 @@
     height: 20;
 }
 
+.AccountSpan{
+    height: 45px;
+    display: flex;
+    border-radius: 5px;
+    overflow: hidden;
+    border: 1px solid #707b7c;
+}
+
+.AccountSpan input{
+    width: 100%;
+    height: 100%;
+    border: none;
+    outline: none;
+    padding: 0 10px;
+    font-size: 15px;
+}
+
 /* -------------------------------------- */
 
 .AccountConfirmation{
@@ -156,9 +174,9 @@
 }
 
 .AccountConfirmation button{
-    background-color: #222222;    
+    background-color: #1f618d;  
     min-width: 140px;
-    height: 45px;
+    height: 40px;
     border: none;
     font-size: 15px;
     border-radius: 5px;
@@ -176,12 +194,6 @@
     display: flex;
     align-items: center;
     gap: 20px;
-}
-
-.EditFunctions p{
-    cursor: pointer;
-    text-decoration: underline;
-    color: black;
 }
 
 .EditFunctions div{
@@ -230,9 +242,9 @@
 }
 
 .EditSection button{
-    background-color: #222222;    
+    background-color: #1f618d;     
     min-width: 140px;
-    height: 45px;
+    height: 40px;
     border: none;
     font-size: 15px;
     border-radius: 5px;
@@ -257,11 +269,6 @@
     width: 100%;
 }
 
-.EditActions{
-    cursor: pointer;
-    text-decoration: underline;
-    color: black;
-}
 
 /* -------------------------------------- */
 
@@ -304,167 +311,32 @@
 /* -------------------------------------- */
 
 @media (max-width: 600px) {
-    .AccountContent{
-        display: block;
+    .PageContainer{
+        padding: 0 15px;
     }
-    .AccountBody{
-        padding: 10px 15px;
-    }
-    .AccountTips{
+    .PageMarketing{
         display: none;
     }
-    .AccountTermination button{
+    .PageContent{
+        width: 100%;
+        display: flex;
+    }
+    .PageForm{
         width: 100%;
     }
     .AccountConfirmation button{
         width: 100%;
     }
+    .EditActions{
+        gap:30px;
+    }
+
     .EditActions button{
         width: 100%;
     }
-    .AuthPassoword{
-        font-size: 14px;
-    }
+
 }
   
 @media (min-width: 601px) and (max-width: 1024px) {
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* ----------------- */
-/* ----------------- */
-/* ----------------- */
-
-/* .AccountUpdate{
-    width: 100%;
-}
-
-
-
-
-.AccountUpdate input{
-    padding: 10px;
-    width: 100%;
-}
-
-.AccountUpdate button{
-    width: 140px;
-    background-color: #222222;    
-    padding: 10px;
-    border: none;
-    font-size: 15px;
-    border-radius: 5px;
-    font-weight: 600;
-    color: white;
-    cursor: pointer;
-    min-height: 40px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-
-.EditName{
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-.EditName span{
-    display: flex;
-    gap: 10px;
-}
-
-
-.EditEmail{
-    width: 100%;
-}
-
-
-.EditPassword{
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-.EditPassword span{
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.EditPassword span{
-    cursor: pointer;
-}
-
-
-
-
-.EditPassword ul{
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-}
-
-.EditPassword ul li{
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-size: 12px;
-}
-
-.EditPassword ul li svg{
-    width: 13;
-    height: 13;
-    color: white;
-}
-
-.loader {
-    width: 30px;
-    aspect-ratio:6;
-    background: radial-gradient(circle closest-side,#fff 90%,#0000) 0/calc(100%/3) 100% space;
-    clip-path: inset(0 100% 0 0);
-    animation: l1 1s steps(4) infinite;
-}
-@keyframes l1 {to{clip-path: inset(0 -34% 0 0)}} */

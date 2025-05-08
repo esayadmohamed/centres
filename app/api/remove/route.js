@@ -1,3 +1,5 @@
+'use server';
+
 import cloudinary from '@/_lib/cloudinary';
 import { NextResponse } from 'next/server';
 

@@ -38,6 +38,13 @@ export default function EditActive() {
     <div className={styles.EditAccount}>
         {confirm ? 
             <div className={styles.AccountConfirmation}>
+                
+                <p className={styles.Disclaimer}> 
+                    La suppression de votre compte est définitive. 
+                    Toutes vos données seront supprimées de manière permanente. 
+                    Veuillez confirmer votre mot de passe pour continuer.
+                </p>
+
                 <span className={styles.AccountSpan}>
                     <input 
                         type="password"
@@ -46,19 +53,13 @@ export default function EditActive() {
                         onChange={(e)=>setPassword(e.target.value)}
                     />
                 </span>
-                <p className={styles.Disclaimer}> 
-                    La suppression de votre compte est définitive. Vous ne pourrez plus récupérer 
-                    vos données ni accéder à votre compte après cette action.
-                    Êtes-vous sûr de vouloir continuer?
-                </p>
-                
                 {error && <p className={styles.EditError}> {error.server}</p> }
                 
                 <div className={styles.EditFunctions}>
                     <button onClick={handleEdit}> 
                         {loading ? <div className="spinner"></div > : <span>  Confirmer </span>} 
                     </button>
-                    <p className={styles.EditAction} onClick={handleConfirm}> Annuler </p> 
+                    <p className={styles.AccountEdit} onClick={handleConfirm}> Annuler </p> 
                 </div>
             </div> 
             : 

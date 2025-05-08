@@ -114,7 +114,7 @@ export default function CreateLocation ({errors, citiesList, hoodsList, selected
                     </div>
                 }  
             </div>
-            {errors?.location && <p className={styles.CreateError}> {errors.location}</p> }
+            {errors?.location && <p className={styles.PageError}> {errors.location}</p> }
         </div>
     )
 }

@@ -44,7 +44,7 @@ export default function EditPhone({close, setUser}) {
             <button onClick={handleEdit}> 
                 {loading ? <div className="spinner"></div > : <span>  Mettre à jour </span>} 
             </button>
-            <p onClick={close}> Annuler </p> 
+            <p onClick={close} className={styles.AccountEdit}> Annuler </p> 
         </div>
 
     </div>

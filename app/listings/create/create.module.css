@@ -1,6 +1,9 @@
-.CreateContent{
+/* ------------------------------------ */
+/* Page Layout*/
+
+.PageContainer{
     margin: 70px;
-    padding: 10px 50px;
+    padding: 0px 50px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -9,52 +12,71 @@
 }
 
 /* ------------------------------------ */
-/* ------------------------------------ */
 
-.ListingBanner{
+.PageBanner{
     height: 100px;
     width: 100%;
     display: flex;
     flex-direction: column;
     gap: 10px;
     justify-content: center;
-    color: #222222;
+    color: #424949;
+    /* background-color: aquamarine; */
 }
 
-/* ------------------------------------ */
-/* ------------------------------------ */
-
-.AuthRoot{
+.BannerRoot{
     display: flex;
     gap: 5px;
     font-size: 14px;
     color: #424949;
 }
 
-.AuthRoot a{
+.BannerRoot a{
     text-decoration: underline;
 }
 
 /* ------------------------------------ */
+
+.PageContent{
+    width: 100%;
+    display: grid;
+    grid-template-columns: 650px 450px;
+    justify-content: space-between;
+}
+
 /* ------------------------------------ */
 
-.CreateForm{
+.PageMarketing{
+    background-color: #f8f9f9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.PageMarketing div{
+    display: flex;
+    align-items: center;
+    color: #424949;
+}
+
+/* ------------------------------------ */
+
+.PageForm{
     width: 100%;
-    width: 600px;
     display: flex;
     flex-direction: column;
     gap: 20px;
-    padding: 25px 0;
-    /* background-color: #f2f3f4; */
+    padding: 25px 0px;
+    border-radius: 5px;
 }
 
 /* ------------------------------------ */
 /* ------------------------------------ */
 
-.CreateForm button{
+.PageForm button{
     width: 150px;
     min-height: 45px;
-    background-color: #2980b9;    
+    background-color: #1f618d;    
     border: none;
     font-size: 15px;
     border-radius: 5px;
@@ -74,16 +96,46 @@
 }
 
 /* ------------------------------------ */
+
+.PageConditions{
+    font-size: 15px;
+    line-height: 1.5;
+    /* color: #424949; */
+}
+
+.PageConditions span{
+    /* text-decoration: underline; */
+    font-weight: 600;
+    cursor: pointer;
+    color: #424949;
+}
+
+/* ------------------------------------ */
+/* ------------------------------------ */
+
+.PageError{
+    font-size: 15px;
+    color: red;
+}
+
+/* ------------------------------------ */
 /* ------------------------------------ */
 
 @media (max-width: 600px) {
-    .CreateContent{
-        padding: 0 10px;
+    .PageContainer{
+        padding: 0 15px;
     }
-    .CreateForm{
+    .PageMarketing{
+        display: none;
+    }
+    .PageContent{
+        width: 100%;
+        display: flex;
+    }
+    .PageForm{
         width: 100%;
     }
-    .CreateForm button{
+    .PageForm button{
         width: 100%;
     }
     

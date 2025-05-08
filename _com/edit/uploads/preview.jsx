@@ -48,7 +48,7 @@ export default function EditPreview({keyId, fileName, listing_id, count, setErro
             count !== 1 &&  //TO NOT DELETE LAST ONE
                 ( !isOk ?
                     <p className={styles.EditActions} onClick={()=> setIsOk(true)}> 
-                        <span> <Icon name={'Trash2'} color={'#e74c3c'}/> {/*Supprimer*/} </span>        
+                        <span> <Icon name={'Trash2'} color={'#e74c3c'}/> </span>        
                     </p>
                 : <Confirmation close={()=> setIsOk(false)} handleImage={handleImage}/>
                 )

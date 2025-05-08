@@ -5,14 +5,42 @@ import xss from 'xss';
 import { revalidatePath } from "next/cache";
 
 import { UserAuthenticated } from '@/_lib/utils/userauth';
-import { SanitizeObject } from '@/_lib/utils/sanitizedata';
+// import { SanitizeObject } from '@/_lib/utils/sanitizedata';
 
 import { RateLimiter } from '@/_lib/utils/ratelimiter';
+import { verifyCaptcha } from "@/_lib/utils/captcha";
 
 const db = getDB();
 
 // --------------------------------------------------------
 // --------------------------------------------------------
+
+function SanitizeObject(obj){
+    
+    if(!obj) return null
+
+    if(typeof obj !== 'object') return null
+    if(Object.prototype.toString.call(obj) !== '[object Object]') return null
+
+    if(!Object.hasOwn(obj, 'name') 
+        || !Object.hasOwn(obj, 'info') 
+        || !Object.hasOwn(obj, 'phone')
+        || !Object.hasOwn(obj, 'city')
+        || !Object.hasOwn(obj, 'hood')
+        || !Object.hasOwn(obj, 'captchaToken')){
+        return null
+    }
+
+    if(typeof obj.name !== 'string'
+        || typeof obj.info !== 'string'
+        || typeof obj.phone !== 'string'
+        || typeof obj.city !== 'string'
+        || typeof obj.hood !== 'string'){
+        return null
+    }
+
+    return obj;
+}
 
 function validateUserData(inputs) {
     
@@ -98,14 +126,24 @@ export async function CreateListing (data){
             return {error: {server: "Une erreur est survenue. Veuillez réessayer plus tard."}}; 
         }
 
+        if(!data.captchaToken || typeof data.captchaToken !== 'string'){
+            return { error: { captcha: "Vous devez compléter le CAPTCHA pour continuer." } };
+        }
+
         const inputs = {
             name: xss(obj_value.name).trim(),
             info: xss(obj_value.info).trim(),
             city: xss(obj_value.city).trim(),
             hood: xss(obj_value.hood).trim(),
             phone: xss(obj_value.phone).trim(),
+            captchaToken: xss(data.captchaToken).trim()
         }
      
+        const captcha = await verifyCaptcha(inputs.captchaToken)
+        if (!captcha) {
+            return { error: { captcha: "Échec de la vérification du CAPTCHA." } };
+        }
+
         const validationErrors = validateUserData(inputs);
         if (validationErrors) {
             return {error: validationErrors};

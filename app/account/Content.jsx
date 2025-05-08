@@ -8,6 +8,7 @@ import EditPhone from "./edit/phone";
 import EditPassword from "./edit/password";
 import EditActive from "./edit/terminate";
 
+import Icon from "@/_lib/utils/Icon";
 
 export default function AccountContent({userData}) {
     
@@ -19,7 +20,7 @@ export default function AccountContent({userData}) {
         {name: 'Prénom', value: user.name, component: <EditName close={()=>setIndex(null)} setUser={setUser}/>},
         {name: 'Adresse e-mail', value: user.email},
         {name: 'Numéro de téléphone', value: user.number, component: <EditPhone close={()=>setIndex(null)} setUser={setUser}/> },
-        {name: 'Mot de passe', value: '********', component: <EditPassword close={()=>setIndex(null)}/>}
+        {name: 'Mot de passe', value: '************', component: <EditPassword close={()=>setIndex(null)}/>}
     ]
 
     function handleEdit (id){
@@ -28,9 +29,9 @@ export default function AccountContent({userData}) {
     }
 
     return (
-        <div className={styles.AccountContent}>
+        <div className={styles.PageContent}>
 
-            <div className={styles.AccountInfo}>
+            <div className={styles.PageForm}>
 
                 {member.map((item, id)=>
                     <div className={styles.AccountInfoBox} key={id}>
@@ -52,8 +53,11 @@ export default function AccountContent({userData}) {
             </div>
 
 
-            <div className={styles.AccountTips}>
-              right box
+            <div className={styles.PageMarketing}>
+                <div>
+                    <Icon name={'Navigation2'} color={'#424949'}/>
+                    <p> CENTRES </p>
+                </div>
             </div>
 
         </div>

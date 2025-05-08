@@ -10,7 +10,7 @@ import { signOut } from "next-auth/react";
 
 import logo from '@/public/logo.png'
 import SearchBar from "./publicheader/SearchBar"
-import UserDrop from "./publicheader/UserDrop"
+// import UserDrop from "./publicheader/UserDrop"
 import UserForm from "./authentication/UserForm"
 
 import { Menu, CircleUserRound, Search, UserRoundPlus} from "lucide-react";

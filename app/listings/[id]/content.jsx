@@ -11,6 +11,8 @@ import EditInputs from "@/_com/edit/inputs";
 import EditSelects from "@/_com/edit/selects";
 import EditImages from "@/_com/edit/images";
 
+import Icon from "@/_lib/utils/Icon";
+
 export default function EditContent({ user_listing, 
     offers_list, services_list, subjects_List, levels_list }){
             
@@ -41,10 +43,10 @@ export default function EditContent({ user_listing,
     
 
     return(
-        <div className={styles.EditContent}>
-            <div className={styles.ListingBanner}>
+        <div className={styles.PageContainer}>
+            <div className={styles.PageBanner}>
                 <h2>Modifier Votre Annonce</h2>  
-                <ul className={styles.AuthRoot}>
+                <ul className={styles.BannerRoot}>
                     <Link href={'/'}> <li>Acueil</li> </Link>
                     <li>/</li>
                     <Link href={'/listings'}> <li>Annonces</li> </Link>
@@ -53,8 +55,8 @@ export default function EditContent({ user_listing,
                 </ul>
             </div>
 
-            <div className={styles.EditContainer}>
-                <div className={styles.EditForm}>
+            <div className={styles.PageContent}>
+                <div className={styles.PageForm}>
 
                     <EditInputs 
                         listing={listing?.listing[0]}
@@ -76,16 +78,20 @@ export default function EditContent({ user_listing,
                         setListing = {setListing}
                         uploadData={listing.images}
                         />
-                    {error && <p className={styles.EditError}> {error}</p>}
-                    <div className={styles.EditPublish} style={{display: ['none'].includes(listing?.listing[0]?.state) ? 'flex' : 'none'}}>
+                    {error && <p className={styles.PageError}> {error}</p>}
+                    
+                    <div className={styles.PagePublish} style={{display: ['none'].includes(listing?.listing[0]?.state) ? 'flex' : 'none'}}>
                         <button onClick={Publish}>
                             {loading ? <div className="spinner"></div > : <span>  Publier </span>} 
                         </button>
                     </div>
 
                 </div>
-                <div className={styles.EditSide}>
-
+                <div className={styles.PageMarketing}>
+                    <div>
+                        <Icon name={'Navigation2'} color={'#424949'}/>
+                        <p> CENTRES </p>
+                    </div>
                 </div>
             </div>
         </div>

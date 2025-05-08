@@ -56,7 +56,7 @@ export default function EditPassword({close}) {
                     onChange={handlePassword}
                 />
                 <span>
-                    {!viewHash ? <Eye onClick={()=>setViewHash(true)}/> : <EyeOff onClick={()=>setViewHash(false)}/>}
+                    {!viewHash ? <Eye onClick={()=>setViewHash(true)} color={'#424949'}/> : <EyeOff onClick={()=>setViewHash(false)} color={'#424949'}/>}
                 </span>
             </div>
 
@@ -74,7 +74,7 @@ export default function EditPassword({close}) {
                 <button onClick={handleEdit}> 
                     {loading ? <div className="spinner"></div > : <span>  Mettre à jour </span>} 
                 </button>
-                <p onClick={close}> Annuler </p> 
+                <p onClick={close} className={styles.AccountEdit}> Annuler </p> 
             </div>
 
     </div>

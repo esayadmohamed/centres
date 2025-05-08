@@ -31,16 +31,16 @@ export default function EditSelects({listing, setListing, offers_list, services_
 
     return(
         <div className={styles.EditSelects}>
-            <h3> <Icon name={'Presentation'} /> Services et Matières </h3>
+            <h3> <Icon name={'Presentation'} color={'#154360'}/> Services et Matières </h3>
             
             {selectData.map((item, id)=>
                 <div className={styles.EditSection} key={id}>
                     <h4> {item.name} </h4>
                     {isEdit && id===index ? item.component : <p> {item.value ? item.value : 'Non fourni'} </p>}
                     
-                    <p className={styles.EditAction} onClick={()=> handleEdit(id)}>
-                        {(id!==index) && "Modifier"} 
-                    </p>
+                    {id!==index && <p className={styles.EditAction} onClick={()=> handleEdit(id)}>
+                        Modifier
+                    </p>}
                 </div> 
             )}
 

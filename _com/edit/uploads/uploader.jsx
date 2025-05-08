@@ -65,7 +65,7 @@ export default function EditUploader({keyId, listing_id, setError, setListing}) 
                 :    
                 <div className={styles.UploaderLoader}>
                     <div className={'spinner'}></div>
-                    Patientez
+                    Patientez...
                 </div>
             }
         </div>

@@ -28,16 +28,15 @@ export default function EditInputs({listing, newhood, setListing}) {
 
     return(
         <div className={styles.EditInputs}>
-            <h3> <Icon name={'House'} /> Informations Générales </h3>
+            <h3> <Icon name={'House'} color={'#154360'}/> Informations Générales </h3>
 
             {InputData.map((item, id)=>
                 <div className={styles.EditSection} key={id}>  
                     <h4> {item.name} </h4>
                     {isEdit && id===index ? item.component : <p> {item.value ? item.value : 'Non fourni'} </p>}
-                    { [1,2].includes(id) && 
-                    <p className={styles.EditAction} onClick={()=> handleEdit(id)}>
-                        {(id!==index) && "Modifier"} 
-                    </p> }
+                    { ([1,2].includes(id) && id!==index) && 
+                        <p className={styles.EditAction} onClick={()=> handleEdit(id)}> Modifier </p> 
+                        }
                 </div>
             )} 
 

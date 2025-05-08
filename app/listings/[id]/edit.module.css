@@ -1,6 +1,9 @@
-.EditContent{
+/* ------------------------------------ */
+/* Page Layout*/
+
+.PageContainer{
     margin: 70px;
-    padding: 10px 50px;
+    padding: 0px 50px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -8,72 +11,71 @@
     height: 100%;
 }
 
-
-/* ------------------------------------ */
 /* ------------------------------------ */
 
-.ListingBanner{
+.PageBanner{
     height: 100px;
     width: 100%;
     display: flex;
     flex-direction: column;
     gap: 10px;
     justify-content: center;
-    color: #222222;
+    color: #424949;
+    /* background-color: aquamarine; */
 }
 
-
-/* ------------------------------------ */
-/* ------------------------------------ */
-
-.AuthRoot{
+.BannerRoot{
     display: flex;
     gap: 5px;
     font-size: 14px;
     color: #424949;
 }
 
-.AuthRoot a{
+.BannerRoot a{
     text-decoration: underline;
 }
 
 /* ------------------------------------ */
-/* ------------------------------------ */
 
-.EditContainer{
+.PageContent{
     width: 100%;
     display: grid;
-    grid-template-columns: auto 300px;
-    gap: 20px;
+    grid-template-columns: 650px 450px;
+    justify-content: space-between;
 }
 
-/* -------------------------------------- */
-/* -------------------------------------- */
+/* ------------------------------------ */
 
-.EditSide{
+.PageMarketing{
     background-color: #f8f9f9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-/* -------------------------------------- */
-/* -------------------------------------- */
+.PageMarketing div{
+    display: flex;
+    align-items: center;
+    color: #424949;
+}
 
-.EditForm{
+/* ------------------------------------ */
+
+
+.PageForm{
+    width: 100%;
     display: flex;
     flex-direction: column;
-    gap: 30px;
-    width: 100%;
+    gap: 20px;
+    /* padding: 25px 0px; */
+    border-radius: 5px;
 }
 
-/* ------------------------------------------- */
-/* ------------------------------------------- */
+/* ------------------------------------ */
 
-/* .EditPublish{
-    background-color: aquamarine;
-} */
-
-.EditPublish button{
+.PagePublish button{
     width: 160px;
-    background-color: #2471a3;    
+    background-color: #1f618d;    
     min-height: 45px;
     padding: 10px;
     font-size: 15px;
@@ -87,35 +89,36 @@
     justify-content: center;
 }
 
-.EditPublish div{
+.PagePublish div{
     padding: 3;
     width: 25px;
     background: white;
 }
 
-/* ------------------------------------------- */
-/* ------------------------------------------- */
+/* ------------------------------------ */
 
-.EditError{
+.PageError{
     font-size: 15px;
     color: red;
 }
 
 /* ------------------------------------------- */
-/* ------------------------------------------- */
 
 @media (max-width: 600px) {
-    .EditContent{
-        /* background-color: yellow; */
+    .PageContainer{
         padding: 0 15px;
     }
-    .EditContainer{
-        display: flex;
-    }
-    .EditSide{
+    .PageMarketing{
         display: none;
     }
-    .EditPublish button{
+    .PageContent{
+        width: 100%;
+        display: flex;
+    }
+    .PageForm{
+        width: 100%;
+    }
+    .PagePublish button{
         width: 100%;
     }
 }

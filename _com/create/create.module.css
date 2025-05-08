@@ -28,6 +28,7 @@
     flex-direction: column;
     gap: 10px;
     font-size: 15px;
+    
 }
 
 .CreateInfo label{
@@ -35,7 +36,16 @@
     color: #424949;
 }
 
-.CreateInfo textarea{
+.CreateInfoBox{
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #616a6b;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+
+.CreateInfoBox textarea{
     font-family: inherit;
     font-size: 15px;
 
@@ -43,16 +53,21 @@
     width: 100%;
     padding: 10px;
 
-    border: 1px solid #616a6b;
-    border-radius: 5px;
+    border: none;
     resize: none;
     outline: none;    
     line-height: 1.5;
     vertical-align: middle;
 }
 
-.CreateInfo div{
-    text-align: right;
+.CreateInfoBox div{
+    height: 30px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding-right: 15px;
+    font-size: 14px;
+    /* background-color: yellow; */
 }
 
 /* --------------------------------- */
@@ -129,7 +144,7 @@
     /* //#d7dbdd; */
     border-radius: 5px;
     position: absolute;
-    width: 600px;
+    width: 650px;
     max-height: 250px;
     
     overflow-y: scroll;
@@ -156,7 +171,8 @@
 /* --------------------------------- */
 /* --------------------------------- */
 
-.CreateError{
+.PageError{
+    font-size: 15px;
     color: red;
 }
 

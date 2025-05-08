@@ -28,7 +28,7 @@ export default function EditImages({listing, uploadData, setListing}) {
 
     return( 
         <div className={styles.EditUploads}>
-            <h3> <Icon name={'Images'} /> Images </h3>
+            <h3> <Icon name={'Images'} color={'#154360'}/> Images </h3>
             <div className={styles.UploadsContainer}>                
                 {files.map((item, id)=> 
                     <div key={id} className={styles.UploadsBox}>

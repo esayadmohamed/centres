@@ -11,8 +11,8 @@ export default function Confirmation({close, handleImage}) {
         <Icon name={'CircleX'} color={'#e74c3c'}/>
         <p> Voulez-vous vraiment supprimer cette photo? </p>
         <span>
-            <button onClick={close}> No, Annuler </button>
-            <button onClick={()=>handleImage('remove')}> Oui, Suprimer </button>
+            <button onClick={close}> Annuler </button>
+            <button onClick={()=>handleImage('remove')}> Suprimer </button>
             {/* uploadData[0] */}
         </span>
         
