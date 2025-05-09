@@ -1,68 +1,63 @@
-import getDB from "./_lib/db";
+// const withSitemap = require('next-sitemap')
 
-async function getIds() {
-    try {
-        const db = getDB();
-        const [rows] = await db.execute(`
-            SELECT id FROM listings
-        `);
-
-        return rows; // Ensure this is an array of objects, e.g., [{ id: 1 }, { id: 2 }]
-    } catch (error) {
-        console.error("Database error:", error);
-        return []; // Return an empty array in case of error
-    }
-}
-
-/** @type {import('next-sitemap').IConfig} */
-module.exports = {
-    siteUrl: 'https://www.centres.ma/', // Use the correct domain format
-    generateRobotsTxt: true,
-
-    additionalPaths: async (config) => {
-        // Fetch the listing IDs from the database
-        const rowIds = await getIds();
-
-        // If no rows found, return just the static paths
-        if (rowIds.length === 0) {
-        return [
-            await config.transform(config, '/'),
-            await config.transform(config, '/centres'),
-            await config.transform(config, '/auth'),
-            await config.transform(config, '/auth/signup'),
-            await config.transform(config, '/auth/reset'),
-            await config.transform(config, '/conditions'),
-        ];
-        }
-
-        // Map the IDs into paths
-        const paths = [
-        await config.transform(config, '/'),
-        await config.transform(config, '/centres'),
-        await config.transform(config, '/auth'),
-        await config.transform(config, '/auth/signup'),
-        await config.transform(config, '/auth/reset'),
-        await config.transform(config, '/conditions'),
-        ];
-
-        for (const index of rowIds) {
-        // Ensure each object in rowIds has an `id` field
-        if (index.id) {
-            paths.push(await config.transform(config, `/centres/${index.id}`));
-        }
-        }
-
-        return paths;
-    },
-};
-
-
-
-
-// /** @type {import('next-sitemap').IConfig} */
 // module.exports = {
-//   siteUrl: 'https://www.yourdomain.com', // replace with your domain
-//   generateRobotsTxt: true, // (optional) generate robots.txt
-//   sitemapSize: 5000, // split into multiple if more pages
-// };
+//   siteUrl: 'http://localhost:3000', //'https://www.centres.ma/', 
+//   generateRobotsTxt: true, 
+//   changefreq: 'daily', // Frequency of page updates
+//   priority: 0.7,
+//   sitemapSize: 7000,
+// }
 
+// module.exports = withSitemap({
+//   reactStrictMode: true,
+// })
+
+
+
+
+
+// import getDB from "./_lib/db.js";
+
+// async function getIds() {
+//     try {
+//         const db = getDB();
+//         const [rows] = await db.execute(`SELECT id FROM listings`);
+//         return rows; // Ensure this is an array of objects, e.g., [{ id: 1 }, { id: 2 }]
+//     } catch (error) {
+//         console.error("Database error:", error);
+//         return []; // Return an empty array in case of error
+//     }
+// }
+
+// module.exports = {
+//     siteUrl: 'https://www.centres.ma/',
+//     generateRobotsTxt: true,
+
+//     additionalPaths: async (config) => {
+//         const rowIds = await getIds();
+
+//         const staticPaths = [
+//             '/',
+//             '/centres',
+//             '/auth',
+//             '/auth/signup',
+//             '/auth/reset',
+//             '/conditions',
+//         ];
+
+//         // Add static paths
+//         let paths = await Promise.all(
+//             staticPaths.map(async (path) => await config.transform(config, path))
+//         );
+
+//         // Add dynamic paths for listings
+//         if (rowIds.length > 0) {
+//             const listingPaths = await Promise.all(
+//                 rowIds.map(async (listing) => await config.transform(config, `/centres/${listing.id}`))
+//             );
+//             paths = paths.concat(listingPaths);
+//         }
+
+//         return paths;
+//     },
+// };
