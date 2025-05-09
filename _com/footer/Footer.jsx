@@ -11,13 +11,13 @@ export default function Footer() {
         <footer className={styles.Footer} >
             <div>
                 <ul>
-                    <Link href={'/'}> <li>Centres</li> </Link>
+                    <Link href={'/'}> <li>Centres de soutien</li> </Link>
                     <li> | </li>
                     <Link href={'/'}> <li>Cours Particuliers</li> </Link>
                     <li> | </li>
                     <Link href={'/'}> <li>Blog</li> </Link>
                 </ul>
-                <p><Icon name={'Headset'} color={'#424949'}/> support@centres.ma  </p>
+                <p> support@centres.ma  </p>
                 <p>@ 2025-{currentYear}, Tous droits reserves</p>
             </div>
             <span onClick={()=>window.scrollTo({ top: 0, behavior: 'smooth' })}>
