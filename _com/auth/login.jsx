@@ -47,7 +47,6 @@ export default function AuthLogin (){
 
     return(
         <div className={styles.PageContainer}>
-
             <div className={styles.PageBanner}>
                 <h2>Accédez à votre compte</h2>  
                 <ul className={styles.PageRoot}>
@@ -99,12 +98,6 @@ export default function AuthLogin (){
                                 Vous n'avez pas de compte? 
                                 <Link href={'auth/signup'}> <span>Inscrivez-vous</span> </Link>
                             </p>
-                            {/* <ul className={styles.AuthActions}>
-                                <li> 
-                                    <Icon name={'Headset'} color={'#424949'}/> 
-                                    support@centres.ma 
-                                </li> 
-                            </ul> */}
                         </div>
                     </div>          
                 </div>

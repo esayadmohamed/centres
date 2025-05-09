@@ -22,12 +22,12 @@ export default function SpecsContact ({listing}){
             </h4>
             <p onClick={handleCopy}>
                 <Icon name={copied? 'Check' : 'Phone'} color='white'/>
-                <span> {!copied && listing.phone} </span> 
+                <span> {!copied ? listing.phone : 'Copié'} </span> 
             </p>
         </div>
         <div className={styles.SpecsCall}>
             <a href={`tel:${listing.phone}`}>
-                <span> <Icon name={'Phone'} color='white'/>   </span>
+                <span> <Icon name={'Phone'} color={'white'}/>   </span>
             </a>
         </div>
         </>

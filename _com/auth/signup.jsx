@@ -42,14 +42,16 @@ export default function AuthSignup (){
         const result = await CreateUser(user)
         setLoading(false)
         
+        recaptchaRef.current?.reset();
+        setCaptchaToken(null);
+
         if(result.error){
             setErrors(result.error)
         } else{
             setSuccess(true)
             window.scrollTo({ top: 0, behavior: 'smooth' });
-            recaptchaRef.current?.reset();
-            setCaptchaToken(null);
         }
+        
     }
 
     const [list, setList] = useState(null); 
@@ -81,134 +83,158 @@ export default function AuthSignup (){
 
     if(success) {
         return(
-            <div className={styles.AuthContent}>
-                <div className={styles.AuthContainer}>
-                    <div className={styles.AuthBox}>
-                        <div className={styles.AuthSuccess}>
-                            <ul className={styles.AuthRoot}>
-                                <Link href={'/'}> <li>Acueil</li> </Link>
-                                <li>/</li>
-                                <Link href={'/auth'}> <li>Connexion</li> </Link>
-                                <li>/</li>
-                                <li>Inscription</li>
-                            </ul>
-                            
-                            <h3> Vérifiez Votre E-mail</h3>
-                            <p>Nous avons envoyé un lien de vérification à votre adresse e-mail.</p>
-                            <h4> {email} </h4>
-                            <p>Cliquez sur le lien pour compléter le processus de vérification.</p>
-                            <p>Il se peut que vous deviez vérifier votre dossier <b>"Spam"</b> ou <b>"Courrier indésirable"</b>.</p>
-                        </div>
-                        <button onClick={handleReturn}> 
-                            <span>Retourner</span>
-                        </button>
-                    </div>
-                    <ul className={styles.AuthActions}>
-                        <li> <Icon name={'Headset'}/> support@centres.ma </li> 
-                    </ul>
-                </div>
-            </div>
-        )
-    }
-    return(
-        <div className={styles.AuthContent}>
-            <div className={styles.AuthContainer}>
-                <div className={styles.AuthBox}>
-                    <ul className={styles.AuthRoot}>
+            <div className={styles.PageContainer}>
+                <div className={styles.PageBanner}>
+                    <h2>Créer un compte</h2>  
+                    <ul className={styles.PageRoot}>
                         <Link href={'/'}> <li>Acueil</li> </Link>
                         <li>/</li>
                         <Link href={'/auth'}> <li>Connexion</li> </Link>
                         <li>/</li>
                         <li>Inscription</li>
                     </ul>
-                    <h3> Créer un compte </h3>
-                    
-                    <div className={styles.AuthInput}>
-                        <label htmlFor="name"> Prénom </label>
-                        <div>
-                            <input type="text" id="name" placeholder='Prénom' value={name}
-                                onChange={(e)=>setName(e.target.value)} autoComplete="off"
-                            />
-                        </div>
-                        {errors?.name && <p className={styles.AuthError}> {errors.name}</p> }
+                </div>
+                <div className={styles.PageContent}>
+                    <div className={styles.PageForm}>  
+                        <div className={styles.AuthLogin}>
+                            <div className={styles.AuthBox}>
+                                <div className={styles.AuthSuccess}>
+                                    <ul className={styles.AuthRoot}>
+                                        <Link href={'/'}> <li>Acueil</li> </Link>
+                                        <li>/</li>
+                                        <Link href={'/auth'}> <li>Connexion</li> </Link>
+                                        <li>/</li>
+                                        <li>Inscription</li>
+                                    </ul>
+                                
+                                    <h3> Vérifiez Votre E-mail</h3>
+                                    <p>Nous avons envoyé un lien de vérification à votre adresse e-mail.</p>
+                                    <h4> {email} </h4>
+                                    <p>Cliquez sur le lien pour compléter le processus de vérification.</p>
+                                    <p>Il se peut que vous deviez vérifier votre dossier <b>"Spam"</b> ou <b>"Courrier indésirable"</b>.</p>
+                                </div>
+                                <button onClick={handleReturn}> 
+                                    <span>Retourner</span>
+                                </button>
+                            </div>
+                        </div>         
                     </div>
-                    <div className={styles.AuthInput}>
-                        <label htmlFor="email">  Adresse e-mail </label>
+                    <div className={styles.PageMarketing}>
                         <div>
-                            <input type="email" id="email" placeholder='Adresse e-mail' value={email}
-                                onChange={(e)=>setEmail(e.target.value)} autoComplete="off"
-                            />
+                            <Icon name={'Navigation2'} color={'#424949'}/>
+                            <p> CENTRES </p>
                         </div>
-                        {errors?.email && <p className={styles.AuthError}> {errors.email}</p> }
-                    </div>
-                    <div className={styles.AuthInput}>
-                        <label htmlFor="phone"> Numéro de téléphone </label>
-                        <div>
-                            <input type="text" id="phone" placeholder='Numéro de téléphone' value={phone}
-                                onChange={(e)=>setPhone(e.target.value)} autoComplete="off"
-                            />
-                        </div>
-                        {errors?.phone && <p className={styles.AuthError}> {errors.phone}</p> }
                     </div>
 
-                    <div className={styles.AuthInput}>
-                        <label htmlFor="password"> Mot de passe </label>
-                        <div>
-                            <input id="password" placeholder='Mot de passe' value={password}
-                                type={viewHash? "text" : "password"} autoComplete="off"
-                                onChange={handlePassword}
-                                onFocus={()=>setList(true)}
-                                // onBlur={()=>setList(false)}
+                </div>
+            </div>
+        )
+    }
+    return(
+        <div className={styles.PageContainer}>
+            <div className={styles.PageBanner}>
+                <h2>Créer un compte</h2>  
+                <ul className={styles.PageRoot}>
+                    <Link href={'/'}> <li>Acueil</li> </Link>
+                    <li>/</li>
+                    <Link href={'/auth'}> <li>Connexion</li> </Link>
+                    <li>/</li>
+                    <li>Inscription</li>
+                </ul>
+            </div>
+            <div className={styles.PageContent}>
+                <div className={styles.PageForm}>  
+                    <div className={styles.AuthLogin}>
+                        <div className={styles.AuthBox}>                            
+                            <div className={styles.AuthInput}>
+                                <label htmlFor="name"> Prénom </label>
+                                <div>
+                                    <input type="text" id="name" placeholder='Prénom' value={name}
+                                        onChange={(e)=>setName(e.target.value)} autoComplete="off"
+                                    />
+                                </div>
+                                {errors?.name && <p className={styles.AuthError}> {errors.name}</p> }
+                            </div>
+                            <div className={styles.AuthInput}>
+                                <label htmlFor="email">  Adresse e-mail </label>
+                                <div>
+                                    <input type="email" id="email" placeholder='Adresse e-mail' value={email}
+                                        onChange={(e)=>setEmail(e.target.value)} autoComplete="off"
+                                    />
+                                </div>
+                                {errors?.email && <p className={styles.AuthError}> {errors.email}</p> }
+                            </div>
+                            <div className={styles.AuthInput}>
+                                <label htmlFor="phone"> Numéro de téléphone </label>
+                                <div>
+                                    <input type="tel" id="phone" placeholder='Numéro de téléphone' value={phone}
+                                        onChange={(e)=>setPhone(e.target.value)} autoComplete="off"
+                                    />
+                                </div>
+                                {errors?.phone && <p className={styles.AuthError}> {errors.phone}</p> }
+                            </div>
+
+                            <div className={styles.AuthInput}>
+                                <label htmlFor="password"> Mot de passe </label>
+                                <div>
+                                    <input id="password" placeholder='Mot de passe' value={password}
+                                        type={viewHash? "text" : "password"} autoComplete="off"
+                                        onChange={handlePassword}
+                                        onFocus={()=>setList(true)}
+                                        // onBlur={()=>setList(false)}
+                                    />
+                                    <span className={styles.AuthHash} onClick={()=>setViewHash(!viewHash)}> 
+                                        <Icon name={viewHash && list? 'EyeOff' : 'Eye'}/>
+                                    </span>                        
+                                </div>
+                                {list && 
+                                    <ul className={styles.AuthPassoword}>
+                                        <li>Le mot de passe doit contenir au moins:</li>
+                                        <li><Icon name={eight ? 'CircleCheck' : 'CircleX'} color={eight ? 'green' : 'red'} /> 8 caractères </li>
+                                        <li><Icon name={num ? 'CircleCheck' : 'CircleX'} color={num ? 'green' : 'red'} /> Un chiffre (1, 2, ...) </li>
+                                        <li><Icon name={capital ? 'CircleCheck' : 'CircleX'} color={capital ? 'green' : 'red'}/> Une lettre majuscule (A, B, ...) </li>
+                                        <li><Icon name={character ? 'CircleCheck' : 'CircleX'} color={character ? 'green' : 'red'}/> Un caractère spécial (@, #, ...) </li>
+                                    </ul>
+                                }
+                                {errors?.password && <p className={styles.AuthError}> {errors.password}</p> }
+                            </div>
+                            
+                            <p className={styles.AuthAccept}>
+                                En créant votre compte, vous acceptez 
+                                    <Link href={'/conditions'}> <span>les règles et conditions d'utilisation </span> </Link>
+                                    du site centres.ma.
+                            </p> 
+                            
+                            <ReCAPTCHA
+                                ref={recaptchaRef}
+                                sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}
+                                onChange={(token)=>setCaptchaToken(token)}
                             />
-                            <span className={styles.AuthHash} onClick={()=>setViewHash(!viewHash)}> 
-                                <Icon name={viewHash && list? 'EyeOff' : 'Eye'}/>
-                            </span>                        
+
+                            {errors?.captcha && <p className={styles.AuthError}> {errors.captcha}</p> }
+
+                            {errors?.server && <p className={styles.AuthError}> {errors.server}</p> }
+
+                            <button onClick={handleSignup}> 
+                                {!loading ? 
+                                    <span>Se connecter</span>   :
+                                    <div className="spinner" style={{background: 'white'}}></div>}
+                            </button>
+
+                            <p className={styles.AuthRedirect}>
+                                Vous avez déjà un compte? 
+                                <Link href={'/auth'}> <span>Se connecter</span> </Link>
+                            </p>
                         </div>
-                        {list && 
-                            <ul className={styles.AuthPassoword}>
-                                <li>Le mot de passe doit contenir au moins:</li>
-                                <li><Icon name={eight ? 'CircleCheck' : 'CircleX'} color={eight ? 'green' : 'red'} /> 8 caractères </li>
-                                <li><Icon name={num ? 'CircleCheck' : 'CircleX'} color={num ? 'green' : 'red'} /> Un chiffre (1, 2, ...) </li>
-                                <li><Icon name={capital ? 'CircleCheck' : 'CircleX'} color={capital ? 'green' : 'red'}/> Une lettre majuscule (A, B, ...) </li>
-                                <li><Icon name={character ? 'CircleCheck' : 'CircleX'} color={character ? 'green' : 'red'}/> Un caractère spécial (@, #, ...) </li>
-                            </ul>
-                        }
-                        {errors?.password && <p className={styles.AuthError}> {errors.password}</p> }
+                    </div>          
+                </div>
+                <div className={styles.PageMarketing}>
+                    <div>
+                        <Icon name={'Navigation2'} color={'#424949'}/>
+                        <p> CENTRES </p>
                     </div>
-                    
-                    <p className={styles.AuthAccept}>
-                        En créant votre compte, vous acceptez 
-                            <Link href={'/conditions'}> <span>les règles et conditions d'utilisation </span> </Link>
-                            du site centres.ma.
-                    </p> 
-                    
-                    <ReCAPTCHA
-                        sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}
-                        onChange={(token)=>setCaptchaToken(token)}
-                    />
-                    {errors?.captcha && <p className={styles.AuthError}> {errors.captcha}</p> }
-
-
-                    {errors?.server && <p className={styles.AuthError}> {errors.server}</p> }
-
-                    <button onClick={handleSignup}> 
-                        {!loading ? 
-                            <span>Se connecter</span>   :
-                            <div className="spinner" style={{background: 'white'}}></div>}
-                    </button>
-
-                    <p className={styles.AuthRedirect}>
-                        Vous avez déjà un compte? 
-                        <Link href={'/auth'}> <span>Se connecter</span> </Link>
-                    </p>
                 </div>
 
-                <ul className={styles.AuthActions}>
-                    <li> 
-                        <Icon name={'Headset'} color={'#424949'}/> 
-                        support@centres.ma 
-                    </li> 
-                </ul>
             </div>
         </div>
     )
@@ -216,20 +242,30 @@ export default function AuthSignup (){
 }
 
 
-// const [match, setMatch] = useState(null); 
-// const [passwordMatch, setPasswordMatch] = useState('');
-{/* <div className={styles.AuthInput}>
-<label htmlFor="passwordmatch"> Vérifier le mot de passe </label>
-<div>
-    <input id="passwordmatch" placeholder='Vérifier le mot de passe' type="password" 
-        value={passwordMatch}
-        onChange={(e)=>setPasswordMatch(e.target.value)}
-        onFocus={()=>setMatch(true)}
-    />                    
-</div>
-{match && 
-    (password !== passwordMatch ? 
-    <p className={styles.AuthError}> Le mot de passe ne correspond pas </p>:
-    <p className={styles.AuthSuccess}> Les mots de passe correspondent </p>)
-}
-</div> */}
+
+
+        // <div className={styles.PageContainer}>
+        //     <div className={styles.PageBanner}>
+        //         <h2>Créer un compte</h2>  
+        //         <ul className={styles.PageRoot}>
+        //             <Link href={'/'}> <li>Acueil</li> </Link>
+        //             <li>/</li>
+        //             <Link href={'/auth'}> <li>Connexion</li> </Link>
+        //             <li>/</li>
+        //             <li>Inscription</li>
+        //         </ul>
+        //     </div>
+        //     <div className={styles.PageContent}>
+        //         <div className={styles.PageForm}>  
+        //             <div className={styles.AuthLogin}>
+                        
+        //             </div>         
+        //         </div>
+        //         <div className={styles.PageMarketing}>
+        //             <div>
+        //                 <Icon name={'Navigation2'} color={'#424949'}/>
+        //                 <p> CENTRES </p>
+        //             </div>
+        //         </div>
+        //     </div>
+        // </div>

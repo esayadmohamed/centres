@@ -36,7 +36,8 @@ export default function CreateContent({cities_list, hoods_list}) {
         const result = await CreateListing(data); 
         SetLoading(false)
         
-        // console.log(result);
+        recaptchaRef.current?.reset();
+        setCaptchaToken(null);
 
         if(result?.error){
             setErrors(result.error)  
@@ -67,6 +68,7 @@ export default function CreateContent({cities_list, hoods_list}) {
                     <CreatePhone phone={phone} setPhone={setPhone} errors={errors}/>
                     
                     <ReCAPTCHA
+                        ref={recaptchaRef}
                         sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}
                         onChange={(token)=>setCaptchaToken(token)}
                     />

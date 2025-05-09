@@ -29,8 +29,11 @@ export default function SendResetToken (){
 
         const new_result = await PasswordToken(email, captchaToken);
         setLoading(false)
-        console.log(new_result);
+        // console.log(new_result);
         
+        recaptchaRef.current?.reset();
+        setCaptchaToken(null);
+
         if(new_result?.error){
             setError(new_result.error)
         } else {
@@ -40,80 +43,95 @@ export default function SendResetToken (){
 
     if(success) {
         return(
-            <div className={styles.AuthContent}>
-                <div className={styles.AuthContainer}>
-                    <div className={styles.AuthBox}>
-                        <div className={styles.AuthSuccess}>
-                            <ul className={styles.AuthRoot}>
-                                <Link href={'/'}> <li>Acueil</li> </Link>
-                                <li>/</li>
-                                <Link href={'/auth'}> <li>Connexion</li> </Link>
-                                <li>/</li>
-                                <li>Réinitialisation</li>
-                            </ul>
-                            
-                            <h3> E-mail Envoyé </h3>
-                            <p> Nous avons envoyé un lien de réinitialisation à votre adresse e-mail. </p>
-                            <h4> {email} </h4>
-                            <p>Cliquez sur le lien pour compléter le processus de réinitialisation.</p>
-                            <p>Il se peut que vous deviez vérifier votre dossier <b>"Spam"</b> ou <b>"Courrier indésirable"</b>.</p>
-                        </div>
-                        <button onClick={()=>setSuccess(false)}> 
-                            <span>Retourner</span>
-                        </button>
-                    </div>
-                    <ul className={styles.AuthActions}>
-                        <li> <Icon name={'Headset'}/> support@centres.ma </li> 
+            <div className={styles.PageContainer}>
+                <div className={styles.PageBanner}>
+                    <h2>Réinitialisation du Mot de Passe</h2>  
+                    <ul className={styles.PageRoot}>
+                        <Link href={'/'}> <li>Acueil</li> </Link>
+                        <li>/</li>
+                        <Link href={'/auth'}> <li>Connexion</li> </Link>
+                        <li>/</li>
+                        <li>Réinitialisation</li>
                     </ul>
+                </div>
+                <div className={styles.PageContent}>
+                    <div className={styles.PageForm}>  
+                        <div className={styles.AuthLogin}>
+                            <div className={styles.AuthBox}>
+                                <div className={styles.AuthSuccess}>                                  
+                                    <h3> E-mail Envoyé </h3>
+                                    <p> Nous avons envoyé un lien de réinitialisation à votre adresse e-mail. </p>
+                                    <h4> {email} </h4>
+                                    <p>Cliquez sur le lien pour compléter le processus de réinitialisation.</p>
+                                    <p>Il se peut que vous deviez vérifier votre dossier <b>"Spam"</b> ou <b>"Courrier indésirable"</b>.</p>
+                                </div>
+                                <button onClick={()=>setSuccess(false)}> 
+                                    <span>Retourner</span>
+                                </button>
+                            </div>
+                        </div>         
+                    </div>
+                    <div className={styles.PageMarketing}>
+                        <div>
+                            <Icon name={'Navigation2'} color={'#424949'}/>
+                            <p> CENTRES </p>
+                        </div>
+                    </div>
                 </div>
             </div>
         )
     }
     return(
-        <div className={styles.AuthContent}>
-            <div className={styles.AuthContainer}>
-                <div className={styles.AuthBox}>
-                    <div className={styles.AuthSuccess}>
-                        <ul className={styles.AuthRoot}>
-                            <Link href={'/'}> <li>Acueil</li> </Link>
-                            <li>/</li>
-                            <Link href={'/auth'}> <li>Connexion</li> </Link>
-                            <li>/</li>
-                            <li>Réinitialisation</li>
-                        </ul>
-                        
-                        <h3> Réinitialisation du Mot de Passe </h3>
-                        <p> Merci de fournir l'adresse e-mail associée à votre compte. </p>
-                        <div className={styles.AuthInput}>
-                            <label htmlFor="email"> Adresse e-mail </label>
-                            <div>
-                                <input type="text" id="email" placeholder='Adresse e-mail' value={email}
-                                    onChange={(e)=>setEmail(e.target.value)}
-                                />
-                            </div>
-                            {/* {error && <p className={styles.AuthError}> {error}</p> } */}
-                        </div>
-                    </div>
-                    
-                    <ReCAPTCHA
-                        sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}
-                        onChange={(token)=>setCaptchaToken(token)}
-                    />
-
-                    {error && <p className={styles.AuthError}> {error}</p> }
-
-                    <button onClick={handleSubmit}> 
-                        {!loading ? 
-                            <span>Envoyer</span>   :
-                            <div className="spinner" style={{background: 'white'}}></div>}
-                    </button>
-                </div>
-                <ul className={styles.AuthActions}>
-                    <li> 
-                        <Icon name={'Headset'} color={'#424949'}/> 
-                        support@centres.ma 
-                    </li> 
+        <div className={styles.PageContainer}>
+            <div className={styles.PageBanner}>
+                <h2>Réinitialisation du Mot de Passe </h2>  
+                <ul className={styles.PageRoot}>
+                    <Link href={'/'}> <li>Acueil</li> </Link>
+                    <li>/</li>
+                    <Link href={'/auth'}> <li>Connexion</li> </Link>
+                    <li>/</li>
+                    <li>Réinitialisation</li>
                 </ul>
+            </div>
+            <div className={styles.PageContent}>
+                <div className={styles.PageForm}>  
+                    <div className={styles.AuthLogin}>
+                        <div className={styles.AuthBox}>
+                            <div className={styles.AuthSuccess}>
+                                <p> Merci de fournir l'adresse e-mail associée à votre compte. </p>
+                                <div className={styles.AuthInput}>
+                                    <label htmlFor="email"> Adresse e-mail </label>
+                                    <div>
+                                        <input type="text" id="email" placeholder='Adresse e-mail' value={email}
+                                            onChange={(e)=>setEmail(e.target.value)}
+                                        />
+                                    </div>
+                                    {/* {error && <p className={styles.AuthError}> {error}</p> } */}
+                                </div>
+                            </div>
+                            
+                            <ReCAPTCHA
+                                ref={recaptchaRef}
+                                sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}
+                                onChange={(token)=>setCaptchaToken(token)}
+                            />
+
+                            {error && <p className={styles.AuthError}> {error}</p> }
+
+                            <button onClick={handleSubmit}> 
+                                {!loading ? 
+                                    <span>Envoyer</span>   :
+                                    <div className="spinner" style={{background: 'white'}}></div>}
+                            </button>
+                        </div> 
+                    </div>         
+                </div>
+                <div className={styles.PageMarketing}>
+                    <div>
+                        <Icon name={'Navigation2'} color={'#424949'}/>
+                        <p> CENTRES </p>
+                    </div>
+                </div>
             </div>
         </div>
     )

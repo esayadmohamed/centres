@@ -15,9 +15,10 @@ export default function SpecsDescription ({description}){
                 {description.slice(0, view ? description.length : 200)}
                 {!view && '...' }
             </p>
-            <span className={styles.SpecsMore} style={{display: !view && description.length > 200? 'flex' : 'none'}}> 
-                <Icon name={'ArrowDown'}/> Voir plus 
-            </span>
+            <div className={styles.SeeMore} style={{display: !view && description.length > 200? 'flex' : 'none'}}>
+                <span> <Icon name={'ChevronDown'} color={'black'}/> </span>
+                <p> Voir plus </p>
+            </div>
         </div>
     )
 }

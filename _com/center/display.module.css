@@ -21,11 +21,16 @@
     color: #4d5656;
 }
 
-.BannerTitle ul li {
+.BannerTitle ul li{
     display: flex;
     align-items: center;
     gap: 5px;
 }
+
+.BannerTitle ul a{
+    text-decoration: underline;
+}
+
 .BannerTitle svg{
     width: 18;
     height: 18;
@@ -59,15 +64,17 @@
 
     display: flex;
     justify-content: center;
+    align-items: center;
     user-select: none;
+    background-color: #f2f3f4;
 }
 
 .ContentMarketing div{
     display: flex;
-    flex-direction: column;
+    /* flex-direction: column; */
     justify-content: center;
     align-items: center;
-    gap: 10px;
+    /* gap: 10px; */
 
     width: 100%;
     height: 300px;
@@ -125,13 +132,11 @@
     align-items: center;
 }
 
-
-
 .DisplayArrows{
     display: flex; 
     justify-content: space-between;
     align-items: center;
-    z-index: 100;
+    /* z-index: 10; */
 }
 
 .DisplayArrows span{
@@ -453,6 +458,11 @@
     .DisplayBannerActions{
         display: none;
     }
+    .DisplayBody{
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
     .DisplayContent{
         display: block;
     }
@@ -465,9 +475,9 @@
     .SliderContent{
         padding: 10px;
     }
-    .DisplayArrows, .DisplayNavigate{
+    /* .DisplayArrows, .DisplayNavigate{
         display: none;
-    }
+    } */
     .Specs{
         padding: 10px 0;
         width: 100%;

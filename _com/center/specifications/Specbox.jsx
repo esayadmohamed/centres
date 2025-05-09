@@ -18,9 +18,10 @@ export default function SpecBox({name, data}){
                     </li>
                 )}
             </ul>
-            <p className={styles.SpecsMore} style={{display: !view && data.length > 5? 'flex' : 'none'}}> 
-                <Icon name={'ArrowDown'}/> Voir plus 
-            </p>
+            <div className={styles.SeeMore} style={{display: !view && data.length > 5? 'flex' : 'none'}}>
+                <span> <Icon name={'ChevronDown'} color={'black'}/> </span>
+                <p> Voir plus </p>
+            </div>
         </div>
     );
 }
