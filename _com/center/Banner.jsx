@@ -11,7 +11,9 @@ export default function DisplayBanner ({listing}){
             <div className={styles.BannerTitle}>
                 <h1> {listing?.name} </h1>
                 <ul>
-                    <Link href={'/'}> <li> Accueil</li> </Link> {/* <Icon name={'House'}/> */}
+                    <Link href={'/'}> <li> Accueil</li> </Link> 
+                    <li>/</li>
+                    <Link href={'/centres'}> <li> Centres </li> </Link>
                     <li>/</li>
                     <li>{listing?.name}</li>
                 </ul>
