@@ -54,13 +54,15 @@ export async function AllListings() {
             overall: listing.overall,
         }));
         
-        const sortedListings = filteredListings.sort((a, b) => {
-            if (a.name.toLowerCase() < b.name.toLowerCase()) return -1;
-            if (a.name.toLowerCase() > b.name.toLowerCase()) return 1;
-            return 0;
-        });
+        // const sortedListings = filteredListings.sort((a, b) => {
+        //     if (a.name.toLowerCase() < b.name.toLowerCase()) return -1;
+        //     if (a.name.toLowerCase() > b.name.toLowerCase()) return 1;
+        //     return 0;
+        // });
 
-        return sortedListings;
+        return filteredListings.sort((a, b) => b.overall - a.overall);
+
+        // return sortedListings;
         
     } catch (error) {
         console.error("Database error:", error);
@@ -172,7 +174,7 @@ export async function FilterListings(data){
         }
 
         const limit = 12;
-        const sort = xss(data.sort).trim()
+        // const sort = xss(data.sort).trim()
         const city = xss(data.city).trim()
         const hood = xss(data.hood).trim()
 
@@ -233,20 +235,22 @@ export async function FilterListings(data){
             overall: listing.overall,
         }));
 
-        switch (sort) {
-            case 'a-z':
-                return filteredListings.sort((a, b) => {
-                    if (a.name.toLowerCase() < b.name.toLowerCase()) return -1;
-                    if (a.name.toLowerCase() > b.name.toLowerCase()) return 1;
-                    return 0;
-                });
+        return filteredListings.sort((a, b) => b.overall - a.overall);
+
+        // switch (sort) {
+        //     case 'a-z':
+        //         return filteredListings.sort((a, b) => {
+        //             if (a.name.toLowerCase() < b.name.toLowerCase()) return -1;
+        //             if (a.name.toLowerCase() > b.name.toLowerCase()) return 1;
+        //             return 0;
+        //         });
             
-            case 'rank':
-                return filteredListings.sort((a, b) => b.overall - a.overall);
+        //     case 'rank':
+        //         return filteredListings.sort((a, b) => b.overall - a.overall);
     
-            default:
-                return filteredListings;
-        }   
+        //     default:
+        //         return filteredListings;
+        // }   
          
     } catch (error) {
         console.error("Database error:", error);
@@ -274,7 +278,7 @@ export async function GetMoreListings(offset = 0, data){
         }
 
         const limit = 12;
-        const sort = xss(data.sort).trim()
+        // const sort = xss(data.sort).trim()
         const city = xss(data.city).trim()
         const hood = xss(data.hood).trim()
 
@@ -335,20 +339,21 @@ export async function GetMoreListings(offset = 0, data){
             overall: listing.overall,
         }));
 
-        switch (sort) {
-            case 'a-z':
-                return filteredListings.sort((a, b) => {
-                    if (a.name.toLowerCase() < b.name.toLowerCase()) return -1;
-                    if (a.name.toLowerCase() > b.name.toLowerCase()) return 1;
-                    return 0;
-                });
+        return filteredListings.sort((a, b) => b.overall - a.overall);
+        // switch (sort) {
+        //     case 'a-z':
+        //         return filteredListings.sort((a, b) => {
+        //             if (a.name.toLowerCase() < b.name.toLowerCase()) return -1;
+        //             if (a.name.toLowerCase() > b.name.toLowerCase()) return 1;
+        //             return 0;
+        //         });
             
-            case 'rank':
-                return filteredListings.sort((a, b) => b.overall - a.overall);
+        //     case 'rank':
+        //         return filteredListings.sort((a, b) => b.overall - a.overall);
     
-            default:
-                return filteredListings;
-        }   
+        //     default:
+        //         return filteredListings;
+        // }   
               
     } catch (error) {
         console.error("Database error:", error);
