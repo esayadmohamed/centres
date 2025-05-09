@@ -25,8 +25,8 @@ export default function DisplayContent ({listing, suggested, ReviewsList, isAuth
                 </div>
                 <div className={styles.ContentMarketing}> 
                     <div>
-                        <Icon name={'Component'}/>
-                        <p> Publicité </p> 
+                        <Icon name={'Navigation2'} color={'#1f618d'}/>
+                        <p> Centres </p> 
                     </div>
                 </div>
             </div>

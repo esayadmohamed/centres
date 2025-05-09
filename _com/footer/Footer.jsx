@@ -13,10 +13,11 @@ export default function Footer() {
                 <ul>
                     <Link href={'/'}> <li>Centres</li> </Link>
                     <li> | </li>
-                    <Link href={'/'}> <li>Blog</li> </Link>
+                    <Link href={'/'}> <li>Cours Particuliers</li> </Link>
                     <li> | </li>
-                    <Link href={'/support'}> <li>Support</li> </Link>
+                    <Link href={'/'}> <li>Blog</li> </Link>
                 </ul>
+                <p><Icon name={'Headset'} color={'#424949'}/> support@centres.ma  </p>
                 <p>@ 2025-{currentYear}, Tous droits reserves</p>
             </div>
             <span onClick={()=>window.scrollTo({ top: 0, behavior: 'smooth' })}>

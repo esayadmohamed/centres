@@ -14,7 +14,7 @@ export default function DisplaySuggestions ({listing, suggested}){
     if(suggested.length === 0) return
     return (
         <main className={styles.Suggestions}>            
-            <h3>Autres centres près de chez vous</h3>
+            <h3>Centres près de chez vous</h3>
             <div className={styles.SuggestionsList}>
                 <ul>
                     {suggested.map((item, id)=>

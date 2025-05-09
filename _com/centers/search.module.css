@@ -178,11 +178,11 @@
 
 @media (max-width: 600px) {
     .SearchBar{
-        width: 95vw;
+        width: 90vw;
         grid-template-columns: 50px auto;
     }
     .Dropdown{
-        width: 95vw;
+        width: 90vw;
         max-height: 100%;
         transform: translate(-50px, 5px);
     }

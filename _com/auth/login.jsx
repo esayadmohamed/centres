@@ -46,63 +46,78 @@ export default function AuthLogin (){
     
 
     return(
-        <div className={styles.AuthContent}>
-            <div className={styles.AuthContainer}>
-                <div className={styles.AuthBox}>
-                    <ul className={styles.AuthRoot}>
-                        <Link href={'/'}> <li>Acueil</li> </Link>
-                        <li>/</li>
-                        <li>Connexion</li>
-                    </ul>
-                    <h3> Accédez à votre compte </h3>
-                    
-                    <div className={styles.AuthInput}>
-                        <label htmlFor="email"> Adresse e-mail </label>
-                        <div>
-                            <input type="text" id="email" placeholder='Adresse e-mail' value={email}
-                                onChange={(e)=>setEmail(e.target.value)}
-                            />
+        <div className={styles.PageContainer}>
+
+            <div className={styles.PageBanner}>
+                <h2>Accédez à votre compte</h2>  
+                <ul className={styles.PageRoot}>
+                    <Link href={'/'}> <li>Acueil</li> </Link>
+                    <li>/</li>
+                    <li>Connexion</li>
+                </ul>
+            </div>
+            <div className={styles.PageContent}>
+                <div className={styles.PageForm}>  
+                    <div className={styles.AuthLogin}>
+                        <div className={styles.AuthBox}>
+                            {/* <h3> Accédez à votre compte </h3> */}
+                            
+                            <div className={styles.AuthInput}>
+                                <label htmlFor="email"> Adresse e-mail </label>
+                                <div>
+                                    <input type="text" id="email" placeholder='Adresse e-mail' value={email}
+                                        onChange={(e)=>setEmail(e.target.value)}
+                                    />
+                                </div>
+                            </div>
+                            <div className={styles.AuthInput}>
+                                <label htmlFor="password"> Mot de passe </label>
+                                <div>
+                                    <input id="password" placeholder='Mot de passe'
+                                        type={viewHash? "text" : "password"} value={password}
+                                        onChange={(e)=>setPassword(e.target.value)} 
+                                    />
+                                    <span className={styles.AuthHash} onClick={()=>setViewHash(!viewHash)}> 
+                                        <Icon name={viewHash ? 'EyeOff' : 'Eye'}/>
+                                    </span>
+                                </div>
+                            </div>
+
+                            <Link href={'auth/reset'}>
+                                <p className={styles.AuthForgot}>Mot de passe oublié?</p>
+                            </Link>
+
+                            {error && <p className={styles.AuthError}> {error} </p>}
+
+                            <button onClick={handleLogin}> 
+                                {!loading ? 
+                                    <span>Se connecter</span>   :
+                                    <div className="spinner" style={{background: 'white'}}></div>}
+                            </button>
+
+                            <p className={styles.AuthRedirect}>
+                                Vous n'avez pas de compte? 
+                                <Link href={'auth/signup'}> <span>Inscrivez-vous</span> </Link>
+                            </p>
+                            {/* <ul className={styles.AuthActions}>
+                                <li> 
+                                    <Icon name={'Headset'} color={'#424949'}/> 
+                                    support@centres.ma 
+                                </li> 
+                            </ul> */}
                         </div>
+                    </div>          
+                </div>
+                <div className={styles.PageMarketing}>
+                    <div>
+                        <Icon name={'Navigation2'} color={'#424949'}/>
+                        <p> CENTRES </p>
                     </div>
-                    <div className={styles.AuthInput}>
-                        <label htmlFor="password"> Mot de passe </label>
-                        <div>
-                            <input id="password" placeholder='Mot de passe'
-                                type={viewHash? "text" : "password"} value={password}
-                                onChange={(e)=>setPassword(e.target.value)} 
-                            />
-                            <span className={styles.AuthHash} onClick={()=>setViewHash(!viewHash)}> 
-                                <Icon name={viewHash ? 'EyeOff' : 'Eye'}/>
-                            </span>
-                        </div>
-                    </div>
-
-                    <Link href={'auth/reset'}>
-                        <p className={styles.AuthForgot}>Mot de passe oublié?</p>
-                    </Link>
-
-                    {error && <p className={styles.AuthError}> {error} </p>}
-
-                    <button onClick={handleLogin}> 
-                        {!loading ? 
-                            <span>Se connecter</span>   :
-                            <div className="spinner" style={{background: 'white'}}></div>}
-                    </button>
-
-                    <p className={styles.AuthRedirect}>
-                        Vous n'avez pas de compte? 
-                        <Link href={'auth/signup'}> <span>Inscrivez-vous</span> </Link>
-                    </p>
                 </div>
 
-                <ul className={styles.AuthActions}>
-                    <li> 
-                        <Icon name={'Headset'} color={'#424949'}/> 
-                        support@centres.ma 
-                        {/* kkk */}
-                    </li> 
-                </ul>
             </div>
         </div>
     )
 }
+
+
