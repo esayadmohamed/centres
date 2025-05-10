@@ -1,9 +1,13 @@
 # *
 User-agent: *
+Disallow: /admin/
+Disallow: /private/
 Allow: /
 
 # Host
-Host: http://localhost:3000/
+Host: https://www.centres.ma/
 
 # Sitemaps
-Sitemap: http://localhost:3000/sitemap.xml
+Sitemap: https://www.centres.ma/sitemap.xml
+
+
