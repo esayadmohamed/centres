@@ -117,7 +117,8 @@ export async function ModifyPhone(value) {
         return userData;
 
     } catch (error) {
-        return handleDbError(error);
+        console.error("Database error:", error);
+        return { error: "Une erreur est survenue. Veuillez réessayer plus tard." };
     }
 }
 
@@ -162,7 +163,8 @@ export async function ModifyPassword(value) {
         return {success: true};
 
     } catch (error) {
-        return handleDbError(error);
+        console.error("Database error:", error);
+        return { error: "Une erreur est survenue. Veuillez réessayer plus tard." };
     }
 }
 
@@ -201,6 +203,7 @@ export async function ModifyActive(value) {
         return { success: true }
 
     } catch (error) {
-        return handleDbError(error);
+        console.error("Database error:", error);
+        return { error: "Une erreur est survenue. Veuillez réessayer plus tard." };
     }
 }
