@@ -73,11 +73,15 @@ export async function userListing(value_id) {
         const user_id = await UserAuthenticated();
         if(!user_id) return { error: true };
 
-        const [listing] = await db.execute("SELECT * FROM listings WHERE id = ? AND  user_id = ? AND state IN ('on', 'none')",  [listing_id, user_id]);
-
-        if (listing.length === 0) { // allow user to edit blocked listings || listing.state === 'off'
-            return { error: true };
-        } 
+        // const [listing] = await db.execute("SELECT * FROM listings WHERE id = ? AND  user_id = ? AND state IN ('on', 'none')",  [listing_id, user_id]);
+        // if (listing.length === 0) { // allow user to edit blocked listings || listing.state === 'off'
+            // return { error: true };
+        // } 
+        const [row] =  await db.execute("SELECT * FROM listings WHERE id = ? AND  user_id = ? AND state IN ('on', 'none')",  [listing_id, user_id]);
+        const listing = row[0] || null;
+        if (!listing) { 
+            return { error: true }; 
+        }
 
         const draft = listing.offers+listing.services+listing.subjects+listing.levels+listing.images;
 

@@ -1,9 +1,4 @@
 'use server'
-import db from "@/_lib/db";
-
-// const sql = require('better-sqlite3');
-// const db = sql('main.db');
-// db.pragma('foreign_keys = ON');
 
 import xss from "xss";
 import { SanitizeId } from "@/_lib/utils/sanitizedata";

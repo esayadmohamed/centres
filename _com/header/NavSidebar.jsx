@@ -83,11 +83,11 @@ export default function NavSidebar ({isAuthenticated}){
                     :
                     <>
                         <li style={{fontWeight: pathname === '/listings' ? '600' : '500'}} > 
-                            <Link href='/listings'> <Icon name={'LayoutList'} /> Mes centres </Link> 
+                            <Link href='/listings'> <Icon name={'LayoutList'} /> Mes centres de soutien</Link> 
                         </li>
                         <li style={{fontWeight: pathname === '/tutring' ? '600' : '500'}} > 
                             {/* <Link href='/courses'>  */}
-                            <Icon name={'GraduationCap'} /> Mes cours 
+                            <Icon name={'GraduationCap'} /> Mes cours particuliers
                             {/* </Link>  */}
                         </li>
                         <li style={{fontWeight: pathname === '/account' ? '600' : '500'}} > 

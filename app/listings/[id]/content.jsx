@@ -27,7 +27,7 @@ export default function EditContent({ user_listing,
         setLoading(true);
         setError('');
 
-        const result = await PublishListing(listing?.listing[0]?.id)
+        const result = await PublishListing(listing?.listing?.id)
         setLoading(false)
         
         if (result?.error) {
@@ -39,7 +39,7 @@ export default function EditContent({ user_listing,
         }
     }
 
-    // console.log(listing?.listing[0]?.state);
+    // console.log(listing.listing);
     
 
     return(
@@ -51,7 +51,7 @@ export default function EditContent({ user_listing,
                     <li>/</li>
                     <Link href={'/listings'}> <li>Annonces</li> </Link>
                     <li>/</li>
-                    <li>{listing?.listing[0]?.name}</li>
+                    <li>{listing?.listing?.name}</li>
                 </ul>
             </div>
 
@@ -59,7 +59,7 @@ export default function EditContent({ user_listing,
                 <div className={styles.PageForm}>
 
                     <EditInputs 
-                        listing={listing?.listing[0]}
+                        listing={listing?.listing}
                         newhood={listing?.newhood}
                         setListing={setListing}
                         />
@@ -80,7 +80,7 @@ export default function EditContent({ user_listing,
                         />
                     {error && <p className={styles.PageError}> {error}</p>}
                     
-                    <div className={styles.PagePublish} style={{display: ['none'].includes(listing?.listing[0]?.state) ? 'flex' : 'none'}}>
+                    <div className={styles.PagePublish} style={{display: ['none'].includes(listing?.listing?.state) ? 'flex' : 'none'}}>
                         <button onClick={Publish}>
                             {loading ? <div className="spinner"></div > : <span>  Publier </span>} 
                         </button>

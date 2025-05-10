@@ -1,0 +1,879 @@
+/* =============== dashfilter =============== */
+
+.ListingsContainer{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+}
+
+.DashFilter{
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    height: fit-content;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.FilterSearch{
+    height: 45px;
+    display: grid;
+    grid-template-columns: auto 40px;
+    border: 1px solid #7f8c8d;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.FilterSearch span{
+    display: grid;
+    grid-template-columns: auto 40%;
+    gap: 5px;
+    padding: 5px 10px;
+}
+
+.FilterSearch p{
+    height: 100%;
+    width: 40px;
+    background-color: #f2f3f4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.FilterSearch span input{
+    width: 100%;
+    /* height: 100%; */
+    padding: 5px;
+    font-size: 15px;
+    outline: none;
+    border: none;    
+}
+
+.FilterSearch span input:first-of-type{
+    border-right: 1px solid #ccd1d1;
+}
+
+.FilterSearch svg{
+    width: 30px;
+    height: 30px;
+}
+
+.DashFilter .FilterSort{
+    height: 40px;
+    display: flex;
+    justify-content: space-between;
+    justify-items: center;
+    gap: 20px;
+}
+
+.DashFilter .FilterSort span{
+    font-size: 14px;
+    border-radius: 5px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.InactiveFilter{
+    background-color: #f2f3f4;
+}
+
+.ActiveFilter{
+    background-color: #2471a3;
+    color: white;
+}
+
+/* =============== dash_list =============== */
+
+.ListingsList{
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+}
+
+.ListingsList p{
+    height: 50px;
+    padding: 0 10px;
+    border-bottom: 1px solid #e5e8e8;
+    display: flex;
+    align-items: center;
+}
+
+.ListingsList li{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    padding: 0 10px;
+    border-bottom: 1px solid #e5e8e8;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 50px;
+}
+
+.ListingsList li span{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+}
+
+.ListingsList li span svg{
+    width: 20;
+    height: 20;
+}
+
+.ListingsList li div{
+    width: 25px;
+    padding: 3px;
+}
+
+.ListingsList li p{
+    display: flex;
+    justify-content: flex-end;
+}
+
+.ListingsList li p svg{
+    width: 16;
+    height: 16;
+}
+
+.ListingsList li:hover{
+    background-color: #f8f9f9;
+}
+
+
+/* =============== dash_slider =============== */
+
+.DashSlider{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    background-color: white;
+    padding: 10px; 
+    /* border-radius: 5px; */
+    border-bottom: 1px solid #e5e8e8;
+}
+
+.ListingSlider{
+    display: grid;
+    grid-template-columns: 100px auto;
+    gap: 20px;
+
+    width: 100%;
+    height: 300px;
+}
+
+.ListingImage{
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+
+    width: 100%;
+    padding: 15px;
+    background-color: #f2f3f4;
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 5px;
+    user-select: none;
+}
+
+.SliderNav{
+    width: 100%;
+    display: grid;
+    grid-template-rows: 1fr 1fr 1fr;
+    gap: 10px;
+}
+
+
+.SliderNav li{
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+
+    width: 100%;
+    background-color: #aed6f1;
+    border: 1px solid #7f8c8d;
+    cursor: pointer;
+}
+
+.SliderNav span{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.SliderNav span svg{
+    width: 30;
+    height: 30;
+    color: #424949;
+}
+
+.SliderActive{
+    height: 100%;
+    display: flex;
+    align-items: flex-end;
+    gap: 10px;
+}
+
+.SliderActive svg{
+    width: 14;
+    height: 14;
+    color: white;
+}
+
+/* =============== dash_content =============== */
+
+.DashContent {
+    background-color: white;
+    padding: 15px;
+    display: grid;
+    grid-template-columns: auto 160px;
+    border-radius: 5px;
+}
+
+.ContentDetails{
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+}
+
+.ContentDetails span{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.ContentDetails h4{
+    color: #2471a3;
+    text-decoration: underline;
+}
+
+.ContentDetails div{
+    width: fit-content;
+    padding: 5px 10px;
+    border-radius: 10px;
+    font-size: 14px;
+    color: white;
+}
+
+.ContentActions{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    height: fit-content;
+    gap: 5px;
+    user-select: none;
+}
+
+.ContentActions span{
+    height: 45px;
+    width: 45px;
+    background-color: #f8f9f9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    border-radius: 100%;
+    cursor: pointer;
+}
+
+.ContentActions svg{
+    color: #424949;
+    width: 25px;
+    height: 25px;
+}
+
+.ContentActions ul{
+    background-color: #f8f9f9;
+    /* border: 1px solid #e5e7e9; */
+    border-radius: 5px;
+    width: 150px;
+    overflow: hidden;
+    font-size: 15px;
+}
+
+.ContentActions ul li{
+    height: 40px;
+    padding: 0 10px;
+    border-bottom: 1px solid #f2f3f4;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.ContentActions ul li:hover{
+    background-color: #f2f3f4;
+}
+
+/* =============== dash_utils =============== */
+
+.ListingError{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #cb4335;
+}
+
+.spinner {
+    width: 25px;
+    padding: 3px;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: #616a6b;
+    --_m: 
+      conic-gradient(#0000 10%,#000),
+      linear-gradient(#000 0 0) content-box;
+    -webkit-mask: var(--_m);
+            mask: var(--_m);
+    -webkit-mask-composite: source-out;
+            mask-composite: subtract;
+    animation: l3 1s infinite linear;
+}
+@keyframes l3 {to{transform: rotate(1turn)}}
+
+/* =============== dev_sidebar =============== */
+
+.DevSidebar{
+    background-color: white;
+    border-radius: 5px;
+}
+
+.DevSidebar ul{
+    display: flex;
+    flex-direction: column;
+}
+
+.DevSidebar ul li{
+    display: flex;
+    align-items: center;
+    height: 50px;
+    padding: 0 10px;
+    cursor: pointer;
+    border-bottom: 1px solid #e5e8e8;
+    color: #424949;
+}
+
+.DevSidebar ul li p{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.DevSidebar ul li:hover{
+    background-color: #f8f9f9;
+    color: black;
+}
+
+.DevSidebar ul li div{
+    padding: 3px;
+    width: 25px;
+}
+
+.InctiveSelect{
+    background-color: white;
+}
+
+.ActiveSelect{
+    background-color: #e5e8e8;
+    color: black;
+}
+
+/* =============== dev_content =============== */
+
+.DevContent{
+    display: flex;
+    flex-direction: column;
+
+    background-color: white;
+    padding: 20px;
+}
+
+.DevContent h3{
+    border-bottom: 1px solid #e5e8e8;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 50px;
+    color: #424949;
+}
+
+.DevContent h3 span{
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.DevContent h3 svg{
+    color: #333333;
+}
+
+.DevContent .DevList{  /* UL */
+    display: flex;
+    flex-direction: column;
+}
+
+/* ---------------- */
+
+.DevContentInfo{
+    display: flex;
+    /* justify-content: space-between; */
+    align-items: center;
+    gap: 10px;
+    border-bottom: 1px solid #e5e8e8;
+    width: 100%;
+    height: 70px;
+    cursor: pointer; 
+}
+
+.DevContentInfo svg{
+    width: 20;
+    height: 20;
+}
+
+.DevContentInfo:hover{
+    background-color: #f8f9f9;
+}
+
+.DevContentActions{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    width: 100%;
+    padding: 10px;
+    background-color: #ebf5fb;
+}
+
+.DevContentActions p{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    /* color: #424949; */
+}
+
+.DevContentActions p svg{
+    width: 20;
+    height: 20;
+}
+
+.DataInputs{
+    width: 100%;
+    padding: 5px;
+    display: grid;
+    grid-template-columns: 140px auto;
+    border-radius: 10px;
+    border: 1px solid #ccd1d1;
+    overflow: hidden;
+    background-color: white;
+    /* background-color: yellow; */
+} 
+
+.DataInputs input{
+    border: none;
+    outline: none;
+    padding: 10px;
+    font-size: 15px;
+    width: 100%;
+}
+
+.DataInputs input:first-of-type{
+    border-right: 1px solid #ccd1d1;
+}
+
+.DataActionsButtons{
+    display: flex;
+    /* justify-content: space-between; */
+    align-items: center;
+    gap: 20px;
+    width: 100%;
+    /* background-color: yellow; */
+}
+
+.DataActionsButtons button{
+    min-width: 120px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    border: none;
+    background-color: #2471a3;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.DataActionsButtons button span{   
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+}
+
+.DataActionsButtons button svg{
+    width: 20;
+    height: 20;
+}
+
+.DataActionsButtons div{
+    padding: 3px;
+    width: 25px;
+    background: white;
+}
+
+.DevContentError{
+    color: red;
+    font-size: 15px;
+}
+
+/* =============== dev_location =============== */
+
+.DevContentLocation{
+    display: flex;
+    flex-direction: column;
+    /* gap: 10px; */
+    /* background-color: yellow; */
+}
+
+.DevContentLocation h3{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: white;
+    color: #424949;
+    border-bottom: 1px solid #e5e8e8;
+    height: 50px;
+    padding: 0 10px;
+}
+
+.DevLocation{
+    display: grid;
+    grid-template-columns: 2fr 3fr;
+    gap: 10px;
+    align-items: center;
+    width: 100%;
+    font-size: 14px;
+}
+
+.DevLocation ul{
+    height: 100%;
+    background-color: white;
+    padding: 10px;
+    border-right: 1px solid #e5e8e8;
+}
+
+.DevLocation ul li{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 50px;
+    cursor: pointer;
+    border-bottom: 1px solid #e5e8e8;
+}
+
+.DataCities li:hover{
+   color: #424949;
+   background-color: #f8f9f9;
+}
+
+.DataError{
+    width: 100%;
+    height: 50px;
+    color: red;
+    display: flex;
+    align-items: center;
+}
+
+/* ---------------------------------- */
+
+.LocationAdd{
+    border: 1px solid #e5e8e8;
+    border-radius: 5px;
+    overflow: hidden;
+    display: grid;
+    grid-template-columns: auto 45px;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 45px;
+    box-sizing: content-box;
+}
+
+.LocationAdd input{
+    outline: none;
+    border: none;
+    font-size: 15px;
+    padding: 10px;
+
+    width: 100%;
+    height: 30px;
+}
+
+.LocationAdd span{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    cursor: pointer;
+    background-color: #f2f3f4;
+}
+
+.LocationAdd span div{
+    width: 25px;
+    padding: 3px;
+}
+
+/* ------------------------ */
+
+.LocationRemove{
+    width: fit-content;
+    height: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.RemoveConfirmation{
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 15px;
+}
+
+.LocationRemove span{ 
+    height: 35px;
+    width: 35px;
+    
+    background-color: #f8f9f9;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+}
+
+.LocationRemove p svg{
+    width: 16;
+    height: 16;
+}
+
+
+/* =============== dev_Infos =============== */
+/* 
+.DevInfoActions{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    width: 100%;
+    padding: 10px;
+}
+
+.DevInfoActions p{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    font-weight: 600;
+}
+
+.DevInfoActions span{
+    padding: 5px;
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+    border: 1px solid #ccd1d1;
+    overflow: hidden;
+    background-color: white;
+    width: 100%;
+    height: 200px;
+} 
+
+.DevInfoActions span textarea{
+    border: none;
+    outline: none;
+    resize: none;
+    padding: 10px;
+    font-family: inherit;
+    font-size: 15px;
+    height: 100%;
+}
+
+.DevInfoActions span p{
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    text-align: right;
+    padding: 5px 10px;
+}
+
+.DevContentActionsBtn{
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    width: 100%;
+}
+
+.DevInfoActions button{
+    min-width: 120px;
+}
+
+.DevInfoActions button svg{
+    width: 20;
+    height: 20;
+}
+ */
+
+/* =============== dev_sugestedhood =============== */
+
+.DataContent{
+    /* background-color: yellow; */
+    width: 100%;
+}
+
+.DataContent h3{
+    height: 70px;
+    width: 100%;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #424949;
+    border-bottom: 1px solid #e5e8e8;
+}
+
+.DataContentInfo{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    border-bottom: 1px solid #e5e8e8;
+    width: 100%;
+    height: 70px;
+    padding: 0 20px;
+    cursor: pointer; 
+}
+
+.DataContentInfo svg{
+    width: 20;
+    height: 20;
+}
+
+.DataContentInfo:hover{
+    background-color: #f8f9f9;
+}
+
+/* --------------------- */
+
+.DeataHoodActions{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    width: 100%;
+    padding: 10px;
+    background-color: #ebf5fb;
+}
+
+.DeataHoodActions p svg{
+    width: 20;
+    height: 20;
+}
+
+.HoodInputs{
+    width: 100%;
+    padding: 5px;
+    border-radius: 10px;
+    border: 1px solid #ccd1d1;
+    overflow: hidden;
+    background-color: white;
+}
+
+.HoodInputs input{
+    border: none;
+    outline: none;
+    padding: 10px;
+    font-size: 15px;
+    width: 100%;
+}
+
+.HoodActionsButtons{
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    width: 100%;
+}
+
+.HoodActionsButtons button{
+    min-width: 120px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    border: none;
+    background-color: #2471a3;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.HoodActionsButtons button span{   
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+}
+
+.HoodActionsButtons button svg{
+    width: 20;
+    height: 20;
+}
+
+.HoodActionsButtons div{
+    padding: 3px;
+    width: 25px;
+    background: white;
+}
+
+
+
+/* =============== dev_utils =============== */
+
+.loader {
+    width: 30px;
+    aspect-ratio: 6;
+    background: radial-gradient(circle closest-side, #616a6b 90%,#0000) 0/calc(100%/3) 100% space;
+    clip-path: inset(0 100% 0 0);
+    animation: l1 1s steps(4) infinite;
+}
+@keyframes l1 {to{clip-path: inset(0 -34% 0 0)}}
+
+.btnloader {
+    width: 50px;
+    aspect-ratio: 8;
+    background: radial-gradient(circle closest-side,#222 90%,#0000) 0/calc(100%/3) 100% space;
+    clip-path: inset(0 100% 0 0);
+    animation: l1 1s steps(4) infinite;
+}
+@keyframes l1 {to{clip-path: inset(0 -34% 0 0)}}

@@ -5,9 +5,9 @@ import Centers from "./centres/page"
 //     try { // UPDATE listings SET state = 'on' // DELETE FROM listings WHERE name = 'Al Wafae'
 //         const db = getDB();
 //         const [rows] = await db.execute(`
-//             SELECT id FROM listings
+//             UPDATE listings SET state = 'under' WHERE id = 210023
 //         `);
-
+//             // SELECT id FROM listings
 //         // console.log(rows);
 
 //         return rows;

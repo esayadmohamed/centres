@@ -23,10 +23,10 @@ export default function EditSelects({listing, setListing, offers_list, services_
 
 
     const selectData = [
-        {name: 'Offres Spéciales', value: listing?.offers?.map((e)=> e.name).join(', '), component: <EditOffers   alloffers={offers_list}      offers={listing.offers}     listing_id={listing.listing[0].id} setListing={setListing} handleEdit={()=>handleEdit(0)}/>},
-        {name: 'Service Utiles', value: listing?.services?.map((e)=> e.name).join(', '), component: <EditServices allservices={services_list} services={listing.services}  listing_id={listing.listing[0].id} setListing={setListing} handleEdit={()=>handleEdit(1)}/>},
-        {name: 'Cours Proposés', value: listing?.subjects?.map((e)=> e.name).join(', '), component: <EditSubjects allsubjects={subjects_List}  subjects={listing.subjects} listing_id={listing.listing[0].id} setListing={setListing} handleEdit={()=>handleEdit(2)}/>},
-        {name: 'Niveaux Scolaires', value: listing?.levels?.map((e)=> e.name).join(', '), component: <EditLevels  allevels={levels_list}       levels={listing.levels}     listing_id={listing.listing[0].id} setListing={setListing} handleEdit={()=>handleEdit(3)}/>}
+        {name: 'Offres Spéciales', value: listing?.offers?.map((e)=> e.name).join(', '), component: <EditOffers   alloffers={offers_list}      offers={listing.offers}     listing_id={listing.listing.id} setListing={setListing} handleEdit={()=>handleEdit(0)}/>},
+        {name: 'Service Utiles', value: listing?.services?.map((e)=> e.name).join(', '), component: <EditServices allservices={services_list} services={listing.services}  listing_id={listing.listing.id} setListing={setListing} handleEdit={()=>handleEdit(1)}/>},
+        {name: 'Cours Proposés', value: listing?.subjects?.map((e)=> e.name).join(', '), component: <EditSubjects allsubjects={subjects_List}  subjects={listing.subjects} listing_id={listing.listing.id} setListing={setListing} handleEdit={()=>handleEdit(2)}/>},
+        {name: 'Niveaux Scolaires', value: listing?.levels?.map((e)=> e.name).join(', '), component: <EditLevels  allevels={levels_list}       levels={listing.levels}     listing_id={listing.listing.id} setListing={setListing} handleEdit={()=>handleEdit(3)}/>}
     ]
 
     return(

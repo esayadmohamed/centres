@@ -34,9 +34,9 @@ export default function EditImages({listing, uploadData, setListing}) {
                     <div key={id} className={styles.UploadsBox}>
                         { 
                         item?.name ?
-                        <EditPreview keyId={id} fileName={item.name} listing_id={listing.listing[0].id} count={uploadData.length} setError={setError} setListing={setListing}/> 
+                        <EditPreview keyId={id} fileName={item.name} listing_id={listing.listing.id} count={uploadData.length} setError={setError} setListing={setListing}/> 
                         : 
-                        <EditUploader keyId={id} listing_id={listing.listing[0].id} setError={setError} setListing={setListing}/>
+                        <EditUploader keyId={id} listing_id={listing.listing.id} setError={setError} setListing={setListing}/>
                         }
                     </div>
                 )}

@@ -1,0 +1,35 @@
+.DashListings{
+    display: grid;
+    grid-template-columns: 400px auto;
+    width: 100%;
+    gap: 20px;
+    height: 100%;
+}
+
+.ListingView{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    background-color: white;
+    border-radius: 5px;
+}
+
+
+/* ----------------------------------------------------------------- */
+/* ----------------------------------------------------------------- */
+
+
+.DashDevelopment{
+    display: grid;
+    grid-template-columns: 400px auto;
+    width: 100%;
+    gap: 20px;
+}
+
+.DashMessages{
+    display: grid;
+    grid-template-columns: 400px auto;
+    width: 100%;
+    gap: 20px;
+}

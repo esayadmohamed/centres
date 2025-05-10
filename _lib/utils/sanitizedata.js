@@ -6,7 +6,7 @@ import imageType from "image-type";
 
 export async function SanitizeId(id){
     
-    if(!id) return null
+    if(!id && id !== 0) return null
 
     if (typeof id === "string" && /^\d+$/.test(id)) {
         id = Number(id);
