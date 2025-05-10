@@ -9,7 +9,7 @@ export default function getDB() {
             user: process.env.DB_USER, 
             password: process.env.DB_PASSWORD, 
             database: 'main',
-            connectTimeout: 10000,
+            // connectTimeout: 10000,
             port: 4000,
             decimalNumbers: true,
             ssl: {

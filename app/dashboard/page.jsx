@@ -1,4 +1,5 @@
-'use server';
+export const dynamic = 'force-dynamic';
+
 import { IsAdmin } from "../isadmin";
 import { allListings, allUsers } from "@/_lib/dashboard/getdata";
 
