@@ -4,7 +4,7 @@ import styles from "../account.module.css";
 import { useState } from "react";
 import { ModifyPassword } from "@/_lib/account/actions";
 
-import { CircleX, Eye, EyeOff } from "lucide-react"
+import { Eye, EyeOff } from "lucide-react"
 
 import Icon from "@/_lib/utils/Icon";
 

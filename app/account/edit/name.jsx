@@ -3,7 +3,7 @@ import styles from "../account.module.css";
 
 import { useState } from "react";
 
-import { ModifyUsername } from "@/_lib/account/actions";
+import { ModifyName } from "@/_lib/account/actions";
 
 export default function EditName({close, setUser}) {
     
@@ -15,7 +15,7 @@ export default function EditName({close, setUser}) {
         setLoading(true);
         setError(null)
 
-        const result = await ModifyUsername(name)
+        const result = await ModifyName(name)
         setLoading(false)
         
         if(result?.error){

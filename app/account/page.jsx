@@ -9,9 +9,13 @@ import AccountContent from "./Content";
 import Header from "@/_com/header/Header";
 import Footer from "@/_com/footer/Footer";
 
+import { notFound } from "next/navigation";
+
 export default async function Account() {
         
     const userData = await GetUserData();
+
+    if(!userData) return notFound() 
 
     return (
         <Authenticator>

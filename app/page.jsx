@@ -5,10 +5,10 @@ import Centers from "./centres/page"
 //     try { // UPDATE listings SET state = 'on' // DELETE FROM listings WHERE name = 'Al Wafae'
 //         const db = getDB();
 //         const [rows] = await db.execute(`
-//             UPDATE listings SET state = 'under' WHERE id = 210023
+//             SELECT * FROM users 
 //         `);
 //             // SELECT id FROM listings
-//         // console.log(rows);
+//         console.log(rows); //UPDATE users SET role = 'admin' WHERE email = 'esayadmohamed@gmail.com'
 
 //         return rows;
 //     } catch (error) {
@@ -21,7 +21,6 @@ import Centers from "./centres/page"
 export default async function Home() {
 
     // const aa = await dbex();
-    
     
     return <Centers />
 

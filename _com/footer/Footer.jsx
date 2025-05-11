@@ -11,7 +11,7 @@ export default function Footer() {
         <footer className={styles.Footer} >
             <div>
                 <ul>
-                    <Link href={'/'}> <li>Centres de soutien</li> </Link>
+                    <Link href={'/'}> <li>Centres</li> </Link>
                     <li> | </li>
                     <Link href={'/'}> <li>Cours Particuliers</li> </Link>
                     <li> | </li>

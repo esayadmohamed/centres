@@ -40,7 +40,7 @@ export async function GetUserData(){
 
 // --------------------------------------------------------
 
-export async function ModifyUsername(value) {    
+export async function ModifyName(value) {    
     try {
         const db = getDB();
 
@@ -52,8 +52,8 @@ export async function ModifyUsername(value) {
         const user_id = await UserAuthenticated();
         if(!user_id) return { error: "Une erreur est survenue." };
 
-        const user = db.prepare("SELECT * FROM users WHERE id = ?").get(user_id);
-        if(!user) return { error: "Une erreur est survenue." };
+        const [user] = await db.query("SELECT * FROM users WHERE id = ?", [user_id]);
+        if(user.length === 0) return { error: "Une erreur est survenue." };
 
         if (!value || typeof value !== 'string' 
             || value.length < 3 || value.length > 50
@@ -68,11 +68,11 @@ export async function ModifyUsername(value) {
             return { error: "Le nom fourni n'est pas valide." }
         } 
 
-        db.prepare(`UPDATE users SET name = ? WHERE id = ?`).run(name, user_id);
-        
-        const userData = await GetUserData();
+        await db.query(`UPDATE users SET name = ? WHERE id = ?`, [name, user_id]);
         
         revalidatePath(`/account`);
+        
+        const userData = await GetUserData();
         return userData;
 
     } catch (error) {
@@ -95,9 +95,8 @@ export async function ModifyPhone(value) {
         const user_id = await UserAuthenticated();
         if(!user_id) return { error: "Une erreur est survenue." };
 
-        const user = db.prepare("SELECT * FROM users WHERE id = ?").get(user_id);
-        if(!user) return { error: "Une erreur est survenue." };
-        console.log(user);
+        const user = await db.query("SELECT * FROM users WHERE id = ?", [user_id]);
+        if(user.length === 0) return { error: "Une erreur est survenue." };
         
         if (!value || !/^(05|06|07)\d{8}$/.test(value)) {
             return { error: "Le numéro de téléphone fourni n'est pas valide." }
@@ -109,11 +108,11 @@ export async function ModifyPhone(value) {
             return { error: "Le numéro de téléphone fourni n'est pas valide." }
         } 
 
-        db.prepare(`UPDATE users SET phone = ? WHERE id = ?`).run(phone, user_id);
+        await db.query(`UPDATE users SET phone = ? WHERE id = ?`, [phone, user_id]);
+
+        revalidatePath(`/account`);
 
         const userData = await GetUserData();
-        
-        revalidatePath(`/account`);
         return userData;
 
     } catch (error) {
@@ -136,8 +135,8 @@ export async function ModifyPassword(value) {
         const user_id = await UserAuthenticated();
         if(!user_id) return { error: "Une erreur est survenue." };
 
-        const user = db.prepare("SELECT * FROM users WHERE id = ?").get(user_id);
-        if(!user) return { error: "Une erreur est survenue." };
+        const [user] = await db.query("SELECT * FROM users WHERE id = ?", [user_id]);
+        if(user.length === 0) return { error: "Une erreur est survenue." };
 
         if (!value || value.length < 8 || value.length > 50
             || !/[0-9]/.test(value)
@@ -157,7 +156,7 @@ export async function ModifyPassword(value) {
 
         const password = await bcrypt.hash(safepassword, 10);
         
-        db.prepare(`UPDATE users SET password = ? WHERE id = ?`).run(password, user_id);
+        await db.query(`UPDATE users SET password = ? WHERE id = ?`, [password, user_id]);
         
         revalidatePath(`/account`);
         return {success: true};
@@ -175,16 +174,21 @@ export async function ModifyActive(value) {
         const db = getDB();
 
         const user_id = await UserAuthenticated();
-        if(!user_id) return { error: "Une erreur est survenue." };
+        if(!user_id) return {error: "Une erreur est survenue." };
 
-        const user = db.prepare("SELECT * FROM users WHERE id = ?").get(user_id);
+        const [row] = await db.query("SELECT * FROM users WHERE id = ?", [user_id]);
+        const user = row[0] || null
         if(!user) return { error: "Une erreur est survenue." };
+
+        if(user.role === 'admin'){
+             return { error: "Une erreur est survenue." };
+        }
 
         if (!value || typeof value !== 'string' ) {
             return { error: "Le mot de passe est incorrect." };
         } 
 
-        const password = xss(value).trim();
+        const password = xss(value.trim());
 
         const samePassword = await bcrypt.compare(password, user.password);
 
@@ -192,13 +196,9 @@ export async function ModifyActive(value) {
             return { error: "Le mot de passe est incorrect." }
         }
 
-        db.prepare(`UPDATE users SET active = ? WHERE id = ?`).run('off',user_id);
-
-        const transaction = db.transaction(() => {
-            db.prepare(`UPDATE listings SET state = ? WHERE user_id = ?`).run('off', user_id)
-        })
-
-        transaction();
+        await db.execute("DELETE FROM users WHERE id = ? AND role = 'user'", [user.id]);
+        // await db.query(`UPDATE users SET active = ? WHERE id = ?`, ['off',user_id]);
+        // await db.query(`UPDATE listings SET state = ? WHERE user_id = ?`, ['off', user_id])
 
         return { success: true }
 

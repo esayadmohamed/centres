@@ -53,7 +53,8 @@ export default function EditActive() {
                         onChange={(e)=>setPassword(e.target.value)}
                     />
                 </span>
-                {error && <p className={styles.EditError}> {error.server}</p> }
+                
+                {error && <p className={styles.EditError}> {error}</p> }
                 
                 <div className={styles.EditFunctions}>
                     <button onClick={handleEdit}> 
