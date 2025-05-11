@@ -149,7 +149,8 @@
 
 .InactiveOption{
     background-color: white;
-    color: #424949;
+    /* color: #424949; */
+    color: #616a6b;
 }
 
 

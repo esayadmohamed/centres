@@ -189,20 +189,12 @@
 /* ------------------------------------------- */
 
 @media (max-width: 600px) {
-    .ListingContent{
-        margin-top: 70px;
-        padding: 10px 10px;
+    .ConditionsContent{
+        padding: 10px 15px;
     }
 
-    .ListingList{    
-        padding: 10px 0;
-        color: #1b2631;
-        border-radius: 10px;
-        width: 100%;
-
-        display: flex;
-        flex-direction: column;
-        gap: 30px;
+    .Conditions ul{
+        padding-left: 10px;
     }
 }
   

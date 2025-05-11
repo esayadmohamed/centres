@@ -52,17 +52,13 @@ export async function AllListings() {
             hood: listing.hood,
             images: listing.pictures,
             overall: listing.overall,
+            created_at: listing.created_at,
         }));
+
+        // console.log();
         
-        // const sortedListings = filteredListings.sort((a, b) => {
-        //     if (a.name.toLowerCase() < b.name.toLowerCase()) return -1;
-        //     if (a.name.toLowerCase() > b.name.toLowerCase()) return 1;
-        //     return 0;
-        // });
-
-        return filteredListings.sort((a, b) => b.overall - a.overall);
-
-        // return sortedListings;
+        return filteredListings.sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
+        //filteredListings.sort((a, b) => b.overall - a.overall);
         
     } catch (error) {
         console.error("Database error:", error);
@@ -337,24 +333,12 @@ export async function GetMoreListings(offset = 0, data){
             hood: listing.hood,
             images: listing.pictures,
             overall: listing.overall,
+            created_at: listing.created_at
         }));
 
-        return filteredListings.sort((a, b) => b.overall - a.overall);
-        // switch (sort) {
-        //     case 'a-z':
-        //         return filteredListings.sort((a, b) => {
-        //             if (a.name.toLowerCase() < b.name.toLowerCase()) return -1;
-        //             if (a.name.toLowerCase() > b.name.toLowerCase()) return 1;
-        //             return 0;
-        //         });
-            
-        //     case 'rank':
-        //         return filteredListings.sort((a, b) => b.overall - a.overall);
-    
-        //     default:
-        //         return filteredListings;
-        // }   
-              
+        // return filteredListings.sort((a, b) => b.overall - a.overall);
+        return filteredListings.sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
+        
     } catch (error) {
         console.error("Database error:", error);
         return { error: "Une erreur est survenue. Veuillez réessayer plus tard." };

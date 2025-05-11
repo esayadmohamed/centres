@@ -65,9 +65,9 @@ export default function NavSidebar ({isAuthenticated}){
                     <Link href='/'> <Icon name={'House'} /> Centres </Link> 
                 </li>
 
-                <li style={{fontWeight: pathname === '/blog' ? '600' : '500'}} > 
+                <li style={{fontWeight: pathname === '/blog' ? '600' : '500', color: '#515a5a'}} > 
                     {/* <Link href='/'>  */}
-                    <Icon name={'Text'} /> Blog 
+                    <Icon name={'Text'} color={'#515a5a'}/> Blog 
                     {/* </Link>  */}
                 </li>
  
@@ -85,9 +85,9 @@ export default function NavSidebar ({isAuthenticated}){
                         <li style={{fontWeight: pathname === '/listings' ? '600' : '500'}} > 
                             <Link href='/listings'> <Icon name={'LayoutList'} /> Mes centres de soutien</Link> 
                         </li>
-                        <li style={{fontWeight: pathname === '/tutring' ? '600' : '500'}} > 
+                        <li style={{fontWeight: pathname === '/tutring' ? '600' : '500', color:'#515a5a'}} > 
                             {/* <Link href='/courses'>  */}
-                            <Icon name={'GraduationCap'} /> Mes cours particuliers
+                            <Icon name={'GraduationCap'} color={'#515a5a'}/> Mes cours particuliers
                             {/* </Link>  */}
                         </li>
                         <li style={{fontWeight: pathname === '/account' ? '600' : '500'}} > 

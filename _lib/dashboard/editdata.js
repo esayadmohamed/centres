@@ -230,7 +230,24 @@ export async function EditSelects(obj, table) {
         const [rows] = await db.query(`SELECT * FROM ${table}`)
         if (rows.length === 0) return {error: `${table} Table is empty`}
 
+        //update saved offers
+        const [row] = await db.query(`SELECT icon FROM ${table} WHERE id = ?`, [obj.id]); //
+        const icon = row[0].icon || null
+        if (!icon) return { error: `Icon not found for id ${obj.id}` };
+        
+        const [existingIcon] = await db.query(
+            `SELECT * FROM ${table} WHERE LOWER(name) = LOWER(?) AND icon = ?`, 
+            [obj.name, obj.icon]);
+
+        if (existingIcon.length !== 0) {
+            return { error: "Value already exists" };
+        }
+
+        const baseTable = table.replace('list', '');
+
+        // const [icons] = await db.query(`SELECT * FROM ${baseTable} WHERE icon = ?`, [icon]);
         await db.query(`UPDATE ${table} SET name = ?, icon = ? WHERE id = ?`, [obj.name, obj.icon, obj.id]);
+        await db.query(`UPDATE ${baseTable} SET icon = ? WHERE icon = ?`, [obj.icon, icon]);
 
         revalidatePath(`/dashboard`);
 
@@ -293,6 +310,13 @@ export async function RemoveSelects(id, table){
         const admin_id = await AdminAuthenticate();
         if(!admin_id) return {error: 'Failed Admin Authentication.'}; 
 
+        const [row] = await db.query(`SELECT * FROM ${table} WHERE id = ?`, [id])
+        const select = row[0] || null
+        if (!select) return {error: `Item not found`}
+
+        const baseTable = table.replace('list', '');
+        
+        await db.query(`DELETE FROM ${baseTable} WHERE name = ? and icon = ?`, [select.name, select.icon]);
         await db.query(`DELETE FROM ${table} WHERE id = ?`, [id]);
 
         revalidatePath(`/dashboard`);
