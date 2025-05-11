@@ -57,7 +57,7 @@ export async function userListings() {
 
     } catch (error) {
         console.error("Database error:", error);
-        return { error: "Une erreur est survenue. Veuillez réessayer plus tard." };
+        return [];
     }
 }
 

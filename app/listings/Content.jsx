@@ -2,14 +2,16 @@
 import styles from "./listing.module.css";
 import Link from "next/link";
 import { useState, useEffect } from "react";
+import { notFound } from "next/navigation";
 
 import Icon from "@/_lib/utils/Icon";
 
 import Listing from '@/_com/listings/Listing';
 
-
 export default function ListingContent({listings}) {
     
+    if(listings.length === 0) return notFound() 
+
     const [listing, setListing] = useState(listings? listings : [])
         
     const [view, setView] = useState(false)

@@ -1,27 +1,24 @@
 export const dynamic = 'force-dynamic';
 
-import { Authenticator } from "@/app/Providers";
+import UserAccess from "@/app/UserAccess"; 
 import { userListings } from "@/_lib/listings/test";
 
 import Header from "@/_com/header/Header";
 import Footer from "@/_com/footer/Footer";
 import ListingContent from "./Content";
 
-//user can share up to 10 listings 
-//user creates listings 
-
 export default async function Listings() {
 
-    const listings = await userListings(); //lkjfkldj
-
+    const listings = await userListings();
+        
     return (
-        <Authenticator>
+        <UserAccess>
             <main className="content">
                 <Header />
                 <ListingContent listings={listings}/>
                 <Footer /> 
             </main>
-        </Authenticator>
+        </UserAccess>
     )
 }
 

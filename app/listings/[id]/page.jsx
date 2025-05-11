@@ -1,5 +1,5 @@
 'use server'
-import { Authenticator } from "@/app/Providers";
+import UserAccess from "@/app/UserAccess"; 
 import { userListing } from "@/_lib/listings/test";
 import { getOffersList, getServicesList, getSubjectsList, getLevelsList } from "@/_lib/listings/test";
 
@@ -14,8 +14,6 @@ export default async function ListingEdit({params}) {
     const center_id = await params;
     const listing  = await userListing(center_id.id);
 
-    // console.log(listing);
-
     if(listing?.error) return notFound();
     
     const offers_list   = await getOffersList();
@@ -24,7 +22,7 @@ export default async function ListingEdit({params}) {
     const levels_list   = await getLevelsList();
     
     return (
-        <Authenticator>
+        <UserAccess>
             <main className="content">
                 <Header />
                 <EditContent 
@@ -36,6 +34,6 @@ export default async function ListingEdit({params}) {
                 />                
                 <Footer /> 
             </main>
-        </Authenticator>
+        </UserAccess>
     )
 }

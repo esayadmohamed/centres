@@ -1,7 +1,9 @@
 "use client"
 import styles from "./account.module.css";
+import Link from "next/link";
 
 import { useState } from "react";
+import { notFound } from "next/navigation";
 
 import EditName from "./edit/name";
 import EditPhone from "./edit/phone";
@@ -12,6 +14,8 @@ import Icon from "@/_lib/utils/Icon";
 
 export default function AccountContent({userData}) {
     
+    if(!userData) return notFound() 
+
     const [user, setUser] = useState(userData || {})
     const [index, setIndex] = useState(null);
     const [isEdit, setIsEdit] = useState(false);
@@ -29,37 +33,49 @@ export default function AccountContent({userData}) {
     }
 
     return (
-        <div className={styles.PageContent}>
-
-            <div className={styles.PageForm}>
-
-                {member.map((item, id)=>
-                    <div className={styles.AccountInfoBox} key={id}>
-                        <h4> {item?.name} </h4>
-                        
-                        {id===index ? item.component : <p> {item.value ? item.value : 'Non fourni'} </p>}
-
-                        { item.name !== 'Adresse e-mail' && (id!==index)  && 
-                            <p className={styles.AccountEdit} onClick={()=> handleEdit(id)}>
-                                Modifier
-                            </p>
-                        } 
-
-                    </div> 
-                )}
- 
-                <EditActive />
-        
+        <div className={styles.PageContainer}>
+            
+            <div className={styles.PageBanner}>
+                <h2>Bonjour, {userData.name} !</h2>  
+                <ul className={styles.BannerRoot}>
+                    <Link href={'/'}> <li>Acueil</li> </Link>
+                    <li>/</li>
+                    <li>Paramètres</li>
+                </ul>
             </div>
 
+            <div className={styles.PageContent}>
 
-            <div className={styles.PageMarketing}>
-                <div>
-                    <Icon name={'Navigation2'} color={'#424949'}/>
-                    <p> CENTRES </p>
+                <div className={styles.PageForm}>
+
+                    {member.map((item, id)=>
+                        <div className={styles.AccountInfoBox} key={id}>
+                            <h4> {item?.name} </h4>
+                            
+                            {id===index ? item.component : <p> {item.value ? item.value : 'Non fourni'} </p>}
+
+                            { item.name !== 'Adresse e-mail' && (id!==index)  && 
+                                <p className={styles.AccountEdit} onClick={()=> handleEdit(id)}>
+                                    Modifier
+                                </p>
+                            } 
+
+                        </div> 
+                    )}
+    
+                    <EditActive />
+            
                 </div>
-            </div>
 
+
+                <div className={styles.PageMarketing}>
+                    <div>
+                        <Icon name={'Navigation2'} color={'#424949'}/>
+                        <p> CENTRES </p>
+                    </div>
+                </div>
+
+            </div>
         </div>
     )
 }

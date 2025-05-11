@@ -1,5 +1,5 @@
 'use server'
-import { Authenticator } from "@/app/Providers";
+import UserAccess from "@/app/UserAccess"; 
 import { getCitiesList, getHoodsList } from "@/_lib/listings/test";
 
 import Header from "@/_com/header/Header";
@@ -12,7 +12,7 @@ export default async function ListingCreate() {
     const hoodsList  = await getHoodsList();
 
     return (
-        <Authenticator>
+        <UserAccess>
             <main className="content">
                 <Header />
                 <CreateContent 
@@ -21,6 +21,6 @@ export default async function ListingCreate() {
                 />                
                 <Footer /> 
             </main>
-        </Authenticator>
+        </UserAccess>
     )
 }

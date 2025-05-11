@@ -1,24 +1,21 @@
 export const dynamic = 'force-dynamic';
 
-import { IsAdmin } from "../isadmin";
 import { allListings, allUsers } from "@/_lib/dashboard/getdata";
-
 import Dashcontent from "./content";
+
+import AdminAccess from "@/app/AdminAccess";
 
 export default async function Dashboard() {
 
     const listings = await allListings(); 
     const users = await allUsers();
 
-    // console.log(listings.filter((item)=> item.state === 'under').length);
-    
     return (
-        <IsAdmin>
+        <AdminAccess>
             <main className={'content'}>
                 <Dashcontent listingsList={listings} usersList={users} />
             </main>
-        </IsAdmin>
+        </AdminAccess>
     )
     
 }
-
