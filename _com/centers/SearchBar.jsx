@@ -79,7 +79,7 @@ export default function SearchBar ({citiesList, hoodsList,
                     <div className={styles.SearchInput}>
                         <div onBlur={()=> {setTimeout(() => {setViewCities(false) }, 150)}} >
                             <input 
-                                type="text" placeholder="Choisir Ville" autoComplete="off"
+                                type="text" placeholder="Choisir une ville" autoComplete="off"
                                 value={city}
                                 onChange={filterCities}
                                 onFocus={()=>setViewCities(true)}
