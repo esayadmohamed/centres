@@ -856,9 +856,190 @@
     background: white;
 }
 
+/* =============== dev_tokens =============== */
+
+.DataTokens{
+    display: grid;
+    grid-template-rows: 50px auto;
+    padding: 0 20px;
+    font-weight: 500;
+    font-size: 15px;
+}
+
+.DataTokens h3{
+    /* border-bottom: 1px solid #e5e8e8; */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.DataTokensList{
+    display: flex;
+    flex-direction: column;
+}
+
+/* --------------------------------- */
+
+.DataTokensSearch{
+    /* background-color: yellow; */
+    height: 105px;
+    display: grid;
+    grid-template-rows: 50px auto;
+    border-bottom: 1px solid #e5e8e8;
+}
+
+.DataTokensSearchBar{
+    display: grid;
+    grid-template-columns: 50px auto;
+    height: 100%;
+    border: 1px solid #e5e8e8;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.DataTokensSearchBar input{
+    border: none;
+    outline: none;
+    height: 100%;
+    padding: 10px;
+    font-size: 15px;
+}
+
+.DataTokensSearchBar span{
+    background-color: #f2f3f4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.DataTokensSearchBar span svg{
+    width: 20;
+    height: 20;
+}
+
+.DataTokensSearchSort{
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 10px 0;
+    height: 100%;
+}
+
+.DataTokensSearchSort p{
+    height: 100%;
+    min-width: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.SearchSortActive{
+    background-color: #2471a3;
+    color: white;
+}
+
+.SearchSortInactive{
+    color: #424949;
+    border: 1px solid #99a3a4;
+}
+
+/* ------------------------------ */
+
+.DataTokensHeader{
+    height: 70px;
+    width: 100%;
+    display: grid;
+    grid-template-columns: auto 70px 70px 70px;
+    border-bottom: 1px solid #e5e8e8;
+}
+
+.DataTokensHeader p{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.DataTokensHeader p:first-of-type{
+    justify-content: flex-start;
+}
+
+/* ------------------------------ */
+
+
+.DataTokensList li{
+    height: 70px;
+    width: 100%;
+    display: grid;
+    grid-template-columns: auto 70px 70px 70px;
+    align-items: center;
+    border-bottom: 1px solid #e5e8e8;
+    /* background-color: yellow; */
+}
+
+.TakenData{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 5px;
+}
+
+.TakenData span:last-of-type{
+    color: #424949;
+    font-size: 14px;
+}
+
+.DataTokensList li p{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* ------------------------------ */
+
+.DataTokensActions{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    /* background-color: yellow; */
+}
+
+.DataTokensActions p{
+    display: flex;
+    align-items: center;
+    width: 100%;
+    gap: 10px;
+}
+
+.DataTokensActions span{
+    height: 30px;
+    width: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #e5e8e8;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.DataTokensActions svg{
+    width:18;
+    height: 18;
+}
+
+.DataTokensActions div{
+    padding: 3px;
+    width: 25px;
+}
 
 
 /* =============== dev_utils =============== */
+
 
 .loader {
     width: 30px;

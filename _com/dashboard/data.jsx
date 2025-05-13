@@ -22,7 +22,8 @@ export default function DashData() {
             <DashSidebar handleContent={handleContent}/>
 
             {content.length === 0 ? 
-                <div className={styles.ListingView}>
+                <div className={styles.ListingEmpty}>
+                    [ no data ]
                 </div>
                 :
                 <div className={styles.ListingView}>

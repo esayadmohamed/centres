@@ -5,9 +5,9 @@ import Centers from "./centres/page"
 //     try { // UPDATE listings SET state = 'on' // DELETE FROM listings WHERE name = 'Al Wafae'
 //         const db = getDB();
 //         const [rows] = await db.execute(`
-//             SELECT * FROM users 
+//             SELECT * FROM tokens
 //         `);
-//             // SELECT id FROM listings
+//             // SELECT id FROM listings SELECT * FROM tokens
 //         console.log(rows); //UPDATE users SET role = 'admin' WHERE email = 'esayadmohamed@gmail.com'
 
 //         return rows;
@@ -17,6 +17,15 @@ import Centers from "./centres/page"
 //     }
 // }
 
+
+// CREATE TABLE tokens (
+//     id INT AUTO_INCREMENT PRIMARY KEY,  -- Unique identifier for each record
+//     email VARCHAR(255) NOT NULL,
+//     token VARCHAR(255) NOT NULL,
+//     expiration_time INT NOT NULL,
+//     send INT DEFAULT 0,
+//     FOREIGN KEY (email) REFERENCES users(email) ON DELETE CASCADE
+// )
 
 export default async function Home() {
 

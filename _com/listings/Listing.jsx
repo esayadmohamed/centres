@@ -133,18 +133,36 @@ export default function Listing ({listing, setListing}){
                                     </div>                                
                                 </div>
                                 : 
-                                listing.state !== 'on' && 
-                                    <div className={styles.ActionsStatus}>
+                                listing.state !== 'on' ? 
+                                    <div className={styles.Status}>
                                         {
                                             listing.state === 'none' ? 
-                                                <p onClick={()=> handleEdit(listing.id)}>Annonce non publiée</p>
+                                                <>
+                                                <span style={{backgroundColor: '#2471a3'}}> <Icon name={'Send'} color={'white'}/> </span>
+                                                <p onClick={()=> handleEdit(listing.id)}> Annonce non publiée </p>
+                                                </>    
                                             : 
                                             listing.state === 'under' ? 
-                                                <p> En cours de vérification... </p>
+                                                <>
+                                                <span style={{backgroundColor: '#2471a3'}}> <Icon name={'Ellipsis'} color={'white'}/> </span>
+                                                <p> En cours de vérification </p>
+                                                </>
                                             :
                                             listing.state === 'off' && 
+                                                <>
+                                                <span style={{backgroundColor: '#e74c3c'}}> <Icon name={'X'} color={'white'}/> </span>
                                                 <p> Annonce rejetée </p>
+                                                </>
                                         }
+                                    </div>
+                                    :
+                                    <div className={styles.Boost}>
+                                        <span>
+                                            <Icon name={'Rocket'} color={'white'}/>
+                                        </span>
+                                        <p>
+                                            Renouveler l'annonce
+                                        </p>   
                                     </div>
                             }
                         </div>

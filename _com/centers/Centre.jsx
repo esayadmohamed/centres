@@ -45,13 +45,14 @@ export default function Centre ({listing}){
                 }
                 <div className={styles.CentreDetails}>
                     <div>
-                        <p> {listing.hood} ,{listing.city} </p>
+                        <p> {listing.hood}, {listing.city} </p>
                         <p>
                             <Icon name={'Star'} />
                             <span> {listing.overall ? listing.overall.toFixed(1) : "Nouveau"} </span>
                         </p>
                     </div>
                     <p> {listing.name} </p> 
+                    {/* <p> {listing.hood}, {listing.city} </p> */}
                 </div>
             </Link>
         </div>

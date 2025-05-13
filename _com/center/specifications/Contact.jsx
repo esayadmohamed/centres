@@ -27,7 +27,7 @@ export default function SpecsContact ({listing}){
         </div>
         <div className={styles.SpecsCall}>
             <a href={`tel:${listing.phone}`}>
-                <span> <Icon name={'Phone'} color={'white'}/>   </span>
+                <span> <Icon name={'Phone'} color={'#2471a3'}/>   </span>
             </a>
         </div>
         </>

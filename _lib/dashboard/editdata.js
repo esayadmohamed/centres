@@ -527,3 +527,26 @@ export async function RejectHood(id) {
         return { error: "Une erreur est survenue. Veuillez réessayer plus tard."};
     }
 }
+
+// -------------------------------------------------------------
+
+export async function RemoveToken(id) {   
+    try{ 
+        const token_id = await SanitizeId(id)
+        if(!token_id) return {error: 'CityId is not a number.'}; 
+
+        const admin_id = await AdminAuthenticate();
+        if(!admin_id) return {error: 'Admin Authentication Failed.'}; 
+        
+        await db.query(`DELETE FROM tokens WHERE id = ?`,[token_id]);
+
+        revalidatePath(`/dashboard`);
+
+        const [rows] = await db.query(`SELECT * FROM tokens`);
+        return rows.length === 0 ? [] : rows;
+
+    } catch (error) {
+        console.error("Database error:", error);
+        return { error: "Une erreur est survenue. Veuillez réessayer plus tard."};
+    }
+}

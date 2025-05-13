@@ -10,7 +10,7 @@ import Listing from '@/_com/listings/Listing';
 
 export default function ListingContent({listings}) {
     
-    if(listings.length === 0) return notFound() 
+    // if(listings.length === 0) return notFound() ,akes no sense since new account have no listings
 
     const [listing, setListing] = useState(listings? listings : [])
         

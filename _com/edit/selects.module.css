@@ -106,7 +106,7 @@
 }
 
 .Selected{
-    background-color: #e74c3c;
+    background-color: #34495e;
     color: white;
 }
 
@@ -128,7 +128,7 @@
     width: 160px;
     background-color: #1f618d;   
     min-height: 40px;
-    padding: 10px;
+    padding: 0 10px;
     font-size: 15px;
     border: none;
     border-radius: 5px;
@@ -142,7 +142,7 @@
 
 .EditSelects button div{
     background: white;
-    width: 20px;
+    width: 25px;
     padding: 3px;
 }
 

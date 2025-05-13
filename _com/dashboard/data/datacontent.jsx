@@ -3,7 +3,7 @@
 import DataSelects from "./datacontent/selects";
 import DataInputs from "./datacontent/Inputs";
 import DataHoods from "./datacontent/hood";
-
+import DataTokens from "./datacontent/tokens";
 
 export default function DashContent({content, setContent, title}){
     
@@ -15,6 +15,9 @@ export default function DashContent({content, setContent, title}){
 
     else if (['Suggested Hoods'].includes(title.name))
         return <DataHoods content={content} setContent={setContent} title={title} />
+
+    else if (['Tokens'].includes(title.name))
+        return <DataTokens content={content} setContent={setContent} title={title} />
 
 } 
 

@@ -33,6 +33,7 @@
     flex-direction: column;
     justify-content: center;
     gap: 10px;
+    /* font-size: 15px; */
 }
 
 .CentreDetails div{
@@ -51,6 +52,11 @@
     font-weight: 600;
 }
 
+.CentreDetails div p:first-of-type{
+    color: #424949;
+    /* font-size: 15px; */
+}
+
 .CentreDetails div p svg{
     width: 14px;
     color: black;
@@ -58,7 +64,7 @@
 }
 
 .CentreDetails p:last-of-type{
-    color: #424949;
+    /* color: #424949; */
 }
 
 /* -------------------------------------- */

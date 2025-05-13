@@ -40,7 +40,7 @@ export async function PublishListing (value_id) {
         const state = listing.offers+listing.services+listing.subjects+listing.levels+listing.images;
 
         if(state !== 5){
-            return { error: "Une erreur est survenue. Veuillez réessayer plus tard." };
+            return { error: "Complétez l'annonce avant de la publier." };
         }
 
         await db.query(`UPDATE listings SET state = ? WHERE id = ?`, ['under', listing_id]);

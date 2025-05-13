@@ -15,7 +15,8 @@ export default function DashSidebar({handleContent}){
 
         {name: 'Locations', icon: 'Minus', table: "cities"},
 
-        {name: 'Suggested Hoods', icon: 'Minus', table: "suggestedhoods"}
+        {name: 'Suggested Hoods', icon: 'Minus', table: "suggestedhoods"},
+        {name: 'Tokens', icon: 'Minus', table: "tokens"}
     ]
 
     const [index, setIndex] = useState(null);

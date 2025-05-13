@@ -144,6 +144,87 @@
     align-items: center;
 }
 
+/* ------------------------ */
+
+.Status{
+    width: 100%;
+    height: 40px;
+    display: grid;
+    grid-template-columns: 35px auto;
+    align-items: center;
+    gap: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.Status span{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* background-color: #e74c3c; */
+    height: 35px;
+    width: 35px;
+    border-radius: 5px;
+}
+
+.Status svg{
+    width: 18;
+    height: 18;
+}
+
+.Status p{
+    color: white;
+    height: 35px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    background-color:rgba(0, 0, 0, .5);
+    padding: 0 10px;
+    border-radius: 5px;
+}
+
+/* ------------------------ */
+
+
+.Boost{
+    width: 100%;
+    height: 40px;
+    display: grid;
+    grid-template-columns: 35px auto;
+    align-items: center;
+    gap: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.Boost span{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f39c12;
+    height: 35px;
+    width: 35px;
+    border-radius: 5px;
+}
+
+.Boost svg{
+    width: 18;
+    height: 18;
+}
+
+.Boost p{
+    color: #f39c12;
+    height: 35px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    background-color:rgba(0, 0, 0, .5);
+    padding: 0 10px;
+    border-radius: 5px;
+}
+
+/* ------------------------ */
+
 .ListingView{
     display: flex;
     flex-direction: column;

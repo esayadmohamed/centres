@@ -187,7 +187,8 @@ export async function getDashData(table) {
         "levelslist", 
 
         "cities",
-        "suggestedhoods"  
+        "suggestedhoods",
+        "tokens"
     ].includes(tableName)) return []
     
     try{ 

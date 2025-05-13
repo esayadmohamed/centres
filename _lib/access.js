@@ -51,7 +51,6 @@ export async function accessAdmin(){
         
         const token = session.user.token;
         const email = session.user.email;
-        const role  = session.user.role;
 
         const [row] = await db.query( "SELECT id FROM users WHERE email = ? AND token = ? AND role = ?", 
             [email, token, 'admin']);
