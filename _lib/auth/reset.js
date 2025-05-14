@@ -90,7 +90,7 @@ export async function PasswordToken(user_email, user_captcha) {
 
         // --------------------------- end
 
-        const email = xss(user_email.trim());
+        const email = xss(user_email.trim().toLowerCase());
         const captchaToken = xss(user_captcha.trim());
         
         if (!validator.isEmail(email) ) {
@@ -103,7 +103,7 @@ export async function PasswordToken(user_email, user_captcha) {
         }
 
         // Check user existence
-        const [existingRows] = await conn.query("SELECT * FROM users WHERE email = ?", [email]);
+        const [existingRows] = await conn.query("SELECT * FROM users WHERE LOWER(email) = ?", [email]);
         const existingUser = existingRows[0] || null;
 
         if (!existingUser) {
