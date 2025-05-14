@@ -1,0 +1,39 @@
+'use client'
+import styles from "./blog.module.css";
+import Link from "next/link";
+import { useState } from "react";
+
+import Icon from "@/_lib/utils/Icon";
+
+import Article from "@/_com/blog/article";
+
+export default function BlogContent({articlesData}) {
+    
+
+    const [articles, setArticles] = useState(articlesData? articlesData : [])
+        
+    
+    return (
+        <div className={styles.ArticlesContainer}>
+            
+            <div className={styles.ArticlesBanner}>
+                <h2>Blog</h2>  
+                <ul className={styles.BannerRoot}>
+                    <Link href={'/'}> <li>Acueil</li> </Link>
+                    <li>/</li>
+                    <li>Articles</li>
+                </ul>
+            </div>
+            
+            <div className={styles.ArticlesList}>
+                {articles.map((item, id)=>
+                    <Article article={item} key={id}/>
+                )}
+            
+            </div>
+            
+
+        </div>
+    )
+}
+

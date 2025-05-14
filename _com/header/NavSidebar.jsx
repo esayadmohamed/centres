@@ -65,11 +65,9 @@ export default function NavSidebar ({isAuthenticated}){
                     <Link href='/'> <Icon name={'House'} /> Centres </Link> 
                 </li>
 
-                <li style={{fontWeight: pathname === '/blog' ? '600' : '500', color: '#515a5a'}} > 
-                    {/* <Link href='/'>  */}
+                {/* <li style={{fontWeight: pathname === '/blog' ? '600' : '500', color: '#515a5a'}} > 
                     <Icon name={'Text'} color={'#515a5a'}/> Blog 
-                    {/* </Link>  */}
-                </li>
+                </li> */}
  
                 {!isAuthenticated? 
                     <>
@@ -101,7 +99,7 @@ export default function NavSidebar ({isAuthenticated}){
                 } 
                     <li className={styles.SidebarSupport}> 
                         <Icon name={'Headset'} color={'#424949'}/> 
-                        support@centres.ma 
+                        contact@centres.ma
                     </li> 
             </ul>
         </>

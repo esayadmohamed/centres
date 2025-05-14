@@ -156,14 +156,22 @@ export default function Listing ({listing, setListing}){
                                         }
                                     </div>
                                     :
-                                    <div className={styles.Boost}>
-                                        <span>
-                                            <Icon name={'Rocket'} color={'white'}/>
+                                    <div className={styles.Status}>
+                                        <span style={{backgroundColor: '#2ecc71'}}>
+                                            <Icon name={'Check'} color={'white'}/>
                                         </span>
                                         <p>
-                                            Renouveler l'annonce
+                                            L'annonce est en ligne.
                                         </p>   
-                                    </div>
+                                    </div>                                 
+                                    // <div className={styles.Boost}>
+                                    //     <span>
+                                    //         <Icon name={'Rocket'} color={'white'}/>
+                                    //     </span>
+                                    //     <p>
+                                    //         Renouveler l'annonce
+                                    //     </p>   
+                                    // </div>
                             }
                         </div>
                         :

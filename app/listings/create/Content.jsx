@@ -75,7 +75,7 @@ export default function CreateContent({cities_list, hoods_list}) {
                     {errors?.captcha && <p className={styles.PageError}> {errors.captcha}</p> }
 
                     <p className={styles.PageConditions}>
-                        En cliquant sur "Créer",, vous acceptez 
+                        En cliquant sur "Créer", vous acceptez 
                             <Link href={'/conditions'}> <span>les règles et conditions d'utilisation </span> </Link>
                             du site centres.ma.
                     </p> 

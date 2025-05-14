@@ -1,0 +1,50 @@
+.ArticlesContainer{
+    margin-top: 70px;
+    width: 100%;
+    height: 100%;
+    padding: 0 50px;
+}
+
+.ArticlesBanner{
+    height: 100px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    justify-content: center;
+    color: #222222;
+    border-bottom: 1px solid #f2f3f4;
+    /* background-color: yellow; */
+}
+
+.ArticlesBanner h2{
+    width: 100%;
+}
+
+.BannerRoot{
+    display: flex;
+    gap: 5px;
+    font-size: 14px;
+    color: #424949;
+}
+
+.BannerRoot a{
+    text-decoration: underline;
+}
+
+.ArticlesList{
+    padding: 20px 0;
+    width: 100%;
+
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    justify-items: center;
+    align-items: center;
+    gap: 15px;
+}
+
+/* .ArticlesList div{
+    background-color: yellow;
+    width: 320px;
+    height: 100px;
+} */

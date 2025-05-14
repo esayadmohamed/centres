@@ -17,7 +17,7 @@ export default function Footer() {
                     <li> | </li>
                     <Link href={'/'}> <li>Blog</li> </Link>
                 </ul>
-                <p> support@centres.ma  </p>
+                <p> contact@centres.ma  </p>
                 <p>@ 2025-{currentYear}, Tous droits reserves</p>
             </div>
             <span onClick={()=>window.scrollTo({ top: 0, behavior: 'smooth' })}>
