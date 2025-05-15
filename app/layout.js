@@ -9,6 +9,10 @@ const roboto = Roboto({
 export const metadata = {
   title: "Centres - Trouvez le Meilleur Accompagnement",
   description: "Découvrez des centres de soutien adaptés à vos besoins et trouvez l'accompagnement idéal pour réussir.",
+  robots: {
+    index: true,
+    follow: true,
+  },
 };
 
 export default function RootLayout({ children }) {

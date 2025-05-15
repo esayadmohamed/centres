@@ -8,6 +8,7 @@ import { useRouter } from "next/navigation";
 import ReCAPTCHA from 'react-google-recaptcha';
 
 import { CreateUser } from "@/_lib/auth/signup";
+import Notify from "../Notify";
 
 import Icon from "@/_lib/utils/Icon";
 
@@ -49,6 +50,7 @@ export default function AuthSignup (){
             setErrors(result.error)
         } else{
             setSuccess(true)
+            Notify(`New Account Created ${email}`)
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
         

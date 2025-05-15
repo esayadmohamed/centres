@@ -84,3 +84,17 @@ export default async function Home() {
 // git add .
 // git commit -m "Made changes to my app"
 // git push origin master
+
+
+
+// const sendNotification = async () => {
+//     const res = await fetch("/api/notify", {
+//     method: "POST",
+//     headers: { "Content-Type": "application/json" },
+//     body: JSON.stringify({ message:'12345' }),
+//     });
+    
+//     const result = await res.json();
+
+//     console.log(result.success ? "✅ Notification sent!" : "❌ Failed to send.");
+// };

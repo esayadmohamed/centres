@@ -11,6 +11,8 @@ import Centre from "@/_com/centers/Centre";
 
 export default function Listings({listings_list, cities_list, hoods_list}) {
         
+    // console.log('lkjklj');
+    
     const [listings, setListings] = useState(listings_list || []);
 
     const [error, setError] = useState(null);
@@ -92,6 +94,7 @@ export default function Listings({listings_list, cities_list, hoods_list}) {
                 SelectedHood={SelectedHood} 
                 setSelectedHood={setSelectedHood}
             />
+            
             {/* <Sortby handleListings={handleListings} sort={sort} handleSort={handleSort}/> */}
             {loading ? 
                 <div className={styles.DiscoverLoader}>
