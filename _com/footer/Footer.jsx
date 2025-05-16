@@ -15,7 +15,7 @@ export default function Footer() {
                     <li> | </li>
                     <Link href={'/'}> <li>Cours Particuliers</li> </Link>
                     <li> | </li>
-                    <Link href={'/'}> <li>Blog</li> </Link>
+                    <Link href={'/blog'}> <li>Blog</li> </Link>
                 </ul>
                 <p> contact@centres.ma  </p>
                 <p>@ 2025-{currentYear}, Tous droits reserves</p>
