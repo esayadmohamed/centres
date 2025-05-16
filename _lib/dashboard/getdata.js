@@ -171,6 +171,62 @@ export async function singleUser(value_id) {
     }
 }
 
+export async function allArticles() {
+    try {
+        const db = getDB();
+
+        const user_id = await AdminAuthenticate();
+        if(!user_id) return [];
+
+        const [articles] = await db.query("SELECT * FROM blog");
+        if (articles.length === 0) { 
+            return [];
+        }
+
+        return articles.map((article) => ({
+            id: article.id,
+            image: article.image,
+            title: article.title,
+            content: article.content,
+            created_at: article.created_at,
+            view: article.view
+        }));
+
+    } catch (error) {
+        console.error("Database error:", error);
+        return [];
+    }
+}
+
+export async function singleArticle(value_id) {
+    try {
+        const db = getDB();
+
+        const admin_id = await AdminAuthenticate();
+        if(!admin_id) return {error: 'Failed Admin Authentication.'}; 
+
+        const article_id = await SanitizeId(value_id)
+        if(!article_id) return {error: 'Article id is not a number.'}; 
+
+        const [row] = await db.query("SELECT * FROM blog WHERE id = ?", [article_id]);
+        const article = row[0] || null;
+        if (!article) return {error: 'Article does not exist.'}; 
+
+        return { 
+            id: article.id,
+            image: article.image,
+            title: article.title,
+            content: article.content,
+            created_at: article.created_at,
+            view: article.view
+        };
+
+    } catch (error) {
+        console.error("Database error:", error);
+        return { error: "Une erreur est survenue. Veuillez réessayer plus tard." };
+    }
+}
+
 // --------------------------------------------------------
 
 export async function getDashData(table) {   

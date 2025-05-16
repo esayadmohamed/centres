@@ -26,24 +26,26 @@
 
 /* ------------------------------------- */
 
-.ArticleVisual{
+.ArticleVisual,
+.ArticleLoader{
     background-color: #f2f3f4;
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
     
     height: 200px;
+    border: 1px solid #e5e8e8;
     border-radius: 5px;
     overflow: hidden;
 
     padding: 20px;
 
-    display: grid;
-    grid-template-rows: 1fr 1fr 1fr;
+    display: flex;
     align-items: center;
-    justify-items: center;
+    justify-content: center;
     width: 100%;
 }
+
 
 /* ------------------------------------- */
 
@@ -56,14 +58,34 @@
     font-size: 15px;
 }
 
-/* .ArticleDetails h3{
-
+.ArticleDetails h3{
+    font-size: 15px;
 }
 
 .ArticleDetails p{
+    font-size: 14px;
+}
 
-} */
+.SeeMore{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
 
+.SeeMore span{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 100%;
+}
+
+.SeeMore svg{
+    width: 16;
+    height: 16;
+}
+
+/* ------------------------------------- */
+/* ------------------------------------- */
 /* ------------------------------------- */
 
 

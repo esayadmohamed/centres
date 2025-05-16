@@ -53,7 +53,7 @@ export default function EditUploader({keyId, listing_id, setError, setListing}) 
                 accept="image/bmp, image/jpeg, image/png"
                 name={`image`}
                 ref={uploaderRef}
-                onChange={handleUpload}//handleImage}
+                onChange={handleUpload}
                 hidden
             />
 

@@ -2,7 +2,22 @@
     margin-top: 70px;
     width: 100%;
     height: 100%;
-    padding: 0 50px;
+    padding: 0px 50px;
+    /* padding-bottom: 30px; */
+
+    display: grid;
+    grid-template-columns: auto 400px;
+    gap: 20px;
+}
+
+.ArticlesContent{
+    height: 100%;
+    /* background-color: yellow; */
+}
+
+.ArticlesSidebar{
+    background-color: #f2f3f4;
+    height: 100%;
 }
 
 .ArticlesBanner{
@@ -37,14 +52,124 @@
     width: 100%;
 
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr;
     justify-items: center;
     align-items: center;
-    gap: 15px;
+    gap: 20px;
 }
 
-/* .ArticlesList div{
-    background-color: yellow;
-    width: 320px;
-    height: 100px;
-} */
+/* ------------------------------------- */
+/* ------------------------------------- */
+
+.ArticlePage{
+    height: 100%;
+    width: 100%;
+}
+
+.ArticleContainer{
+    margin-top: 70px;
+    width: 100%;
+    height: 100%;
+    padding: 0px 50px;
+    /* padding-bottom: 30px; */
+
+    display: grid;
+    grid-template-columns: auto 400px;
+    gap: 20px;
+}
+
+.ArticleContent{
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    padding-bottom: 30px;
+}
+
+.ArticleBody{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.ArticlePreview{
+    background-color: #f2f3f4;
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    
+    width: 700px;
+    height: 250px;
+}
+
+
+.ArticleBody h3{
+    font-size: 16px;
+}
+
+.ArticleBody p{
+    white-space: pre-wrap;
+    font-size: 15px;
+}
+
+/* -------------------------- */
+
+.ArticleSuggest{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.SuggestTitle{
+    font-size: 18px;
+    color: #424949;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #ccd1d1;
+}
+
+.ArticleSuggestList{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding: 10px;
+}
+
+@media (max-width: 600px) {
+    .ArticlesSidebar{
+        display: none;
+    }
+    .ArticlesContainer{
+        display: flex;
+        flex-direction: column;
+        padding: 0px 15px;
+    }
+    .ArticlesList{
+        display: flex;
+        flex-direction: column;
+    }
+
+    /* --------------------------- */
+
+    .ArticleContainer{
+        display: flex;
+        flex-direction: column;
+        padding: 0px 10px;
+    }
+    .ArticlePreview{       
+        width: 100%;
+        height: 250px;
+    }
+    .ArticleSuggestList{
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        padding: 0px;
+    }
+
+}
+
+  
+@media (min-width: 601px) and (max-width: 1024px) {
+
+}

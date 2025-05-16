@@ -2,9 +2,10 @@
 import styles from "./dash.module.css";
 import { useState } from "react";
 
-import { allListings, allUsers } from "@/_lib/dashboard/getdata";
+import { allListings, allUsers, allArticles } from "@/_lib/dashboard/getdata";
 
 import DashListings from "@/_com/dashboard/listings";
+import DashBlog from "@/_com/dashboard/blog";
 import DashUsers from "@/_com/dashboard/users";
 import DashData from "@/_com/dashboard/data";
 
@@ -18,14 +19,16 @@ export default function Dashcontent({listingsList, usersList}) {
     
     const [users, setUsers] = useState(usersList || []);
     const [listings, setListings] = useState(listingsList || []);
+    const [articles, setArticles] = useState([]);
 
     const [under, setUnder] = useState(listingsList.filter((item)=> item.state === 'under').length);
 
     const components = [
-        {item: <DashUsers usersList={users} setUsersList={setUsers} />},
-        {item: <DashListings listingsList={listings} setListingsList={setListings} setUnder={setUnder}/>}, 
-        {item: <DashData />}, 
-        {item: <div>advertise</div>}, 
+        {item: <DashUsers usersList={users} setUsersList={setUsers} />}, //0
+        {item: <DashListings listingsList={listings} setListingsList={setListings} setUnder={setUnder}/>}, //1
+        {item: <DashBlog articlesList={articles} setArticlesList={setArticles}/>}, //2
+        {item: <DashData />}, //3
+        {item: <div>advertise</div>}, //4 
     ]
 
     async function fetchUsers(){
@@ -49,6 +52,19 @@ export default function Dashcontent({listingsList, usersList}) {
         setLoading(null)
     }
 
+    async function fetchArticles(){
+        if(index === 2) return;
+        setLoading(2)
+
+        const result = await allArticles(); 
+        setArticles(result)
+        
+        // console.log(result);
+
+        setIndex(2)
+        setLoading(null)
+    }
+
     
     return (
         <div className={styles.DashContainer}>
@@ -69,12 +85,16 @@ export default function Dashcontent({listingsList, usersList}) {
                         {(loading === 1)? <div className={'spinner'}></div> 
                             : <span> <Icon name={'SquareMenu'} color={'#424949'}/> Listings {under !== 0 && <p>{under}</p>}</span>}
                     </li> 
-                    <li onClick={()=>setIndex(2)} className={index===2 ? styles.Activeli : styles.Inactiveli}> 
+                    <li onClick={fetchArticles} className={index===2 ? styles.Activeli : styles.Inactiveli}> 
                         {(loading === 2)? <div className={'spinner'}></div> 
-                            : <span> <Icon name={'BetweenHorizontalEnd'} color={'#424949'}/> Data </span>}
+                            : <span> <Icon name={'LetterText'} color={'#424949'}/> Blog </span>}
                     </li> 
                     <li onClick={()=>setIndex(3)} className={index===3 ? styles.Activeli : styles.Inactiveli}> 
                         {(loading === 3)? <div className={'spinner'}></div> 
+                            : <span> <Icon name={'BetweenHorizontalEnd'} color={'#424949'}/> Data </span>}
+                    </li> 
+                    <li onClick={()=>setIndex(4)} className={index===4 ? styles.Activeli : styles.Inactiveli}> 
+                        {(loading === 4)? <div className={'spinner'}></div> 
                             : <span> <Icon name={'Megaphone'} color={'#424949'}/> Advertizing </span>}
                     </li> 
                 </ul>

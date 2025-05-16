@@ -1038,6 +1038,321 @@
 }
 
 
+/* =============== dev_blog =============== */
+
+.ArticlesContainer{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+}
+
+.ArticlesFilter{
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    height: fit-content;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.ArticlesSearch{
+    height: 45px;
+    display: grid;
+    grid-template-columns: auto 45px;
+    border: 1px solid #7f8c8d;
+    border-radius: 5px;
+    overflow: hidden;
+    background-color: yellow;
+}
+
+.ArticlesSearch input{
+    width: 100%;
+    height: 100%;
+    padding: 5px 10px;
+    font-size: 15px;
+    outline: none;
+    border: none;    
+}
+
+.ArticlesSearch span{
+    height: 100%;
+    background-color: #f2f3f4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ArticlesSearch span svg{
+    width: 26px;
+    height: 26px;
+}
+
+.ArticlesSort{
+    height: 40px;
+    display: flex;
+    justify-content: space-between;
+    justify-items: center;
+    gap: 20px;
+}
+
+.ArticlesSort span{
+    font-size: 15px;
+    border-radius: 5px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.InactiveFilter{
+    background-color: #f2f3f4;
+}
+
+.ActiveFilter{
+    background-color: #2471a3;
+    color: white;
+}
+
+/* ------------------------------ */
+
+.BlogContent{
+    background-color: white;
+    height: 100%;
+    width: 100%;
+}
+
+.BlogAction{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 50px;
+    padding: 0 15px;
+    border-bottom: 1px solid #e5e8e8;
+}
+
+.BlogAction p{
+    font-size: 16px;
+    font-weight: 600;
+    color: #424949;
+}
+
+.BlogAction span{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #2ecc71;
+    height: 30px;
+    width: 30px;
+    border-radius: 100%;
+    cursor: pointer;
+}
+
+.BlogAction span svg{
+    width: 20;
+    height: 20;
+}
+
+/* ------------------------------ */
+
+.BlogEmpty{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    /* background-color: yellow; */
+}
+
+.BlogAdd{
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.BlogTitle{
+    display: flex;
+    justify-content: space-between;
+}
+
+.BlogTitle span{
+    width: 20;
+    height: 20;
+    cursor: pointer;
+}
+
+.BlogAdd input,
+.BlogAdd textarea{
+    font-size: 15px;
+    border: none;
+    outline: none;
+}
+
+.BlogAdd p{
+    display: flex;
+    align-items: center;
+
+}
+
+.BlogAdd span{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.BlogAdd span label {
+    color: #424949;
+    font-weight: 600;
+}
+
+.BlogAdd span input{
+    height: 50px;
+    padding: 0 10px;
+    border: 1px solid #ccd1d1;
+    border-radius: 5px;
+}
+
+.BlogAdd span textarea{
+    font-family: inherit;
+    height: 300px;
+    resize: none;
+    padding: 10px;
+    border: 1px solid #ccd1d1;
+    border-radius: 5px;
+}
+
+.BlogImage{
+    height: 250px;
+    width: 100%;
+    border: 1px solid #ccd1d1;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.BlogImage img{
+    width: fit-content;
+}
+
+.BlogImage svg{
+    width: 30px;
+    height: 30px;
+}
+
+.BlogAdd button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 45px;
+    font-size: 15px;
+    
+    border: none;
+    border-radius: 5px;
+    background-color: #2471a3;
+    color: white;
+    cursor: pointer;
+}
+
+.BlogAdd button div{
+    width: 25px;
+    padding: 3px;
+    background: white;
+}
+
+.BlogError{
+    font-size: 15px;
+    color: red;
+}
+
+/* --------------------------------------- */
+
+.BlogArticle {
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.Preview{
+    background-color: #e5e7e9;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+
+    height: 250px;
+    width: 100%;
+    border-radius: 5px;
+    overflow: hidden;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.BlogArticle h3{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #424949;
+    /* background-color: #2471a3; */
+    height: 30px;
+}
+
+.BlogArticle h3 span{
+    /* background-color: rgb(236, 236, 64); */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 30px;
+    width: 30px;
+    cursor: pointer;
+}
+
+.BlogArticle h3 span svg{
+    width: 26;
+    height: 26;
+}
+
+.BlogArticle h3 div{
+    padding: 3px;
+    width: 25px;
+}
+
+
+.BlogArticle p{
+    white-space: pre-wrap;
+}
+
+.BlogArticleActions{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.BlogArticle button{
+    height: 40px;
+    width: 140px;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    background-color: #e74c3c;
+    color: white;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.BlogArticle button div{
+    padding: 3px;
+    width: 25px;
+    background: white;
+}
+
 /* =============== dev_utils =============== */
 
 

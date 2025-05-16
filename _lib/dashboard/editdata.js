@@ -550,3 +550,117 @@ export async function RemoveToken(id) {
         return { error: "Une erreur est survenue. Veuillez réessayer plus tard."};
     }
 }
+
+// -------------------------------------------------------------
+
+export async function SanitizeArticle(value_title, value_content) {        
+    
+    if(!value_title || typeof value_title !== 'string'){
+        return {error: 'Article title or content is not valid'}; 
+    }
+
+    const title = xss(value_title.trim());
+
+    try{ 
+        const admin_id = await AdminAuthenticate();
+        if(!admin_id) return {error: 'Admin Authentication Failed.'}; 
+
+        const [existingArticle] = await db.query(`SELECT * FROM blog WHERE LOWER(title) = LOWER(?)`, [title]);
+        if (existingArticle.length !== 0) {
+            return { error: "Article already exists" };
+        } else{
+            return {success: true};
+        }
+
+    } catch (error) {
+        console.error("Database error:", error);
+        return { error: "Une erreur est survenue. Veuillez réessayer plus tard."};
+    }
+}
+
+export async function InsertArticle(obj) {        
+    
+    if(!obj || typeof obj !== 'object' ||
+        !Object.hasOwn(obj, 'title') || !Object.hasOwn(obj, 'content') || !Object.hasOwn(obj, 'image') ){
+        return {error: 'Article object data is not valid'}; 
+    }   
+
+    const title = xss(obj.title.trim());
+    const content = xss(obj.content.trim());
+    const image = xss(obj.image.trim());
+
+    try{ 
+        const admin_id = await AdminAuthenticate();
+        if(!admin_id) return {error: 'Admin Authentication Failed.'}; 
+
+        await db.query(`INSERT INTO blog (title, content, image) VALUES (?, ?, ?)`, 
+            [title, content, image]);
+
+        revalidatePath(`/dashboard`);
+
+        const [rows] = await db.query(`SELECT * FROM blog`);
+        return rows.length === 0 ? [] : rows;
+
+    } catch (error) {
+        console.error("Database error:", error);
+        return { error: "Une erreur est survenue. Veuillez réessayer plus tard."};
+    }
+}
+
+export async function ToggleArticle(id) {            
+    try{ 
+        const article_id = await SanitizeId(id)
+        if(!article_id) return {error: 'Article_id is not a number.'}; 
+
+        const admin_id = await AdminAuthenticate();
+        if(!admin_id) return {error: 'Admin Authentication Failed.'}; 
+
+        const [rows] = await db.query(`SELECT view FROM blog WHERE id = ?`, [article_id]);
+        if (!rows[0]) return { error: 'Article does not exist.' };
+
+        const view = rows[0].view;
+
+        await db.query(`UPDATE blog SET view = ? WHERE id = ?`, [view === 0? 1 : 0, article_id])
+
+        revalidatePath(`/dashboard`);
+
+        const [article] = await db.query("SELECT * FROM blog WHERE id = ?", [article_id]);
+        if (!article[0]) return { error: 'Article does not exist.' };
+
+        return { 
+            id: article[0].id,
+            image: article[0].image,
+            title: article[0].title,
+            content: article[0].content,
+            created_at: article[0].created_at,
+            view: article[0].view
+        };
+
+    } catch (error) {
+        console.error("Database error:", error);
+        return { error: "Une erreur est survenue. Veuillez réessayer plus tard."};
+    }
+}
+
+export async function RemoveArticle(id) {            
+    try{ 
+        const article_id = await SanitizeId(id)
+        if(!article_id) return {error: 'Article_id is not a number.'}; 
+
+        const admin_id = await AdminAuthenticate();
+        if(!admin_id) return {error: 'Admin Authentication Failed.'}; 
+
+        const [rows] = await db.query(`SELECT * FROM blog WHERE id = ?`, [article_id]);
+        if (!rows[0]) return { error: 'Article does not exist.' };
+
+        await db.query(`DELETE FROM blog WHERE id = ?`, [article_id]);
+
+        return {success: true}
+
+    } catch (error) {
+        console.error("Database error:", error);
+        return { error: "Une erreur est survenue. Veuillez réessayer plus tard."};
+    }
+}
+
+// -------------------------------------------------------------

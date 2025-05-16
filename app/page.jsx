@@ -5,7 +5,9 @@ import Centers from "./centres/page"
 //     try { // UPDATE listings SET state = 'on' // DELETE FROM listings WHERE name = 'Al Wafae'
 //         const db = getDB();
 //         const [rows] = await db.execute(`
-//             SELECT * FROM tokens
+            
+//             SELECT * FROM blog
+
 //         `);
 //             // SELECT id FROM listings SELECT * FROM tokens
 //         console.log(rows); //UPDATE users SET role = 'admin' WHERE email = 'esayadmohamed@gmail.com'
@@ -16,16 +18,6 @@ import Centers from "./centres/page"
 //         return { error: "Une erreur est survenue. Veuillez réessayer plus tard." };
 //     }
 // }
-
-
-// CREATE TABLE tokens (
-//     id INT AUTO_INCREMENT PRIMARY KEY,  -- Unique identifier for each record
-//     email VARCHAR(255) NOT NULL,
-//     token VARCHAR(255) NOT NULL,
-//     expiration_time INT NOT NULL,
-//     send INT DEFAULT 0,
-//     FOREIGN KEY (email) REFERENCES users(email) ON DELETE CASCADE
-// )
 
 export default async function Home() {
 
@@ -69,9 +61,6 @@ export default async function Home() {
 // const hoods = data?.hoods?.map(item => item.name);
 
 
-
-
-
 // const local  = 'http://localhost:3000'
 // const vercel = 'https://centres.vercel.app'
 
@@ -98,3 +87,22 @@ export default async function Home() {
 
 //     console.log(result.success ? "✅ Notification sent!" : "❌ Failed to send.");
 // };
+
+
+// CREATE TABLE tokens (
+//     id INT AUTO_INCREMENT PRIMARY KEY,  -- Unique identifier for each record
+//     email VARCHAR(255) NOT NULL,
+//     token VARCHAR(255) NOT NULL,
+//     expiration_time INT NOT NULL,
+//     send INT DEFAULT 0,
+//     FOREIGN KEY (email) REFERENCES users(email) ON DELETE CASCADE
+// )
+
+// CREATE TABLE blog (
+//     id INT AUTO_INCREMENT PRIMARY KEY,
+//     title VARCHAR(255) NOT NULL,
+//     content TEXT NOT NULL,
+//     image VARCHAR(255) DEFAULT NULL,
+//     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+//     view INT DEFAULT 1
+// );
