@@ -2,6 +2,7 @@
 import styles from "./blog.module.css";
 import Link from "next/link";
 import { useState } from "react";
+import { GetMoreArticles } from "@/_lib/blog/getdata";
 
 import Icon from "@/_lib/utils/Icon";
 
@@ -11,6 +12,25 @@ export default function BlogContent({articlesData}) {
     
     const [articles, setArticles] = useState(articlesData? articlesData : []) 
     
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState('');
+
+    async function MoreArticles(){
+        if(loading) return
+
+        setError(null);
+        setLoading(true);
+        
+        const result = await GetMoreArticles(articles.length);
+        setLoading(false)
+        
+        if(result?.error){
+            setError(result.error);
+        }else{
+            setArticles((prev) => [...prev, ...result]);
+        } 
+    }
+
     return (
         <div className={styles.ArticlesContainer}>
             
@@ -29,6 +49,17 @@ export default function BlogContent({articlesData}) {
                         <Article article={item} key={id}/>
                     )}
                 </div>
+                
+                <div className={styles.Infinite}>
+                    {(error || articles.length === 0) ? 
+                        <p>{error || 'Aucune article trouvée.'}</p>
+                        :
+                        <button onClick={MoreArticles}> 
+                            {!loading ?  'Afficher plus' : <div className={'spinner'}></div>}
+                        </button>
+                    }
+                </div > 
+
             </div>
 
             <div className={styles.ArticlesSidebar}>

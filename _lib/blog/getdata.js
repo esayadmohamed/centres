@@ -75,3 +75,34 @@ export async function SuggestedArticles() {
         return [];
     }
 }
+
+export async function GetMoreArticles(offset = 0) {
+    try {
+        const db = getDB();
+        
+        const num = await SanitizeId(offset)
+        if(!num) {
+            console.log('Error: limit intiger verification failed');
+            return {error: "Il n'y a plus d'annonces à afficher."}
+        }
+
+        const limit = 12;
+
+        const [articles] = await db.query("SELECT * FROM blog WHERE view = 1 LIMIT ? OFFSET ?", [limit, offset]);
+        if (articles.length === 0) { 
+            return {error: "Il n'y a plus d'annonces à afficher."}
+        }
+
+        return articles.map((article) => ({
+            id: article.id,
+            image: article.image,
+            title: article.title,
+            content: article.content,
+            created_at: article.created_at
+        }));
+        
+    } catch (error) {
+        console.error("Database error:", error);
+        return { error: "Une erreur est survenue. Veuillez réessayer plus tard." };
+    }
+}

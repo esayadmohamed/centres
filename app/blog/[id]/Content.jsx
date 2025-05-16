@@ -22,7 +22,6 @@ export default function ArticlesContent({article, articles}) {
     },[article])
 
 
-
     return (
         <div className={styles.ArticleContainer}>
             

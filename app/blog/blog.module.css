@@ -58,6 +58,36 @@
     gap: 20px;
 }
 
+.Infinite{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 70px;
+    gap: 10px;
+    font-size: 15px;
+    /* background-color: yellow; */
+}
+
+.Infinite div{
+    width: 25px;
+    padding: 3px;
+    background: white;
+}
+
+.Infinite button{
+    height: 40px;
+    width: 150px;
+    border: none;
+    border-radius: 5px;
+    background-color: #2471a3;
+    color: white;
+    /* font-size: 15px; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
 /* ------------------------------------- */
 /* ------------------------------------- */
 
