@@ -6,11 +6,11 @@ import Centers from "./centres/page"
 //         const db = getDB();
 //         const [rows] = await db.execute(`
             
-//             SELECT * FROM blog
+//             SELECT id FROM listings WHERE state = 'on'
 
 //         `);
 //             // SELECT id FROM listings SELECT * FROM tokens
-//         console.log(rows); //UPDATE users SET role = 'admin' WHERE email = 'esayadmohamed@gmail.com'
+//          //UPDATE users SET role = 'admin' WHERE email = 'esayadmohamed@gmail.com'
 
 //         return rows;
 //     } catch (error) {
@@ -22,6 +22,10 @@ import Centers from "./centres/page"
 export default async function Home() {
 
     // const aa = await dbex();
+    // aa.forEach(item => {
+    //     console.log(`https://centres.ma/centres/${item.id}`);
+    // });
+    
     
     return <Centers />
 
