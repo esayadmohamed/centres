@@ -9,7 +9,7 @@ export async function AllArticles() {
     try {
         const db = getDB();
 
-        const [articles] = await db.query("SELECT * FROM blog WHERE view = 1 LIMIT 12");
+        const [articles] = await db.query("SELECT * FROM blog WHERE view = 1 LIMIT 8");
         if (articles.length === 0) { 
             return [];
         }
@@ -83,14 +83,14 @@ export async function GetMoreArticles(offset = 0) {
         const num = await SanitizeId(offset)
         if(!num) {
             console.log('Error: limit intiger verification failed');
-            return {error: "Il n'y a plus d'annonces à afficher."}
+            return {error: "Il n'y a plus d'articles à afficher."}
         }
 
-        const limit = 12;
+        const limit = 8;
 
         const [articles] = await db.query("SELECT * FROM blog WHERE view = 1 LIMIT ? OFFSET ?", [limit, offset]);
         if (articles.length === 0) { 
-            return {error: "Il n'y a plus d'annonces à afficher."}
+            return {error: "Il n'y a plus d'articles à afficher."}
         }
 
         return articles.map((article) => ({
