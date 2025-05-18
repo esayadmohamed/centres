@@ -2,6 +2,7 @@
     display: flex;
     flex-direction: column;
     gap: 10px;
+    height: 100%;
 }
 
 .DashLayout{
@@ -15,6 +16,7 @@
 .DashFooter{
     height: 100px;
     background-color: #f2f3f4;
+    margin-bottom: auto;
 }
 
 /* ----------------------------------- */
@@ -296,6 +298,33 @@
     height: 40px;
     display: flex;
     align-items: center;
+    justify-content: space-between;
+}
+
+.CenterRemove{
+    height: 100%;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.CenterRemove p{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    height: 30px;
+    width: 30px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.CenterError{
+    color: red;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
 }
 
 .CentersContacts{

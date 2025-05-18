@@ -701,6 +701,27 @@ export async function CreateCenter(obj) {
     }
 }
 
+export async function RemoveCenter(id) {     
+    try{          
+        const admin_id = await AdminAuthenticate();
+        if(!admin_id) return {error: 'Admin Authentication Failed.'}; 
+
+        const center_id = await SanitizeId(id)
+        if(!center_id) return {error: 'Center id is not a number.'}; 
+
+        await db.query(`DELETE FROM centers WHERE id = ?`, [center_id]);
+
+        revalidatePath(`/dashboard`);
+
+        const [data] = await db.query(`SELECT * FROM centers`)
+        return data
+
+    } catch (error) {
+        console.error("Database error:", error);
+        return { error: "Une erreur est survenue. Veuillez réessayer plus tard."};
+    }
+}
+
 // -------------------------------------------------------------
 
 export async function AddEmail(id, value) {     

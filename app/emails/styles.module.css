@@ -67,7 +67,7 @@
     width: 100%;
     display: grid;
     grid-template-columns: auto 50px;
-    height: 50;
+    height: 50px;
     border: 1px solid #ccd1d1;
     border-radius: 5px;
     overflow: hidden;

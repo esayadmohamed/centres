@@ -15,7 +15,7 @@ export default function DashMarketing({centersList}) {
         <div className={styles.DashPage}>
             <div className={styles.DashLayout}>
                 <MarketingSidebar centersList={centersList} centers={centers} setCenters={setCenters} setCenter={setCenter}/>
-                <MarketingContent center={center} setCenter={setCenter}/>
+                <MarketingContent center={center} setCenter={setCenter} setCenters={setCenters}/>
             </div>
 
             <div className={styles.DashFooter}>

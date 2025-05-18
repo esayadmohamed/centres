@@ -2,7 +2,7 @@
 import styles from "@/_com/dashboard/css/marketing.module.css";
 
 import { useEffect, useState } from "react";
-// import { AddEmail, RemoveEmail } from "@/_lib/dashboard/editdata";
+import { RemoveCenter } from "@/_lib/dashboard/editdata";
 
 import Icon from "@/_lib/utils/Icon";
 
@@ -11,7 +11,7 @@ import CenterNumber from "./addnumber";
 import Converter from "./converter";
 import Send from "./sendemail";
 
-export default function MarketingContent({center, setCenter}) {
+export default function MarketingContent({center, setCenter, setCenters}) {
         
     const [emails, setEmails] = useState([])
     const [numbers, setNumbers] = useState([])
@@ -22,10 +22,29 @@ export default function MarketingContent({center, setCenter}) {
     }, [center])
 
     const [toggle, setToggle] = useState(null)
+    const [ok, setOk] = useState(false)
+    const [loading, setLoading] = useState(null)
+    const [error, setError] = useState('')
 
     function handleToggle(value){
         setCenter(null)
         setToggle(value)
+    }
+
+    async function handleRemove(){
+        setLoading(true);
+        setError('');
+
+        const result = await RemoveCenter(center.id);
+        setLoading(false);
+        
+        if(result?.error){
+            setError(result.error)
+        }else{
+            setCenter(null)
+            setCenters(result)
+            setOk(false)
+        }
     }
 
     return(
@@ -44,7 +63,31 @@ export default function MarketingContent({center, setCenter}) {
 
             {center? 
                 <div className={styles.CentersBody}>
-                    <p className={styles.CenterName}>{center.name}, {center.city}</p>
+                    <div className={styles.CenterName}>
+                        <p> {center.name}, {center.city} </p>
+                        
+                        <div className={styles.CenterRemove}>
+                            {ok?
+                                loading ? 
+                                    <div className={'spinner'}> </div>
+                                    :
+                                    <>
+                                        <p style={{backgroundColor: '#ccd1d1'}} onClick={handleRemove}> 
+                                            <Icon name={'Minus'} color={'#424949'}/> 
+                                        </p>
+                                        <p style={{backgroundColor: '#28b463', width:'50px'}} onClick={()=>setOk(false)}>  
+                                            <Icon name={'X'} color={'white'}/> 
+                                        </p>
+                                    </>
+                                : 
+                                <p style={{backgroundColor: '#e74c3c'}} onClick={()=>setOk(true)}> 
+                                    <Icon name={'Minus'} color={'white'}/> 
+                                </p>
+                            }
+                        </div>
+                    </div>
+
+                    {error && <p className={styles.CenterError}> {error} </p>}
                     
                     <CenterEmail emails={emails} setEmails={setEmails} center_id={center?.id}/>
 

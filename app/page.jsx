@@ -6,7 +6,6 @@ import Centers from "./centres/page"
 //         const db = getDB(); //SHOW COLUMNS FROM table_name
 
 //         const [rows] = await db.execute(`
-//             SELECT * FROM emails
 //         `);
 //             //ALTER TABLE emails ADD COLUMN status INT NOT NULL DEFAULT 1;
 //             // SELECT id FROM listings SELECT * FROM tokens
@@ -124,7 +123,7 @@ export default async function Home() {
 //     center_id INT NOT NULL,
 //     status INT NOT NULL DEFAULT 1,
 //     UNIQUE (email),
-//     FOREIGN KEY (center_id) REFERENCES centers(id)
+//     FOREIGN KEY (center_id) REFERENCES centers(id) ON DELETE CASCADE
 // )
 
 // CREATE TABLE numbers (
@@ -132,5 +131,5 @@ export default async function Home() {
 //     number VARCHAR(255) NOT NULL,
 //     center_id INT NOT NULL,
 //     UNIQUE (number),
-//     FOREIGN KEY (center_id) REFERENCES centers(id)
+//     FOREIGN KEY (center_id) REFERENCES centers(id) ON DELETE CASCADE
 // )
