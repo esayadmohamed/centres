@@ -1,30 +1,7 @@
 import Centers from "./centres/page"
 
-// import getDB from "@/_lib/db";
-// async function dbex() {
-//     try { // UPDATE listings SET state = 'on' // DELETE FROM listings WHERE name = 'Al Wafae'
-//         const db = getDB(); //SHOW COLUMNS FROM table_name
-
-//         const [rows] = await db.execute(`
-//         `);
-//             //ALTER TABLE emails ADD COLUMN status INT NOT NULL DEFAULT 1;
-//             // SELECT id FROM listings SELECT * FROM tokens
-//          //UPDATE users SET role = 'admin' WHERE email = 'esayadmohamed@gmail.com'
-//         console.log(rows);
-//         return rows;
-//     } catch (error) {
-//         console.error("Database error:", error);
-//         return { error: "Une erreur est survenue. Veuillez réessayer plus tard." };
-//     }
-// }
 
 export default async function Home() {
-
-    // const aa = await dbex();
-    // aa.forEach(item => {
-    //     console.log(`https://centres.ma/centres/${item.id}`);
-    // });
-    
     
     return <Centers />
 

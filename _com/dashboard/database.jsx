@@ -1,15 +1,18 @@
 'use client'
-import styles from "@/_com/dashboard/css/marketing.module.css";
+import styles from "@/_com/dashboard/css/database.module.css";
 
 import { useState } from "react";
+
+import DatabaseSidebar from "./database/sidebar";
+import DatabaseContent from "./database/content";
 
 export default function DashDatabase({}) {
     
     return (
         <div className={styles.DashPage}>
             <div className={styles.DashLayout}>
-                include an inpute wehere you submit and excute // log or delete or....
-                even SAVE DATA AS EXCEL
+                <DatabaseSidebar />
+                <DatabaseContent />
             </div>
 
             <div className={styles.DashFooter}>

@@ -65,4 +65,17 @@ export async function sendEmail() {
     }
 }
 
+export async function ModifyDatabase(value) {
+    try { 
 
+        const action = value.trim()
+
+        const [rows] = await db.execute(action);
+                
+        return rows;
+
+    } catch (error) {
+        console.error("Database error:", error);
+        return { error: "Database error!" };
+    }
+}

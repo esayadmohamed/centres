@@ -1,0 +1,91 @@
+.DashPage{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    height: 100%;
+}
+
+.DashLayout{
+    display: grid;
+    grid-template-columns: 300px auto;
+    width: 100%;
+    gap: 20px;
+    height: 100%;
+}
+
+.DashFooter{
+    height: 100px;
+    background-color: #f2f3f4;
+    margin-bottom: auto;
+}
+
+/* ----------------------------------- */
+
+.DatabaseSidebar{
+    background-color: white;
+}
+
+.DatabaseSidebarList{
+    display: block;
+}
+
+.DatabaseError{
+    height: 40px;
+    /* background-color: yellow; */
+    color: red;
+    font-size: 15px;
+    display: flex;
+    align-items: center;
+}
+
+/* ----------------------------------- */
+
+.DatabaseContent{
+    background-color: white;
+    padding: 20px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.DatabaseAction{
+    background-color: yellow;
+    border: 1px solid #ccd1d1;
+    display: grid;
+    grid-template-columns: auto 50px;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.DatabaseAction textarea{
+    width: 100%;
+    height: 230px;
+    resize: none;
+    outline: none;
+    border: none;
+    font-family: inherit;
+    font-size: 15px;
+    padding: 10px;
+    line-height: 1.5;
+}
+
+.DatabaseAction span{
+    background-color: #2471a3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.DatabaseAction span svg{
+    width: 30px;
+    height: 30px;
+}
+
+.DatabaseAction span div{
+    background: white;
+    padding: 3px;
+}
+
+/* ----------------------------------- */
