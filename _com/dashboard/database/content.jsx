@@ -44,6 +44,12 @@ export default function DatabaseContent() {
             </div>
 
             {error && <p className={styles.DatabaseError}> {error} </p>}
+
+            <ul className={styles.DatabaseList}>
+                <li>_ SELECT * FROM table WHERE row = value</li>
+                <li>_ UPDATE table SET row = value WHERE id = value</li>
+                <li>_ DELETE FROM table WHERE row = value</li>
+            </ul>
   
         </div>
     )

@@ -89,3 +89,18 @@
 }
 
 /* ----------------------------------- */
+
+.DatabaseList{
+    display: flex;
+    flex-direction: column;
+    font-size: 14px;
+}
+
+.DatabaseList li{
+    display: flex;
+    align-items: center;
+    height: 35px;
+}
+
+
+/* ----------------------------------- */

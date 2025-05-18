@@ -7,8 +7,6 @@ export default async function Home() {
 
 }
 
-
-
 // git add .
 // git commit -m "Made changes to my app"
 // git push origin master

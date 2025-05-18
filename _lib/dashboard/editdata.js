@@ -693,7 +693,7 @@ export async function CreateCenter(obj) {
         revalidatePath(`/dashboard`);
 
         const [data] = await db.query(`SELECT * FROM centers`)
-        return data
+        return data.sort((a, b) => b.id - a.id);
 
     } catch (error) {
         console.error("Database error:", error);
