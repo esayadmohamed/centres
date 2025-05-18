@@ -7,6 +7,9 @@ import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { revalidatePath } from "next/cache";
 
 import { SanitizeId } from "@/_lib/utils/sanitizedata";
+import validator from "validator";
+import { RateLimiter } from "@/_lib/utils/ratelimiter";
+
 import { allListings, allUsers } from "./getdata";
 
 import xss from "xss";
@@ -15,7 +18,7 @@ import xss from "xss";
 
 const db = getDB();
 
-async function AdminAuthenticate() {
+export async function AdminAuthenticate() {
     try {
         const session = await getServerSession(authOptions);
 
@@ -664,3 +667,209 @@ export async function RemoveArticle(id) {
 }
 
 // -------------------------------------------------------------
+
+export async function CreateCenter(obj) {     
+    
+    if(!obj || typeof obj !== 'object' || !obj.name || !obj.city){
+        return {error: 'Invalid object tyoe or data.'}; 
+    }
+
+    const name = xss(obj.name.trim())
+    const city = xss(obj.city.trim())
+
+    try{          
+        const admin_id = await AdminAuthenticate();
+        if(!admin_id) return {error: 'Admin Authentication Failed.'}; 
+
+        const [existingCenter] = await db.query(
+            `SELECT * FROM centers WHERE LOWER(name) = LOWER(?) AND city = ?`, [name, city]);
+
+        if (existingCenter.length !== 0) {
+            return { error: "Center already exists" };
+        }
+
+        await db.query(`INSERT INTO centers (name, city) VALUES (?, ?)`, [name, city]);
+
+        revalidatePath(`/dashboard`);
+
+        const [data] = await db.query(`SELECT * FROM centers`)
+        return data
+
+    } catch (error) {
+        console.error("Database error:", error);
+        return { error: "Une erreur est survenue. Veuillez réessayer plus tard."};
+    }
+}
+
+// -------------------------------------------------------------
+
+export async function AddEmail(id, value) {     
+    try{          
+        const admin_id = await AdminAuthenticate();
+        if(!admin_id) return {error: 'Admin Authentication Failed.'}; 
+
+        const center_id = await SanitizeId(id)
+        if(!center_id) return {error: 'Center id is not a number.'}; 
+
+        const email = validator.normalizeEmail(value);        
+        if (!validator.isEmail(value)) return {error: 'Email is not valid.'}; 
+
+        const [existingEmail] = await db.query(
+            `SELECT * FROM emails WHERE LOWER(email) = LOWER(?) AND center_id = ?`, [email, center_id]);
+
+        if (existingEmail.length !== 0) {
+            return { error: "Email already exists" };
+        }
+
+        await db.query(`INSERT INTO emails (email, center_id) VALUES (?, ?)`, [email, center_id]);
+
+        revalidatePath(`/dashboard`);
+
+        const [data] = await db.query(`SELECT * FROM emails WHERE center_id = ?`, [center_id])
+        return data.map((item)=>item.email)
+
+    } catch (error) {
+        console.error("Database error:", error);
+        return { error: "Une erreur est survenue. Veuillez réessayer plus tard."};
+    }
+}
+
+export async function RemoveEmail(id, value) {     
+    try{          
+        const admin_id = await AdminAuthenticate();
+        if(!admin_id) return {error: 'Admin Authentication Failed.'}; 
+
+        const center_id = await SanitizeId(id)
+        if(!center_id) return {error: 'Center id is not a number.'}; 
+
+        const email = validator.normalizeEmail(value);        
+        if (!validator.isEmail(value)) return {error: 'Email is not valid.'}; 
+
+        const [existingEmail] = await db.query(
+            `SELECT * FROM emails WHERE LOWER(email) = LOWER(?) AND center_id = ?`, [email, center_id]);
+
+        if (existingEmail.length === 0) {
+            return { error: "Email does not exists" };
+        }
+
+        await db.query(`DELETE FROM emails WHERE email = ? AND center_id = ?`, [email, center_id]);
+
+        revalidatePath(`/dashboard`);
+
+        const [data] = await db.query(`SELECT * FROM emails WHERE center_id = ?`, [center_id])
+        return data.map((item)=>item.email)
+
+    } catch (error) {
+        console.error("Database error:", error);
+        return { error: "Une erreur est survenue. Veuillez réessayer plus tard."};
+    }
+}
+
+export async function AddNumber(id, value) {     
+    try{          
+        const admin_id = await AdminAuthenticate();
+        if(!admin_id) return {error: 'Admin Authentication Failed.'}; 
+
+        const center_id = await SanitizeId(id)
+        if(!center_id) return {error: 'Center id is not a number.'}; 
+
+        if(!value || typeof value !== 'string' || !/^(05|06|07)\d{8}$/.test(value)){
+            return {error: 'Number value is invalid.'}; 
+        }
+
+
+        const number = xss(value.trim())
+
+        const [existingNumber] = await db.query(
+            `SELECT * FROM numbers WHERE number = ? AND center_id = ?`, [number, center_id]);
+
+        if (existingNumber.length !== 0) {
+            return { error: "Number already exists" };
+        }
+
+        await db.query(`INSERT INTO numbers (number, center_id) VALUES (?, ?)`, [number, center_id]);
+
+        revalidatePath(`/dashboard`);
+
+        const [data] = await db.query(`SELECT * FROM numbers WHERE center_id = ?`, [center_id])
+        return data.map((item)=>item.number)
+
+    } catch (error) {
+        console.error("Database error:", error);
+        return { error: "Une erreur est survenue. Veuillez réessayer plus tard."};
+    }
+}
+
+export async function RemoveNumber(id, value) {     
+    try{          
+        const admin_id = await AdminAuthenticate();
+        if(!admin_id) return {error: 'Admin Authentication Failed.'}; 
+
+        const center_id = await SanitizeId(id)
+        if(!center_id) return {error: 'Center id is not a number.'}; 
+
+        if(!value || typeof value !== 'string' || !/^(05|06|07)\d{8}$/.test(value)){
+            return {error: 'Number value is invalid.'}; 
+        }
+
+        const number = xss(value.trim())
+
+        const [existingNumber] = await db.query(
+            `SELECT * FROM numbers WHERE number = ? AND center_id = ?`, [number, center_id]);
+
+        if (existingNumber.length === 0) {
+            return { error: "Number does not exists" };
+        }
+
+        await db.query(`DELETE FROM numbers WHERE number = ? AND center_id = ?`, [number, center_id]);
+
+        revalidatePath(`/dashboard`);
+
+        const [data] = await db.query(`SELECT * FROM numbers WHERE center_id = ?`, [center_id])
+        return data.map((item)=>item.number)
+
+    } catch (error) {
+        console.error("Database error:", error);
+        return { error: "Une erreur est survenue. Veuillez réessayer plus tard."};
+    }
+}
+
+// -------------------------------------------------------------
+
+export async function Unsubscribe(value) {     ///translate error to french
+    
+    if(!value || typeof value !== 'string'){
+        return {error: "L'email n'est pas valide."}
+    }
+
+    const email = validator.normalizeEmail(value); 
+
+    if (!email || !validator.isEmail(email)) {
+        return {error: "L'email n'est pas valide."}
+    }
+
+    try{          
+        const rate_limiter = await RateLimiter('unsubscribe');
+        if(!rate_limiter){
+            return { error: "Le serveur est actuellement occupé, veuillez réessayer plus tard."};
+        }
+
+        const [existingEmail] = await db.query(
+            `SELECT * FROM emails WHERE email = ? AND status = ?`, [email, 1]);
+
+        if (existingEmail.length === 0) {
+            return { error: "L'email n'existe pas" };
+        }
+
+        await db.query(`UPDATE emails SET status = ? WHERE email = ?`, [0, email])
+
+        return {success:'Vous vous êtes désabonné avec succès.'}
+
+    } catch (error) {
+        console.error("Database error:", error);
+        return { error: "Une erreur est survenue. Veuillez réessayer plus tard."};
+    }
+}
+
+
+

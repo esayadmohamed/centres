@@ -3,15 +3,15 @@ import Centers from "./centres/page"
 // import getDB from "@/_lib/db";
 // async function dbex() {
 //     try { // UPDATE listings SET state = 'on' // DELETE FROM listings WHERE name = 'Al Wafae'
-//         const db = getDB();
-//         const [rows] = await db.execute(`
-            
-//             SELECT id FROM listings WHERE state = 'on'
+//         const db = getDB(); //SHOW COLUMNS FROM table_name
 
+//         const [rows] = await db.execute(`
+//             SELECT * FROM emails
 //         `);
+//             //ALTER TABLE emails ADD COLUMN status INT NOT NULL DEFAULT 1;
 //             // SELECT id FROM listings SELECT * FROM tokens
 //          //UPDATE users SET role = 'admin' WHERE email = 'esayadmohamed@gmail.com'
-
+//         console.log(rows);
 //         return rows;
 //     } catch (error) {
 //         console.error("Database error:", error);
@@ -109,4 +109,28 @@ export default async function Home() {
 //     image VARCHAR(255) DEFAULT NULL,
 //     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 //     view INT DEFAULT 1
-// );
+// )
+
+// CREATE TABLE centers (
+//     id INT AUTO_INCREMENT PRIMARY KEY,
+//     name VARCHAR(255) NOT NULL,
+//     city VARCHAR(255) NOT NULL,
+//     UNIQUE (name, city)
+// )
+
+// CREATE TABLE emails (
+//     id INT AUTO_INCREMENT PRIMARY KEY,
+//     email VARCHAR(255) NOT NULL,
+//     center_id INT NOT NULL,
+//     status INT NOT NULL DEFAULT 1,
+//     UNIQUE (email),
+//     FOREIGN KEY (center_id) REFERENCES centers(id)
+// )
+
+// CREATE TABLE numbers (
+//     id INT AUTO_INCREMENT PRIMARY KEY,
+//     number VARCHAR(255) NOT NULL,
+//     center_id INT NOT NULL,
+//     UNIQUE (number),
+//     FOREIGN KEY (center_id) REFERENCES centers(id)
+// )

@@ -22,6 +22,7 @@ const rateLimits = {
     // -------------------------------------
     
     account: { max: 10, ttl: 60 * 60 * 1000 },
+    unsubscribe: { max: 5, ttl: 60 * 60 * 1000 },
 };
 
 const rateLimiter = new LRUCache({
@@ -59,7 +60,8 @@ export async function POST(req) {
 
     const { action } = await req.json();
 
-    if (!['signup', 'login', 'verify', 'send', 'reset', 'create', 'modify', 'image', 'account'].includes(action)) {
+    if (!['signup', 'login', 'verify', 'send', 'reset', 'create', 'modify', 'image', 'account', 'unsubscribe']
+        .includes(action)) {
         return new Response(JSON.stringify({ error: "Invalid action" }), { status: 400 });
     }
 

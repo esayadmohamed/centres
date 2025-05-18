@@ -278,3 +278,73 @@ export async function getDashHoods(value_id) {
 
 // --------------------------------------------------------
 
+export async function allCenters() {
+    try {
+        const db = getDB();
+
+        const admin_id = await AdminAuthenticate();
+        if(!admin_id) return [];
+
+        const [centers] = await db.query("SELECT * FROM centers");
+        if (centers.length === 0) { 
+            return [];
+        }
+
+        return centers.map((center) => ({
+            id: center.id,
+            name: center.name,
+            city: center.city
+        }));
+
+    } catch (error) {
+        console.error("Database error:", error);
+        return [];
+    }
+}
+
+export async function singleCenter(value_id) {
+    try {
+        const db = getDB();
+
+        const admin_id = await AdminAuthenticate();
+        if(!admin_id) return {error: 'Failed Admin Authentication.'}; 
+
+        const center_id = await SanitizeId(value_id)
+        if(!center_id) return {error: 'Center id is not a number.'}; 
+
+        const [row] = await db.query("SELECT * FROM centers WHERE id = ?", [center_id]);
+        const center = row[0] || null;
+        if (!center) return {error: 'Center does not exist.'}; 
+
+        const [emails] = await db.query("SELECT * FROM emails WHERE center_id = ?", [center_id]);
+        const [numbers] = await db.query("SELECT * FROM numbers WHERE center_id = ?", [center_id]);
+
+        return { 
+            id: center.id,
+            name: center.name,
+            city: center.city,
+            emails: emails.map((item)=>item.email),
+            numbers: numbers.map((item)=>item.number),
+        };
+
+    } catch (error) {
+        console.error("Database error:", error);
+        return { error: "Une erreur est survenue. Veuillez réessayer plus tard." };
+    }
+}
+
+export async function allCities() {
+    try{ 
+        const db = getDB();
+
+        const [cities] = await db.query("SELECT * FROM cities");
+                
+        return cities.map((item)=> item.name)
+
+    } catch (error) {
+        console.error("Database error:", error);
+        return { error: "Une erreur est survenue. Veuillez réessayer plus tard." };
+    }
+}
+
+// --------------------------------------------------------

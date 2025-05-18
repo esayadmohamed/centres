@@ -2,12 +2,14 @@
 import styles from "./dash.module.css";
 import { useState } from "react";
 
-import { allListings, allUsers, allArticles } from "@/_lib/dashboard/getdata";
+import { allListings, allUsers, allArticles, allCenters } from "@/_lib/dashboard/getdata";
 
 import DashListings from "@/_com/dashboard/listings";
 import DashBlog from "@/_com/dashboard/blog";
 import DashUsers from "@/_com/dashboard/users";
 import DashData from "@/_com/dashboard/data";
+import DashMarketing from "@/_com/dashboard/marketing";
+import DashDatabase from "@/_com/dashboard/database";
 
 import Icon from "@/_lib/utils/Icon";
 
@@ -20,6 +22,7 @@ export default function Dashcontent({listingsList, usersList}) {
     const [users, setUsers] = useState(usersList || []);
     const [listings, setListings] = useState(listingsList || []);
     const [articles, setArticles] = useState([]);
+    const [centers, setCenters] = useState([]);
 
     const [under, setUnder] = useState(listingsList.filter((item)=> item.state === 'under').length);
 
@@ -28,7 +31,8 @@ export default function Dashcontent({listingsList, usersList}) {
         {item: <DashListings listingsList={listings} setListingsList={setListings} setUnder={setUnder}/>}, //1
         {item: <DashBlog articlesList={articles} setArticlesList={setArticles}/>}, //2
         {item: <DashData />}, //3
-        {item: <div>advertise</div>}, //4 
+        {item: <DashMarketing centersList={centers}/>}, //4 
+        {item: <DashDatabase />}, //4 
     ]
 
     async function fetchUsers(){
@@ -65,6 +69,17 @@ export default function Dashcontent({listingsList, usersList}) {
         setLoading(null)
     }
 
+    async function fetchCenters(){
+        if(index === 4) return;
+        setLoading(4)
+
+        const result = await allCenters(); 
+        setLoading(null)
+
+        setCenters(result)
+        // console.log(result);
+        setIndex(4)  
+    }
     
     return (
         <div className={styles.DashContainer}>
@@ -93,9 +108,13 @@ export default function Dashcontent({listingsList, usersList}) {
                         {(loading === 3)? <div className={'spinner'}></div> 
                             : <span> <Icon name={'BetweenHorizontalEnd'} color={'#424949'}/> Data </span>}
                     </li> 
-                    <li onClick={()=>setIndex(4)} className={index===4 ? styles.Activeli : styles.Inactiveli}> 
+                    <li onClick={fetchCenters} className={index===4 ? styles.Activeli : styles.Inactiveli}> 
                         {(loading === 4)? <div className={'spinner'}></div> 
-                            : <span> <Icon name={'Megaphone'} color={'#424949'}/> Advertizing </span>}
+                            : <span> <Icon name={'Megaphone'} color={'#424949'}/> Marketing </span>}
+                    </li> 
+                    <li onClick={()=>setIndex(5)} className={index===5 ? styles.Activeli : styles.Inactiveli}> 
+                        {(loading === 5)? <div className={'spinner'}></div> 
+                            : <span> <Icon name={'Database'} color={'#424949'}/> Database </span>}
                     </li> 
                 </ul>
 

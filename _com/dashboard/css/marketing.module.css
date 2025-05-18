@@ -1,0 +1,596 @@
+.DashPage{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.DashLayout{
+    display: grid;
+    grid-template-columns: 300px auto;
+    width: 100%;
+    gap: 20px;
+    height: 100%;
+}
+
+.DashFooter{
+    height: 100px;
+    background-color: #f2f3f4;
+}
+
+/* ----------------------------------- */
+
+.DashContainer{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+}
+
+.DashFilter{
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    height: fit-content;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.DashSearch{
+    height: 45px;
+    display: grid;
+    grid-template-columns: auto 45px;
+    gap: 5px;
+}
+
+.DashSearchBar{
+    display: grid;
+    grid-template-columns: auto 45px;
+    border: 1px solid #7f8c8d;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.DashSearchBar input{
+    width: 100%;
+    height: 100%;
+    padding: 5px 10px;
+    font-size: 15px;
+    outline: none;
+    border: none;    
+}
+
+.DashSearchBar span{
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.DashSearchAction{
+    /* background-color: #2980b9; */
+    border-radius: 5px;
+    border: 1px solid white;
+    cursor: pointer;
+}
+
+.DashSearchAction span{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.DashSearchAction span div{
+    background: white;
+    padding: 3px;
+    width: 25px;
+}
+
+.DashSearch svg{
+    width: 26px;
+    height: 26px;
+}
+
+/* ----------------------------------- */
+
+.DashAdd{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    border: 1px solid #7f8c8d;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.DashAdd input{
+    border: none;
+    outline: none;
+    height: 45px;
+    padding: 0 10px;
+    font-size: 15px;
+    border-radius: 5px;
+    border: 1px solid #7f8c8d;
+}
+
+.DashAdd input:first-of-type{
+    border-right: 1px solid #7f8c8d;
+}
+
+.DashAdd button{
+    cursor: pointer;
+    width: 100%;
+    height: 45px;
+    border: none;
+    background-color: #2471a3;
+    color: white;
+    border-radius: 5px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.DashAdd button svg{
+    width: 20;
+    height: 20;
+}
+
+.DashAdd button div{
+    background: white;
+    padding: 3px;
+    width: 25px;
+}
+
+.DashAdd ul{
+    position: absolute;
+    transform: translate(0px, 100px);
+    background-color: white;
+    min-width: 258px;
+
+    display: flex;
+    flex-direction: column;
+    padding: 5px;
+    border: 1px solid #ccd1d1;
+    border-radius: 0 0 5px 5px;
+}
+
+.DashAdd ul li{
+    height: 35px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    font-size: 14px;
+    border-bottom: 1px solid #f2f3f4;
+}
+
+.DashAdd ul li:last-of-type{
+    border: none;
+}
+
+.DashAdd ul li:hover{
+    background-color: #f2f3f4;
+}
+
+/* ----------------------------------- */
+
+.CentersList{
+    display: flex;
+    flex-direction: column;
+}
+
+.CentersList p{
+    height: 50px;
+    padding: 0 10px;
+    border-bottom: 1px solid #e5e8e8;
+    display: flex;
+    align-items: center;
+}
+
+.CentersList li{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    padding: 0 10px;
+    border-bottom: 1px solid #e5e8e8;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 50px;
+}
+
+.CentersList li span{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+}
+
+.CentersList li span svg{
+    width: 20;
+    height: 20;
+}
+
+.CentersList li div{
+    width: 25px;
+    padding: 3px;
+}
+
+.CentersList li p{
+    display: flex;
+    justify-content: flex-end;
+}
+
+.CentersList li p svg{
+    width: 16;
+    height: 16;
+}
+
+.CentersList li:hover{
+    background-color: #f8f9f9;
+}
+
+/* ----------------------------------- */
+
+.CentersContent{
+    background-color: white;
+    height: 100%;
+    width: 100%;
+}
+
+.CentersAction{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 50px;
+    padding: 0 15px;
+    border-bottom: 1px solid #e5e8e8;
+}
+
+.CentersAction p{
+    font-size: 16px;
+    font-weight: 600;
+    color: #424949;
+    display: flex;
+    gap: 20px;
+}
+
+.CentersAction span{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 30px;
+    width: 30px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.CentersAction span svg{
+    width: 18;
+    height: 18;
+}
+
+/* ----------------------------------- */
+
+.CentersEmpty{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.CentersBody{
+    padding: 10px;
+    font-size: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.CenterName{
+    height: 40px;
+    display: flex;
+    align-items: center;
+}
+
+.CentersContacts{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    border: 1px solid #ccd1d1;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.CentersContactsTitle{
+    height: 30px;
+    display: flex;
+    align-items: center;
+    font-weight: 600;
+    color: #424949;
+}
+
+.CentersAddContacts{
+    height: 50px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.AddContact{
+    width: 100%;
+    height: 45px;
+    background-color: white;
+    display: grid;
+    grid-template-columns: auto 45px;
+    gap: 10px;
+}
+
+.CentersAddContacts input{
+    outline: none;
+    border: none;
+    border: 1px solid #7f8c8d;
+    border-radius: 5px;
+    overflow: hidden;
+    font-size: 15px;
+    padding: 10px;
+}
+
+.AddContact span{
+    background-color: #2980b9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.AddContact span div{
+    width: 25px;
+    padding: 3px;
+    background: white;
+}
+
+.CentersContacts li{
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 5px;
+}
+
+.CentersContacts li span{
+    height: 30px;
+    width: 30px;
+    background-color: yellow;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.CentersContactsActions{
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.CentersContacts li span svg{
+    width: 20;
+    height: 20;
+}
+
+.CentersContactsActions div{
+    padding: 3px;
+    width: 25px;
+}
+
+/* ----------------------------------- */
+
+.Converter{
+    padding: 10px;
+
+}
+
+.converterList{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.converterList li{
+    cursor: pointer;
+}
+
+.ConverterContent{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.ConverterSize{
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    height: 50px;
+    /* background-color: yellow; */
+}
+
+.ConverterSize li{
+    font-size: 15px;
+    width: 100px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.ConverterSize span{
+    margin-left: auto;
+    background-color: #e74c3c;
+    height: 30px;
+    width: 30px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.ConverterSize span svg{
+    width: 20;
+    height: 20;
+}
+
+.ActiveSize{
+    background-color: #2980b9;
+    color: white;
+}
+
+.InactiveSize{
+    background-color: #f2f3f4;
+    color: #424949;
+}
+
+/* ----------------------------------- */
+
+.Send{
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.SendContent{
+    display: grid;
+    grid-template-columns: auto 320px;
+    gap: 10px;
+    /* padding: 20px 0; */
+}
+
+.SendDisplay{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* .SendDisplayList{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+} */
+
+.SendDisplayList div{
+    height: 45px;
+    width: 100%;
+    border: 1px solid #ccd1d1;
+    border-radius: 5px;
+    display: grid;
+    grid-template-columns: auto 45px;
+}
+
+.SendDisplayList div p{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 0 10px;
+    font-size: 15px;
+    width: 100%;
+    overflow: hidden;
+    white-space: nowrap;  
+    text-overflow: ellipsis;  
+    /* cursor: pointer; */
+    user-select: none;
+}
+
+.SendDisplayList div span{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #e5e7e9;
+    cursor: pointer;
+}
+
+.SendDisplayList ul{
+    position: absolute;
+    border-radius: 0 0 5px 5px;
+    width: 320px;
+    
+    max-height: 280px;
+    overflow-y: auto;
+    background-color: white;
+    border: 1px solid #ccd1d1;
+    
+    display: flex;
+    flex-direction: column;
+}
+
+.SendDisplayList ul li{
+    padding: 15px 10px;
+    color: #424949;
+    font-size: 14px;
+    /* height: 40px; */
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.SendDisplayList ul li:hover{
+    background-color: #f8f9f9;
+}
+
+.SendDisplayEmail{
+    border: 1px solid #ccd1d1;
+}
+
+.Message{
+    height: 40px;
+    font-size: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #2471a3;
+}
+
+
+.Send button{
+    width: 100%;
+    height: 45px;
+    cursor: pointer;
+    background-color: #2471a3;
+    color: white;
+    font-size: 15px;
+    border: none;
+    border-radius: 5px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.Send button span{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+}
+
+.Send button svg{
+    width: 20px;
+    height: 20px;
+}
+
+.Send button div{
+    background: white;
+    width: 25px;
+    padding: 3px;
+}

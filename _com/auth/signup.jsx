@@ -101,13 +101,13 @@ export default function AuthSignup (){
                         <div className={styles.AuthLogin}>
                             <div className={styles.AuthBox}>
                                 <div className={styles.AuthSuccess}>
-                                    <ul className={styles.AuthRoot}>
+                                    {/* <ul className={styles.AuthRoot}>
                                         <Link href={'/'}> <li>Acueil</li> </Link>
                                         <li>/</li>
                                         <Link href={'/auth'}> <li>Connexion</li> </Link>
                                         <li>/</li>
                                         <li>Inscription</li>
-                                    </ul>
+                                    </ul> */}
                                 
                                     <h3> Vérifiez Votre E-mail</h3>
                                     <p>Nous avons envoyé un lien de vérification à votre adresse e-mail.</p>
