@@ -52,6 +52,12 @@ export default function CenterNumber({numbers, setNumbers, center_id}) {
             <p className={styles.CentersContactsTitle}>Numbers</p>
             <div className={styles.CentersAddContacts}>
                 <div className={styles.AddContact}>
+                    <span onClick={handleNumbers}> 
+                        {loading === 'addnumber'? <div className={'spinner'}> </div>
+                            :
+                            <Icon name={'Plus'} color={'white'}/> 
+                        } 
+                    </span>
                     <input type="tel" placeholder="Add number..."
                         value={number}
                         onChange={(e)=>{ 
@@ -59,12 +65,6 @@ export default function CenterNumber({numbers, setNumbers, center_id}) {
                             if(sanitized.length === 9) sanitized = '0' + sanitized;
                             setNumber(sanitized);
                         }} />
-                    <span onClick={handleNumbers}> 
-                        {loading === 'addnumber'? <div className={'spinner'}> </div>
-                            :
-                            <Icon name={'Plus'} color={'white'}/> 
-                        } 
-                    </span>
                 </div>
             </div>
             

@@ -88,9 +88,11 @@ export default function MarketingSidebar({centersList, centers, setCenters, setC
                     
                     <div className={styles.DashSearchBar}>
                         <input type="text" value={search} placeholder="Search..." onChange={searchByname}/>
-                        <span>
-                            <Icon name={'Search'} color={'#616a6b'}/>
-                        </span>
+                        {search === ''?
+                            <span> <Icon name={'Search'} color={'#616a6b'}/> </span>
+                            :
+                            <span onClick={()=>setSearch('')}> <Icon name={'X'} color={'#616a6b'}/> </span>
+                        }
                     </div>
 
                     <div className={styles.DashSearchAction} style={{backgroundColor: toggle? '#e74c3c' : '#2980b9'}}> 

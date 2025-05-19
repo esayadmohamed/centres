@@ -54,16 +54,16 @@ export default function CenterEmail({emails, setEmails, center_id}) {
             <p className={styles.CentersContactsTitle}>Emails</p>
             <div className={styles.CentersAddContacts}>
                 <div className={styles.AddContact}>
-                    <input type="text" placeholder="Add email..." 
-                        value={email}
-                        onChange={(e)=>setEmail(e.target.value)}
-                        />
                     <span onClick={handleEmails}> 
                         {loading === 'addemail'? <div className={'spinner'}> </div>
                             :
                             <Icon name={'Plus'} color={'white'}/> 
                         } 
                     </span>
+                    <input type="text" placeholder="Add email..." 
+                        value={email}
+                        onChange={(e)=>setEmail(e.target.value)}
+                        />
                 </div>
             </div>
             
