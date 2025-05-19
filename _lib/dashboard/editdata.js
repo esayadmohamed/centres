@@ -736,7 +736,7 @@ export async function AddEmail(id, value) {
         if (!validator.isEmail(value)) return {error: 'Email is not valid.'}; 
 
         const [existingEmail] = await db.query(
-            `SELECT * FROM emails WHERE LOWER(email) = LOWER(?) AND center_id = ?`, [email, center_id]);
+            `SELECT * FROM emails WHERE LOWER(email) = LOWER(?)`, [email]);
 
         if (existingEmail.length !== 0) {
             return { error: "Email already exists" };
@@ -801,7 +801,7 @@ export async function AddNumber(id, value) {
         const number = xss(value.trim())
 
         const [existingNumber] = await db.query(
-            `SELECT * FROM numbers WHERE number = ? AND center_id = ?`, [number, center_id]);
+            `SELECT * FROM numbers WHERE number = ?`, [number]);
 
         if (existingNumber.length !== 0) {
             return { error: "Number already exists" };

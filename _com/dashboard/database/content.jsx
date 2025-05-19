@@ -23,6 +23,7 @@ export default function DatabaseContent() {
 
         result?.error && setError(result.error);
 
+        console.log(result);
     }
 
     return(
