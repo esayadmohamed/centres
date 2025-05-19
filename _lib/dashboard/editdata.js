@@ -725,6 +725,11 @@ export async function RemoveCenter(id) {
 // -------------------------------------------------------------
 
 export async function AddEmail(id, value) {     
+    
+    if(!value || typeof value !== 'string'){
+        return {error: 'Email is not valid.'}; 
+    }
+
     try{          
         const admin_id = await AdminAuthenticate();
         if(!admin_id) return {error: 'Admin Authentication Failed.'}; 
@@ -732,8 +737,10 @@ export async function AddEmail(id, value) {
         const center_id = await SanitizeId(id)
         if(!center_id) return {error: 'Center id is not a number.'}; 
 
-        const email = validator.normalizeEmail(value.trim());        
-        if (!validator.isEmail(value)) return {error: 'Email is not valid.'}; 
+        const email = xss(value.toLowerCase().trim());
+        if (!validator.isEmail(email)) {
+            return { error: 'Email is not valid.' };
+        }
 
         const [existingEmail] = await db.query(
             `SELECT * FROM emails WHERE LOWER(email) = LOWER(?)`, [email]);
