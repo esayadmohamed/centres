@@ -71,7 +71,7 @@ export async function ModifyDatabase(value) {
         const [rows] = await db.execute(action);
         console.log(rows);
         
-        return {success: true}
+        return value.toUpperCase().includes('SELECT') ? rows : {success:true};
     } catch (error) {
         console.error("Database error:", error);
         return { error: "Database error!" };
