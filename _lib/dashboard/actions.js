@@ -34,7 +34,7 @@ export async function sendEmail() {
         port: 465,
         });
 
-        const emailsList = [{email: 'esayadmohamed@gmail.com'}]///await EmailsList();
+        const emailsList = await EmailsList(); //[{email: 'esayadmohamed@gmail.com'}]///
         if(!emailsList){
              return { message: "An error occurred while fetching emails" };
         }
