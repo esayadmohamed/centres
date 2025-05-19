@@ -10,6 +10,8 @@ import validator from 'validator';
 import { RateLimiter } from "@/_lib/utils/ratelimiter";
 import { verifyCaptcha } from "@/_lib/utils/captcha";
 
+import { signupMessage } from "@/_com/dashboard/marketing/emails";
+
 const db = getDB();
 
 // ----------------------------------------------------
@@ -25,48 +27,27 @@ function generateUserCode() {
 
 async function sendVerificationEmail(email, token) {
     try {
-        // Create a transporter with Gmail settings
         const transporter = nodemailer.createTransport({
-            // service: 'gmail',
             host: 'mail.centres.ma',
             auth: {
                 user: process.env.EMAIL_USER,
                 pass: process.env.EMAIL_PASS,
             },
-            secure: true, // Using SSL
-            port: 465, // Standard SSL port
+            secure: true,
+            port: 465,
         });
 
-        const verificationLink = `https://www.centres.ma//auth/signup/${token}`;
+        const message = signupMessage(token);
 
         const mailOptions = {
             from: `Centres ${process.env.EMAIL_USER}`,
             to: email,
-            subject: 'Code de Vérification - Centres',
-            html: `
-                <div style="font-family: Arial, sans-serif; color: #333; padding: 20px; background-color: #f4f4f4; text-align: center;">
-                    <div style="max-width: 600px; margin: 0 auto; background-color: white; padding: 20px; border-radius: 8px; border: 1px solid #ddd;">
-                        <h2 style="color: #2e86c1; font-weight: bold; margin-bottom: 20px;">Centres Maroc</h2>
-                        <p style="font-size: 16px; margin-bottom: 20px;">Merci de vous être inscrit sur Centres !</p>
-                        <p style="font-size: 16px; margin-bottom: 20px;">Pour activer votre compte, veuillez cliquer sur le bouton ci-dessous :</p>
-                        <p>
-                            <a href="${verificationLink}" style="display: inline-block; background-color: #2e86c1; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; font-size: 16px;">
-                                Vérifier mon e-mail
-                            </a>
-                        </p>
-                        <p style="font-size: 14px; color: #666; margin-top: 20px;">Ce lien expirera dans 60 minutes.</p>
-                        <p style="font-size: 14px; color: #666;">Si vous n'êtes pas à l'origine de cette demande, ignorez cet e-mail.</p>
-                        <p style="font-size: 14px; color: #2e86c1; margin-top: 20px;">
-                            <a href="https://www.centres.ma/" style="color: #2e86c1; text-decoration: none;">www.centres.ma</a>
-                        </p>
-                    </div>
-                </div>
-            `,
+            subject: message.subject,
+            html: message.text,
         };
 
-        // Send the email
         await transporter.sendMail(mailOptions);
-        console.log(`Verification email sent to ${email}`);
+
     } catch (error) {
         console.error('Error sending verification email:', error);
         return { error: "Une erreur est survenue. Veuillez réessayer plus tard." };
@@ -148,33 +129,6 @@ function validateData(user) {
 
     return Object.keys(errors).length > 0 ? errors : null;
 }
-
-// export async function verifyCaptcha(captchaToken) {
-//     const url = process.env.NODE_ENV === 'production'
-//       ? `${process.env.NEXT_PUBLIC_VERCEL_URL}/api/recaptcha`
-//       : 'http://localhost:3000/api/recaptcha';
-  
-//     try {
-//       const res = await fetch(url, {
-//         method: "POST",
-//         headers: { "Content-Type": "application/json" },
-//         body: JSON.stringify({ captchaToken }),
-//       });
-  
-//       if (!res.ok) {
-//         const errorText = await res.text();
-//         console.error(`Erreur HTTP: ${res.status}`, errorText);
-//         return null;
-//       }
-  
-//       const data = await res.json();
-//       return data.success ? { success: true } : null;
-  
-//     } catch (error) {
-//       console.error("Erreur dans verifyCaptcha:", error.message);
-//       return null;
-//     }
-// }
   
 export async function CreateUser(user_data) {
 
@@ -225,7 +179,6 @@ export async function CreateUser(user_data) {
             return { error: { email: "L'adresse e-mail est déjà utilisée." } };
         }
 
-        // Begin transaction
         await conn.beginTransaction();
 
         user.password = await bcrypt.hash(user.password, 10);
@@ -237,27 +190,27 @@ export async function CreateUser(user_data) {
         );
 
         const token = generateVerificationCode();
-        // const expirationTime = Date.now() + 3600000;
         const expirationTime = Math.floor(Date.now() / 1000) + 3600;
 
         await conn.query("DELETE FROM tokens WHERE email = ?", [user.email]);
+
         await conn.query("INSERT INTO tokens (email, token, expiration_time) VALUES (?, ?, ?)",
             [user.email, token, expirationTime]
         );
 
         await conn.query("UPDATE tokens SET send = ? WHERE email = ?", [1, user.email]);
 
-        await conn.commit(); // All DB operations succeeded
+        await conn.commit();
 
-        await sendVerificationEmail(user.email, token); // Safe to do after commit
+        await sendVerificationEmail(user.email, token);
 
         return { success: true };
 
     } catch (error) {
-        await conn.rollback(); // Undo all DB operations
+        await conn.rollback();
         console.error("Database error:", error);
         return { error: { server: "Une erreur est survenue. Veuillez réessayer plus tard." } };
     } finally {
-        conn.release(); // Always release connection
+        conn.release(); 
     }
 }

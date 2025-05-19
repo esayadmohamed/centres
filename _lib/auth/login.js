@@ -7,6 +7,7 @@ import nodemailer from "nodemailer";
 import { randomBytes } from 'crypto';
 
 import { RateLimiter } from "@/_lib/utils/ratelimiter";
+import { signupMessage } from "@/_com/dashboard/marketing/emails";
 
 const db = getDB();
 
@@ -18,48 +19,27 @@ function generateVerificationCode() {
 
 async function sendVerificationEmail(email, token) {
     try {
-        // Create a transporter with Gmail settings
         const transporter = nodemailer.createTransport({
-            // service: 'gmail',
             host: 'mail.centres.ma',
             auth: {
                 user: process.env.EMAIL_USER,
                 pass: process.env.EMAIL_PASS,
             },
-            secure: true, // Using SSL
-            port: 465, // Standard SSL port
+            secure: true,
+            port: 465,
         });
 
-        const verificationLink = `https://www.centres.ma//auth/signup/${token}`;
+        const message = signupMessage(token);
 
         const mailOptions = {
             from: `Centres ${process.env.EMAIL_USER}`,
             to: email,
-            subject: 'Code de Vérification - Centres',
-            html: `
-                <div style="font-family: Arial, sans-serif; color: #333; padding: 20px; background-color: #f4f4f4; text-align: center;">
-                    <div style="max-width: 600px; margin: 0 auto; background-color: white; padding: 20px; border-radius: 8px; border: 1px solid #ddd;">
-                        <h2 style="color: #2e86c1; font-weight: bold; margin-bottom: 20px;">Centres Maroc</h2>
-                        <p style="font-size: 16px; margin-bottom: 20px;">Merci de vous être inscrit sur Centres !</p>
-                        <p style="font-size: 16px; margin-bottom: 20px;">Pour activer votre compte, veuillez cliquer sur le bouton ci-dessous :</p>
-                        <p>
-                            <a href="${verificationLink}" style="display: inline-block; background-color: #2e86c1; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; font-size: 16px;">
-                                Vérifier mon e-mail
-                            </a>
-                        </p>
-                        <p style="font-size: 14px; color: #666; margin-top: 20px;">Ce lien expirera dans 60 minutes.</p>
-                        <p style="font-size: 14px; color: #666;">Si vous n'êtes pas à l'origine de cette demande, ignorez cet e-mail.</p>
-                        <p style="font-size: 14px; color: #2e86c1; margin-top: 20px;">
-                            <a href="https://www.centres.ma/" style="color: #2e86c1; text-decoration: none;">www.centres.ma</a>
-                        </p>
-                    </div>
-                </div>
-            `,
+            subject: message.subject,
+            html: message.text,
         };
 
-        // Send the email
         await transporter.sendMail(mailOptions);
-        console.log(`Verification email sent to ${email}`);
+
     } catch (error) {
         console.error('Error sending verification email:', error);
         return { error: "Une erreur est survenue. Veuillez réessayer plus tard." };

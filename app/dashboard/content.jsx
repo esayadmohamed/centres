@@ -32,7 +32,7 @@ export default function Dashcontent({listingsList, usersList}) {
         {item: <DashBlog articlesList={articles} setArticlesList={setArticles}/>}, //2
         {item: <DashData />}, //3
         {item: <DashMarketing centersList={centers}/>}, //4 
-        {item: <DashDatabase />}, //4 
+        {item: <DashDatabase />}, //5
     ]
 
     async function fetchUsers(){

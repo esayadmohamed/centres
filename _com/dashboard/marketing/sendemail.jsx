@@ -6,8 +6,7 @@ import { useState } from "react";
 import Icon from "@/_lib/utils/Icon";
 
 import { sendEmail } from "@/_lib/dashboard/actions";
-import emails from "./emails";
-import buildMessage from "./emails";
+import { buildMessage } from "./emails";
 
 export default function Send({}) {
     

@@ -5,7 +5,7 @@ import { useState } from "react";
 
 import Icon from "@/_lib/utils/Icon";
 
-import buildMessage from "./emails";
+import { buildMessage } from "./emails";
 
 export default function Converter() {
     

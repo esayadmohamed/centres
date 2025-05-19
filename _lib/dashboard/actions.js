@@ -1,7 +1,7 @@
 "use server";
 import getDB from "@/_lib/db";
 import nodemailer from "nodemailer";
-import buildMessage from "@/_com/dashboard/marketing/emails";
+import { buildMessage } from "@/_com/dashboard/marketing/emails";
 
 import { AdminAuthenticate } from "./editdata";
 
@@ -34,7 +34,7 @@ export async function sendEmail() {
         port: 465,
         });
 
-        const emailsList = await EmailsList();
+        const emailsList = [{email: 'esayadmohamed@gmail.com'}]///await EmailsList();
         if(!emailsList){
              return { message: "An error occurred while fetching emails" };
         }
