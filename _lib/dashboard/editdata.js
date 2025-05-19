@@ -10,7 +10,7 @@ import { SanitizeId } from "@/_lib/utils/sanitizedata";
 import validator from "validator";
 import { RateLimiter } from "@/_lib/utils/ratelimiter";
 
-import { allListings, allUsers } from "./getdata";
+import { allListings, allUsers, allCenters } from "./getdata";
 
 import xss from "xss";
 
@@ -692,7 +692,7 @@ export async function CreateCenter(obj) {
 
         revalidatePath(`/dashboard`);
 
-        const [data] = await db.query(`SELECT * FROM centers`)
+        const data = await allCenters();
         return data.sort((a, b) => b.id - a.id);
 
     } catch (error) {
@@ -713,8 +713,8 @@ export async function RemoveCenter(id) {
 
         revalidatePath(`/dashboard`);
 
-        const [data] = await db.query(`SELECT * FROM centers`)
-        return data
+        const data = await allCenters();
+        return data.sort((a, b) => b.id - a.id);
 
     } catch (error) {
         console.error("Database error:", error);
@@ -732,7 +732,7 @@ export async function AddEmail(id, value) {
         const center_id = await SanitizeId(id)
         if(!center_id) return {error: 'Center id is not a number.'}; 
 
-        const email = validator.normalizeEmail(value);        
+        const email = validator.normalizeEmail(value.trim());        
         if (!validator.isEmail(value)) return {error: 'Email is not valid.'}; 
 
         const [existingEmail] = await db.query(
@@ -797,7 +797,6 @@ export async function AddNumber(id, value) {
         if(!value || typeof value !== 'string' || !/^(05|06|07)\d{8}$/.test(value)){
             return {error: 'Number value is invalid.'}; 
         }
-
 
         const number = xss(value.trim())
 

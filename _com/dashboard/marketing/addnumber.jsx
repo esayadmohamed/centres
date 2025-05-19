@@ -52,10 +52,13 @@ export default function CenterNumber({numbers, setNumbers, center_id}) {
             <p className={styles.CentersContactsTitle}>Numbers</p>
             <div className={styles.CentersAddContacts}>
                 <div className={styles.AddContact}>
-                    <input type="tel" placeholder="Add number..." maxLength={10}
+                    <input type="tel" placeholder="Add number..."
                         value={number}
-                        onChange={(e)=>setNumber(e.target.value)}
-                        />
+                        onChange={(e)=>{ 
+                            let sanitized = e.target.value.replace(/\D/g, '');
+                            if(sanitized.length === 9) sanitized = '0' + sanitized;
+                            setNumber(sanitized);
+                        }} />
                     <span onClick={handleNumbers}> 
                         {loading === 'addnumber'? <div className={'spinner'}> </div>
                             :

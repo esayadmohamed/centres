@@ -11,22 +11,20 @@ export default function DatabaseContent() {
     const [action, setAction] = useState('')
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState(false)
+       
+    async function handleDatabase() {
+        if (!action || action.trim() === '') return;
 
-    async function handleDatabase(){
-        if(action === '') return
-        setLoading(true)
-        setError('')
+        setLoading(true);
+        setError('');
 
         const result = await ModifyDatabase(action);
-        setLoading(false)
+        setLoading(false);
 
-        if(result?.error){
-            setError(result.error)
-        }else{
-            console.log(result);
-        }
+        result?.error && setError(result.error);
+
     }
-        
+
     return(
         <div className={styles.DatabaseContent} >
             <div className={styles.DatabaseAction}>

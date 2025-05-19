@@ -88,6 +88,7 @@ export default function DashContent({user, setUser, setUsersList}) {
                 <ul style={{display: toggle? 'block' : 'none'}}>
                     {['none', 'off'].includes(user.active) && <li onClick={handleApprove}>Confirm</li>}
                     {['on'].includes(user.active) && <li onClick={handleSuspend}>Suspend</li>}
+
                 </ul>
             </div>
         </div>

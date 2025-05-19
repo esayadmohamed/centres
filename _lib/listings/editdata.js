@@ -149,8 +149,11 @@ export async function ModifyInfo (value_id, new_value) {
             return { error:  "Le description fourni n'est pas valide." }
         } else if (info.length > 500) {
             return { error: "La description ne doit pas dépasser 500 caractères" }
-        } else if (!/^[A-Za-zÀ-ÖØ-öø-ÿ0-9\s.,-:?!']+$/.test(info)) {
-            return { error: "Le description ne doit pas contenir de caractères spéciaux" }
+        // } else if (!/^[A-Za-zÀ-ÖØ-öø-ÿ0-9\s.,-:?!']+$/.test(info)) {
+        //     return { error: "Le description ne doit pas contenir de caractères spéciaux" }
+        // }
+        } else if (/[<>{}\[\]();\\`\/&|$^%#@~]/.test(inputs.info)) {
+            errors.info = "Le description ne doit pas contenir de caractères spéciaux";
         }
 
         await db.query(`UPDATE listings SET info = ?, state = ? WHERE id = ?`, [info, 'none', listing_id]);

@@ -182,12 +182,33 @@
     flex-direction: column;
 }
 
-.CentersList p{
+.CentersListNavigate{
+    /* background-color: #f2f3f4; */
     height: 50px;
-    padding: 0 10px;
-    border-bottom: 1px solid #e5e8e8;
+    padding: 10px;
     display: flex;
     align-items: center;
+    justify-content: space-between;
+}
+
+.CentersListNavigate p{
+    user-select: none;    
+}
+
+.CentersListNavigate span{
+    background-color: #99a3a4;
+    height: 35px;
+    width: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 100%;
+    cursor: pointer;
+}
+
+.CentersListNavigate svg{
+    width: 20px;
+    height: 20px;
 }
 
 .CentersList li{
@@ -195,42 +216,39 @@
     justify-content: space-between;
     align-items: center;
     gap: 10px;
-    cursor: pointer;
-    padding: 0 10px;
     border-bottom: 1px solid #e5e8e8;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
     height: 50px;
+    padding: 0 10px;
+    font-size: 14px;
+    cursor: pointer;
 }
 
-.CentersList li span{
+.CentersList li p{
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: 5px;
     overflow: hidden;
-    width: 100%;
     height: 100%;
 }
 
+.CentersList li p span{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 26px;
+    width: 26px;
+    border-radius: 5px;
+}
+
 .CentersList li span svg{
-    width: 20;
-    height: 20;
+    width: 16px;
+    height: 16px;
 }
 
 .CentersList li div{
     width: 25px;
     padding: 3px;
-}
-
-.CentersList li p{
-    display: flex;
-    justify-content: flex-end;
-}
-
-.CentersList li p svg{
-    width: 16;
-    height: 16;
 }
 
 .CentersList li:hover{

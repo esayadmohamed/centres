@@ -131,7 +131,7 @@
 }
 
 .SearchOptions li{
-    height: 40px;
+    height: 45px;
     padding: 0 10px;
     border: 1px solid #e5e8e8;
     border-radius: 5px;
@@ -188,8 +188,13 @@
         transform: translate(-50px, 5px);
     }
     .SearchOptions{
-        gap: 15px;
+        gap: 20px;
         font-size: 14px;
+    }
+
+    .SearchOptions li{
+        padding: 0 10px;
+        /* width: 100%; */
     }
 }
 

@@ -58,7 +58,10 @@ function validateUserData(inputs) {
         errors.info = "La description fourni n'est pas valide";
     } else if (inputs.info.length > 500) {
         errors.info = "La description ne doit pas dépasser 500 caractères";
-    } else if (!/^[A-Za-zÀ-ÖØ-öø-ÿ0-9\s.,-:?!']+$/.test(inputs.info)) {
+    // } else if (!/^[A-Za-zÀ-ÖØ-öø-ÿ0-9\s.,-:?!']+$/.test(inputs.info)) {
+    //     errors.info = "Le description ne doit pas contenir de caractères spéciaux";
+    // }
+    } else if (/[<>{}\[\]();\\`\/&|$^%#@~]/.test(inputs.info)) {
         errors.info = "Le description ne doit pas contenir de caractères spéciaux";
     }
 

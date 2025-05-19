@@ -290,11 +290,26 @@ export async function allCenters() {
             return [];
         }
 
-        return centers.map((center) => ({
-            id: center.id,
-            name: center.name,
-            city: center.city
-        }));
+        const centers_ids = centers.map(center => center.id);
+
+        const [emails] = await db.query("SELECT * FROM emails WHERE center_id IN (?)", [centers_ids]);
+        const [numbers] = await db.query("SELECT * FROM numbers WHERE center_id IN (?)", [centers_ids]);
+   
+        const CentersList = centers.map(center => {
+            const centerEmails  = emails.filter(email => email.center_id === center.id).map(email => email.email);
+            const centerNumbers = numbers.filter(number => number.center_id === center.id).map(number => number.number);
+
+            return {
+                id: center.id,
+                name: center.name,
+                city: center.city,
+                emails: centerEmails,
+                numbers: centerNumbers,
+
+            };
+        });
+
+        return CentersList.sort((a, b) => b.id - a.id);
 
     } catch (error) {
         console.error("Database error:", error);

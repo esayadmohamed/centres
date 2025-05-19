@@ -18,6 +18,7 @@ export default function MarketingSidebar({centersList, centers, setCenters, setC
 
     const [toggle, setToggle] = useState(false)
     const [cities, setCities] = useState([])
+    
 
     function searchByname(e){
         const inputValue = e.target.value;
@@ -64,6 +65,22 @@ export default function MarketingSidebar({centersList, centers, setCenters, setC
         }
     }
     
+    const [currentPage, setCurrentPage] = useState(1);
+    const itemsPerPage = 10;
+
+    const totalPages = Math.ceil(centers.length / itemsPerPage);
+    
+    function goToPreviousPage() {
+        setCurrentPage(prev => Math.max(prev - 1, 1));
+    }
+
+    function goToNextPage() {
+        setCurrentPage(prev => Math.min(prev + 1, totalPages));
+    }
+
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const currentItems = centers.slice(startIndex, startIndex + itemsPerPage);
+
     return(
         <div className={styles.DashContainer}>
             <div className={styles.DashFilter}>
@@ -88,22 +105,34 @@ export default function MarketingSidebar({centersList, centers, setCenters, setC
                     </div>
                 </div>
                 { toggle && 
-                    <AddCenter citiesList={cities} setCenters={setCenters}/>
+                    <AddCenter citiesList={cities} setCenters={setCenters} setCenter={setCenter}/>
                 }
                 
             </div>
             <ul className={styles.CentersList}>
 
+                <div className={styles.CentersListNavigate}>
+                    <span onClick={goToPreviousPage}> <Icon name={'ChevronLeft'} color={'white'}/> </span>
+                    <p> {currentPage} / {totalPages} </p>
+                    <span onClick={goToNextPage}> <Icon name={'ChevronRight'} color={'white'}/> </span>
+                </div>
+
                 {error && <p className={'Error'}>{error}</p>}
 
                 { centers.length !== 0 ?
-                    centers.slice(0, 10).map((item, id)=> 
+                    currentItems.slice(0, 10).map((item, id)=> 
                         <li key={id} onClick={()=>getCenter(item.id)}> 
                             {loading && index === item.id? 
                                 <div className={'spinner'}></div>:
-                                <span> 
-                                    {id+1 +'- '+ item.name} 
-                                </span>}
+                                <p> 
+                                    {'- '+ item.name}  
+                                </p>}
+                                <p>  
+                                    {item.emails.length > 0 && 
+                                        <span style={{background: '#d6eaf8'}}> <Icon name={'Mail'} color={'#1b4f72'}/> </span>}
+                                    {item.numbers.length > 0 && 
+                                        <span style={{background: '#d5f5e3'}}> <Icon name={'Phone'} color={'#186a3b'}/> </span>}
+                                </p>
                         </li>) 
                     : 
                     <p> No centers </p>

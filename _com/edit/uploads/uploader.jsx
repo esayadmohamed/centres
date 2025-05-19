@@ -5,14 +5,12 @@ import { useRef, useState } from "react";
 
 import Icon from "@/_lib/utils/Icon";
 
-export default function EditUploader({keyId, listing_id, setError, setListing}) {
+export default function EditUploader({keyId, listing_id, setError, setListing, loading, setLoading, index, setIndex}) {
     
-    const [previewData, setPreviewData] = useState(null);
-    const [fileData, setFileData] = useState(null);
-    const [loading, setLoading] = useState(false);
     const uploaderRef = useRef();
 
     function handleClick() {
+        if(loading) return
         if (uploaderRef.current) {
             uploaderRef.current.click();
         }
@@ -20,6 +18,7 @@ export default function EditUploader({keyId, listing_id, setError, setListing}) 
        
     const handleUpload = async (e) => {
         setLoading(true); 
+        setIndex(keyId)
 
         const selectedFile = e.target.files[0];
         if (!selectedFile) return;
@@ -47,7 +46,7 @@ export default function EditUploader({keyId, listing_id, setError, setListing}) 
     };
 
     return (
-        <div key={keyId} className={styles.EditUploadImage} style={{ backgroundImage: `url(${previewData || ""})`}}>
+        <div key={keyId} className={styles.EditUploadImage}>
             <input 
                 type="file" 
                 accept="image/bmp, image/jpeg, image/png"
@@ -57,16 +56,14 @@ export default function EditUploader({keyId, listing_id, setError, setListing}) 
                 hidden
             />
 
-            {!loading ?
-                <span className={styles.UploaderCloud} onClick={handleClick}> 
-                    <Icon name={'CloudUpload'} color={'#424949'}/> 
-                    Sélectionner une image
-                </span>
-                :    
+            {(loading && index === keyId)?
                 <div className={styles.UploaderLoader}>
                     <div className={'spinner'}></div>
-                    Patientez...
                 </div>
+                :
+                <span className={styles.UploaderCloud} onClick={handleClick}> 
+                    <Icon name={'CloudUpload'} color={'#424949'}/> 
+                </span>
             }
         </div>
     );
