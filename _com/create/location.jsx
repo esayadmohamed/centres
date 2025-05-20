@@ -79,7 +79,7 @@ export default function CreateLocation ({errors, citiesList, hoodsList, selected
                                 onChange={filterCities}
                                 onFocus={()=>setViewCities(true)}
                             />
-                            {!viewCities && 
+                            {viewCities && 
                                 <ul className={styles.Dropdown}>
                                     {(cities).map((item, id)=> 
                                         <li key={id} onClick={()=>handleCitySelect(item)}> {item.name} </li>
