@@ -7,22 +7,7 @@ import { AdminAuthenticate } from "./editdata";
 
 const db = getDB();
 
-async function EmailsList() {
-    try {
-        const admin_id = await AdminAuthenticate();
-        if(!admin_id) return null;
-
-        const [emails] = await db.query('SELECT email FROM emails WHERE status = ?', [1]);
-
-        return emails
-
-        } catch (error) {
-        console.error('Error fetching marketing emails:', error);
-        return null;
-    } 
-}
-
-export async function sendEmail() {
+export async function sendEmail(email) {
     try {
         const transporter = nodemailer.createTransport({
         host: 'mail.centres.ma',
@@ -34,34 +19,22 @@ export async function sendEmail() {
         port: 465,
         });
 
-        const emailsList = await EmailsList(); //[{email: 'esayadmohamed@gmail.com'}]///
-        if(!emailsList){
-             return { message: "An error occurred while fetching emails" };
-        }
+        const message = buildMessage(email);
 
-        if(emailsList.length === 0){
-             return { message: "Marketing emails list is empty" };
-        }
-    
-        const emails = emailsList.map((item)=> item.email)
+        const mailOptions = {
+            from: `Centres ${process.env.EMAIL_USER}`,
+            to: email,
+            subject: message.subject,
+            html: message.text,
+        };
 
-        for (const email of emails) {
-            
-            const message = buildMessage(email);
+        await transporter.sendMail(mailOptions);
+        
+        return {success: true}
 
-            const mailOptions = {
-                from: `Centres ${process.env.EMAIL_USER}`,
-                to: email,
-                subject: message.subject,
-                html: message.text,
-            };
-            await transporter.sendMail(mailOptions);
-        }
-
-        return { message: "Marketing emails were sent successfully" };
     } catch (error) {
         console.error('Error sending marketing emails:', error);
-        return { message: "An error occurred while sending emails" };
+        return { error: "An error occurred while sending emails" };
     }
 }
 
@@ -77,3 +50,36 @@ export async function ModifyDatabase(value) {
         return { error: "Database error!" };
     }
 }
+
+
+
+
+// const emailsList = [{email: 'esayadmohamed@gmail.com'}]
+// if(!emailsList){
+//      return { message: "An error occurred while fetching emails" };
+// }
+
+// if(emailsList.length === 0){
+//      return { message: "Marketing emails list is empty" };
+// }
+
+// const emails = emailsList.map((item)=> item.email)
+
+// for (const email of emails) {
+    
+//     const message = buildMessage(email);
+
+//     const mailOptions = {
+//         from: `Centres ${process.env.EMAIL_USER}`,
+//         to: email,
+//         subject: message.subject,
+//         html: message.text,
+//     };
+//     await transporter.sendMail(mailOptions);
+// }
+
+// ------------------------------------------
+
+// async function EmailsList() {
+
+// }

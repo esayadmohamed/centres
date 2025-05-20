@@ -363,3 +363,33 @@ export async function allCities() {
 }
 
 // --------------------------------------------------------
+
+export async function allEmails() {
+    try{ 
+        const db = getDB();
+
+        const admin_id = await AdminAuthenticate();
+        if(!admin_id) return [];
+
+        const [emails] = await db.query('SELECT email FROM emails WHERE status = ?', [1]);
+                
+        return emails
+
+    } catch (error) {
+        console.error("Database error:", error);
+        return [];
+    }
+}
+
+
+//     try {
+
+
+//         
+
+//         
+
+//         } catch (error) {
+//         console.error('Error fetching marketing emails:', error);
+//         return null;
+//     } 

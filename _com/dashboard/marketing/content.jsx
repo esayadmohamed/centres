@@ -3,6 +3,7 @@ import styles from "@/_com/dashboard/css/marketing.module.css";
 
 import { useEffect, useState } from "react";
 import { RemoveCenter } from "@/_lib/dashboard/editdata";
+import { allEmails } from "@/_lib/dashboard/getdata";
 
 import Icon from "@/_lib/utils/Icon";
 
@@ -15,6 +16,7 @@ export default function MarketingContent({center, setCenter, setCenters}) {
         
     const [emails, setEmails] = useState([])
     const [numbers, setNumbers] = useState([])
+    const [emailsList, setEmailsList] = useState([])
 
     useEffect(()=>{
         setEmails(center?.emails);
@@ -47,18 +49,33 @@ export default function MarketingContent({center, setCenter, setCenters}) {
         }
     }
 
+    async function getEmails(){
+        setLoading(true);
+
+        const result = await allEmails();
+        // console.log(result);
+
+        setEmailsList(result)
+        handleToggle('send')
+        setLoading(false);
+    }
+
     return(
         <div className={styles.CentersContent} >
             <div className={styles.CentersAction}>
                 <p>Centers</p>
-                <p>
+                <div className={styles.CentersActionToggle}>
                     <span style={{backgroundColor: '#2471a3'}} onClick={()=>handleToggle('converter')}> 
                         <Icon name={'LoaderCircle'} color={'white'}/> 
                     </span>
-                    <span style={{backgroundColor: '#2ecc71'}} onClick={()=>handleToggle('send')}> 
-                        <Icon name={'Send'} color={'white'}/> 
+                    <span style={{backgroundColor: '#2ecc71'}} onClick={getEmails}>
+                        {loading ? 
+                        <div className={'spinner'}></div>
+                        : 
+                        <Icon name={'Send'} color={'white'}/>    
+                    } 
                     </span>
-                </p>
+                </div>
             </div>
 
             {center? 
@@ -99,7 +116,7 @@ export default function MarketingContent({center, setCenter, setCenters}) {
                         <Converter/>    
                         :
                     toggle === 'send' ?
-                        <Send />
+                        <Send emailsList={emailsList}/>
                     :
                         <div className={styles.CentersEmpty}>
                             [no data]

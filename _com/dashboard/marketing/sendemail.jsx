@@ -8,37 +8,111 @@ import Icon from "@/_lib/utils/Icon";
 import { sendEmail } from "@/_lib/dashboard/actions";
 import { buildMessage } from "./emails";
 
-export default function Send({}) {
+export default function Send({emailsList}) {
     
-    const email = buildMessage();
-    const emails = ['esayadmohamed@gmail.com', 'esayadbusiness@gmail.com']
+    const emailData = buildMessage();
+    const [emails, setEmails] = useState([])
 
-    const [loading, setLoadng] = useState(false)
+    const [loading, setLoading] = useState(false)
     const [message, setMessage] = useState('')
+    const [error, setError] = useState('')
 
-    async function handleSend(){
+    async function handleSend() {
+        if(emails.length === 0) return
         setMessage('');
-        setLoadng(true);
+        setError('');
+        setLoading(true);
 
-        const result = await sendEmail(emails);
-        setLoadng(false);
-        
-        setMessage(result.message)
+        const failedEmails = [];
+        let id = 1;
+
+        for (const email of emails) {
+            setMessage(`(${id}/${emails.length}) Emailing: ${email}`);
+            const result = await sendEmail(email);
+
+            if (result?.error) {
+                failedEmails.push(email);
+            }
+            id++;
+        }
+
+        setLoading(false);
+
+        if (failedEmails.length > 0) {
+            setMessage(`Finished sending emails. Failed to contact: ${failedEmails.join(', ')}`);
+            setError(`Failed to send emails to ${failedEmails.length}`);
+        } else {
+            setMessage("Marketing emails were sent successfully to all addresses.");
+            setError(null);
+        }
+    }
+
+    // -----------------------------------------
+
+    const [currentPage, setCurrentPage] = useState(1);
+    const itemsPerPage = 10;
+
+    const totalPages = Math.ceil(emailsList.length / itemsPerPage);
+    
+    function goToPreviousPage() {
+        setCurrentPage(prev => Math.max(prev - 1, 1));
+    }
+
+    function goToNextPage() {
+        setCurrentPage(prev => Math.min(prev + 1, totalPages));
+    }
+
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const currentItems = emailsList.slice(startIndex, startIndex + itemsPerPage);
+
+    // -----------------------------------------
+
+    function handleCheck(email){
+
+        if(emails.includes(email)){
+            setEmails(emails.filter(e => e !== email));
+        } else{
+            setEmails([...emails, email]);
+        }
 
     }
 
     return(
         <div className={styles.Send}>
             <div className={styles.SendContent}>
-                <div>
-                    [no data]
-                </div>
+                <ul className={styles.SendList}>
+
+                    <div className={styles.CentersListNavigate}>
+                        <span onClick={goToPreviousPage}> <Icon name={'ChevronLeft'} color={'white'}/> </span>
+                        <p> {currentPage} / {totalPages} </p>
+                        <span onClick={goToNextPage}> <Icon name={'ChevronRight'} color={'white'}/> </span>
+                    </div>
+                    <div className={styles.CentersListActions}>
+                        <p>
+                            <span onClick={()=>setEmails(currentItems.map((value)=>value.email))}>Select all</span>
+                            <span onClick={()=>setEmails([])}>Select none</span>
+                        </p>
+                        <p>{emails.length} / {emailsList.length}</p>
+                    </div>
+                    {currentItems?.slice(0,10).map((item, id)=>
+                        <li key={id} onClick={()=> handleCheck(item.email)}> 
+                            {emails.includes(item.email) ?
+                                <span> <Icon name={'SquareCheck'} color={'#2471a3'}/> </span>
+                                :
+                                <span> <Icon name={'Square'} color={'#424949'}/> </span>
+                                }
+                            {item.email} 
+                        </li>
+                    )}
+
+                </ul>
                 <div className={styles.SendDisplay}>
-                    <div className={styles.SendDisplayEmail } dangerouslySetInnerHTML={{ __html:  email.text }} />
+                    <div className={styles.SendDisplayEmail } dangerouslySetInnerHTML={{ __html:  emailData.text }} />
                 </div>
             </div>
 
             {message && <p className={styles.Message} > {message} </p>}
+            {error && <p className={styles.Error} > {error} </p>}
 
             <button onClick={handleSend}>
                 {loading ?
@@ -55,6 +129,27 @@ export default function Send({}) {
 }
 
 
+
+
+
+    // async function handleSend(){
+    //     setMessage('');
+    //     setLoading(true);
+
+    //     let id = 1;
+    //     for (const email of emails) {
+    //         setMessage(`(${id}/${emails.length}) Emailing: ${email}`)
+    //         const result = await sendEmail(email);
+    //         if(result?.error){
+    //             setError(result?.error);
+    //             setMessage('');
+    //         }
+    //         id++;
+    //     }
+
+    //     setLoading(false);
+    //     setMessage("Marketing emails were sent successfully");
+    // }
 
 // const [select, setSelect] = useState(emails[0].subject.slice(0, 30))
 // const [toggle, setToggle] = useState(false)
