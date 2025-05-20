@@ -261,16 +261,12 @@ export async function PasswordReset(user) {
 
         const new_password = await bcrypt.hash(password.main_password, 10);
 
-        // Optional: Use transaction here for safety
-        await db.beginTransaction();
         await db.query("UPDATE users SET password = ? WHERE email = ?", [new_password, verify_token.email]);
         await db.query("DELETE FROM tokens WHERE email = ?", [verify_token.email]);
-        await db.commit();
 
         return { success: true };
 
     } catch (error) {
-        await db.rollback?.(); // Safe even if no transaction started
         console.error("Database error:", error);
         return { error: { server: "Une erreur est survenue. Veuillez réessayer plus tard." } };
     }

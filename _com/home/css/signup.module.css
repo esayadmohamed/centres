@@ -132,6 +132,23 @@
 
 /* --------------------------------------------- */
 
+.FormSuccess{
+    padding: 15px 10px;
+    background-color: #eafaf1;
+    color: #424949;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    border-radius: 5px;
+    /* font-size: 14px; */
+}
+
+.FormSuccess p:first-of-type{
+    font-weight: 600;
+}
+
+/* --------------------------------------------- */
+
 @media (max-width: 600px) {
     .BodySignup{
         font-size: 15px;

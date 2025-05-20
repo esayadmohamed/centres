@@ -26,12 +26,14 @@ export default function LandingSignup({signupRef, email, setEmail}) {
 
     const [loading, setLoading] = useState(false)
     const [errors, setErrors] = useState({})
+    const [success, setSuccess] = useState(false)
 
     async function handleSubmit(){
         if(loading) return
 
         setLoading(true)
         setErrors({})
+        setSuccess(false)
         
         const user = {
             name: name,
@@ -52,7 +54,7 @@ export default function LandingSignup({signupRef, email, setEmail}) {
             setErrors(result.error)
         } else{
             Notify(`New Account Created ${email}`)
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+            setSuccess(true)
         }
     }
 
@@ -155,7 +157,7 @@ export default function LandingSignup({signupRef, email, setEmail}) {
                     }
 
                     {errors?.password && <p className={styles.FormError}> {errors.password}</p> }
-
+                    
                     <p className={styles.FormAccept}>
                         En créant un compte, vous acceptez 
                             <Link href={'/conditions'}> <span>nos règles et conditions d'utilisation</span></Link>
@@ -172,6 +174,15 @@ export default function LandingSignup({signupRef, email, setEmail}) {
                     {errors?.server && <p className={styles.FormError}> {errors.server}</p> }
 
                     {Object.keys(errors).length !== 0 && <p className={styles.FormError}> Veuillez vérifier vos saisies </p>}
+                    
+                    {success && 
+                        <div className={styles.FormSuccess}>
+                            <p> Vérifiez Votre E-mail</p>
+                            <p>Un lien de vérification à été envoyé votre adresse e-mail:</p>
+                            <p className={styles.SuccessEmail}>{email}</p>
+                            <p>Cliquez sur le lien pour compléter la vérification.</p>
+                        </div>
+                    }
 
                     <button onClick={handleSubmit}>
                         {loading? 

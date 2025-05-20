@@ -18,17 +18,13 @@
     color: #424949;
 }
 
-.BarToggle{
-    display: none;
-}
-
 .BarLogo p{
     display: flex;
     align-items: center;
     gap: 10px;
 }
 
-.BarLogo p span{
+.BarLogo p span:last-of-type{
     display: flex;
     align-items: center;
     cursor: pointer;
@@ -37,6 +33,10 @@
 .BarLogo p span svg{
     width: 25px;
     height: 25px;
+}
+
+.BarToggle{
+    display: none;
 }
 
 .BarSignup{
@@ -92,7 +92,7 @@
     border-radius: 5px;
     overflow: hidden;
     width: 400px;
-    height: 45;
+    height: 45px;
     display: grid;
     grid-template-columns: auto 45px;
 }
@@ -215,7 +215,9 @@
     height: 18;
 }
 
+
 /* --------------------------------------------- */
+
 
 @media (max-width: 600px) {
     .PageHeader{

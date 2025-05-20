@@ -109,7 +109,7 @@ export default function AuthSignup (){
                                         <li>Inscription</li>
                                     </ul> */}
                                 
-                                    <h3> Vérifiez Votre E-mail</h3>
+                                    <h3>Vérifiez Votre E-mail</h3>
                                     <p>Nous avons envoyé un lien de vérification à votre adresse e-mail.</p>
                                     <h4> {email} </h4>
                                     <p>Cliquez sur le lien pour compléter le processus de vérification.</p>
