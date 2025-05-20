@@ -1,0 +1,249 @@
+.PageHeader{
+    background: linear-gradient(135deg, #85c1e9 0%, #a3d1f7 50%, #d1e9ff 100%);
+}
+
+.PageHeaderBar{
+    padding: 0 20px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.BarLogo{
+    display: flex;
+    align-items: center;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: #424949;
+}
+
+.BarToggle{
+    display: none;
+}
+
+.BarLogo p{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.BarLogo p span{
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.BarLogo p span svg{
+    width: 25px;
+    height: 25px;
+}
+
+.BarSignup{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    border-radius: 5px;
+    height: 35px;
+    padding: 0 10px;
+    color: white;
+    background-color: #2471a3;
+    cursor: pointer;
+}
+
+.PageHeaderBar ul{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    font-weight: 600;
+    color: #424949;
+}
+
+.PageHeaderSlider{
+    height: 360px;
+    padding: 20px;
+    display: grid;
+    grid-template-columns: auto 260px;
+    gap: 50px;
+}
+
+.SliderImage{
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    /* background-image: url('../../public//images/display.png'); */
+    height: 100%;
+    border: 1px solid #ccd1d1;
+    border-radius: 5px;
+    background-color: rgba(254, 254, 254, .5);
+}
+
+.SliderText{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 20px;
+}
+
+.SliderText div{
+    border: 1px solid #99a3a4;
+    border-radius: 5px;
+    overflow: hidden;
+    width: 400px;
+    height: 45;
+    display: grid;
+    grid-template-columns: auto 45px;
+}
+
+.SliderText div input{
+    border: none;
+    outline: none;
+    padding: 10px;
+    font-size: 15px;
+    width: 100%;
+}
+
+.SliderText div span{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #2471a3;
+    cursor: pointer;
+}
+
+.SliderText div span svg{
+    width: 22px;
+    height: 22px;
+}
+
+/* --------------------------------------------- */
+
+.Layout{
+    position: fixed;
+    background-color: rgba(0,0,0, .5);
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+}
+
+.Sidebar{
+    position: fixed;
+    background-color: white;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    height: 100%;
+    width: 300px;
+    font-size: 15px;
+
+    display: grid;
+    grid-template-rows: 50px auto 100px;
+    z-index: 100;
+}
+
+.SidebarHeader{
+    border-bottom: 1px solid #e5e8e8;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
+}
+
+.SidebarHeader p{
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    color: #424949;
+}
+
+.SidebarHeader p svg{
+    width: 24;
+    height: 24;
+}
+
+.SidebarHeader span{
+    height: 30px;
+    width: 30px;
+    border-radius: 100%;
+    background-color: #e74c3c;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.SidebarHeader span svg{
+    width: 16;
+    height: 16;
+}
+
+.Sidebar ul{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    gap: 10px;
+}
+
+.Sidebar a{
+    height: 50px;
+    min-width: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;   
+}
+
+.SidebarFooter{
+    background-color: #f2f3f4;
+    color: #424949;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+}
+
+.SidebarFooter svg{
+    width: 18;
+    height: 18;
+}
+
+/* --------------------------------------------- */
+
+@media (max-width: 600px) {
+    .PageHeader{
+        background: linear-gradient(135deg, #85c1e9 0%, #a3d1f7 50%, #d1e9ff 100%);
+    }
+    .PageHeaderBar{
+        padding: 0 15px;
+    }
+    .PageHeaderBar ul{
+        display: none;
+    }
+    .BarToggle{
+        display: flex;
+    }
+    .PageHeaderSlider{
+        display: flex;
+         padding: 15px;
+    }
+    .SliderImage{
+        display: none;
+    }
+
+    .SliderText div{
+        width: 100%; 
+    }
+
+}
+
+@media (min-width: 601px) and (max-width: 1024px) {
+
+}

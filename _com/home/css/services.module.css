@@ -1,0 +1,52 @@
+.BodyServices{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    height: 80px;
+    padding: 10px 0;
+    background-color: #f8f9f9;
+}
+
+.BodyServices li{
+    color: #424949;
+    border-right: 1px solid #ccd1d1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.BodyServices li:last-of-type{
+    border: none;
+}
+
+.BodyServices li svg{
+    display: flex;
+    align-items: center;
+}
+
+.BodyServices li svg{
+    width: 20px;
+    height: 20px;
+}
+
+/* --------------------------------------------- */
+
+@media (max-width: 600px) {
+    .BodyServices{
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        height: fit-content;
+        padding: 20px 0;
+        row-gap: 30px;
+    }
+
+    .BodyServices li{
+        border: none;
+        flex-direction: column;
+
+    }
+}
+
+@media (min-width: 601px) and (max-width: 1024px) {
+
+}
