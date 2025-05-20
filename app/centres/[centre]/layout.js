@@ -17,7 +17,7 @@ export async function generateMetadata({ params }) {
     const listing = await GetListing(center_id);
 
     return {
-        title: `${listing?.name} - Centre de Soutien`,
+        title: `${listing?.name} - Centre de Soutien a ${listing?.city}, ${listing?.hood}`,
         description: `Découvrez ${listing?.name}, un centre de soutien situeé à ${listing?.city}.`,
     };
 }

@@ -18,7 +18,7 @@ export default function LandingServices() {
             </li>
             <li> 
                 <span> <Icon name={'Tag'} color={'#424949'}/> </span>
-                <p> Services gratuite </p>
+                <p> Services gratuits </p>
             </li>
             <li> 
                 <span> <Icon name={'Headset'} color={'#424949'}/> </span>
