@@ -1,14 +1,14 @@
 'use client';
-import Link from "next/link";
 import styles from "./styles.module.css";
 
-import { useState, useRef } from "react";
-import Icon from "@/_lib/utils/Icon";
+import { useState, useRef, useEffect } from "react";
 
 import LandingHeader from "@/_com/home/Header";
 import LandingServices from "@/_com/home/services";
 import LandingSignup from "@/_com/home/signup";
 import LandingFooter from "@/_com/home/footer";
+
+import { IntPixels, ModifyPixels } from "@/_lib/home/actions";
 
 export default function LandingPage() {
     
@@ -19,6 +19,22 @@ export default function LandingPage() {
         setEmail(value)
         signupRef.current?.scrollIntoView({ behavior: 'smooth' });
     }
+
+    useEffect(() => {
+        async function insertPixel() {
+            const result = await IntPixels();
+
+            setTimeout(() => {
+            ModifyPixels(result);
+            }, 5000);
+        }
+
+        insertPixel();
+        
+        return () => clearTimeout(timeoutId);
+    }, []);
+
+
 
     return (
         <div className={styles.LandingPage}>
