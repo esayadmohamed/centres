@@ -9,11 +9,11 @@ import { signOut } from "next-auth/react"
 
 import Icon from "@/_lib/utils/Icon"
 
-export default function NavSidebar ({isAuthenticated}){
+export default function NavSidebar ({isAuthenticated, toggle, setToggle}){
 
     const pathname = usePathname();
 
-    const [toggle, setToggle] = useState(false)
+    // const [toggle, setToggle] = useState(false)
 
     const [touchStart, setTouchStart] = useState(null);
     const [touchEnd, setTouchEnd] = useState(null);
@@ -31,19 +31,18 @@ export default function NavSidebar ({isAuthenticated}){
     const onTouchEnd = () => {        
         if (!touchStart || !touchEnd) return;
         const distance = touchStart - touchEnd;
-        // const isLeftSwipe = distance > minSwipeDistance;
-        const isRightSwipe = distance < -minSwipeDistance;
+        const isLeftSwipe = distance > minSwipeDistance;
+        // const isRightSwipe = distance < -minSwipeDistance;
     
-        if (isRightSwipe ) setToggle(false)
+        if (isLeftSwipe) setToggle(false)
     };
 
 
     return(
         <>
-            <div className={styles.Functions} onClick={()=>setToggle(true)}>
+            {/* <div className={styles.Functions} onClick={()=>setToggle(true)}>
                 <Icon name={'AlignJustify'} color={'#424949'}/>
-                {/* <p>Connexion</p> */}
-            </div>
+            </div> */}
             
 
             {toggle && 

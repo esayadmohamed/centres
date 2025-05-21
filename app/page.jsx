@@ -108,3 +108,9 @@ export default async function Home() {
 //     UNIQUE (number),
 //     FOREIGN KEY (center_id) REFERENCES centers(id) ON DELETE CASCADE
 // )
+
+// CREATE TABLE pixels (
+//     id INT AUTO_INCREMENT PRIMARY KEY,
+//     time TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+//     hook INT DEFAULT 0
+// )

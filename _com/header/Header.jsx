@@ -1,8 +1,9 @@
 import styles from './style.module.css'
 import { getSessionData } from '@/_lib/utils/session';
 
-import NavLogo from "./NavLogo"
-import NavSidebar from "./NavSidebar"
+import NavLogo from './logo';
+import NavLinks from './links';
+import NavAction from './action';
 
 export default async function Header() {
 
@@ -11,8 +12,9 @@ export default async function Header() {
     return (
         <main className={styles.Nav} >
             <div className={styles.Navbar}>
-                <NavLogo />
-                <NavSidebar isAuthenticated={session? true : false}/>
+                <NavLogo isAuthenticated={session? true : false}/>
+                <NavLinks /> 
+                <NavAction auth={session? true : false}/>
             </div>
         </main>
     )
