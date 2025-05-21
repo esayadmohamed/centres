@@ -10,9 +10,6 @@ export default function NavAction ({auth}){
         <>
         {auth? 
             <div className={styles.NavAction}>
-                <span> 
-                    <Link href={'/account'}>  <Icon name={'Settings'} color={'#424949'}/> </Link> 
-                </span> 
                 <Link href={'/listings/create'}>
                     <p>
                         <Icon name={'SquarePlus'} color={'white'}/>

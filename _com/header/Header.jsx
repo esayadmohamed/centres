@@ -13,7 +13,7 @@ export default async function Header() {
         <main className={styles.Nav} >
             <div className={styles.Navbar}>
                 <NavLogo isAuthenticated={session? true : false}/>
-                <NavLinks /> 
+                <NavLinks auth={session? true : false}/> 
                 <NavAction auth={session? true : false}/>
             </div>
         </main>
