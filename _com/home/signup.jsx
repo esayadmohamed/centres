@@ -159,7 +159,7 @@ export default function LandingSignup({signupRef, email, setEmail}) {
                     {errors?.password && <p className={styles.FormError}> {errors.password}</p> }
                     
                     <p className={styles.FormAccept}>
-                        En créant un compte, vous acceptez 
+                        En créant un compte, vous acceptez <span> </span>
                             <Link href={'/conditions'}> 
                                 <span>nos règles et conditions d'utilisation</span>
                             </Link>

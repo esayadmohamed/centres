@@ -60,7 +60,40 @@
 
 /* ------------------------------------ */
 
-.NavAction, .NavAuth{
+.NavAction{
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.NavAction span,
+.NavAction span a{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.NavAction span svg{
+    width: 25px;
+    height: 25px;
+}
+
+.NavAction p{
+    height: 36px;
+    padding: 0 15px;
+    font-size: 14px;
+    border-radius: 5px;
+    background-color: #FF385C;
+    color: white;
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.NavAuth{
     height: 36px;
     padding: 0 15px;
     font-size: 14px;
@@ -70,7 +103,7 @@
     cursor: pointer;
 }
 
-.NavAction a, .NavAuth a{
+.NavAuth a{
     height: 100%;
     width: 100%;
     display: flex;
@@ -79,7 +112,7 @@
     gap: 8px;
 }
 
-.NavAction svg, .NavAuth svg{
+.NavAuth svg{
     width: 20px;
     height: 20px;
 }
@@ -238,7 +271,9 @@
     .NavLinks{
         display: none;
     }
-
+    .NavAction span{
+        display: none;
+    }
     
 }
 

@@ -29,9 +29,7 @@ export default function LandingPage() {
             }, 5000);
         }
 
-        insertPixel();
-        
-        return () => clearTimeout(timeoutId);
+        insertPixel();        
     }, []);
 
 
