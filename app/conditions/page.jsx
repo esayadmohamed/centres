@@ -4,11 +4,7 @@ import Link from "next/link";
 import Header from "@/_com/header/Header";
 import Footer from "@/_com/footer/Footer";
 
-import Icon from "@/_lib/utils/Icon";
-
-export default async function Listings() {
-
-    // const listings = await userListings(); 
+export default function Conditions() {
 
     return (
         <main className="content">

@@ -160,7 +160,9 @@ export default function LandingSignup({signupRef, email, setEmail}) {
                     
                     <p className={styles.FormAccept}>
                         En créant un compte, vous acceptez 
-                            <Link href={'/conditions'}> <span>nos règles et conditions d'utilisation</span></Link>
+                            <Link href={'/conditions'}> 
+                                <span>nos règles et conditions d'utilisation</span>
+                            </Link>
                     </p> 
 
                     <ReCAPTCHA
