@@ -15,7 +15,7 @@
     align-items: center;
     text-transform: uppercase;
     font-weight: 600;
-    color: #424949;
+    color: #2471a3;
 }
 
 .BarLogo p{
@@ -45,10 +45,11 @@
     justify-content: center;
     font-size: 14px;
     border-radius: 5px;
-    height: 35px;
+    height: 36px;
     padding: 0 10px;
     color: white;
-    background-color: #2471a3;
+    /* background-color: #2471a3; */
+    background-color: #FF385C;
     cursor: pointer;
 }
 
@@ -159,7 +160,8 @@
     display: flex;
     align-items: center;
     font-size: 14px;
-    color: #424949;
+    color: #2471a3;
+    font-weight: 600;
 }
 
 .SidebarHeader p svg{
@@ -168,10 +170,6 @@
 }
 
 .SidebarHeader span{
-    height: 30px;
-    width: 30px;
-    border-radius: 100%;
-    background-color: #e74c3c;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -179,8 +177,8 @@
 }
 
 .SidebarHeader span svg{
-    width: 16;
-    height: 16;
+    width: 24px;
+    height: 24px;
 }
 
 .Sidebar ul{
@@ -198,7 +196,11 @@
 
     display: flex;
     align-items: center;
-    justify-content: center;   
+    justify-content: center;
+    /* font-size: 14px;  */
+    font-weight: 600;
+    color: #424949;
+    /* text-transform: uppercase;   */
 }
 
 .SidebarFooter{

@@ -31,7 +31,10 @@ export default function LandingHeader({handleEmail}) {
                 </ul>
                 <p className={styles.BarSignup} onClick={()=>handleEmail(email)}>
                     Cree un compte
+                    {/* <Icon name={'SquarePlus'} color={'white'}/> */}
+                    {/* <p>Publier</p> */}
                 </p>
+
             </div>
             <div className={styles.PageHeaderSlider}>
                 <div className={styles.SliderText}>
@@ -62,7 +65,7 @@ export default function LandingHeader({handleEmail}) {
                                 <Icon name={'Navigation2'} color={'#2471a3'}/>
                                 CENTRES
                             </p>
-                            <span onClick={()=>setToggle(false)}> <Icon name={'X'} color={'white'}/> </span>
+                            <span onClick={()=>setToggle(false)}> <Icon name={'CircleX'} color={'#e74c3c'}/> </span>
                         </div>
                         <ul>
                             <Link href={'/'}> <li>Centres de soutien</li> </Link>

@@ -17,6 +17,7 @@
     flex-direction: column;
     gap: 20px;
     padding: 20px;
+    overflow-x: auto;
 }
 
 .FormError{
@@ -95,8 +96,6 @@
 }
 
 .SignupDisplay{
-    /* background-color: #f8f9f9; */
-    /* background: linear-gradient(to bottom left, #f8f9f9, #ffffff); */
     background-position: center;
     background-repeat: no-repeat;
     background-size: contain;
@@ -140,7 +139,6 @@
     flex-direction: column;
     gap: 15px;
     border-radius: 5px;
-    /* font-size: 14px; */
 }
 
 .FormSuccess p:first-of-type{
@@ -157,6 +155,7 @@
     .SignupContainer{
         display: flex;
         padding: 10px 0;
+        width: 100%;
     }
     .SignupDisplay{
         display: none;

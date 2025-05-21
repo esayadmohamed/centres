@@ -10,14 +10,14 @@ export default function NavAction ({auth}){
         <>
         {auth? 
             <div className={styles.NavAction}>
-                <Link href={'/auth/signup'}>
+                <Link href={'/listings/create'}>
                     <Icon name={'SquarePlus'} color={'white'}/>
                     <p>Publier</p>
                 </Link>
             </div>
             :
             <div className={styles.NavAuth}>
-                <Link href={'/auth/signup'}>
+                <Link href={'/auth'}>
                     <p>Se connecter</p>
                 </Link>
             </div>
