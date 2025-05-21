@@ -135,7 +135,7 @@ export function buildMessage(email = '') {
                         color: #2471a3; 
                         text-decoration: underline;
                         ">
-                        <a href="https://www.centres.ma/"> www.centres.ma </a>
+                        <a href="https://www.centres.ma/home"> www.centres.ma </a>
                     </p>
 
                     <p style="
