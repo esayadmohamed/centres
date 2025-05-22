@@ -105,7 +105,15 @@ export default async function Home() {
 //     id INT AUTO_INCREMENT PRIMARY KEY,
 //     number VARCHAR(255) NOT NULL,
 //     center_id INT NOT NULL,
+//     status INT NOT NULL DEFAULT 1,
 //     UNIQUE (number),
+//     FOREIGN KEY (center_id) REFERENCES centers(id) ON DELETE CASCADE
+// )
+
+// CREATE TABLE notes (
+//     id INT AUTO_INCREMENT PRIMARY KEY,
+//     note VARCHAR(255) NOT NULL,
+//     center_id INT NOT NULL,
 //     FOREIGN KEY (center_id) REFERENCES centers(id) ON DELETE CASCADE
 // )
 

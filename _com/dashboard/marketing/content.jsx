@@ -2,13 +2,14 @@
 import styles from "@/_com/dashboard/css/marketing.module.css";
 
 import { useEffect, useState } from "react";
-import { RemoveCenter } from "@/_lib/dashboard/editdata";
+import { RemoveCenter, ChangeStatus } from "@/_lib/dashboard/editdata";
 import { allEmails } from "@/_lib/dashboard/getdata";
 
 import Icon from "@/_lib/utils/Icon";
 
 import CenterEmail from "./addemail";
 import CenterNumber from "./addnumber";
+import CenterNote from "./addnote";
 import Converter from "./converter";
 import Send from "./sendemail";
 
@@ -16,11 +17,13 @@ export default function MarketingContent({center, setCenter, setCenters}) {
         
     const [emails, setEmails] = useState([])
     const [numbers, setNumbers] = useState([])
+    const [notes, setNotes] = useState([])
     const [emailsList, setEmailsList] = useState([])
 
     useEffect(()=>{
         setEmails(center?.emails);
         setNumbers(center?.numbers);
+        setNotes(center?.notes);
     }, [center])
 
     const [toggle, setToggle] = useState(null)
@@ -34,7 +37,7 @@ export default function MarketingContent({center, setCenter, setCenters}) {
     }
 
     async function handleRemove(){
-        setLoading(true);
+        setLoading('remove');
         setError('');
 
         const result = await RemoveCenter(center.id);
@@ -49,8 +52,23 @@ export default function MarketingContent({center, setCenter, setCenters}) {
         }
     }
 
+    async function handleStaus(){
+        setLoading('status');
+        setError('');
+
+        const result = await ChangeStatus(center.id);
+        setLoading(false);
+        
+        if(result?.error){
+            setError(result.error)
+        }else{
+            setCenter(result.find(item => item.id === center.id));
+            setCenters(result)
+        }
+    }
+
     async function getEmails(){
-        setLoading(true);
+        setLoading('send');
 
         const result = await allEmails();
         // console.log(result);
@@ -69,7 +87,7 @@ export default function MarketingContent({center, setCenter, setCenters}) {
                         <Icon name={'LoaderCircle'} color={'white'}/> 
                     </span>
                     <span style={{backgroundColor: '#2ecc71'}} onClick={getEmails}>
-                        {loading ? 
+                        {loading === 'send' ? 
                         <div className={'spinner'}></div>
                         : 
                         <Icon name={'Send'} color={'white'}/>    
@@ -80,12 +98,23 @@ export default function MarketingContent({center, setCenter, setCenters}) {
 
             {center? 
                 <div className={styles.CentersBody}>
-                    <div className={styles.CenterName}>
-                        <p> {center.name}, {center.city} </p>
+                    <div className={styles.CenterHeader}>
+
+                        <div className={styles.CenterName} onClick={handleStaus}> 
+                            <span> 
+                                {loading === 'status' ? 
+                                    <div className={'spinner'}> </div>
+                                    :
+                                    <Icon name={center.status === 1 ? 'Check' : 'X'} 
+                                        color={center.status === 1 ? '#28b463' : '#e74c3c'} />
+                                }
+                            </span>
+                            {center.name}, {center.city} 
+                        </div>
                         
                         <div className={styles.CenterRemove}>
                             {ok?
-                                loading ? 
+                                loading === 'remove' ? 
                                     <div className={'spinner'}> </div>
                                     :
                                     <>
@@ -110,6 +139,7 @@ export default function MarketingContent({center, setCenter, setCenters}) {
 
                     <CenterNumber numbers={numbers} setNumbers={setNumbers} center_id={center?.id}/>
 
+                    <CenterNote notes={notes} setNotes={setNotes} center_id={center?.id}/>
                 </div>
                 :
                     toggle === 'converter' ?

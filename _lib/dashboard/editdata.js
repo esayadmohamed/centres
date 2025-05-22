@@ -722,6 +722,36 @@ export async function RemoveCenter(id) {
     }
 }
 
+export async function ChangeStatus(id) {         
+    try{          
+        const admin_id = await AdminAuthenticate();
+        if(!admin_id) return {error: 'Admin Authentication Failed.'}; 
+
+        const center_id = await SanitizeId(id)
+        if(!center_id) return {error: 'Center id is not a number.'}; 
+
+        const [rows] = await db.query(`SELECT status FROM centers WHERE id = ?`, [center_id]);
+        const status = rows[0].status;
+
+        if (status === null) return { error: 'Center not found.' };
+
+        await db.query(`UPDATE centers SET status = ? WHERE id = ?`, [status === 1 ? 0 : 1, center_id]);
+
+        await db.query(`UPDATE emails SET status = ? WHERE center_id = ?`, [status === 1 ? 0 : 1, center_id]);
+
+        await db.query(`UPDATE numbers SET status = ? WHERE center_id = ?`, [status === 1 ? 0 : 1, center_id]);
+
+        revalidatePath(`/dashboard`);
+
+        const data = await allCenters();
+        return data.sort((a, b) => b.id - a.id);
+
+    } catch (error) {
+        console.error("Database error:", error);
+        return { error: "Une erreur est survenue. Veuillez réessayer plus tard."};
+    }
+}
+
 // -------------------------------------------------------------
 
 export async function AddEmail(id, value) {     
@@ -854,6 +884,74 @@ export async function RemoveNumber(id, value) {
 
         const [data] = await db.query(`SELECT * FROM numbers WHERE center_id = ?`, [center_id])
         return data.map((item)=>item.number)
+
+    } catch (error) {
+        console.error("Database error:", error);
+        return { error: "Une erreur est survenue. Veuillez réessayer plus tard."};
+    }
+}
+
+export async function AddNote(id, value) {     
+    try{          
+        const admin_id = await AdminAuthenticate();
+        if(!admin_id) return {error: 'Admin Authentication Failed.'}; 
+
+        const center_id = await SanitizeId(id)
+        if(!center_id) return {error: 'Center id is not a number.'}; 
+
+        if(!value || typeof value !== 'string'){
+            return {error: 'Note value is invalid.'}; 
+        }
+
+        const note = xss(value.trim())
+
+        const [existingNote] = await db.query(
+            `SELECT * FROM notes WHERE note = ? and center_id = ?`, [note, center_id]);
+
+        if (existingNote.length !== 0) {
+            return { error: "Note already exists" };
+        }
+
+        await db.query(`INSERT INTO notes (note, center_id) VALUES (?, ?)`, [note, center_id]);
+
+        revalidatePath(`/dashboard`);
+
+        const [data] = await db.query(`SELECT * FROM notes WHERE center_id = ?`, [center_id])
+        return data.map((item)=>item.note)
+
+    } catch (error) {
+        console.error("Database error:", error);
+        return { error: "Une erreur est survenue. Veuillez réessayer plus tard."};
+    }
+}
+
+export async function RemoveNote(id, value) {     
+    try{          
+        const admin_id = await AdminAuthenticate();
+        if(!admin_id) return {error: 'Admin Authentication Failed.'}; 
+
+        const center_id = await SanitizeId(id)
+        if(!center_id) return {error: 'Center id is not a number.'}; 
+
+        if(!value || typeof value !== 'string'){
+            return {error: 'Note value is invalid.'}; 
+        }
+
+        const note = xss(value.trim())
+
+        const [existingNote] = await db.query(
+            `SELECT * FROM notes WHERE note = ? AND center_id = ?`, [note, center_id]);
+
+        if (existingNote.length === 0) {
+            return { error: "Note does not exists" };
+        }
+
+        await db.query(`DELETE FROM notes WHERE note = ? AND center_id = ?`, [note, center_id]);
+
+        revalidatePath(`/dashboard`);
+
+        const [data] = await db.query(`SELECT * FROM notes WHERE center_id = ?`, [center_id])
+        return data.map((item)=>item.note)
 
     } catch (error) {
         console.error("Database error:", error);

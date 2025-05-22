@@ -103,15 +103,16 @@
     align-items: center;
     justify-content: center;
     gap: 5px;
+    background-color: #FF385C;
 }
 
-.NavAction p{
+/* .NavAction p{
     background-color: #FF385C;
 }
 
 .NavAuth p{
     background-color: #1f618d;
-}
+} */
 
 /* ------------------------------------ */
 

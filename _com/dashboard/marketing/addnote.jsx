@@ -2,84 +2,98 @@
 import styles from "@/_com/dashboard/css/marketing.module.css";
 
 import { useState } from "react";
-import { CreateCenter } from "@/_lib/dashboard/editdata";
+import { AddNote, RemoveNote } from "@/_lib/dashboard/editdata";
 
 import Icon from "@/_lib/utils/Icon";
 
-export default function AddCenter({citiesList, setCenters, setCenter}) {
+export default function CenterNote({notes, setNotes, center_id}) {
     
-    const [cities, setCities] = useState(citiesList || [])
-
-    const [name, setName] = useState('')
-    const [city, setCity] = useState('')
-    const [loading, setLoading] = useState(false) 
+    const [index, setIndex] = useState('')
+    
+    const [note, setNote] = useState('')
+    const [loading, setLoading] = useState(null)
     const [error, setError] = useState('')
-    const [toggle, setToggle] = useState(false)
 
-    async function handleCenter(){
-        setLoading(true)
-        setError('')
+    async function handleNote(){
+        if(note === '') return
+        setLoading('addnote')
+        setError('');
 
-        const center={name: name, city:city}
-
-        const result = await CreateCenter(center)
-        setLoading(false)
+        const result = await AddNote(center_id, note)
+        setLoading(null)
         // console.log(result);
 
         if(result?.error){
             setError(result.error)
         } else{
-            setCenters(result)
-            setCenter(result.find(item => item.name === name));
-            setName('')
-            // setCity('')
+            setNotes(result)
+            setNote('')
+        }
+    }
+    
+    async function removeNote(item){
+        if(loading) return;
+        setLoading('removenote')
+        setError('');
+
+        const result = await RemoveNote(center_id, item)
+        setLoading(null)
+        // console.log(result);
+
+        if(result?.error){
+            setError(result.error)
+        } else{
+            setNotes(result)
+            setIndex('')
         }
     }
 
-    function handleSearch(e){
-        const inputValue = e.target.value;
-        
-        setCity(inputValue);
-        
-        const filteredValues = citiesList.filter(value =>
-            value.toLowerCase().includes(inputValue.toLowerCase())
-        )
-        setCities(filteredValues);
-    }
-
-    function handleSelect(item){
-        setCity(item)
-        setToggle(false)
-    }
-
-
     return(
-        <div className={styles.DashAdd} onMouseLeave={()=>setToggle(false)}>
-            <input type="text" value={name} placeholder="Name" onChange={(e)=>setName(e.target.value)}/>
-            <input type="text" placeholder="City" 
-                value={city}
-                onChange={handleSearch} 
-                onFocus={()=>setToggle(true)}
-                />
-            {toggle && 
-                <ul>
-                    {cities.slice(0, 7).map((item, id)=>
-                        <li key={id} onClick={()=>handleSelect(item)}>{item}</li>
-                    )}
-                    {cities.length === 0 && <li>No cities</li>} 
-                </ul>
-            }
+        <ul className={styles.CentersContacts}>
+            <p className={styles.CentersContactsTitle}>Notes</p>
+            <div className={styles.CentersAddContacts}>
+                <div className={styles.AddContact}>
+                    <span onClick={handleNote}> 
+                        {loading === 'addnote'? <div className={'spinner'}> </div>
+                            :
+                            <Icon name={'Plus'} color={'white'}/> 
+                        } 
+                    </span>
+                    <input type="text" placeholder="Add note..." 
+                        value={note}
+                        onChange={(e)=>setNote(e.target.value)}
+                        />
+                </div>
+            </div>
             
             {error && <p className={'Error'}> {error} </p>}
 
-            <button onClick={handleCenter}> 
-                {loading? 
-                    <div className={'spinner'}></div> 
-                    :
-                    <Icon name={'Plus'} color={'white'}/>
-                }
-            </button>
-        </div>
+            {notes?.map((item, id)=>
+                <li key={id}>
+                    {(id+1)+'- '+ item} 
+                    <div className={styles.CentersContactsActions}>
+                        {index === id? 
+                            loading === 'removenote' ? 
+                                <div className={'spinner'}> </div>
+                                :
+                                <>
+                                <span style={{backgroundColor: '#ccd1d1'}} onClick={()=>removeNote(item)}> 
+                                    <Icon name={'Minus'} color={'#424949'}/> 
+                                </span>
+                                <span style={{backgroundColor: '#28b463', width:'50px'}} onClick={()=>setIndex('')}>  
+                                    <Icon name={'X'} color={'white'}/> 
+                                </span>
+                                </>
+                            : 
+                            <span style={{backgroundColor: '#e74c3c'}} onClick={()=>setIndex(id)}> 
+                                <Icon name={'Minus'} color={'white'}/> 
+                            </span>
+                        }
+
+                    </div>
+                </li>
+            )}
+        </ul>
     )
     
 }

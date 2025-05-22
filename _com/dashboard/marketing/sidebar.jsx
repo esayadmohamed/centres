@@ -11,14 +11,15 @@ import AddCenter from "./addcenter";
 
 export default function MarketingSidebar({centersList, centers, setCenters, setCenter}){
     
+    console.log(centersList);
+
     const [search, setSearch] = useState('')
     const [index, setIndex] = useState('')
     const [loading, setLoading] = useState(null)
     const [error, setError] = useState('')
 
     const [toggle, setToggle] = useState(false)
-    const [cities, setCities] = useState([])
-    
+    const [cities, setCities] = useState([])    
 
     function searchByname(e){
         const inputValue = e.target.value;
@@ -134,6 +135,10 @@ export default function MarketingSidebar({centersList, centers, setCenters, setC
                                         <span style={{background: '#d6eaf8'}}> <Icon name={'Mail'} color={'#1b4f72'}/> </span>}
                                     {item.numbers.length > 0 && 
                                         <span style={{background: '#d5f5e3'}}> <Icon name={'Phone'} color={'#186a3b'}/> </span>}
+                                    <span style={{background: '#f2f3f4'}}> 
+                                        <Icon name={item.status === 1 ? 'Check' : 'X'} 
+                                            color={item.status === 1 ? '#28b463' : '#e74c3c'} /> 
+                                    </span>
                                 </p>
                         </li>) 
                     : 

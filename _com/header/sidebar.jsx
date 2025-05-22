@@ -66,7 +66,7 @@ export default function NavSidebar ({isAuthenticated, toggle, setToggle}){
                 {!isAuthenticated? 
                     <>
                         <li style={{fontWeight: pathname === '/login' ? '600' : '500'}} > 
-                            <Link href='/auth'> <Icon name={'User'} /> Connexion </Link> 
+                            <Link href='/auth'> <Icon name={'User'} /> Se connecter </Link> 
                         </li>
                         <li style={{fontWeight: pathname === '/signup' ? '600' : '500'}} > 
                             <Link href='/auth/signup'> <Icon name={'UserPlus'} /> Créer un compte </Link> 

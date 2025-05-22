@@ -350,11 +350,39 @@
     gap: 10px;
 }
 
-.CenterName{
+.CenterHeader{
     height: 40px;
     display: flex;
     align-items: center;
     justify-content: space-between;
+}
+
+.CenterName{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.CenterName span{
+    background-color: #e5e7e9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    height: 30px;
+    width: 30px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.CenterName span svg{
+    width: 24px;
+    height: 24px;
+}
+
+.CenterName span div{
+    padding: 2px;
+    width: 20px;
 }
 
 .CenterRemove{
