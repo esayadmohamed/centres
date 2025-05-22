@@ -3,6 +3,7 @@ import Icon from "@/_lib/utils/Icon"
 import styles from "./style.module.css"
 
 import Link from "next/link"
+import { signOut } from "next-auth/react"
 
 export default function NavAction ({auth}){
 
@@ -10,6 +11,9 @@ export default function NavAction ({auth}){
         <>
         {auth? 
             <div className={styles.NavAction}>
+                <span onClick={()=>signOut({ callbackUrl: "/" })}>
+                    Deconnexion
+                </span>
                 <Link href={'/listings/create'}>
                     <p>
                         <Icon name={'SquarePlus'} color={'white'}/>
@@ -19,8 +23,16 @@ export default function NavAction ({auth}){
             </div>
             :
             <div className={styles.NavAuth}>
+                <Link href={'/auth/signup'}>
+                    <span>
+                        Créer un compte
+                    </span>
+                </Link>
                 <Link href={'/auth'}>
-                    <p>Se connecter</p>
+                    <p>
+                        <Icon name={'User'} color={'white'}/>
+                        Se connecter
+                    </p>
                 </Link>
             </div>
         }

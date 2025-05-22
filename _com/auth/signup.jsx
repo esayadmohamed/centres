@@ -160,11 +160,10 @@ export default function AuthSignup (){
                                 </div>
                                 {list && 
                                     <ul className={styles.AuthPassoword}>
-                                        <li>Le mot de passe doit contenir au moins:</li>
-                                        <li><Icon name={eight ? 'CircleCheck' : 'CircleX'} color={eight ? 'green' : 'red'} /> 8 caractères </li>
-                                        <li><Icon name={num ? 'CircleCheck' : 'CircleX'} color={num ? 'green' : 'red'} /> Un chiffre (1, 2, ...) </li>
-                                        <li><Icon name={capital ? 'CircleCheck' : 'CircleX'} color={capital ? 'green' : 'red'}/> Une lettre majuscule (A, B, ...) </li>
-                                        <li><Icon name={character ? 'CircleCheck' : 'CircleX'} color={character ? 'green' : 'red'}/> Un caractère spécial (@, #, ...) </li>
+                                        <li><Icon name={eight ? 'Check' : 'X'} color={eight ? 'green' : 'red'} /> 8 caractères </li>
+                                        <li><Icon name={num ? 'Check' : 'X'} color={num ? 'green' : 'red'} /> Un chiffre (1, 2, ...) </li>
+                                        <li><Icon name={capital ? 'Check' : 'X'} color={capital ? 'green' : 'red'}/> Une lettre majuscule (A, B, ...) </li>
+                                        <li><Icon name={character ? 'Check' : 'X'} color={character ? 'green' : 'red'}/> Un caractère spécial (@, #, ...) </li>
                                     </ul>
                                 }
                                 {errors?.password && <p className={styles.AuthError}> {errors.password}</p> }

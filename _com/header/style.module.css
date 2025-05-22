@@ -60,65 +60,57 @@
 
 /* ------------------------------------ */
 
-.NavAction{
+.NavAction,
+.NavAuth{
     display: flex;
     align-items: center;
-    gap: 15px;
+    gap: 20px;
+}
+
+.NavAction a,
+.NavAuth a{
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .NavAction span,
-.NavAction span a{
+.NavAuth span{
     display: flex;
     align-items: center;
     justify-content: center;
+    cursor: pointer;
+    font-size: 14px;
+    color: #424949;
 }
 
-.NavAction span svg{
-    width: 25px;
-    height: 25px;
+.NavAction svg,
+.NavAuth svg{
+    width: 22px;
+    height: 22px;
+}
+
+.NavAction p,
+.NavAuth p{
+    height: 36px;
+    padding: 0 10px;
+    font-size: 14px;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
 }
 
 .NavAction p{
-    height: 36px;
-    padding: 0 15px;
-    font-size: 14px;
-    border-radius: 5px;
     background-color: #FF385C;
-    color: white;
-    cursor: pointer;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
 }
 
-.NavAuth{
-    height: 36px;
-    padding: 0 15px;
-    font-size: 14px;
-    border-radius: 5px;
-    background-color: #FF385C;
-    color: white;
-    cursor: pointer;
-}
-
-.NavAuth a{
-    height: 100%;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-}
-
-.NavAuth svg{
-    width: 20px;
-    height: 20px;
-}
-
-.NavAuth{
-    background-color: #2980b9;
+.NavAuth p{
+    background-color: #1f618d;
 }
 
 /* ------------------------------------ */
@@ -271,7 +263,7 @@
     .NavLinks{
         display: none;
     }
-    .NavAction span{
+    .NavAction span, .NavAuth span{
         display: none;
     }
     

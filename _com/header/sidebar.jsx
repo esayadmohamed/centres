@@ -40,11 +40,6 @@ export default function NavSidebar ({isAuthenticated, toggle, setToggle}){
 
     return(
         <>
-            {/* <div className={styles.Functions} onClick={()=>setToggle(true)}>
-                <Icon name={'AlignJustify'} color={'#424949'}/>
-            </div> */}
-            
-
             {toggle && 
                 <div className={styles.Overlay} onClick={()=>setToggle(false)}> 
                 </div>
