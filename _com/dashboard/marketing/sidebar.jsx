@@ -74,7 +74,7 @@ export default function MarketingSidebar({centersList, citiesList, centers, setC
                 <ul className={styles.CentersListContent}>
                 {centers.length !== 0 &&
                     centers.map((item, id)=> 
-                        <li key={id} onClick={()=>getCenter(item.id)}> 
+                        <li key={id} onClick={()=>getCenter(item.id)} style={{backgroundColor: index === item.id && '#f2f3f4'}}> 
                             {loading && index === item.id? 
                                 <div className={'spinner'}></div>:
                                 <p> 
@@ -85,12 +85,12 @@ export default function MarketingSidebar({centersList, citiesList, centers, setC
                                     {item.name}  
                                 </p>}
                                 <p>  
-                                    {item.facebook !== '' && 
-                                        <span style={{background: '#d6eaf8'}}> <Icon name={'Mail'} color={'#1b4f72'}/> </span>}
-                                    {item.instagram !== '' && 
-                                        <span style={{background: '#d5f5e3'}}> <Icon name={'Phone'} color={'#186a3b'}/> </span>}
                                     {item.whatsapp !== '' && 
                                         <span style={{background: '#d5f5e3'}}> <Icon name={'Phone'} color={'#186a3b'}/> </span>}
+                                    {item.facebook !== '' && 
+                                        <span style={{background: '#d6eaf8'}}> <Icon name={'Facebook'} color={'#1b4f72'}/> </span>}
+                                    {item.instagram !== '' && 
+                                        <span style={{background: '#fadbd8'}}> <Icon name={'Instagram'} color={'#e74c3c'}/> </span>}
                                 </p>
                         </li>) 
                     }

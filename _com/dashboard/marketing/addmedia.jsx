@@ -1,7 +1,7 @@
 'use client';
 import styles from "@/_com/dashboard/css/marketing.module.css";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { AddWhatsApp, AddFacebook, AddInstagram } from "@/_lib/dashboard/editdata";
 
 import Link from "next/link";
@@ -15,11 +15,17 @@ export default function CenterMedia({center, setCenter}) {
     const [loading, setLoading] = useState(null)
     const [error, setError] = useState(null)
 
+    // useEffect(()=>{
+    //     setWhatsapp(center?.whatsapp)
+    //     setFacebook(center?.facebook)
+    //     setInstagram(center?.instagram)
+    // },[center])
+
     async function handleWhatsapp(){
         setLoading('whatsapp')
         setError(null);
 
-        const result = await AddWhatsApp(center.id, `https://wa.me/${whatsapp}`)
+        const result = await AddWhatsApp(center.id, whatsapp)
         setLoading(null)
 
         if(result?.error){
@@ -68,7 +74,7 @@ export default function CenterMedia({center, setCenter}) {
                     <span onClick={handleWhatsapp} style={{backgroundColor: '#28b463'}}> 
                         {loading === 'whatsapp'? <div className={'spinner'}> </div>
                             :
-                            <Icon name={'Phone'} color={'white'}/> 
+                            <Icon name={'Plus'} color={'white'}/> 
                         } 
                     </span>
                     <input type="text" placeholder={'Whatsapp...'} 
@@ -83,7 +89,7 @@ export default function CenterMedia({center, setCenter}) {
                     <span onClick={handleFacebook}> 
                         {loading === 'facebook'? <div className={'spinner'}> </div> 
                             :
-                            <Icon name={'Facebook'} color={'white'}/> 
+                            <Icon name={'Plus'} color={'white'}/> 
                         } 
                     </span>
                     <input type="text" placeholder={'Facebook...'} 
@@ -94,7 +100,7 @@ export default function CenterMedia({center, setCenter}) {
                     <span onClick={handleInstagram} style={{backgroundColor: '#e74c3c'}}> 
                         {loading === 'instagram'? <div className={'spinner'}> </div>
                             :
-                            <Icon name={'Instagram'} color={'white'}/> 
+                            <Icon name={'Plus'} color={'white'}/> 
                         } 
                     </span>
                     <input type="text" placeholder={'Instagram...'} 

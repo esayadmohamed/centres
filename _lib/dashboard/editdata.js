@@ -968,7 +968,7 @@ export async function AddWhatsApp(id, value) {
         const center_id = await SanitizeId(id)
         if(!center_id) return {error: 'Center id is not a number.'}; 
 
-        if(!value || typeof value !== 'string'){
+        if(value === null || typeof value !== 'string'){
             return {error: 'Value is invalid.'}; 
         }
 
@@ -996,7 +996,7 @@ export async function AddFacebook(id, value) {
         const center_id = await SanitizeId(id)
         if(!center_id) return {error: 'Center id is not a number.'}; 
 
-        if(!value || typeof value !== 'string'){
+        if(value === null || typeof value !== 'string'){
             return {error: 'Value is invalid.'}; 
         }
 
@@ -1024,7 +1024,7 @@ export async function AddInstagram(id, value) {
         const center_id = await SanitizeId(id)
         if(!center_id) return {error: 'Center id is not a number.'}; 
 
-        if(!value || typeof value !== 'string'){
+        if(value === null || typeof value !== 'string'){
             return {error: 'Value is invalid.'}; 
         }
 

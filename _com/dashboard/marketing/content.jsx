@@ -8,10 +8,8 @@ import { allEmails } from "@/_lib/dashboard/getdata";
 import Icon from "@/_lib/utils/Icon";
 import Link from "next/link";
 
-// import CenterEmail from "./addemail";
-// import CenterNumber from "./addnumber";
-// import CenterNote from "./addnote";
 import CenterMedia from "./addmedia";
+import CenterNote from "./addnote";
 
 export default function MarketingContent({center, setCenter, setCenters}) {
         
@@ -90,15 +88,27 @@ export default function MarketingContent({center, setCenter, setCenters}) {
                     {center.name}, {center.city} 
                 </div>
                 <div className={styles.CenterLinks}>
-                    <a href={center.whatsapp}target="_blank" rel="noopener noreferrer" style={{backgroundColor: '#28b463'}}>
-                        <Icon name={'Phone'} color={'white'}/>
-                    </a>
-                    <a href={center.facebook} target="_blank" rel="noopener noreferrer" style={{backgroundColor: '#2471a3'}}>
-                        <Icon name={'Facebook'} color={'white'}/>
-                    </a>
-                    <a href={center.instagram} target="_blank" rel="noopener noreferrer" style={{backgroundColor: '#e74c3c'}}>
-                        <Icon name={'Instagram'} color={'white'}/>
-                    </a>
+                    {center?.whatsapp !== '' && 
+                        <Link href={`https://wa.me/${center.whatsapp}`} target="_blank" rel="noopener noreferrer">
+                            <p style={{backgroundColor: '#28b463'}}>
+                                <Icon name={'Phone'} color={'white'}/>
+                            </p>
+                        </Link>
+                    }
+                    {center?.facebook !== '' && 
+                        <Link href={center.facebook} target="_blank" rel="noopener noreferrer">
+                            <p style={{backgroundColor: '#2471a3'}}>
+                                <Icon name={'Facebook'} color={'white'}/>
+                            </p>
+                        </Link>
+                    }
+                    {center?.instagram !== '' && 
+                        <Link href={center.instagram} target="_blank" rel="noopener noreferrer">
+                            <p style={{backgroundColor: '#e74c3c'}}>
+                                <Icon name={'Instagram'} color={'white'}/>
+                            </p>
+                        </Link>
+                    }
                 </div>
                 <div className={styles.CenterRemove}>
                     {ok?
@@ -124,6 +134,8 @@ export default function MarketingContent({center, setCenter, setCenters}) {
             <div className={styles.CenterBody}>
                 
                 <CenterMedia center={center} setCenter={setCenter}/>
+
+                <CenterNote notes={notes} setNotes={setNotes} center_id={center?.id}/>
                 
             </div>
         </div>
