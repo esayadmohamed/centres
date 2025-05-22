@@ -57,9 +57,10 @@ export default function AuthLogin (){
             </div>
             <div className={styles.PageContent}>
                 <div className={styles.PageForm}>  
-                    <div className={styles.AuthLogin}>
-                        <div className={styles.AuthBox}>
-                            {/* <h3> Accédez à votre compte </h3> */}
+                    <div className={styles.AuthBox}>
+                            <h4> 
+                                Bienvenue!
+                            </h4>
                             
                             <div className={styles.AuthInput}>
                                 <label htmlFor="email"> Adresse e-mail </label>
@@ -98,7 +99,6 @@ export default function AuthLogin (){
                                 Vous n'avez pas de compte? 
                                 <Link href={'auth/signup'}> <span>Inscrivez-vous</span> </Link>
                             </p>
-                        </div>
                     </div>          
                 </div>
                 <div className={styles.PageMarketing}>

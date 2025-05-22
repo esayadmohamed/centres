@@ -81,57 +81,6 @@ export default function AuthSignup (){
         setErrors(null);
     }
 
-    // router.replace ("/") 
-
-    if(success) {
-        return(
-            <div className={styles.PageContainer}>
-                <div className={styles.PageBanner}>
-                    <h2>Créer un compte</h2>  
-                    <ul className={styles.PageRoot}>
-                        <Link href={'/'}> <li>Acueil</li> </Link>
-                        <li>/</li>
-                        <Link href={'/auth'}> <li>Connexion</li> </Link>
-                        <li>/</li>
-                        <li>Inscription</li>
-                    </ul>
-                </div>
-                <div className={styles.PageContent}>
-                    <div className={styles.PageForm}>  
-                        <div className={styles.AuthLogin}>
-                            <div className={styles.AuthBox}>
-                                <div className={styles.AuthSuccess}>
-                                    {/* <ul className={styles.AuthRoot}>
-                                        <Link href={'/'}> <li>Acueil</li> </Link>
-                                        <li>/</li>
-                                        <Link href={'/auth'}> <li>Connexion</li> </Link>
-                                        <li>/</li>
-                                        <li>Inscription</li>
-                                    </ul> */}
-                                
-                                    <h3>Vérifiez Votre E-mail</h3>
-                                    <p>Nous avons envoyé un lien de vérification à votre adresse e-mail.</p>
-                                    <h4> {email} </h4>
-                                    <p>Cliquez sur le lien pour compléter le processus de vérification.</p>
-                                    <p>Il se peut que vous deviez vérifier votre dossier <b>"Spam"</b> ou <b>"Courrier indésirable"</b>.</p>
-                                </div>
-                                <button onClick={handleReturn}> 
-                                    <span>Retourner</span>
-                                </button>
-                            </div>
-                        </div>         
-                    </div>
-                    <div className={styles.PageMarketing}>
-                        <div>
-                            <Icon name={'Navigation2'} color={'#424949'}/>
-                            <p> CENTRES </p>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        )
-    }
     return(
         <div className={styles.PageContainer}>
             <div className={styles.PageBanner}>
@@ -141,13 +90,34 @@ export default function AuthSignup (){
                     <li>/</li>
                     <Link href={'/auth'}> <li>Connexion</li> </Link>
                     <li>/</li>
-                    <li>Inscription</li>
+                    <li>S'inscrire</li>
                 </ul>
             </div>
             <div className={styles.PageContent}>
-                <div className={styles.PageForm}>  
-                    <div className={styles.AuthLogin}>
-                        <div className={styles.AuthBox}>                            
+                {success? 
+                    <div className={styles.PageForm}>  
+                        <div className={styles.AuthBox}>
+                            <div className={styles.AuthSuccess}>                                             
+                                <p className={styles.AuthTitle}>
+                                    <Icon name={'Check'} color={'#2ecc71'}/>
+                                    Vérifiez Votre E-mail
+                                </p>
+                                <p>Nous avons envoyé un lien de vérification à votre adresse e-mail.</p>
+                                <p className={styles.Authemail}> {email} </p>
+                                <p>Cliquez sur le lien pour compléter le processus de vérification.</p>
+                                <p>Il se peut que vous deviez vérifier votre dossier 'Spam' ou 'Courrier indésirable'.</p>
+                            </div>
+                            <button onClick={handleReturn}> 
+                                <span>Retourner</span>
+                            </button>
+                        </div>
+                    </div>
+                    :
+                    <div className={styles.PageForm}>  
+                        <div className={styles.AuthBox}>  
+                            <h4>
+                                Inscription!
+                            </h4>                          
                             <div className={styles.AuthInput}>
                                 <label htmlFor="name"> Prénom </label>
                                 <div>
@@ -183,10 +153,9 @@ export default function AuthSignup (){
                                         type={viewHash? "text" : "password"} autoComplete="off"
                                         onChange={handlePassword}
                                         onFocus={()=>setList(true)}
-                                        // onBlur={()=>setList(false)}
                                     />
                                     <span className={styles.AuthHash} onClick={()=>setViewHash(!viewHash)}> 
-                                        <Icon name={viewHash && list? 'EyeOff' : 'Eye'}/>
+                                        <Icon name={viewHash && list? 'EyeOff' : 'Eye'} color={'#424949'}/>
                                     </span>                        
                                 </div>
                                 {list && 
@@ -202,9 +171,8 @@ export default function AuthSignup (){
                             </div>
                             
                             <p className={styles.AuthAccept}>
-                                En créant votre compte, vous acceptez 
-                                    <Link href={'/conditions'}> <span>les règles et conditions d'utilisation </span> </Link>
-                                    du site centres.ma.
+                                En créant un compte, vous acceptez 
+                                    <Link href={'/conditions'}> <span>les règles et conditions d'utilisation</span> </Link>
                             </p> 
                             
                             <ReCAPTCHA
@@ -219,7 +187,7 @@ export default function AuthSignup (){
 
                             <button onClick={handleSignup}> 
                                 {!loading ? 
-                                    <span>Se connecter</span>   :
+                                    <span>S'inscrire</span>   :
                                     <div className="spinner" style={{background: 'white'}}></div>}
                             </button>
 
@@ -227,9 +195,9 @@ export default function AuthSignup (){
                                 Vous avez déjà un compte? 
                                 <Link href={'/auth'}> <span>Se connecter</span> </Link>
                             </p>
-                        </div>
-                    </div>          
-                </div>
+                        </div>          
+                    </div>
+                }
                 <div className={styles.PageMarketing}>
                     <div>
                         <Icon name={'Navigation2'} color={'#424949'}/>
@@ -244,7 +212,49 @@ export default function AuthSignup (){
 }
 
 
+    // router.replace ("/") 
 
+    // if(success) {
+    //     return(
+    //         <div className={styles.PageContainer}>
+    //             <div className={styles.PageBanner}>
+    //                 <h2>Créer un compte</h2>  
+    //                 <ul className={styles.PageRoot}>
+    //                     <Link href={'/'}> <li>Acueil</li> </Link>
+    //                     <li>/</li>
+    //                     <Link href={'/auth'}> <li>Connexion</li> </Link>
+    //                     <li>/</li>
+    //                     <li>Inscription</li>
+    //                 </ul>
+    //             </div>
+    //             <div className={styles.PageContent}>
+    //                 <div className={styles.PageForm}>  
+    //                     <div className={styles.AuthBox}>
+    //                         <div className={styles.AuthSuccess}>                                             
+    //                             <p className={styles.AuthTitle}>
+    //                                 <Icon name={'Check'} color={'#2ecc71'}/>
+    //                                 Vérifiez Votre E-mail
+    //                             </p>
+    //                             <p>Nous avons envoyé un lien de vérification à votre adresse e-mail.</p>
+    //                             <p className={styles.Authemail}> {email}jklkljlkj </p>
+    //                             <p>Cliquez sur le lien pour compléter le processus de vérification.</p>
+    //                             <p>Il se peut que vous deviez vérifier votre dossier "Spam" ou "Courrier indésirable".</p>
+    //                         </div>
+    //                         <button onClick={handleReturn}> 
+    //                             <span>Retourner</span>
+    //                         </button>
+    //                     </div>
+    //                 </div>
+    //                 <div className={styles.PageMarketing}>
+    //                     <div>
+    //                         <Icon name={'Navigation2'} color={'#424949'}/>
+    //                         <p> CENTRES </p>
+    //                     </div>
+    //                 </div>
+    //             </div>
+    //         </div>
+    //     )
+    // }
 
         // <div className={styles.PageContainer}>
         //     <div className={styles.PageBanner}>

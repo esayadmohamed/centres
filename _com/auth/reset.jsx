@@ -62,7 +62,7 @@ export default function ResetPassword ({reset_token}){
     return(
         <div className={styles.PageContainer}>
             <div className={styles.PageBanner}>
-                <h2>Réinitialisation du Mot de Passe</h2>  
+                <h2>Mot de Passe</h2>  
                 <ul className={styles.PageRoot}>
                     <Link href={'/'}> <li>Acueil</li> </Link>
                     <li>/</li>
@@ -73,56 +73,54 @@ export default function ResetPassword ({reset_token}){
             </div>
             <div className={styles.PageContent}>
                 <div className={styles.PageForm}>  
-                    <div className={styles.AuthLogin}>
-                        <div className={styles.AuthBox}>
-                            <div className={styles.AuthInput}>
-                                <label htmlFor="password"> Mot de passe </label>
-                                <div>
-                                    <input id="password" placeholder='Mot de passe' value={mainPassword}
-                                        type={viewHash? "text" : "password"} 
-                                        onChange={handlePassword}
-                                        onFocus={()=>setList(true)}
-                                    />
-                                    <span className={styles.AuthHash} onClick={()=>setViewHash(!viewHash)}> 
-                                        <Icon name={viewHash? 'EyeOff' : 'Eye'}/>
-                                    </span>                        
-                                </div>
-                                {(list && mainPassword) && 
-                                    <ul className={styles.AuthPassoword}>
-                                        <li>Le mot de passe doit contenir au moins:</li>
-                                        <li><Icon name={eight ? 'CircleCheck' : 'CircleX'} color={eight ? 'green' : 'red'} /> 8 caractères </li>
-                                        <li><Icon name={num ? 'CircleCheck' : 'CircleX'} color={num ? 'green' : 'red'} /> Un chiffre (1, 2, ...) </li>
-                                        <li><Icon name={capital ? 'CircleCheck' : 'CircleX'} color={capital ? 'green' : 'red'}/> Une lettre majuscule (A, B, ...) </li>
-                                        <li><Icon name={character ? 'CircleCheck' : 'CircleX'} color={character ? 'green' : 'red'}/> Un caractère spécial (@, #, ...) </li>
-                                    </ul>
-                                }
+                    <div className={styles.AuthBox}>
+                        <h4>Réinitialisation!</h4>
+                        <div className={styles.AuthInput}>
+                            <label htmlFor="password"> Mot de passe </label>
+                            <div>
+                                <input id="password" placeholder='Mot de passe' value={mainPassword}
+                                    type={viewHash? "text" : "password"} 
+                                    onChange={handlePassword}
+                                    onFocus={()=>setList(true)}
+                                />
+                                <span className={styles.AuthHash} onClick={()=>setViewHash(!viewHash)}> 
+                                    <Icon name={viewHash? 'EyeOff' : 'Eye'} color={'#424949'}/>
+                                </span>                        
                             </div>
-                            <div className={styles.AuthInput}>
-                                <label htmlFor="passwordmatch"> Confirmer le mot de passe </label>
-                                <div>
-                                    <input id="passwordmatch" placeholder='Confirmer le mot de passe' type="password" 
-                                        value={matchPassword}
-                                        onChange={(e)=>setMatchPassword(e.target.value)}
-                                        onFocus={()=>setMatch(true)}
-                                    />                       
-                                </div>
-                                {(match && mainPassword && matchPassword) &&
-                                    ( mainPassword !== matchPassword ? 
-                                    <p className={styles.AuthError}> Le mot de passe ne correspond pas </p>:
-                                    <p className={styles.AuthSuccess}> Les mots de passe correspondent </p>)
-                                }
-                            </div>
-
-                            {error?.password && <p className={styles.AuthError}> {error.password}</p> }
-
-                            <button onClick={handleSubmit}> 
-                                {!loading ? 
-                                    <span>Réinitialiser</span>   :
-                                    <div className="spinner" style={{background: 'white'}}></div>}
-                            </button>
-
+                            <ul className={styles.AuthPassoword}>
+                                <li><Icon name={eight ? 'Check' : 'X'} color={eight ? 'green' : 'red'} /> 8 caractères </li>
+                                <li><Icon name={num ? 'Check' : 'X'} color={num ? 'green' : 'red'} /> Un chiffre (1, 2, ...) </li>
+                                <li><Icon name={capital ? 'Check' : 'X'} color={capital ? 'green' : 'red'}/> Une lettre majuscule (A, B, ...) </li>
+                                <li><Icon name={character ? 'Check' : 'X'} color={character ? 'green' : 'red'}/> Un caractère spécial (@, #, ...) </li>
+                            </ul>
                         </div>
-                    </div>         
+                        <div className={styles.AuthInput}>
+                            <label htmlFor="passwordmatch"> Confirmer le mot de passe </label>
+                            <div>
+                                <input id="passwordmatch" placeholder='Confirmer le mot de passe' type="password" 
+                                    value={matchPassword}
+                                    onChange={(e)=>setMatchPassword(e.target.value)}
+                                    onFocus={()=>setMatch(true)}
+                                />   
+                                {(match && mainPassword && matchPassword) &&
+                                    <span className={styles.AuthMatch}> 
+                                        <Icon name={mainPassword === matchPassword? 'Check' : 'X'} 
+                                            color={mainPassword === matchPassword? '#28b463' : '#e74c3c'} />
+                                    </span>  
+                                }                   
+                            </div>
+                            
+                        </div>
+
+                        {error?.password && <p className={styles.AuthError}> {error.password}</p> }
+
+                        <button onClick={handleSubmit}> 
+                            {!loading ? 
+                                <span>Réinitialiser</span>   :
+                                <div className="spinner" style={{background: 'white'}}></div>}
+                        </button>
+
+                    </div>
                 </div>
                 <div className={styles.PageMarketing}>
                     <div>

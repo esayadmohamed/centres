@@ -3,6 +3,9 @@
     width: 100%;
     height: 100%;
     padding: 0px 50px;
+    /* display: flex;
+    flex-direction: column;
+    gap: 20px; */
 }
 
 /* ------------------------------------ */
@@ -16,8 +19,6 @@
     justify-content: center;
     color: #424949;
 }
-
-/* ------------------------------------ */
 
 .PageRoot{
     display: flex;
@@ -33,13 +34,16 @@
 /* ------------------------------------ */
 
 .PageContent{
-    /* padding: 30px 0; */
     width: 100%;
+    min-height: 300px;
     display: grid;
-    grid-template-columns: 450px 650px ;
-    justify-content: space-between;
+    grid-template-columns: 400px auto;
+    gap: 20px;
+    border: 1px solid #7f8c8d;
+    border-radius: 5px;
+    overflow: hidden;
+    margin-bottom: 30px;
     /* background-color: yellow; */
-    margin-bottom: 20px;
 }
 
 /* ------------------------------------ */
@@ -49,6 +53,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    width: 100%;
 }
 
 .PageMarketing div{
@@ -62,43 +67,44 @@
 .PageForm{
     height: 100%;
     width: 100%;
-    min-height: 200px;
-    /* padding: 20px 0; */
+    padding: 30px 20px;
     display: flex;
     justify-content: center;
     align-items: center;
-    /* background-color: green; */
-}
-
-/* ------------------------------------ */
-
-.AuthLogin{
-    height: 100%;
-    width: 100%;
-    /* background-color: yellow; */
 }
 
 /* ------------------------------------ */
 
 .AuthBox{
+    height: 100%;
+    width: 100%;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+    justify-content: center;
     gap: 20px;
-    padding: 30px 0;
-    /* border: 1px solid #7f8c8d; */
     border-radius: 10px;
 }
 
-.AuthRoot{
+.AuthBox h4{
     display: flex;
-    gap: 5px;
-    font-size: 14px;
-    color: #424949;
+    align-items: center;
+    gap: 10px;
 }
 
-.AuthRoot a{
-    text-decoration: underline;
+.AuthTitle{
+    /* color: #424949; */
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.AuthTitle svg, 
+.AuthBox h4 svg{
+    width: 26px;
+    height: 26px;
 }
 
 .AuthActions{
@@ -106,7 +112,6 @@
     justify-content: center;
     align-items: center;
     gap: 20px;
-    /* height: 100%; */
     width: 100%;
     font-size: 15px;
     color: #424949;
@@ -159,7 +164,14 @@
     justify-content: center;
     align-items: center;
     cursor: pointer;
-    color: #424949;
+}
+
+.AuthMatch{
+    height: 100%;
+    width: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;  
 }
 
 /* --------------------------------------------- */
@@ -211,7 +223,8 @@
 /* --------------------------------------------- */
 
 .AuthPassoword{
-    font-size: 15px;
+    font-size: 14px;
+    color: #424949;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -238,11 +251,11 @@
 .AuthAccept{
     font-size: 15px;
     line-height: 1.5;
+    color: #424949;
 }
 
 .AuthAccept span{
     text-decoration: underline;
-    
     cursor: pointer;
 }
 
@@ -255,14 +268,14 @@
     width: 100%;
 }
 
-.AuthSuccess h4{
+.Authemail{
     background-color: #f2f3f4;
     height: 40px;
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 0 10px;
-    color: #424949;
+    /* color: #424949; */
 }
   
 .AuthSuccess p{
@@ -273,7 +286,7 @@
 
 @media (max-width: 600px) {
     .PageContainer{
-        padding: 0 15px;
+        padding: 0 10px;
     }
     .PageMarketing{
         display: none;
@@ -281,17 +294,13 @@
     .PageContent{
         width: 100%;
         display: flex;
-        padding: 30px 0;
-        /* background-color: yellow; */
+        align-items: center;
+        padding: 20px 10px;
     }
     .PageForm{
         padding: 0;
         width: 100%;
-        /* background-color: yellow; */
-    }
-    .AuthBox{
-        padding: 0px;
-        border: none;
+        overflow-x: auto;
     }
 }
 
