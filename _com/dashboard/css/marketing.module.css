@@ -7,7 +7,7 @@
 
 .DashLayout{
     display: grid;
-    grid-template-columns: 300px auto;
+    grid-template-columns: 340px auto;
     width: 100%;
     gap: 20px;
     height: 100%;
@@ -21,78 +21,14 @@
 
 /* ----------------------------------- */
 
-.DashContainer{
-    width: 100%;
+.CentersList,
+.CenterContent{
     display: flex;
     flex-direction: column;
-    background-color: white;
-}
-
-.DashFilter{
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    height: fit-content;
-    padding: 10px;
-    border-radius: 5px;
-}
-
-.DashSearch{
-    height: 45px;
-    display: grid;
-    grid-template-columns: auto 45px;
-    gap: 5px;
-}
-
-.DashSearchBar{
-    display: grid;
-    grid-template-columns: auto 45px;
-    border: 1px solid #7f8c8d;
-    border-radius: 5px;
+    border: 1px solid #b2babb;
     overflow: hidden;
-}
-
-.DashSearchBar input{
-    width: 100%;
+    background-color: white;
     height: 100%;
-    padding: 5px 10px;
-    font-size: 15px;
-    outline: none;
-    border: none;    
-}
-
-.DashSearchBar span{
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-}
-
-.DashSearchAction{
-    /* background-color: #2980b9; */
-    border-radius: 5px;
-    border: 1px solid white;
-    cursor: pointer;
-}
-
-.DashSearchAction span{
-    height: 100%;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.DashSearchAction span div{
-    background: white;
-    padding: 3px;
-    width: 25px;
-}
-
-.DashSearch svg{
-    width: 26px;
-    height: 26px;
 }
 
 /* ----------------------------------- */
@@ -101,9 +37,6 @@
     display: flex;
     flex-direction: column;
     gap: 10px;
-
-    border: 1px solid #7f8c8d;
-    border-radius: 5px;
     padding: 10px;
 }
 
@@ -150,7 +83,7 @@
     position: absolute;
     transform: translate(0px, 100px);
     background-color: white;
-    min-width: 258px;
+    min-width: 317px;
 
     display: flex;
     flex-direction: column;
@@ -178,63 +111,88 @@
 
 /* ----------------------------------- */
 
-.CentersList{
-    display: flex;
-    flex-direction: column;
-}
-
-.CentersListNavigate{
-    /* background-color: #f2f3f4; */
-    height: 50px;
+.DashSearch{
     padding: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+    gap: 5px;
+    border-top: 1px solid #b2babb;
 }
 
-.CentersListNavigate p{
-    user-select: none;    
-}
-
-.CentersListNavigate span{
-    background-color: #99a3a4;
-    height: 35px;
-    width: 35px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 100%;
-    cursor: pointer;
-}
-
-.CentersListNavigate svg{
-    width: 20px;
-    height: 20px;
-}
-
-.CentersListActions{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    height: 50px;
-}
-
-.CentersListActions p{
-    display: flex;
-    align-items: center;
-    gap: 20px;
-}
-
-.CentersListActions p span{
-    color: #424949;
-    border: 1px solid #ccd1d1;
+.DashSearchBar{
+    height: 45px;
+    display: grid;
+    grid-template-columns: auto 45px;
+    border: 1px solid #7f8c8d;
     border-radius: 5px;
-    height: 30px;
-    padding: 0 10px;
+    overflow: hidden;
+}
+
+.DashSearchBar input{
+    width: 100%;
+    height: 100%;
+    padding: 5px 10px;
+    font-size: 15px;
+    outline: none;
+    border: none;    
+}
+
+.DashSearchBar span{
+    height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
+    background-color: #f2f3f4;
+}
+
+.DashSearchAction{
+    /* background-color: #2980b9; */
+    border-radius: 5px;
+    border: 1px solid white;
+    cursor: pointer;
+}
+
+.DashSearchAction span{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.DashSearchAction span div{
+    background: white;
+    padding: 3px;
+    width: 25px;
+}
+
+.DashSearch svg{
+    width: 26px;
+    height: 26px;
+}
+
+/* ----------------------------------- */
+
+.CentersListHeader{
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #e5e8e8;
+    height: 50px;
+    padding: 0 10px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #424949;
+}
+
+.CentersList .CentersListContent{
+    height: 500px;
+    overflow-y: auto;
+    
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none;  /* IE and Edge */
+}
+
+.CentersList .CentersListContent::-webkit-scrollbar{
+    display: none; /*Chrome, Safari and Opera */
 }
 
 .CentersList li{
@@ -283,11 +241,154 @@
 
 /* ----------------------------------- */
 
-.CentersContent{
-    background-color: white;
+.CenterHeader{
+    padding: 10px;
+    background-color: #f2f3f4;
+    height: 50px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.CenterName{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.CenterName span{
+    background-color: #e5e7e9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    height: 30px;
+    width: 30px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.CenterName span svg{
+    width: 24px;
+    height: 24px;
+}
+
+.CenterName span div{
+    padding: 2px;
+    width: 20px;
+}
+
+.CenterLinks{
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.CenterLinks a{
+    background-color: yellow;
+    height: 35px;
+    width: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+}
+
+.CenterLinks a svg{
+    width: 20px;
+    height: 20px;
+}
+
+.CenterRemove{
+    height: 100%;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.CenterRemove p{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    height: 30px;
+    width: 30px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.CenterError{
+    color: red;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+/* ----------------------------------- */
+
+.CenterBody{
+    padding: 10px;
     height: 100%;
     width: 100%;
 }
+
+/* ----------------------------------- */
+
+.MediaContent{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.AddMedia{
+    height: 45px;
+    width: 100%;
+    border: 1px solid #7f8c8d;
+    border-radius: 5px;
+    display: grid;
+    grid-template-columns: 45px auto; 
+    overflow: hidden;   
+}
+
+.AddMedia span{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #2980b9;
+    color: white;
+    cursor: pointer;
+}
+
+.AddMedia span div{
+    background: white;
+    width: 25px;
+    padding: 3px;
+}
+
+.AddMedia input{
+    outline: none;
+    border: none;
+    font-size: 15px;
+    padding: 10px;
+}
+
+/* ----------------------------------- */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 .CentersAction{
     display: flex;
@@ -350,66 +451,9 @@
     gap: 10px;
 }
 
-.CenterHeader{
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
 
-.CenterName{
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
 
-.CenterName span{
-    background-color: #e5e7e9;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    
-    height: 30px;
-    width: 30px;
-    border-radius: 5px;
-    cursor: pointer;
-}
 
-.CenterName span svg{
-    width: 24px;
-    height: 24px;
-}
-
-.CenterName span div{
-    padding: 2px;
-    width: 20px;
-}
-
-.CenterRemove{
-    height: 100%;
-    display: flex;
-    align-items: center;
-    gap: 20px;
-}
-
-.CenterRemove p{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    
-    height: 30px;
-    width: 30px;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-.CenterError{
-    color: red;
-    height: 30px;
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-}
 
 .CentersContacts{
     display: flex;
@@ -429,14 +473,59 @@
 }
 
 .CentersAddContacts{
-    height: 50px;
     width: 100%;
     display: flex;
-    align-items: center;
+    flex-direction: column;
+    /* align-items: center; */
+    justify-content: center;
 }
+
+/* -------------------------- */
+
+.SocialMedia{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    border: 1px solid #ccd1d1;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.MediaTitle{
+    height: 30px;
+    display: flex;
+    align-items: center;
+    font-weight: 600;
+    color: #424949;
+}
+
+
+.SocialMedia ul{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    height: 100%;
+}
+
+.SocialMedia li{
+    width: 45px;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: 600;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+
+
+/* -------------------------- */
 
 .AddContact{
     width: 100%;
+    
     height: 45px;
     background-color: white;
     display: grid;
@@ -503,6 +592,25 @@
     padding: 3px;
     width: 25px;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /* ----------------------------------- */
 
@@ -740,3 +848,30 @@
     width: 25px;
     padding: 3px;
 }
+
+
+
+/* .CentersListActions{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 50px;
+}
+
+.CentersListActions p{
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.CentersListActions p span{
+    color: #424949;
+    border: 1px solid #ccd1d1;
+    border-radius: 5px;
+    height: 30px;
+    padding: 0 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+} */

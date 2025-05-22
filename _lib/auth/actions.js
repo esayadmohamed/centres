@@ -6,7 +6,7 @@ import validator from 'validator';
 import bcrypt from "bcryptjs";
 import { randomBytes } from 'crypto';
 import nodemailer from "nodemailer";
-import { signupMessage } from "@/_com/dashboard/marketing/emails";
+import { signupMessage } from "@/_lib/utils/emails";
 
 
 const handleDbError = (error) => {

@@ -10,7 +10,8 @@ import validator from 'validator';
 import { RateLimiter } from "@/_lib/utils/ratelimiter";
 import { verifyCaptcha } from "@/_lib/utils/captcha";
 
-import { signupMessage } from "@/_com/dashboard/marketing/emails";
+import { signupMessage } from "@/_lib/utils/emails";
+
 
 const db = getDB();
 

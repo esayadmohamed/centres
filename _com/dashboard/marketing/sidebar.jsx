@@ -2,17 +2,14 @@
 import styles from "@/_com/dashboard/css/marketing.module.css";
 import { useState } from "react";
 
-import { singleCenter, allCities } from "@/_lib/dashboard/getdata";
-// import { getCitiesList } from "@/_lib/listings/test";
+import { singleCenter } from "@/_lib/dashboard/getdata";
 
 import Icon from "@/_lib/utils/Icon";
 
 import AddCenter from "./addcenter";
 
-export default function MarketingSidebar({centersList, centers, setCenters, setCenter}){
+export default function MarketingSidebar({centersList, citiesList, centers, setCenters, setCenter}){
     
-    console.log(centersList);
-
     const [search, setSearch] = useState('')
     const [index, setIndex] = useState('')
     const [loading, setLoading] = useState(null)
@@ -33,22 +30,6 @@ export default function MarketingSidebar({centersList, centers, setCenters, setC
         setCenters(filteredValues);
     }
     
-    async function getCities(){
-        setIndex('')
-        setLoading(true)
-        setError('')
-
-        const result = await allCities()
-        setToggle(true) 
-        setLoading(false)
-
-        if(result?.error){
-            setError(result.error)
-        } else{
-            setCities(result)
-        }
-    }
-
     async function getCenter(id){
         if(index === id) return;
         setLoading(true)
@@ -66,86 +47,90 @@ export default function MarketingSidebar({centersList, centers, setCenters, setC
         }
     }
     
-    const [currentPage, setCurrentPage] = useState(1);
-    const itemsPerPage = 10;
-
-    const totalPages = Math.ceil(centers.length / itemsPerPage);
-    
-    function goToPreviousPage() {
-        setCurrentPage(prev => Math.max(prev - 1, 1));
-    }
-
-    function goToNextPage() {
-        setCurrentPage(prev => Math.min(prev + 1, totalPages));
-    }
-
-    const startIndex = (currentPage - 1) * itemsPerPage;
-    const currentItems = centers.slice(startIndex, startIndex + itemsPerPage);
-
     return(
         <div className={styles.DashContainer}>
-            <div className={styles.DashFilter}>
-                <div className={styles.DashSearch}>
+
+            <div className={styles.CentersList}>
                     
-                    <div className={styles.DashSearchBar}>
-                        <input type="text" value={search} placeholder="Search..." onChange={searchByname}/>
-                        {search === ''?
-                            <span> <Icon name={'Search'} color={'#616a6b'}/> </span>
-                            :
-                            <span onClick={()=>setSearch('')}> <Icon name={'X'} color={'#616a6b'}/> </span>
-                        }
-                    </div>
+                    <AddCenter setCenters={setCenters} setCenter={setCenter} citiesList={citiesList}/>
 
-                    <div className={styles.DashSearchAction} style={{backgroundColor: toggle? '#e74c3c' : '#2980b9'}}> 
-                        {toggle ? 
-                            <span onClick={()=>setToggle(false)}> <Icon name={'X'} color={'white'}/> </span>
-                            :
-                            <span onClick={getCities}> 
-                                {loading && index === ''? <div className={'spinner'}> </div>
-                                    : <Icon name={'Plus'} color={'white'}/> }
-                            </span>
-                        }
+                    <div className={styles.DashSearch}>
+                        <div className={styles.DashSearchBar}>
+                            <input type="text" value={search} placeholder="Search..." onChange={searchByname}/>
+                            {search === ''?
+                                <span> <Icon name={'Search'} color={'#616a6b'}/> </span>
+                                :
+                                <span onClick={()=>setSearch('')}> <Icon name={'X'} color={'#616a6b'}/> </span>
+                            }
+                        </div>
                     </div>
-                </div>
-                { toggle && 
-                    <AddCenter citiesList={cities} setCenters={setCenters} setCenter={setCenter}/>
-                }
                 
-            </div>
-            <ul className={styles.CentersList}>
-
-                <div className={styles.CentersListNavigate}>
-                    <span onClick={goToPreviousPage}> <Icon name={'ChevronLeft'} color={'white'}/> </span>
-                    <p> {currentPage} / {totalPages} </p>
-                    <span onClick={goToNextPage}> <Icon name={'ChevronRight'} color={'white'}/> </span>
-                </div>
+                <p className={styles.CentersListHeader}> 
+                    {centers.length} Centres
+                </p>
 
                 {error && <p className={'Error'}>{error}</p>}
-
-                { centers.length !== 0 ?
-                    currentItems.slice(0, 10).map((item, id)=> 
+                
+                <ul className={styles.CentersListContent}>
+                {centers.length !== 0 &&
+                    centers.map((item, id)=> 
                         <li key={id} onClick={()=>getCenter(item.id)}> 
                             {loading && index === item.id? 
                                 <div className={'spinner'}></div>:
                                 <p> 
-                                    {'- '+ item.name}  
-                                </p>}
-                                <p>  
-                                    {item.emails.length > 0 && 
-                                        <span style={{background: '#d6eaf8'}}> <Icon name={'Mail'} color={'#1b4f72'}/> </span>}
-                                    {item.numbers.length > 0 && 
-                                        <span style={{background: '#d5f5e3'}}> <Icon name={'Phone'} color={'#186a3b'}/> </span>}
                                     <span style={{background: '#f2f3f4'}}> 
                                         <Icon name={item.status === 1 ? 'Check' : 'X'} 
                                             color={item.status === 1 ? '#28b463' : '#e74c3c'} /> 
                                     </span>
+                                    {item.name}  
+                                </p>}
+                                <p>  
+                                    {item.facebook !== '' && 
+                                        <span style={{background: '#d6eaf8'}}> <Icon name={'Mail'} color={'#1b4f72'}/> </span>}
+                                    {item.instagram !== '' && 
+                                        <span style={{background: '#d5f5e3'}}> <Icon name={'Phone'} color={'#186a3b'}/> </span>}
+                                    {item.whatsapp !== '' && 
+                                        <span style={{background: '#d5f5e3'}}> <Icon name={'Phone'} color={'#186a3b'}/> </span>}
                                 </p>
                         </li>) 
-                    : 
-                    <p> No centers </p>
-                }
-            </ul>
+                    }
+                </ul>
+            </div>
         </div>
     )
     
 }
+
+
+
+
+
+
+{/* <div className={styles.DashFilter}>
+    <div className={styles.DashSearch}>
+        
+        <div className={styles.DashSearchBar}>
+            <input type="text" value={search} placeholder="Search..." onChange={searchByname}/>
+            {search === ''?
+                <span> <Icon name={'Search'} color={'#616a6b'}/> </span>
+                :
+                <span onClick={()=>setSearch('')}> <Icon name={'X'} color={'#616a6b'}/> </span>
+            }
+        </div>
+
+        <div className={styles.DashSearchAction} style={{backgroundColor: toggle? '#e74c3c' : '#2980b9'}}> 
+            {toggle ? 
+                <span onClick={()=>setToggle(false)}> <Icon name={'X'} color={'white'}/> </span>
+                :
+                <span onClick={getCities}> 
+                    {loading && index === ''? <div className={'spinner'}> </div>
+                        : <Icon name={'Plus'} color={'white'}/> }
+                </span>
+            }
+        </div>
+    </div>
+    { toggle && 
+        <AddCenter citiesList={cities} setCenters={setCenters} setCenter={setCenter}/>
+    }
+    
+</div> */}

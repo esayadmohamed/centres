@@ -122,3 +122,7 @@ export default async function Home() {
 //     time TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 //     hook INT DEFAULT 0
 // )
+
+
+// ALTER TABLE centers
+// ADD COLUMN facebook VARCHAR(255) NOT NULL DEFAULT '';

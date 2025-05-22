@@ -6,23 +6,19 @@ import { RemoveCenter, ChangeStatus } from "@/_lib/dashboard/editdata";
 import { allEmails } from "@/_lib/dashboard/getdata";
 
 import Icon from "@/_lib/utils/Icon";
+import Link from "next/link";
 
-import CenterEmail from "./addemail";
-import CenterNumber from "./addnumber";
-import CenterNote from "./addnote";
-import Converter from "./converter";
-import Send from "./sendemail";
+// import CenterEmail from "./addemail";
+// import CenterNumber from "./addnumber";
+// import CenterNote from "./addnote";
+import CenterMedia from "./addmedia";
 
 export default function MarketingContent({center, setCenter, setCenters}) {
         
-    const [emails, setEmails] = useState([])
-    const [numbers, setNumbers] = useState([])
     const [notes, setNotes] = useState([])
     const [emailsList, setEmailsList] = useState([])
 
     useEffect(()=>{
-        setEmails(center?.emails);
-        setNumbers(center?.numbers);
         setNotes(center?.notes);
     }, [center])
 
@@ -78,86 +74,134 @@ export default function MarketingContent({center, setCenter, setCenters}) {
         setLoading(false);
     }
 
-    return(
-        <div className={styles.CentersContent} >
-            <div className={styles.CentersAction}>
-                <p>Centers</p>
-                <div className={styles.CentersActionToggle}>
-                    <span style={{backgroundColor: '#2471a3'}} onClick={()=>handleToggle('converter')}> 
-                        <Icon name={'LoaderCircle'} color={'white'}/> 
+    if(!center) return <div className={styles.CenterContent}> </div>
+    else return(
+        <div className={styles.CenterContent} >
+            <div className={styles.CenterHeader}>
+                <div className={styles.CenterName}> 
+                    <span onClick={handleStaus}> 
+                        {loading === 'status' ? 
+                            <div className={'spinner'}> </div>
+                            :
+                            <Icon name={center.status === 1 ? 'Check' : 'X'} 
+                                color={center.status === 1 ? '#28b463' : '#e74c3c'} />
+                        }
                     </span>
-                    <span style={{backgroundColor: '#2ecc71'}} onClick={getEmails}>
-                        {loading === 'send' ? 
-                        <div className={'spinner'}></div>
-                        : 
-                        <Icon name={'Send'} color={'white'}/>    
-                    } 
-                    </span>
+                    {center.name}, {center.city} 
                 </div>
-            </div>
-
-            {center? 
-                <div className={styles.CentersBody}>
-                    <div className={styles.CenterHeader}>
-
-                        <div className={styles.CenterName} onClick={handleStaus}> 
-                            <span> 
-                                {loading === 'status' ? 
-                                    <div className={'spinner'}> </div>
-                                    :
-                                    <Icon name={center.status === 1 ? 'Check' : 'X'} 
-                                        color={center.status === 1 ? '#28b463' : '#e74c3c'} />
-                                }
-                            </span>
-                            {center.name}, {center.city} 
-                        </div>
-                        
-                        <div className={styles.CenterRemove}>
-                            {ok?
-                                loading === 'remove' ? 
-                                    <div className={'spinner'}> </div>
-                                    :
-                                    <>
-                                        <p style={{backgroundColor: '#ccd1d1'}} onClick={handleRemove}> 
-                                            <Icon name={'Minus'} color={'#424949'}/> 
-                                        </p>
-                                        <p style={{backgroundColor: '#28b463', width:'50px'}} onClick={()=>setOk(false)}>  
-                                            <Icon name={'X'} color={'white'}/> 
-                                        </p>
-                                    </>
-                                : 
-                                <p style={{backgroundColor: '#e74c3c'}} onClick={()=>setOk(true)}> 
-                                    <Icon name={'Minus'} color={'white'}/> 
+                <div className={styles.CenterLinks}>
+                    <a href={center.whatsapp}target="_blank" rel="noopener noreferrer" style={{backgroundColor: '#28b463'}}>
+                        <Icon name={'Phone'} color={'white'}/>
+                    </a>
+                    <a href={center.facebook} target="_blank" rel="noopener noreferrer" style={{backgroundColor: '#2471a3'}}>
+                        <Icon name={'Facebook'} color={'white'}/>
+                    </a>
+                    <a href={center.instagram} target="_blank" rel="noopener noreferrer" style={{backgroundColor: '#e74c3c'}}>
+                        <Icon name={'Instagram'} color={'white'}/>
+                    </a>
+                </div>
+                <div className={styles.CenterRemove}>
+                    {ok?
+                        loading === 'remove' ? 
+                            <div className={'spinner'}> </div>
+                            :
+                            <>
+                                <p style={{backgroundColor: '#ccd1d1'}} onClick={handleRemove}> 
+                                    <Icon name={'Minus'} color={'#424949'}/> 
                                 </p>
-                            }
-                        </div>
-                    </div>
-
-                    {error && <p className={styles.CenterError}> {error} </p>}
-                    
-                    <CenterEmail emails={emails} setEmails={setEmails} center_id={center?.id}/>
-
-                    <CenterNumber numbers={numbers} setNumbers={setNumbers} center_id={center?.id}/>
-
-                    <CenterNote notes={notes} setNotes={setNotes} center_id={center?.id}/>
+                                <p style={{backgroundColor: '#28b463', width:'50px'}} onClick={()=>setOk(false)}>  
+                                    <Icon name={'X'} color={'white'}/> 
+                                </p>
+                            </>
+                        : 
+                        <p style={{backgroundColor: '#e74c3c'}} onClick={()=>setOk(true)}> 
+                            <Icon name={'Minus'} color={'white'}/> 
+                        </p>
+                    }
                 </div>
-                :
-                    toggle === 'converter' ?
-                        <Converter/>    
-                        :
-                    toggle === 'send' ?
-                        <Send emailsList={emailsList}/>
-                    :
-                        <div className={styles.CentersEmpty}>
-                            [no data]
-                        </div>
-            }
-  
+
+            </div>
+            <div className={styles.CenterBody}>
+                
+                <CenterMedia center={center} setCenter={setCenter}/>
+                
+            </div>
         </div>
     )
     
 }
 
+
+
+            // <div className={styles.CentersAction}>
+            //     <p>Centers</p>
+            //     <div className={styles.CentersActionToggle}>
+            //         <span style={{backgroundColor: '#2471a3'}} onClick={()=>handleToggle('converter')}> 
+            //             <Icon name={'LoaderCircle'} color={'white'}/> 
+            //         </span>
+            //     </div>
+            // </div>
+
+
+            // {center? 
+            //     <div className={styles.CentersBody}>
+            //         <div className={styles.CenterHeader}>
+
+            //             <div className={styles.CenterName}> 
+            //                 <span onClick={handleStaus}> 
+            //                     {loading === 'status' ? 
+            //                         <div className={'spinner'}> </div>
+            //                         :
+            //                         <Icon name={center.status === 1 ? 'Check' : 'X'} 
+            //                             color={center.status === 1 ? '#28b463' : '#e74c3c'} />
+            //                     }
+            //                 </span>
+            //                 {center.name}, {center.city} 
+            //             </div>
+                        
+            //             <div className={styles.CenterRemove}>
+            //                 {ok?
+            //                     loading === 'remove' ? 
+            //                         <div className={'spinner'}> </div>
+            //                         :
+            //                         <>
+            //                             <p style={{backgroundColor: '#ccd1d1'}} onClick={handleRemove}> 
+            //                                 <Icon name={'Minus'} color={'#424949'}/> 
+            //                             </p>
+            //                             <p style={{backgroundColor: '#28b463', width:'50px'}} onClick={()=>setOk(false)}>  
+            //                                 <Icon name={'X'} color={'white'}/> 
+            //                             </p>
+            //                         </>
+            //                     : 
+            //                     <p style={{backgroundColor: '#e74c3c'}} onClick={()=>setOk(true)}> 
+            //                         <Icon name={'Minus'} color={'white'}/> 
+            //                     </p>
+            //                 }
+            //             </div>
+            //         </div>
+
+            //         {error && <p className={styles.CenterError}> {error} </p>}
+                    
+            //         <CenterMedia emails={emails} setEmails={setEmails} center_id={center?.id}/>
+
+            //         <CenterEmail emails={emails} setEmails={setEmails} center_id={center?.id}/>
+
+            //         <CenterNumber numbers={numbers} setNumbers={setNumbers} center_id={center?.id}/>
+
+            //         <CenterNote notes={notes} setNotes={setNotes} center_id={center?.id}/>
+            //     </div>
+            //     :
+            //         toggle === 'converter' ?
+            //             <Converter/>    
+            //             :
+            //         toggle === 'send' ?
+            //             <Send emailsList={emailsList}/>
+            //         :
+            //             <div className={styles.CentersEmpty}>
+            //                 [no data]
+            //             </div>
+            // }
+  
 
 
 

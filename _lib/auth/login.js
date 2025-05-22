@@ -7,7 +7,7 @@ import nodemailer from "nodemailer";
 import { randomBytes } from 'crypto';
 
 import { RateLimiter } from "@/_lib/utils/ratelimiter";
-import { signupMessage } from "@/_com/dashboard/marketing/emails";
+import { signupMessage } from "@/_lib/utils/emails";
 
 const db = getDB();
 

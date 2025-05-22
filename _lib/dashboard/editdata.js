@@ -959,6 +959,90 @@ export async function RemoveNote(id, value) {
     }
 }
 
+export async function AddWhatsApp(id, value) {  
+    
+    try{          
+        const admin_id = await AdminAuthenticate();
+        if(!admin_id) return {error: 'Admin Authentication Failed.'}; 
+
+        const center_id = await SanitizeId(id)
+        if(!center_id) return {error: 'Center id is not a number.'}; 
+
+        if(!value || typeof value !== 'string'){
+            return {error: 'Value is invalid.'}; 
+        }
+
+        const whatsapp = xss(value.trim())
+
+        await db.query(`UPDATE centers SET whatsapp = ? WHERE id = ?`, [whatsapp, center_id]);
+
+        revalidatePath(`/dashboard`);
+
+        const [data] = await db.query(`SELECT * FROM centers WHERE id = ?`, [center_id])
+        return data[0] || { error: "Unable to fetch center data."};
+
+    } catch (error) {
+        console.error("Database error:", error);
+        return { error: "Une erreur est survenue. Veuillez réessayer plus tard."};
+    }
+}
+
+export async function AddFacebook(id, value) {  
+    
+    try{          
+        const admin_id = await AdminAuthenticate();
+        if(!admin_id) return {error: 'Admin Authentication Failed.'}; 
+
+        const center_id = await SanitizeId(id)
+        if(!center_id) return {error: 'Center id is not a number.'}; 
+
+        if(!value || typeof value !== 'string'){
+            return {error: 'Value is invalid.'}; 
+        }
+
+        const facebook = xss(value.trim())
+
+        await db.query(`UPDATE centers SET facebook = ? WHERE id = ?`, [facebook, center_id]);
+
+        revalidatePath(`/dashboard`);
+
+        const [data] = await db.query(`SELECT * FROM centers WHERE id = ?`, [center_id])
+        return data[0] || { error: "Unable to fetch center data."};
+
+    } catch (error) {
+        console.error("Database error:", error);
+        return { error: "Une erreur est survenue. Veuillez réessayer plus tard."};
+    }
+}
+
+export async function AddInstagram(id, value) {  
+    
+    try{          
+        const admin_id = await AdminAuthenticate();
+        if(!admin_id) return {error: 'Admin Authentication Failed.'}; 
+
+        const center_id = await SanitizeId(id)
+        if(!center_id) return {error: 'Center id is not a number.'}; 
+
+        if(!value || typeof value !== 'string'){
+            return {error: 'Value is invalid.'}; 
+        }
+
+        const instagram = xss(value.trim())
+
+        await db.query(`UPDATE centers SET instagram = ? WHERE id = ?`, [instagram, center_id]);
+
+        revalidatePath(`/dashboard`);
+
+        const [data] = await db.query(`SELECT * FROM centers WHERE id = ?`, [center_id])
+        return data[0] || { error: "Unable to fetch center data."};
+
+    } catch (error) {
+        console.error("Database error:", error);
+        return { error: "Une erreur est survenue. Veuillez réessayer plus tard."};
+    }
+}
+
 // -------------------------------------------------------------
 
 export async function Unsubscribe(value) {     ///translate error to french

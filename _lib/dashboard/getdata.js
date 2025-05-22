@@ -292,13 +292,13 @@ export async function allCenters() {
 
         const centers_ids = centers.map(center => center.id);
 
-        const [emails] = await db.query("SELECT * FROM emails WHERE center_id IN (?)", [centers_ids]);
-        const [numbers] = await db.query("SELECT * FROM numbers WHERE center_id IN (?)", [centers_ids]);
+        // const [emails] = await db.query("SELECT * FROM emails WHERE center_id IN (?)", [centers_ids]);
+        // const [numbers] = await db.query("SELECT * FROM numbers WHERE center_id IN (?)", [centers_ids]);
         const [notes] = await db.query("SELECT * FROM notes WHERE center_id IN (?)", [centers_ids]);
 
         const CentersList = centers.map(center => {
-            const centerEmails  = emails.filter(email => email.center_id === center.id).map(email => email.email);
-            const centerNumbers = numbers.filter(number => number.center_id === center.id).map(number => number.number);
+            // const centerEmails  = emails.filter(email => email.center_id === center.id).map(email => email.email);
+            // const centerNumbers = numbers.filter(number => number.center_id === center.id).map(number => number.number);
             const centerNotes  = notes.filter(note => note.center_id === center.id).map(note => note.note);
 
             return {
@@ -306,8 +306,11 @@ export async function allCenters() {
                 name: center.name,
                 city: center.city,
                 status: center.status,
-                emails: centerEmails,
-                numbers: centerNumbers,
+                facebook: center.facebook,
+                instagram: center.instagram,
+                whatsapp: center.whatsapp,
+                // emails: centerEmails,
+                // numbers: centerNumbers,
                 notes: centerNotes,
             };
         });
@@ -334,8 +337,8 @@ export async function singleCenter(value_id) {
         const center = row[0] || null;
         if (!center) return {error: 'Center does not exist.'}; 
 
-        const [emails] = await db.query("SELECT * FROM emails WHERE center_id = ?", [center_id]);
-        const [numbers] = await db.query("SELECT * FROM numbers WHERE center_id = ?", [center_id]);
+        // const [emails] = await db.query("SELECT * FROM emails WHERE center_id = ?", [center_id]);
+        // const [numbers] = await db.query("SELECT * FROM numbers WHERE center_id = ?", [center_id]);
         const [notes] = await db.query("SELECT * FROM notes WHERE center_id = ?", [center_id]);
 
         return { 
@@ -343,8 +346,11 @@ export async function singleCenter(value_id) {
             name: center.name,
             city: center.city,
             status: center.status,
-            emails: emails.map((item)=>item.email),
-            numbers: numbers.map((item)=>item.number),
+            facebook: center.facebook,
+            instagram: center.instagram,
+            whatsapp: center.whatsapp,
+            // emails: emails.map((item)=>item.email),
+            // numbers: numbers.map((item)=>item.number),
             notes: notes.map((item)=>item.note),
         };
 

@@ -6,7 +6,7 @@ import { CreateCenter } from "@/_lib/dashboard/editdata";
 
 import Icon from "@/_lib/utils/Icon";
 
-export default function AddCenter({citiesList, setCenters, setCenter, getCities}) {
+export default function AddCenter({citiesList, setCenters, setCenter}) {
     
     const [cities, setCities] = useState(citiesList || [])
 

@@ -2,87 +2,104 @@
 import styles from "@/_com/dashboard/css/marketing.module.css";
 
 import { useState } from "react";
-import { CreateCenter } from "@/_lib/dashboard/editdata";
+import { AddEmail, RemoveEmail } from "@/_lib/dashboard/editdata";
 
+import Link from "next/link";
 import Icon from "@/_lib/utils/Icon";
 
-export default function AddCenter({citiesList, setCenters, setCenter, getCities}) {
+export default function CenterMedia({center_id}) {
     
-    const [cities, setCities] = useState(citiesList || [])
+    const [index, setIndex] = useState('')
 
-    const [name, setName] = useState('')
-    const [city, setCity] = useState('')
-    const [loading, setLoading] = useState(false) 
+    const [link, setLink] = useState('')
+    const [loading, setLoading] = useState(null)
     const [error, setError] = useState('')
-    const [toggle, setToggle] = useState(false)
 
-    async function handleCenter(){
-        setLoading(true)
-        setError('')
+    async function handleMedia(){
+        if(link === '') return
+        setLoading('addmedia')
+        setError('');
 
-        const center={name: name, city:city}
+        const result = await AddEmail(center_id, link)
+        setLoading(null)
 
-        const result = await CreateCenter(center)
-        setLoading(false)
+        if(result?.error){
+            setError(result.error)
+        } else{
+            // setLinks(result)
+            // setLink('')
+        }
+    }
+    
+    async function removeEmails(item){
+        setLoading('removeemail')
+        setError('');
+
+        const result = await RemoveEmail(center_id, item)
+        setLoading(null)
         // console.log(result);
 
         if(result?.error){
             setError(result.error)
         } else{
-            setCenters(result)
-            setCenter(result.find(item => item.name === name));
-            setName('')
-            // setCity('')
+            setEmails(result)
+            setIndex('')
         }
     }
 
-    function handleSearch(e){
-        const inputValue = e.target.value;
-        
-        setCity(inputValue);
-        
-        const filteredValues = citiesList.filter(value =>
-            value.toLowerCase().includes(inputValue.toLowerCase())
-        )
-        setCities(filteredValues);
-    }
-
-    function handleSelect(item){
-        setCity(item)
-        setToggle(false)
-    }
-
-
     return(
-        <div className={styles.DashAdd} onMouseLeave={()=>setToggle(false)}>
-            <input type="text" value={name} placeholder="Name" onChange={(e)=>setName(e.target.value)}/>
-            <input type="text" placeholder="City" 
-                value={city}
-                onChange={handleSearch} 
-                onFocus={()=>setToggle(true)}
-                />
-            {toggle && 
-                <ul>
-                    {cities.slice(0, 7).map((item, id)=>
-                        <li key={id} onClick={()=>handleSelect(item)}>{item}</li>
-                    )}
-                    {cities.length === 0 && <li>No cities</li>} 
-                </ul>
-            }
-            
-            {error && <p className={'Error'}> {error} </p>}
+        <div className={styles.SocialMedia}>
+            <p className={styles.MediaTitle}>Social Media</p>
+            <div className={styles.MediaContent}>
+                
+                <div className={styles.AddMedia}>
+                    <span onClick={handleMedia}> 
+                        {loading? <div className={'spinner'}> </div>
+                            :
+                            <Icon name={'Plus'} color={'white'}/> 
+                        } 
+                    </span>
+                    <input type="text" placeholder={'Social media link...'} 
+                        value={link} onChange={(e)=>setLink(e.target.value)}
+                        />
+                </div>
 
-            <button onClick={handleCenter}> 
-                {loading? 
-                    <div className={'spinner'}></div> 
-                    :
-                    <Icon name={'Plus'} color={'white'}/>
-                }
-            </button>
+                <ul className={styles.k}>
+                    <Link href={'/'}> 
+                        <li style={{backgroundColor: '#2980b9'}}>
+                            F
+                        </li>
+                    </Link>
+                    <Link href={'/'}> 
+                        <li style={{backgroundColor: '#e74c3c'}}>
+                            I
+                        </li>
+                    </Link>
+                    <Link href={'/'}> 
+                        <li style={{backgroundColor: '#28b463'}}>
+                            W
+                        </li>
+                    </Link>
+                </ul>
+            </div>
+            {error && <p className={'Error'}> {error} </p>}
         </div>
+
     )
     
 }
+                {/* <div className={styles.AddContact}>
+                    <span onClick={handleEmails}> 
+                        {loading === 'addemail'? <div className={'spinner'}> </div>
+                            :
+                            <Icon name={'Plus'} color={'white'}/> 
+                        } 
+                    </span>
+                    <input type="text" placeholder="Add email..." 
+                        value={email}
+                        onChange={(e)=>setEmail(e.target.value)}
+                        />
+                </div> */}
 
 
 

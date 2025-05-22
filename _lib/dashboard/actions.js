@@ -1,7 +1,7 @@
 "use server";
 import getDB from "@/_lib/db";
 import nodemailer from "nodemailer";
-import { buildMessage } from "@/_com/dashboard/marketing/emails";
+import { buildMessage } from "@/_lib/utils/emails";
 
 import { AdminAuthenticate } from "./editdata";
 

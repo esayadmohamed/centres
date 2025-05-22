@@ -6,7 +6,7 @@ import { useState } from "react";
 import MarketingSidebar from "./marketing/sidebar";
 import MarketingContent from "./marketing/content";
 
-export default function DashMarketing({centersList}) {
+export default function DashMarketing({centersList, citiesList}) {
     
     const [centers, setCenters] = useState(centersList || []);
     const [center, setCenter] = useState(null);
@@ -14,7 +14,7 @@ export default function DashMarketing({centersList}) {
     return (
         <div className={styles.DashPage}>
             <div className={styles.DashLayout}>
-                <MarketingSidebar centersList={centersList} centers={centers} setCenters={setCenters} setCenter={setCenter}/>
+                <MarketingSidebar citiesList={citiesList} centersList={centersList} centers={centers} setCenters={setCenters} setCenter={setCenter}/>
                 <MarketingContent center={center} setCenter={setCenter} setCenters={setCenters}/>
             </div>
 

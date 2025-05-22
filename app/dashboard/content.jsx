@@ -2,7 +2,7 @@
 import styles from "./dash.module.css";
 import { useState } from "react";
 
-import { allListings, allUsers, allArticles, allCenters } from "@/_lib/dashboard/getdata";
+import { allListings, allUsers, allArticles, allCenters, allCities } from "@/_lib/dashboard/getdata";
 
 import DashListings from "@/_com/dashboard/listings";
 import DashBlog from "@/_com/dashboard/blog";
@@ -23,6 +23,7 @@ export default function Dashcontent({listingsList, usersList}) {
     const [listings, setListings] = useState(listingsList || []);
     const [articles, setArticles] = useState([]);
     const [centers, setCenters] = useState([]);
+    const [cities, setCities] = useState([]);
 
     const [under, setUnder] = useState(listingsList.filter((item)=> item.state === 'under').length);
 
@@ -31,7 +32,7 @@ export default function Dashcontent({listingsList, usersList}) {
         {item: <DashListings listingsList={listings} setListingsList={setListings} setUnder={setUnder}/>}, //1
         {item: <DashBlog articlesList={articles} setArticlesList={setArticles}/>}, //2
         {item: <DashData />}, //3
-        {item: <DashMarketing centersList={centers}/>}, //4 
+        {item: <DashMarketing centersList={centers} citiesList={cities}/>}, //4 
         {item: <DashDatabase />}, //5
     ]
 
@@ -73,11 +74,12 @@ export default function Dashcontent({listingsList, usersList}) {
         if(index === 4) return;
         setLoading(4)
 
-        const result = await allCenters(); 
+        const centersData = await allCenters(); 
+        const citiesData = await allCities(); 
         setLoading(null)
 
-        setCenters(result)
-        // console.log(result);
+        setCenters(centersData);
+        setCities(citiesData);
         setIndex(4)  
     }
     

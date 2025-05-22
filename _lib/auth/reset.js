@@ -9,7 +9,8 @@ import nodemailer from "nodemailer";
 
 import { RateLimiter } from '@/_lib/utils/ratelimiter';
 import { verifyCaptcha } from "@/_lib/utils/captcha";
-import { resetMessage } from "@/_com/dashboard/marketing/emails";
+import { resetMessage } from "@/_lib/utils/emails";
+
 
 const db = getDB(); 
 
