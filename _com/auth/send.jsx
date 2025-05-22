@@ -60,7 +60,7 @@ export default function SendResetToken (){
                                     E-mail Envoyé
                                 </p>
                                 <p> Nous avons envoyé un lien de réinitialisation à votre adresse e-mail. </p>
-                                <p className={styles.Authemail}> {email}jklkljlkj </p>
+                                <p className={styles.Authemail}> {email} </p>
                                 <p>Cliquez sur le lien pour changer votre mot de pass.</p>
                                 <p>Il se peut que vous deviez vérifier votre dossier 'Spam' ou 'Courrier indésirable'.</p>
                             </div>
